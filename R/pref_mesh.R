@@ -1,4 +1,4 @@
-#' @title Detect mesh code include prefectures
+#' @title Detect mesh code include prefectures 
 #' @param path path to local file.
 #' @import dplyr
 #' @import foreach
@@ -14,8 +14,12 @@
 #' @export
 pref_mesh <- function(path){
   
-  df.pref.mesh <- readr::read_csv(path, locale = readr::locale(encoding = "cp932")) %>% 
-    dplyr::select(mesh_code = `基準メッシュコード`) %>% 
+  df.origin <- readr::read_csv(path, locale = readr::locale(encoding = "cp932"),
+                               col_types = list(col_character(), col_character(), col_number())) %>% 
+    set_colnames(c("city_code", "city_name", "mesh_code"))
+  
+  df.pref.mesh <- df.origin %>% 
+    select(mesh_code) %>% 
     unique() %>% 
     dplyr::arrange(mesh_code) %>% 
     dplyr::mutate(mesh_area = purrr::map(mesh_code, jpmesh::meshcode_to_latlon)) %>% 
@@ -27,20 +31,23 @@ pref_mesh <- function(path){
     tibble::rownames_to_column()
   
   list.polygons <- foreach(i = 1:nrow(df.pref.mesh)) %do% {
-    Polygons(
-      list(Polygon(
+    sp::Polygons(
+      list(sp::Polygon(
         cbind(
           c(df.pref.mesh$lng1[i], df.pref.mesh$lng1[i], df.pref.mesh$lng2[i], df.pref.mesh$lng2[i], df.pref.mesh$lng1[i]),
           c(df.pref.mesh$lat2[i], df.pref.mesh$lat1[i], df.pref.mesh$lat1[i], df.pref.mesh$lat2[i], df.pref.mesh$lat2[i])))),
       df.pref.mesh$mesh_code[i])
   }
   
-  res <- SpatialPolygons(Srl = list.polygons, pO = 1:nrow(df.pref.mesh)) %>%
+  df.pref.mesh.geo <- SpatialPolygons(Srl = list.polygons, pO = 1:nrow(df.pref.mesh)) %>%
     geojsonio::geojson_json(geometry = "polygon") %>%
-    readOGR(dsn              = .,
+    rgdal::readOGR(dsn              = .,
             layer            = "OGRGeoJSON",
             stringsAsFactors = FALSE) %>%
-    broom::tidy(.)
+    broom::tidy(.) %>% 
+    mutate(id = as.numeric(id))
+  
+  res <- df.pref.mesh.geo %>% left_join(df.origin, by = c("id" = "mesh_code"))
   
   return(res)
   
