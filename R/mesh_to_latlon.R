@@ -1,36 +1,37 @@
-#' Get from mesh code to latitude and longitude
-#' @param code
-#' @param location default Center
+#' @title Get from mesh code to latitude and longitude
+#' @param code numeric. mesh code
 #' @author Akio Takenaka
 #' @details http://takenaka-akio.org/etc/j_map/index.html
+#' @export
 #' @examples
-#' mesh_to_latlon(584385)
-mesh_to_latlon <- function (code, location = "Center") {
-  code <- as.character(code) # コードを数値に
+#' \dontrun{
+#' meshcode_to_latlong(64414277)
+#' }
+meshcode_to_latlon <- function(code) {
+  code <- as.character(code)
+  lat_width  <- 2 / 3
+  long_width <- 1
   
-  if (length(grep("^[0-9]{4}", code)) == 1) # 0から9の値を４つ以上含んでいるか
-    {
-    code12 <- as.numeric(substring(code, 1, 2)) # 頭から２文字を取り出す
-    code34 <- as.numeric(substring(code, 3, 4)) # 頭から３，４文字目を取り出す
-    lat_width  <- 2 / 3 # 0.6666667
-    long_width <- 1
+  if (length(grep("^[0-9]{4}", code)) == 1) { # 一次メッシュ以上
+    code12 <- as.numeric(substring(code, 1, 2))
+    code34 <- as.numeric(substring(code, 3, 4))
   }
   else {
     return(NULL)
   }
   
-  if (length(grep("^[0-9]{6}", code)) == 1) {
+  if (length(grep("^[0-9]{6}", code)) == 1) { # 二次メッシュ以上
     code5 <- as.numeric(substring(code, 5, 5))
     code6 <- as.numeric(substring(code, 6, 6))
-    lat_width  <- lat_width / 8 # 0.08333333
-    long_width <- long_width / 8 # 0.125
+    lat_width  <- lat_width / 8;
+    long_width <- long_width / 8;
   }
   
-  if (length(grep("^[0-9]{8}", code)) == 1) {
+  if (length(grep("^[0-9]{8}", code)) == 1) { # 三次メッシュ
     code7 <- as.numeric(substring(code, 7, 7))
     code8 <- as.numeric(substring(code, 8, 8))
-    lat_width  <- lat_width / 10;
-    long_width <- long_width / 10;
+    lat_width  <- (lat_width / 10) / 2; # 割る２を忘れないこと
+    long_width <- (long_width / 10) / 2;
   }
   
   # 以下、南西コーナーの座標を求める。
@@ -47,22 +48,13 @@ mesh_to_latlon <- function (code, location = "Center") {
     long <- long +  code8 / 8 / 10;
   }
   
-  if (location == "Center") {   # 中央の座標
-    lat  <-  lat  + lat_width  / 2;
-    long <-  long + long_width / 2;
-  }
-  if (length(grep("N", location)) == 1) {   # 北端の座標
-    lat  <- lat  + lat_width;
-  }
-  if (length(grep("E", location) == 1)) {   # 東端の座標
-    long <- long +long_width;
-  }
-  
-  lat  <- sprintf("%.8f", lat);  # 小数点以下８桁まで。
+  lat  <- sprintf("%.8f", lat); 
   long <- sprintf("%.8f", long);
   
-  x <- list(as.numeric(lat), as.numeric(long))
-  names(x) <- c("lat", "long")
-  
-  return (x)
+  x <- data.frame(lat        = as.numeric(lat), 
+                  long       = as.numeric(long), 
+                  lat_error  = as.numeric(lat_width),
+                  long_error = as.numeric(long_width))
+
+  return(x)
 }

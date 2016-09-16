@@ -1,9 +1,23 @@
 Package: jpmesh
 Type: Package
 Title: Utilities for Japanese mesh code
-Version: 0.1.0
-Date: 2014-08-22
+Version: 0.1.0.9999
+Date: 2016-09-16
 Author: Shinya Uryu <suika1127@gmail.com>
 Maintainer: Shinya Uryu <suika1127@gmail.com>
 Description: Helpful functions for using mesh code data in Japan.
-License: MIT
+Imports:
+  broom,
+  dplyr,
+  foreach,
+  geojsonio,
+  magrittr,
+  readr,
+  rgdal,
+  sp,
+  tibble,
+  tidyr
+Suggests:
+  testthat
+License: MIT + file LICENSE
+RoxygenNote: 5.0.1

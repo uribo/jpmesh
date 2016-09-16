@@ -1,25 +1,33 @@
+#' @title Convert from coordinate to mesh code
+#' @param lat numeric. latitude
+#' @param lon numeric. longitude
+#' @param order integer. mesh type
+#' @return meshcode (default 3rd meshcode)
 #' @author Akio Takenaka
 #' @details http://takenaka-akio.org/etc/j_map/index.html
-latlon_to_mesh <- function(lat, long, order = 3)
+#' @export
+#' @examples 
+#' \dontrun{
+#' latlong_to_meshcode(43.06462, 141.3468, order = 3)
+#' latlong_to_meshcode(35.68949, 139.6917, order = 2)
+#' }
+latlong_to_meshcode <- function(lat = NULL, long = NULL, order = 3)
 {
   if (length(grep("[123]", order)) == 0) {
-    return (NULL)
+    return(NULL)
   }
-  
-  # Latitude
-  
+# Latitude ----------------------------------------------------------------
   lat_in_min <- lat * 60
   
   code12 <- as.integer(lat_in_min / 40)
   lat_rest_in_min <- lat_in_min - code12 * 40
   
-  code5 = as.integer(lat_rest_in_min / 5 ); # 二次メッシュの１区画は緯度５分。
+  code5 <- as.integer(lat_rest_in_min / 5 )
   lat_rest_in_min <- lat_rest_in_min - code5 * 5
   
   code7 <- as.integer(lat_rest_in_min / (5 / 10))
-  
-  # Longitude
-  
+
+# Longitude ---------------------------------------------------------------
   code34 <- as.integer(long) - 100
   long_rest_in_deg <- long - as.integer(long)
   
@@ -37,5 +45,5 @@ latlon_to_mesh <- function(lat, long, order = 3)
     code <- sprintf("%s%01d%01d", code, code7, code8)
   }
   
-  return (as.numeric(code))
+  return(as.numeric(code))
 }
