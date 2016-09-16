@@ -39,7 +39,7 @@ pref_mesh <- function(path){
       df.pref.mesh$mesh_code[i])
   }
   
-  df.pref.mesh.geo <- SpatialPolygons(Srl = list.polygons, pO = 1:nrow(df.pref.mesh)) %>%
+  df.pref.mesh.geo <- sp::SpatialPolygons(Srl = list.polygons, pO = 1:nrow(df.pref.mesh)) %>%
     geojsonio::geojson_json(geometry = "polygon") %>%
     rgdal::readOGR(dsn              = .,
             layer            = "OGRGeoJSON",
