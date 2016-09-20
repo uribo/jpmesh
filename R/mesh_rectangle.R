@@ -16,12 +16,13 @@
 #'   mesh_rectangle(., mesh_code = "id", view = FALSE)
 #' }
 #' @export
-mesh_rectangle <- function(df, mesh_code = NULL, view = TRUE) {
+mesh_rectangle <- function(df, mesh_code = "mesh_code", view = TRUE) {
   
   df.mesh <- df %>% 
     dplyr::select_(mesh_code) %>% 
     unique() %>% 
-    dplyr::mutate(mesh_area = purrr::map(id, jpmesh::meshcode_to_latlon)) %>% 
+    set_colnames(c("mesh_code")) %>% 
+    dplyr::mutate(mesh_area = purrr::map(mesh_code, jpmesh::meshcode_to_latlon)) %>% 
     tidyr::unnest() %>% 
     dplyr::mutate(lng1 = long - long_error,
                   lat1 = lat - lat_error,

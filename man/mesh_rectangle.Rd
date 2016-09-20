@@ -4,7 +4,7 @@
 \alias{mesh_rectangle}
 \title{mesh rectangel check}
 \usage{
-mesh_rectangle(df, mesh_code = NULL, view = TRUE)
+mesh_rectangle(df, mesh_code = "mesh_code", view = TRUE)
 }
 \arguments{
 \item{df}{data.frame}
