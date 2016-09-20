@@ -1,7 +1,7 @@
 jpmesh - Utilities for Japanese mesh code
 =====
 
-## About Japanese mesh code
+[![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](http://cran.r-project.org/package=jpmesh)
 
 ## About Japanese mesh code
 
