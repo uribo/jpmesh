@@ -24,10 +24,10 @@ pref_mesh <- function(path){
     dplyr::arrange(mesh_code) %>% 
     dplyr::mutate(mesh_area = purrr::map(mesh_code, jpmesh::meshcode_to_latlon)) %>% 
     tidyr::unnest() %>% 
-    dplyr::mutate(lng1 = long - long_error,
-                  lat1 = lat - lat_error,
-                  lng2 = long + long_error,
-                  lat2 = lat + lat_error) %>% 
+    dplyr::mutate(lng1 = long_center - long_error,
+                  lat1 = lat_center - lat_error,
+                  lng2 = long_center + long_error,
+                  lat2 = lat_center + lat_error) %>% 
     tibble::rownames_to_column()
   
   list.polygons <- foreach(i = 1:nrow(df.pref.mesh)) %do% {
