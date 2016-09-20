@@ -47,3 +47,67 @@ latlong_to_meshcode <- function(lat = NULL, long = NULL, order = 3)
   
   return(as.numeric(code))
 }
+
+#' @title Convert from coordinate to separate mesh code
+#' @param lat numeric. latitude
+#' @param lon numeric. longitude
+#' @param order choose character harf or quarter
+#' @return separate meshcode
+#' @export
+#' @examples 
+#' \dontrun{
+#' latlong_to_sepate_mesh(35.442788, 139.301255, order = "harf")
+#' latlong_to_sepate_mesh(35.442893, 139.310654, order = "quarter")
+#' latlong_to_sepate_mesh(35.448767, 139.301706, order = "quarter")
+#' latlong_to_sepate_mesh(35.449011, 139.311340, order = "quarter")
+#' }
+latlong_to_sepate_mesh <- function(lat = NULL, long = NULL, order = c("harf", "quarter")) {
+  mesh8 <- jpmesh::latlong_to_meshcode(lat, long, order = 3)
+  
+  df.mesh <- jpmesh::meshcode_to_latlon(mesh8) %>% 
+    dplyr::mutate(lng1 = long_center - long_error,
+                  lat1 = lat_center - lat_error,
+                  lng2 = long_center + long_error,
+                  lat2 = lat_center + lat_error)
+  
+    if (lat >= df.mesh$lat_center) {
+      if (long >= df.mesh$long_center) {
+        mesh9 <- 4
+      } else {
+        mesh9 <- 3
+      } 
+    } else {
+      if (long >= df.mesh$long_center) {
+        mesh9 <- 2
+      } else {
+        mesh9 <- 1
+      }
+    }
+    
+  if (order == "harf") {
+    res <- paste0(mesh8, mesh9)
+  } else {
+    
+    if (lat >= df.mesh$lat_center - (df.mesh$lat_error / 2)) {
+      if (long >= df.mesh$long_center  - (df.mesh$long_error / 2)) {
+        mesh10 <- 4
+      } else {
+        mesh10 <- 3
+      } 
+    } else {
+      if (long >= df.mesh$long_center  - (df.mesh$long_error / 2)) {
+        mesh10 <- 2
+      } else {
+        mesh10 <- 1
+      }
+    }
+    
+    if (order == "quarter") {
+      res <- paste0(mesh8, mesh9, mesh10)
+    }
+  }
+
+  res <- as.numeric(res)
+  
+  return(res)
+}
