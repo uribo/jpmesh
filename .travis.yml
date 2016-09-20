@@ -1,21 +1,37 @@
-# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+# Sample .travis.yml for R projects.
+#
+# See README.md for instructions, or for more configuration options,
+# see the wiki:
+#   https://github.com/craigcitro/r-travis/wiki
 
-language: R
+language: c
 sudo: required
-cache: packages
-
+dist: trusty
+script: ./travis-tool.sh run_tests
 
 before_install:
   - sudo apt-get update
   - sudo apt-get install -y gdal-bin libgdal-dev libgdal1-dev netcdf-bin libproj-dev
+  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+  - chmod 755 ./travis-tool.sh
+  - ./travis-tool.sh bootstrap
+  - ./travis-tool.sh install_deps
 
-r:
- - oldrel
- - release
- - devel
- 
+install:
+  - ./travis-tool.sh install_deps
+  - ./travis-tool.sh github_package jimhester/covr
+  
+env:
+   global:
+     - R_LIBS="http://cran.rstudio.com"
+     - R_BUILD_ARGS="--no-build-vignettes --no-manual"
+     - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
+     - BOOTSTRAP_LATEX=""
+     - NOT_CRAN="true"
+
 r_github_packages:
-  - jimhester/covr
+ - jimhester/covr
+script: ./travis-tool.sh run_tests
 
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'covr::coveralls()'
