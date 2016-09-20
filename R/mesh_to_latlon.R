@@ -9,12 +9,12 @@
 #' }
 meshcode_to_latlon <- function(code) {
   code <- as.character(code)
-  lat_width  <- 2 / 3
-  long_width <- 1
   
   if (length(grep("^[0-9]{4}", code)) == 1) { # 一次メッシュ以上
     code12 <- as.numeric(substring(code, 1, 2))
     code34 <- as.numeric(substring(code, 3, 4))
+    lat_width  <- 2 / 3
+    long_width <- 1
   }
   else {
     return(NULL)
@@ -30,12 +30,11 @@ meshcode_to_latlon <- function(code) {
   if (length(grep("^[0-9]{8}", code)) == 1) { # 三次メッシュ
     code7 <- as.numeric(substring(code, 7, 7))
     code8 <- as.numeric(substring(code, 8, 8))
-    lat_width  <- (lat_width / 10) / 2; # 割る２を忘れないこと
-    long_width <- (long_width / 10) / 2;
+    lat_width  <- lat_width / 10;
+    long_width <- long_width / 10;
   }
   
   # 以下、南西コーナーの座標を求める。
-  
   lat  <- code12 * 2 / 3;          #  一次メッシュ
   long <- code34 + 100;
   
@@ -48,13 +47,16 @@ meshcode_to_latlon <- function(code) {
     long <- long +  code8 / 8 / 10;
   }
   
-  lat  <- sprintf("%.8f", lat); 
-  long <- sprintf("%.8f", long);
+  lat.c  <-  lat  + lat_width  / 2
+  long.c <-  long + long_width / 2
   
-  x <- data.frame(lat        = as.numeric(lat), 
-                  long       = as.numeric(long), 
-                  lat_error  = as.numeric(lat_width),
-                  long_error = as.numeric(long_width))
-
-  return(x)
+  lat.c  <- as.numeric(sprintf("%.10f", lat.c)) # 小数点以下10桁まで。
+  long.c <- as.numeric(sprintf("%.10f", long.c))
+  
+  res <- data.frame(lat_center  = lat.c, 
+                    long_center = long.c, 
+                    lat_error   = lat.c - lat,
+                    long_error  = long.c - long)
+  
+  return(res)
 }
