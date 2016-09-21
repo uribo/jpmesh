@@ -8,9 +8,11 @@
 #' meshcode_to_latlong(64414277)
 #' }
 meshcode_to_latlon <- function(code) {
+  
   code <- as.character(code)
   
-  if (length(grep("^[0-9]{4}", code)) == 1) { # 一次メッシュ以上
+  # 80km mesh
+  if (length(grep("^[0-9]{4}", code)) == 1) {
     code12 <- as.numeric(substring(code, 1, 2))
     code34 <- as.numeric(substring(code, 3, 4))
     lat_width  <- 2 / 3
@@ -20,35 +22,37 @@ meshcode_to_latlon <- function(code) {
     return(NULL)
   }
   
-  if (length(grep("^[0-9]{6}", code)) == 1) { # 二次メッシュ以上
+  # 10km mesh
+  if (length(grep("^[0-9]{6}", code)) == 1) {
     code5 <- as.numeric(substring(code, 5, 5))
     code6 <- as.numeric(substring(code, 6, 6))
-    lat_width  <- lat_width / 8;
-    long_width <- long_width / 8;
+    lat_width  <- lat_width / 8
+    long_width <- long_width / 8
   }
   
-  if (length(grep("^[0-9]{8}", code)) == 1) { # 三次メッシュ
+  # 1km mesh
+  if (length(grep("^[0-9]{8}", code)) == 1) {
     code7 <- as.numeric(substring(code, 7, 7))
     code8 <- as.numeric(substring(code, 8, 8))
-    lat_width  <- lat_width / 10;
-    long_width <- long_width / 10;
+    lat_width  <- lat_width / 10
+    long_width <- long_width / 10
   }
   
   # 以下、南西コーナーの座標を求める。
-  lat  <- code12 * 2 / 3;          #  一次メッシュ
-  long <- code34 + 100;
+  lat  <- code12 * 2 / 3
+  long <- code34 + 100
   
-  if (exists("code5") && exists("code6")) {  # 二次メッシュ
-    lat  <- lat  + (code5 * 2 / 3) / 8;
-    long <- long +  code6 / 8;
+  if (exists("code5") && exists("code6")) {
+    lat  <- lat  + (code5 * 2 / 3) / 8
+    long <- long +  code6 / 8
   }
-  if (exists("code7") && exists("code8")) {  # 三次メッシュ
-    lat  <- lat  + (code7 * 2 / 3) / 8 / 10;
-    long <- long +  code8 / 8 / 10;
+  if (exists("code7") && exists("code8")) {
+    lat  <- lat  + (code7 * 2 / 3) / 8 / 10
+    long <- long +  code8 / 8 / 10
   }
   
-  lat.c  <-  lat  + lat_width  / 2
-  long.c <-  long + long_width / 2
+  lat.c  <- lat  + lat_width  / 2
+  long.c <- long + long_width / 2
   
   lat.c  <- as.numeric(sprintf("%.10f", lat.c)) # 小数点以下10桁まで。
   long.c <- as.numeric(sprintf("%.10f", long.c))

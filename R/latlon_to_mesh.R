@@ -34,7 +34,7 @@ latlong_to_meshcode <- function(lat = NULL, long = NULL, order = 3)
   code6 <- as.integer(long_rest_in_deg * 8)
   long_rest_in_deg <- long_rest_in_deg - code6 / 8
   
-  code8 <- as.integer(long_rest_in_deg / (1/80) )
+  code8 <- as.integer(long_rest_in_deg / (1/80))
   
   code <- sprintf("%02d%02d", code12, code34)
   
