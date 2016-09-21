@@ -34,7 +34,7 @@ env:
      - NOT_CRAN="true"
 
 after_success:
-  - Rscript -e 'covr::coveralls()'
+  - Rscript -e "library(covr); codecov()"
 
 notifications:
   email:
