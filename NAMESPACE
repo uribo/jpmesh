@@ -2,6 +2,7 @@
 
 export(latlong_to_meshcode)
 export(latlong_to_sepate_mesh)
+export(mesh_area)
 export(mesh_rectangle)
 export(meshcode_to_latlon)
 export(pref_mesh)

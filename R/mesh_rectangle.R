@@ -1,3 +1,52 @@
+#' Rectange mesh grid area
+#' @param code meshcode
+#' @param order mesh order
+#' @import dplyr
+#' @importFrom tibble rownames_to_column
+#' @export
+mesh_area <- function(code, order = c("harf", "quarter", "eight")) {
+  
+  if (is.null(order) == TRUE) {
+    order = "harf"
+  }
+  
+  d <- meshcode_to_latlon(code) %>% 
+    dplyr::mutate(lng1 = long_center - long_error,
+                  lat1 = lat_center - lat_error,
+                  lng2 = long_center + long_error,
+                  lat2 = lat_center + lat_error) %>% 
+    tibble::rownames_to_column()
+  
+  # 500m mesh
+  if (length(grep("^[0-9]{9}", code)) == 1) {
+    code9 <- as.numeric(substring(code, 9, 9))
+  }
+  
+  # 250m mesh
+  if (length(grep("^[0-9]{10}", code)) == 1) {
+    code10 <- as.numeric(substring(code, 10, 10))
+  }
+  
+  # 125m mesh
+  if (length(grep("^[0-9]{11}", code)) == 1) {
+    code11 <- as.numeric(substring(code, 11, 11))
+  }
+  
+  if (order == "harf") {
+    res <- mesh_harf(d, code9)
+  }
+  
+  if (order == "quarter") {
+    res <- mesh_to_latlon2(mesh_harf(d, code9), code10)
+  }
+  
+  if (order == "eight") {
+    res <- mesh_to_latlon2(mesh_to_latlon2(mesh_harf(d, code9), code10), code = code11)
+  }
+  
+  return(res)
+}
+
 #' @title mesh rectangel check
 #' @param df data.frame
 #' @param mesh_code mesh code
