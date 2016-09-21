@@ -1,7 +1,7 @@
 jpmesh - Utilities for Japanese mesh code
 =====
 
-[![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](http://cran.r-project.org/package=jpmesh) [![Coverage Status](https://coveralls.io/repos/github/uribo/jpmesh/badge.svg?branch=master)](https://coveralls.io/github/uribo/jpmesh?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](http://cran.r-project.org/package=jpmesh) [![codecov](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/gh/uribo/jpmesh)
 
 ## About Japanese mesh code
 
