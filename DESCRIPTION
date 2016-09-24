@@ -2,10 +2,11 @@ Package: jpmesh
 Type: Package
 Title: Utilities for Japanese mesh code
 Version: 0.1.0.9999
-Date: 2016-09-16
+Date: 2016-09-20
 Author: Shinya Uryu <suika1127@gmail.com>
 Maintainer: Shinya Uryu <suika1127@gmail.com>
-Description: Helpful functions for using mesh code data in Japan.
+Description: Helpful functions for using mesh code (250m to 80km) data in Japan. Visualize mesh code using Shiny.
+URL: https://github.com/uribo/jpmesh
 Imports:
   broom,
   dplyr,
@@ -22,4 +23,5 @@ Imports:
 Suggests:
   testthat
 License: MIT + file LICENSE
+BugReports: https://github.com/uribo/jpmesh/issues
 RoxygenNote: 5.0.1
