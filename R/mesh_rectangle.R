@@ -3,8 +3,15 @@
 #' @param order mesh order
 #' @import dplyr
 #' @importFrom tibble rownames_to_column
+#' @examples 
+#' \dontrun{
+#' mesh_area(523504221, order = "harf")
+#' }
 #' @export
 mesh_area <- function(code, order = c("harf", "quarter", "eight")) {
+  
+  # codeが9桁以下だった時のエラー処理が必要。
+  # orderの既定値の指定方法。今のままだと警告が出る
   
   if (is.null(order) == TRUE) {
     order = "harf"
@@ -14,8 +21,7 @@ mesh_area <- function(code, order = c("harf", "quarter", "eight")) {
     dplyr::mutate(lng1 = long_center - long_error,
                   lat1 = lat_center - lat_error,
                   lng2 = long_center + long_error,
-                  lat2 = lat_center + lat_error) %>% 
-    tibble::rownames_to_column()
+                  lat2 = lat_center + lat_error)
   
   # 500m mesh
   if (length(grep("^[0-9]{9}", code)) == 1) {

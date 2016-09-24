@@ -14,4 +14,9 @@ mesh_area(code, order = c("harf", "quarter", "eight"))
 \description{
 Rectange mesh grid area
 }
+\examples{
+\dontrun{
+mesh_area(523504221, order = "harf")
+}
+}
 
