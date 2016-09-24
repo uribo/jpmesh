@@ -52,3 +52,205 @@ mesh_to_latlon2 <- function(d = NULL, code = NULL) {
   res <- detect_gird_area(d, code)
   return(res)
 }
+
+fine_mesh_to_latlon <- function(code) {
+  
+  code <- as.character(code)
+  
+  # 80km mesh
+  if (length(grep("^[0-9]{4}", code)) == 1) {
+    code12 <- as.numeric(substring(code, 1, 2))
+    code34 <- as.numeric(substring(code, 3, 4))
+    lat_width  <- 2 / 3
+    long_width <- 1
+  }
+  else {
+    return(NULL)
+  }
+  
+  # 10km mesh
+  if (length(grep("^[0-9]{6}", code)) == 1) {
+    code5 <- as.numeric(substring(code, 5, 5))
+    code6 <- as.numeric(substring(code, 6, 6))
+    lat_width  <- lat_width / 8
+    long_width <- long_width / 8
+  }
+  
+  # 1km mesh
+  if (length(grep("^[0-9]{8}", code)) == 1) {
+    code7 <- as.numeric(substring(code, 7, 7))
+    code8 <- as.numeric(substring(code, 8, 8))
+    lat_width  <- lat_width / 10
+    long_width <- long_width / 10
+  }
+  
+  # 500m mesh
+  if (length(grep("^[0-9]{9}", code)) == 1) {
+    code9 <- as.numeric(substring(code, 9, 9))
+    lat_width  <- lat_width / 2
+    long_width <- long_width / 2
+  }
+  
+  # 250m mesh
+  if (length(grep("^[0-9]{10}", code)) == 1) {
+    code10 <- as.numeric(substring(code, 10, 10))
+    lat_width  <- lat_width / 2
+    long_width <- long_width / 2
+  }
+  
+  # 125m mesh
+  if (length(grep("^[0-9]{11}", code)) == 1) {
+    code11 <- as.numeric(substring(code, 11, 11))
+    lat_width  <- lat_width / 2
+    long_width <- long_width / 2
+  }
+  
+  # 以下、南西コーナーの座標を求める。
+  lat  <- code12 * 2 / 3
+  long <- code34 + 100
+  
+  if (exists("code5") && exists("code6")) {
+    lat  <- lat  + (code5 * 2 / 3) / 8
+    long <- long +  code6 / 8
+  }
+  if (exists("code7") && exists("code8")) {
+    lat  <- lat  + (code7 * 2 / 3) / 8 / 10
+    long <- long +  code8 / 8 / 10
+  }
+  
+  lat.c  <- lat  + lat_width  / 2
+  long.c <- long + long_width / 2
+  
+  lat.c  <- as.numeric(sprintf("%.10f", lat.c)) # 小数点以下10桁まで。
+  long.c <- as.numeric(sprintf("%.10f", long.c))
+  
+  res <- data.frame(lat_center  = lat.c, 
+                    long_center = long.c, 
+                    lat_error   = lat.c - lat,
+                    long_error  = long.c - long)
+
+  if (exists("code9")) {
+    
+    lat.e <- res$lat_error
+    lng.e <- res$long_error
+    
+    lng.p <- res$long_center + lng.e
+    lat.p <- res$lat_center + lat.e
+    
+    lng.n <- res$long_center - lng.e
+    lat.n <- res$lat_center - lat.e
+    
+    if (code9 == 4L) {
+      d <- data.frame(
+        lng1 = lng.p + lng.e,
+        lat1 = lat.p + lat.e,
+        lng2 = lng.p - lng.e,
+        lat2 = lat.p - lat.e)
+    } else if (code9 == 3L) {
+      d <- data.frame(
+        lng1 = lng.n + lng.e,
+        lat1 = lat.p + lat.e,
+        lng2 = lng.n - lng.e,
+        lat2 = lat.p - lat.e)
+    } else if (code9 == 2L) {
+      d <- data.frame(
+        lng1 = lng.p + lng.e,
+        lat1 = lat.n + lat.e,
+        lng2 = lng.p - lng.e,
+        lat2 = lat.n - lat.e)
+    } else if (code9 == 1L) {
+      d <- data.frame(
+        lng1 = lng.n + lng.e,
+        lat1 = lat.n + lat.e,
+        lng2 = lng.n - lng.e,
+        lat2 = lat.n - lat.e)
+    }
+    
+    res <- data.frame(
+      lat_center = d$lat2 + (d$lat1 - d$lat2),
+      long_center = d$lng2 + (d$lng1 - d$lng2),
+      lat_error = (d$lat1 - d$lat2),
+      long_error = (d$lng1 - d$lng2))
+    
+    if (exists("code10")) {
+      
+      lat.e <- res$lat_error
+      lng.e <- res$long_error
+      
+      lng.p <- res$long_center + lng.e
+      lat.p <- res$lat_center + lat.e
+      
+      lng.n <- res$long_center - lng.e
+      lat.n <- res$lat_center - lat.e
+      
+      if (code10 == 4L) {
+        d <- data.frame(lng1 = lng.p + lng.e,
+                        lat1 = lat.p + lat.e,
+                        lng2 = lng.p - lng.e,
+                        lat2 = lat.p - lat.e)
+      } else if (code10 == 3L) {
+        d <- data.frame(lng1 = lng.n + lng.e,
+                        lat1 = lat.p + lat.e,
+                        lng2 = lng.n - lng.e,
+                        lat2 = lat.p - lat.e)
+      } else if (code10 == 2L) {
+        d <- data.frame(lng1 = lng.p + lng.e,
+                        lat1 = lat.n + lat.e,
+                        lng2 = lng.p - lng.e,
+                        lat2 = lat.n - lat.e)
+      } else if (code10 == 1L) {
+        d <- data.frame(lng1 = lng.n + lng.e,
+                        lat1 = lat.n + lat.e,
+                        lng2 = lng.n - lng.e,
+                        lat2 = lat.n - lat.e)
+      }
+      
+      res <- data.frame(lat_center = d$lat2 + (d$lat1 - d$lat2),
+                        long_center = d$lng2 + (d$lng1 - d$lng2),
+                        lat_error = (d$lat1 - d$lat2),
+                        long_error = (d$lng1 - d$lng2))
+      
+      if (exists("code11")) {
+        
+        lat.e <- res$lat_error
+        lng.e <- res$long_error
+        
+        lng.p <- res$long_center + lng.e
+        lat.p <- res$lat_center + lat.e
+        
+        lng.n <- res$long_center - lng.e
+        lat.n <- res$lat_center - lat.e
+        
+        if (code11 == 4L) {
+          d <- data.frame(lng1 = lng.p + lng.e,
+                          lat1 = lat.p + lat.e,
+                          lng2 = lng.p - lng.e,
+                          lat2 = lat.p - lat.e)
+        } else if (code11 == 3L) {
+          d <- data.frame(lng1 = lng.n + lng.e,
+                          lat1 = lat.p + lat.e,
+                          lng2 = lng.n - lng.e,
+                          lat2 = lat.p - lat.e)
+        } else if (code11 == 2L) {
+          d <- data.frame(lng1 = lng.p + lng.e,
+                          lat1 = lat.n + lat.e,
+                          lng2 = lng.p - lng.e,
+                          lat2 = lat.n - lat.e)
+        } else if (code11 == 1L) {
+          d <- data.frame(lng1 = lng.n + lng.e,
+                          lat1 = lat.n + lat.e,
+                          lng2 = lng.n - lng.e,
+                          lat2 = lat.n - lat.e)
+        }
+        
+        res <- data.frame(lat_center = d$lat2 + (d$lat1 - d$lat2),
+                          long_center = d$lng2 + (d$lng1 - d$lng2),
+                          lat_error = (d$lat1 - d$lat2),
+                          long_error = (d$lng1 - d$lng2))
+        
+      }
+    }
+  }
+  
+  return(res)
+}
