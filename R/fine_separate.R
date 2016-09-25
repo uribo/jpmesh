@@ -5,16 +5,13 @@
 #' @export
 detect_mesh <- function(meshcode, lat, long) {
   
-  # meshcode = 523504221
-  # lat = 34.683608
-  # long = 135.525591
   df.mesh <- jpmesh:::fine_mesh_to_latlon(meshcode)
   
   if (lat >= df.mesh$lat_center) {
     if (long >= df.mesh$long_center) {
-      code <- 3
-    } else {
       code <- 4
+    } else {
+      code <- 3
     }
   }
   if (lat < df.mesh$lat_center) {
