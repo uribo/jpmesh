@@ -1,14 +1,17 @@
-#' @title Prefecture mesh code include lat-lon
+#' @title Simple displaed as rectangel for Japan (fortified)
 #'
-#' @format A data frame with 2307485 rows and 8 variables:
+#' @format A data frame with 235 rows 11 variables:
 #' \itemize{
-#'   \item{jiscode: }
-#'   \item{long: longitude}
-#'   \item{lat: latitude}
+#'   \item{long}
+#'   \item{lat}
 #'   \item{order}
-#'   \item{group}
+#'   \item{hole}
+#'   \item{piece}
 #'   \item{id}
-#'   \item{city_code}
-#'   \item{city_name}
+#'   \item{group}
+#'   \item{mesh_code}
+#'   \item{latitude}
+#'   \item{longitude}
+#'   \item{abb_name}
 #' }
-"jpmesh.pref"
+"jpnrect"
