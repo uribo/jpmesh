@@ -2,11 +2,9 @@
 #' @param code numeric. mesh code
 #' @author Akio Takenaka
 #' @details http://takenaka-akio.org/etc/j_map/index.html
-#' @export
 #' @examples
-#' \dontrun{
-#' meshcode_to_latlong(64414277)
-#' }
+#' meshcode_to_latlon(64414277)
+#' @export
 meshcode_to_latlon <- function(code) {
   
   code <- as.character(code)

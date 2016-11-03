@@ -13,9 +13,7 @@ meshcode_to_latlon(code)
 http://takenaka-akio.org/etc/j_map/index.html
 }
 \examples{
-\dontrun{
-meshcode_to_latlong(64414277)
-}
+meshcode_to_latlon(64414277)
 }
 \author{
 Akio Takenaka

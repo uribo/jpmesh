@@ -16,10 +16,7 @@ mesh_rectangle(df, mesh_code = "mesh_code", view = TRUE)
 \examples{
 \dontrun{
 library(dplyr)
-data("jpmesh.pref")
-jpmesh.pref \%>\% 
-  filter(jiscode == "33") \%>\% 
-  mesh_rectangle(., mesh_code = "id", view = FALSE)
+mesh_rectangle(pref_mesh(33), mesh_code = "id", view = FALSE)
 }
 }
 

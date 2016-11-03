@@ -4,9 +4,7 @@
 #' @import dplyr
 #' @importFrom tibble rownames_to_column
 #' @examples 
-#' \dontrun{
 #' mesh_area(523504221, order = "harf")
-#' }
 #' @export
 mesh_area <- function(code, order = c("harf", "quarter", "eight")) {
   
@@ -65,10 +63,7 @@ mesh_area <- function(code, order = c("harf", "quarter", "eight")) {
 #' @examples 
 #' \dontrun{
 #' library(dplyr)
-#' data("jpmesh.pref")
-#' jpmesh.pref %>% 
-#'   filter(jiscode == "33") %>% 
-#'   mesh_rectangle(., mesh_code = "id", view = FALSE)
+#' mesh_rectangle(pref_mesh(33), mesh_code = "id", view = FALSE)
 #' }
 #' @export
 mesh_rectangle <- function(df, mesh_code = "mesh_code", view = TRUE) {

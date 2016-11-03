@@ -18,11 +18,9 @@ latlong_to_sepate_mesh(lat = NULL, long = NULL, order = c("harf",
 separate meshcode
 }
 \examples{
-\dontrun{
 latlong_to_sepate_mesh(35.442788, 139.301255, order = "harf")
 latlong_to_sepate_mesh(35.442893, 139.310654, order = "quarter")
 latlong_to_sepate_mesh(35.448767, 139.301706, order = "quarter")
 latlong_to_sepate_mesh(35.449011, 139.311340, order = "quarter")
-}
 }
 

@@ -5,12 +5,10 @@
 #' @return meshcode (default 3rd meshcode)
 #' @author Akio Takenaka
 #' @details http://takenaka-akio.org/etc/j_map/index.html
-#' @export
 #' @examples 
-#' \dontrun{
 #' latlong_to_meshcode(43.06462, 141.3468, order = 3)
 #' latlong_to_meshcode(35.68949, 139.6917, order = 2)
-#' }
+#' @export
 latlong_to_meshcode <- function(lat = NULL, long = NULL, order = 3)
 {
   if (length(grep("[123]", order)) == 0) {
@@ -53,14 +51,12 @@ latlong_to_meshcode <- function(lat = NULL, long = NULL, order = 3)
 #' @param lon numeric. longitude
 #' @param order choose character harf or quarter
 #' @return separate meshcode
-#' @export
 #' @examples 
-#' \dontrun{
 #' latlong_to_sepate_mesh(35.442788, 139.301255, order = "harf")
 #' latlong_to_sepate_mesh(35.442893, 139.310654, order = "quarter")
 #' latlong_to_sepate_mesh(35.448767, 139.301706, order = "quarter")
 #' latlong_to_sepate_mesh(35.449011, 139.311340, order = "quarter")
-#' }
+#' @export
 latlong_to_sepate_mesh <- function(lat = NULL, long = NULL, order = c("harf", "quarter")) {
   mesh8 <- jpmesh::latlong_to_meshcode(lat, long, order = 3)
   

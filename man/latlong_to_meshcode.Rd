@@ -20,10 +20,8 @@ meshcode (default 3rd meshcode)
 http://takenaka-akio.org/etc/j_map/index.html
 }
 \examples{
-\dontrun{
 latlong_to_meshcode(43.06462, 141.3468, order = 3)
 latlong_to_meshcode(35.68949, 139.6917, order = 2)
-}
 }
 \author{
 Akio Takenaka

@@ -2,6 +2,9 @@
 #' @param meshcode mesh code
 #' @param lat latitude
 #' @param long longitude
+#' @examples 
+#' detect_mesh(52350422, lat = 34.684176, long = 135.526130)
+#' detect_mesh(523504221, lat = 34.684028, long = 135.529506)
 #' @export
 detect_mesh <- function(meshcode, lat, long) {
   
@@ -33,11 +36,9 @@ detect_mesh <- function(meshcode, lat, long) {
 #' @param ... other parameters for paste
 #' @return character vector
 #' @examples 
-#' \dontrun{
 #' fine_separate(52350400, "harf")
 #' fine_separate(52350400, "quarter")
 #' fine_separate(52350400, "quarter", collapse = ",")
-#' }
 #' @export
 fine_separate <- function(meshcode = NULL, order = c("harf", "quarter"), ...) {
   
