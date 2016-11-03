@@ -1,12 +1,15 @@
 Package: jpmesh
 Type: Package
-Title: Utilities for Japanese mesh code
-Version: 0.1.0.9999
-Date: 2016-09-20
-Author: Shinya Uryu <suika1127@gmail.com>
+Title: Utilities for Japanese Mesh Code
+Version: 0.2.0
+Date: 2016-11-03
+Authors@R: c(person(given = "Shinya", family = "Uryu",
+                                            email = "suika1127@gmail.com",
+                                            role  = c("aut", "cre")))
 Maintainer: Shinya Uryu <suika1127@gmail.com>
-Description: Helpful functions for using mesh code (250m to 80km) data in Japan. Visualize mesh code using Shiny.
+Description: Helpful functions for using mesh code (80km to 250m) data in Japan. Visualize mesh code using ggplot2 and leaflet, etc.
 URL: https://github.com/uribo/jpmesh
+BugReports: https://github.com/uribo/jpmesh/issues
 Imports:
   broom,
   dplyr,
@@ -23,5 +26,4 @@ Imports:
 Suggests:
   testthat
 License: MIT + file LICENSE
-BugReports: https://github.com/uribo/jpmesh/issues
 RoxygenNote: 5.0.1

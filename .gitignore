@@ -4,3 +4,4 @@
 .Ruserdata
 .*.Rnb.cached
 data-raw/city_mesh/
+^README-.*\.png$
