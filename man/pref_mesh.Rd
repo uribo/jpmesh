@@ -2,11 +2,14 @@
 % Please edit documentation in R/pref_mesh.R
 \name{pref_mesh}
 \alias{pref_mesh}
-\title{Detect mesh code include prefectures}
+\title{Collect prefecture 1km mesh data}
 \usage{
-pref_mesh(path)
+pref_mesh(code = NULL)
 }
 \arguments{
-\item{path}{path to local file.}
+\item{code}{prefecture code (jiscode)}
+}
+\examples{
+head(pref_mesh(33))
 }
 

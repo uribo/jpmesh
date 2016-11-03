@@ -1,3 +1,16 @@
+#' @title Collect prefecture 1km mesh data
+#' 
+#' @param code prefecture code (jiscode)
+#' @importFrom readr read_rds
+#' @examples 
+#' head(pref_mesh(33))
+#' @export
+pref_mesh <- function(code = NULL) {
+  
+  d <- readr::read_rds(system.file(paste0("extdata/pref_", sprintf("%02d", code), "_mesh.rds"), package = "jpmesh"))
+  return(d)
+}
+
 #' @title Detect mesh code include prefectures 
 #' @param path path to local file.
 #' @import dplyr
@@ -11,8 +24,7 @@
 #' @importFrom sp SpatialPolygons
 #' @importFrom tidyr unnest
 #' @importFrom tibble rownames_to_column
-#' @export
-pref_mesh <- function(path){
+raw_pref_mesh <- function(path){
   
   df.origin <- readr::read_csv(path, locale = readr::locale(encoding = "cp932"),
                                col_types = list(col_character(), col_character(), col_number())) %>% 
