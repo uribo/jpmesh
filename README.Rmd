@@ -8,35 +8,106 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "README-",
+  fig.argin = "center"
 )
 ```
 
-jpmesh - Utilities for Japanese mesh code
-=========================================
+# jpmesh <img src="logo.png" align="right" width="80px" />
 
 [![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](http://cran.r-project.org/package=jpmesh) [![codecov](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/gh/uribo/jpmesh)
 
-## About Japanese mesh code
+## Overview
 
-- 地域メッシュコード
-- 標準地域メッシュ
-    - 第1次メッシュ... メッシュコード4桁
-    - 第2次メッシュ... メッシュコード6桁
-    - 第3次メッシュ... メッシュコード8桁
-- 分割地域メッシュ
-    - 2分の1地域メッシュ... 9桁
-    - 4分の1地域メッシュ... 10桁
-    - 8分の1地域メッシュ... 11桁
+**`{jpmesh}`**パッケージは、日本国内で利用される「地域メッシュ（メッシュコード）」をRから容易に利用可能にするパッケージです。地域メッシュとは、日本国土を緯度・経度により方形の小地域区画に細分することで、同一の基準による統計調査などの結果を得ることが可能となります。80kmから250mまでのメッシュコードに対応し、メッシュコードと緯度経度座標との互換を行います。**`{jpmesh}`**の主な機能として、「緯度経度からの地域メッシュへの変換」、「地域メッシュからの緯度経度の取得」、「都道府県単位やleaflet上へのマッピング」があります。
 
 ## Installation
 
+パッケージはGitHub経由でインストール可能です。
+
 ```{r, eval = FALSE, echo = TRUE}
+# the development version from GitHub:
 install.packages("devtools")
 devtools::install_github("uribo/jpmesh")
 ```
 
-## Link
+## Usage
 
-- [地図上で標準地域メッシュを確認するページ](http://www.gis-tool.com/mapview/areameshmap.html)
+```{r}
+library(jpmesh)
+library(ggplot2)
+```
+
+### Convert mesh code to coordinate and vice versa
+
+メッシュコードからメッシュ範囲特定のための緯度経度の取得
+
+```{r}
+meshcode_to_latlon(5133)
+meshcode_to_latlon(513377)
+meshcode_to_latlon(51337783)
+```
+
+緯度経度から、範囲内のメッシュコードを取得
+
+```{r}
+latlong_to_meshcode(34, 133, order = 1)
+latlong_to_meshcode(34.583333, 133.875, order = 2)
+latlong_to_meshcode(34.65, 133.9125, order = 3)
+```
+
+### Detect fine mesh code
+
+```{r}
+detect_mesh(52350422, lat = 34.684176, long = 135.526130)
+detect_mesh(523504221, lat = 34.684028, long = 135.529506)
+```
+
+### Utilies
+
+1次メッシュを基礎とした単純化した日本地図の描画
+
+```{r jpn_simple_map, fig.width = 8, fig.height = 6}
+data("jpnrect")
+
+ggplot() +
+  geom_map(data = jpnrect,
+           map  = jpnrect,
+           aes(x = long, y = lat, map_id = id),
+           fill = "#FFFFFF", color = "black",
+           size = 1) +
+  coord_map() +
+  ggthemes::theme_map() +
+  geom_text(aes(x = longitude, y = latitude, label = abb_name), data = jpnrect, size = 3)
+```
+
+都道府県別のメッシュコードデータ
+
+```{r, results = 'asis'}
+pref_mesh(33) %>% head() %>% knitr::kable()
+```
+
+可視化の一例
+
+```{r, eval = FALSE, echo = TRUE}
+# For leaflet
+# pref_mesh(33) %>% mesh_rectangle(mesh_code = "id", view = TRUE)
+```
+
+```{r mesh_pref33_map, warning = FALSE}
+df.map <- pref_mesh(33) %>% 
+  dplyr::mutate(mesh_area = purrr::map(id, meshcode_to_latlon)) %>% 
+  tidyr::unnest() %>% 
+  dplyr::mutate(lng1 = long_center - long_error,
+         lat1 = lat_center - lat_error,
+         lng2 = long_center + long_error,
+         lat2 = lat_center + lat_error)
+
+ggplot() + 
+  geom_map(data = df.map, 
+           map = df.map,
+           aes(x = long, y = lat, map_id = id), 
+           fill = "white", color = "black") + 
+  coord_map(projection = "mercator")
+```
 
