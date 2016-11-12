@@ -1,5 +1,10 @@
 context("Meshcode area")
 
+
+test_that("behavior test", {
+  expect_error(mesh_area(523504))
+})
+
 # harf mesh ---------------------------------------------------------------
 test_that("harf mesh", {
   
