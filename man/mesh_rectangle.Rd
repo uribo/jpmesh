@@ -2,21 +2,24 @@
 % Please edit documentation in R/mesh_rectangle.R
 \name{mesh_rectangle}
 \alias{mesh_rectangle}
-\title{mesh rectangel check}
+\title{mesh rectangle check}
 \usage{
-mesh_rectangle(df, mesh_code = "mesh_code", view = TRUE)
+mesh_rectangle(df, code = "mesh_code", view = TRUE)
 }
 \arguments{
 \item{df}{data.frame}
 
-\item{mesh_code}{mesh code}
+\item{code}{mesh code}
 
 \item{view}{option.}
+}
+\description{
+Multiple mesh coverd area.
 }
 \examples{
 \dontrun{
 library(dplyr)
-mesh_rectangle(pref_mesh(33), mesh_code = "id", view = FALSE)
+mesh_rectangle(pref_mesh(33), code = "id", view = FALSE)
 }
 }
 

@@ -9,6 +9,9 @@ meshcode_to_latlon(code)
 \arguments{
 \item{code}{numeric. mesh code}
 }
+\description{
+mesh centroid
+}
 \details{
 http://takenaka-akio.org/etc/j_map/index.html
 }

@@ -21,5 +21,8 @@
 \usage{
 jpnrect
 }
+\description{
+Rectangle Japanese prefectures positions.
+}
 \keyword{datasets}
 

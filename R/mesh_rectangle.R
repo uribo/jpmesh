@@ -1,7 +1,9 @@
 #' Rectange mesh grid area
-#' @param code meshcode
+#' 
+#' @description Single mesh coverd area.
+#' @param code mesh code
 #' @param order mesh order
-#' @import dplyr
+#' @importFrom dplyr mutate
 #' @importFrom tibble rownames_to_column
 #' @examples 
 #' mesh_area(523504221, order = "harf")
@@ -51,9 +53,11 @@ mesh_area <- function(code, order = c("harf", "quarter", "eight")) {
   return(res)
 }
 
-#' @title mesh rectangel check
+#' @title mesh rectangle check
+#' 
+#' @description Multiple mesh coverd area.
 #' @param df data.frame
-#' @param mesh_code mesh code
+#' @param code mesh code
 #' @param view option.
 #' @import dplyr
 #' @import leaflet
@@ -63,16 +67,16 @@ mesh_area <- function(code, order = c("harf", "quarter", "eight")) {
 #' @examples 
 #' \dontrun{
 #' library(dplyr)
-#' mesh_rectangle(pref_mesh(33), mesh_code = "id", view = FALSE)
+#' mesh_rectangle(pref_mesh(33), code = "id", view = FALSE)
 #' }
 #' @export
-mesh_rectangle <- function(df, mesh_code = "mesh_code", view = TRUE) {
+mesh_rectangle <- function(df, code = "mesh_code", view = TRUE) {
   
   df.mesh <- df %>% 
-    dplyr::select_(mesh_code) %>% 
+    dplyr::select_(code) %>% 
     unique() %>% 
     set_colnames(c("mesh_code")) %>% 
-    dplyr::mutate(mesh_area = purrr::map(mesh_code, jpmesh::meshcode_to_latlon)) %>% 
+    dplyr::mutate(mesh_area = purrr::map(mesh_code, meshcode_to_latlon)) %>% 
     tidyr::unnest() %>% 
     dplyr::mutate(lng1 = long_center - long_error,
                   lat1 = lat_center - lat_error,

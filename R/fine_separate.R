@@ -1,4 +1,6 @@
 #' @title Detect file scale mesh code
+#' 
+#' @description Find out position. 
 #' @param meshcode mesh code
 #' @param lat latitude
 #' @param long longitude
@@ -8,7 +10,7 @@
 #' @export
 detect_mesh <- function(meshcode, lat, long) {
   
-  df.mesh <- jpmesh:::fine_mesh_to_latlon(meshcode)
+  df.mesh <- fine_mesh_to_latlon(meshcode)
   
   if (lat >= df.mesh$lat_center) {
     if (long >= df.mesh$long_center) {
@@ -31,10 +33,13 @@ detect_mesh <- function(meshcode, lat, long) {
 }
 
 #' @title Separate more fine mesh order
+#' 
+#' @description Return contains fine mesh codes
 #' @param meshcode mesh code
 #' @param order Choose mesh order
 #' @param ... other parameters for paste
 #' @return character vector
+#' @importFrom purrr map
 #' @examples 
 #' fine_separate(52350400, "harf")
 #' fine_separate(52350400, "quarter")

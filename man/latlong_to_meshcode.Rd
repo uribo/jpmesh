@@ -9,12 +9,15 @@ latlong_to_meshcode(lat = NULL, long = NULL, order = 3)
 \arguments{
 \item{lat}{numeric. latitude}
 
-\item{order}{integer. mesh type}
+\item{long}{numeric. longitude}
 
-\item{lon}{numeric. longitude}
+\item{order}{integer. mesh type}
 }
 \value{
-meshcode (default 3rd meshcode)
+mesh code (default 3rd meshcode)
+}
+\description{
+From coordinate to mesh codes.
 }
 \details{
 http://takenaka-akio.org/etc/j_map/index.html

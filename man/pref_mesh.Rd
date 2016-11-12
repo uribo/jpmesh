@@ -9,6 +9,9 @@ pref_mesh(code = NULL)
 \arguments{
 \item{code}{prefecture code (jiscode)}
 }
+\description{
+Japanese prefectures administrations
+}
 \examples{
 head(pref_mesh(33))
 }

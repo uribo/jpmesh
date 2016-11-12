@@ -10,12 +10,15 @@ latlong_to_sepate_mesh(lat = NULL, long = NULL, order = c("harf",
 \arguments{
 \item{lat}{numeric. latitude}
 
-\item{order}{choose character harf or quarter}
+\item{long}{numeric. longitude}
 
-\item{lon}{numeric. longitude}
+\item{order}{choose character harf or quarter}
 }
 \value{
 separate meshcode
+}
+\description{
+From coordinate to mesh codes.
 }
 \examples{
 latlong_to_sepate_mesh(35.442788, 139.301255, order = "harf")

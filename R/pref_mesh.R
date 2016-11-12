@@ -1,5 +1,6 @@
 #' @title Collect prefecture 1km mesh data
 #' 
+#' @description Japanese prefectures administrations
 #' @param code prefecture code (jiscode)
 #' @importFrom readr read_rds
 #' @examples 
@@ -12,11 +13,14 @@ pref_mesh <- function(code = NULL) {
 }
 
 #' @title Detect mesh code include prefectures 
+#' 
+#' @description inherent function
 #' @param path path to local file.
 #' @import dplyr
 #' @import foreach
 #' @import magrittr
-#' @import readr
+#' @importFrom readr read_csv
+#' @importFrom readr locale
 #' @importFrom broom tidy
 #' @importFrom geojsonio geojson_json
 #' @importFrom rgdal readOGR
@@ -34,7 +38,7 @@ raw_pref_mesh <- function(path){
     select(mesh_code) %>% 
     unique() %>% 
     dplyr::arrange(mesh_code) %>% 
-    dplyr::mutate(mesh_area = purrr::map(mesh_code, jpmesh::meshcode_to_latlon)) %>% 
+    dplyr::mutate(mesh_area = purrr::map(mesh_code, meshcode_to_latlon)) %>% 
     tidyr::unnest() %>% 
     dplyr::mutate(lng1 = long_center - long_error,
                   lat1 = lat_center - lat_error,
@@ -57,7 +61,7 @@ raw_pref_mesh <- function(path){
             layer            = "OGRGeoJSON",
             stringsAsFactors = FALSE) %>%
     broom::tidy(.) %>% 
-    mutate(id = as.numeric(id))
+    dplyr::mutate(id = as.numeric(id))
   
   res <- df.pref.mesh.geo %>% left_join(df.origin, by = c("id" = "mesh_code"))
   

@@ -1,8 +1,10 @@
 #' @title Convert from coordinate to mesh code
+#' 
+#' @description From coordinate to mesh codes.
 #' @param lat numeric. latitude
-#' @param lon numeric. longitude
+#' @param long numeric. longitude
 #' @param order integer. mesh type
-#' @return meshcode (default 3rd meshcode)
+#' @return mesh code (default 3rd meshcode)
 #' @author Akio Takenaka
 #' @details http://takenaka-akio.org/etc/j_map/index.html
 #' @examples 
@@ -47,9 +49,12 @@ latlong_to_meshcode <- function(lat = NULL, long = NULL, order = 3)
 }
 
 #' @title Convert from coordinate to separate mesh code
+#' 
+#' @description From coordinate to mesh codes.
 #' @param lat numeric. latitude
-#' @param lon numeric. longitude
+#' @param long numeric. longitude
 #' @param order choose character harf or quarter
+#' @importFrom dplyr mutate
 #' @return separate meshcode
 #' @examples 
 #' latlong_to_sepate_mesh(35.442788, 139.301255, order = "harf")
@@ -58,9 +63,9 @@ latlong_to_meshcode <- function(lat = NULL, long = NULL, order = 3)
 #' latlong_to_sepate_mesh(35.449011, 139.311340, order = "quarter")
 #' @export
 latlong_to_sepate_mesh <- function(lat = NULL, long = NULL, order = c("harf", "quarter")) {
-  mesh8 <- jpmesh::latlong_to_meshcode(lat, long, order = 3)
+  mesh8 <- latlong_to_meshcode(lat, long, order = 3)
   
-  df.mesh <- jpmesh::meshcode_to_latlon(mesh8) %>% 
+  df.mesh <- meshcode_to_latlon(mesh8) %>% 
     dplyr::mutate(lng1 = long_center - long_error,
                   lat1 = lat_center - lat_error,
                   lng2 = long_center + long_error,

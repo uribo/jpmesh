@@ -16,6 +16,9 @@ fine_separate(meshcode = NULL, order = c("harf", "quarter"), ...)
 \value{
 character vector
 }
+\description{
+Return contains fine mesh codes
+}
 \examples{
 fine_separate(52350400, "harf")
 fine_separate(52350400, "quarter")

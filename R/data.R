@@ -1,5 +1,6 @@
 #' @title Simple displaed as rectangel for Japan (fortified)
-#'
+#' 
+#' @description Rectangle Japanese prefectures positions.
 #' @format A data frame with 235 rows 11 variables:
 #' \itemize{
 #'   \item{long}

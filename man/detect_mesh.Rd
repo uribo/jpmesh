@@ -13,6 +13,9 @@ detect_mesh(meshcode, lat, long)
 
 \item{long}{longitude}
 }
+\description{
+Find out position.
+}
 \examples{
 detect_mesh(52350422, lat = 34.684176, long = 135.526130)
 detect_mesh(523504221, lat = 34.684028, long = 135.529506)

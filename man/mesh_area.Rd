@@ -7,12 +7,12 @@
 mesh_area(code, order = c("harf", "quarter", "eight"))
 }
 \arguments{
-\item{code}{meshcode}
+\item{code}{mesh code}
 
 \item{order}{mesh order}
 }
 \description{
-Rectange mesh grid area
+Single mesh coverd area.
 }
 \examples{
 mesh_area(523504221, order = "harf")
