@@ -4,6 +4,8 @@
 ^README-.*\.png$
 ^\.travis\.yml$
 ^cran-comments\.md$
+^README\.en\.md$
+^README(\.en)?\.Rmd$
 ^revdep$
 ^data-raw$
 ^docs$

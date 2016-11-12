@@ -5,19 +5,17 @@ jpmesh <img src="logo.png" align="right" width="80px" />
 
 [![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](http://cran.r-project.org/package=jpmesh) [![codecov](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/gh/uribo/jpmesh)
 
-*English version of README is [here](https://github.com/uribo/jpmesh/blob/master/README.en.md)*
-
 Overview
 --------
 
-**`{jpmesh}`**パッケージは、日本国内で利用される「地域メッシュ（メッシュコード）」をRから容易に利用可能にするパッケージです。地域メッシュとは、日本国土を緯度・経度により方形の小地域区画に細分した際に与えられるコードです。地域メッシュはコードの精度に応じて範囲とする区画の面積が異なっており、統計調査などでは同一メッシュを採用することで広い面積の調査結果を地域メッシュ単位で取り扱えるようになります。
+The **`{jpmesh}`** package is a package that makes it easy to use "regional mesh (i.e. mesh code *JIS X 0410* )" used in Japan from R. Regional mesh is a code given when subdividing Japanese landscape into rectangular subregions by latitude and longitude. Depending on the accuracy of the code, different regional mesh length. By using the same mesh in statistical survey etc., it will become possible to handle the survey results of a large area in the area mesh unit.
 
-**`{jpmesh}`**は現在、標準地域メッシュである第1次メッシュから分割地域メッシュの4分の1地域メッシュすなわち80kmから250mまでのメッシュコードに対応し、メッシュコードと緯度経度座標との互換を行います。主な機能として、「緯度経度からの地域メッシュへの変換」、「地域メッシュからの緯度経度の取得」、「都道府県単位やleaflet上へのマッピング」があります。
+In jpmesh, mesh codes and latitude and longitude coordinates are compatible with mesh codes from the first region mesh, which is the standard region mesh, to the quarter regional mesh of the divided region mesh (from 80 km to 250 m). Features include "conversion from latitude and longitude to regional mesh", "acquisition of latitude and longitude from regional mesh", "mapping on prefecture unit and leaflet".
 
 Installation
 ------------
 
-パッケージはGitHub経由でインストール可能です。
+You can installed via GitHub, execute next code.
 
 ``` r
 # the development version from GitHub:
@@ -36,7 +34,7 @@ library(ggplot2)
 
 ### Convert mesh code to coordinate and vice versa
 
-メッシュコードからメッシュ範囲特定のための緯度経度の取得
+Return the latitude and longitude for specifying the mesh range from the mesh code.
 
 ``` r
 meshcode_to_latlon(5133)
@@ -50,7 +48,7 @@ meshcode_to_latlon(51337783)
 #> 1   34.65417    133.9187 0.004166667    0.00625
 ```
 
-緯度経度から、範囲内のメッシュコードを取得
+Find the mesh code within the range from latitude and longitude.
 
 ``` r
 latlong_to_meshcode(34, 133, order = 1)
@@ -72,7 +70,7 @@ detect_mesh(523504221, lat = 34.684028, long = 135.529506)
 
 ### Utilies
 
-1次メッシュを基礎とした単純化した日本地図の描画
+Drawing a simplified Japanese map based on the mesh code.
 
 ``` r
 data("jpnrect")
@@ -90,7 +88,7 @@ ggplot() +
 
 ![](README-jpn_simple_map-1.png)
 
-都道府県別のメッシュコードデータ
+Dataset of mesh code for prefectures.
 
 ``` r
 pref_mesh(33) %>% head() %>% knitr::kable()
@@ -105,7 +103,7 @@ pref_mesh(33) %>% head() %>% knitr::kable()
 | 33      |  133.5250|  34.30000|      5| 51333452.1 |  51333452| 33205      | 笠岡市     |
 | 33      |  133.5250|  34.30833|      1| 51333462.1 |  51333462| 33205      | 笠岡市     |
 
-可視化の一例
+Example)
 
 ``` r
 # For leaflet
