@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>mesh rectangel check — mesh_rectangle • jpmesh</title>
+<title>mesh rectangle check — mesh_rectangle • jpmesh</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,18 +77,20 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>mesh rectangel check</h1>
+    <h1>mesh rectangle check</h1>
     </div>
 
+    
+    <p>Multiple mesh coverd area.</p>
+    
 
-
-    <pre><span class='fu'>mesh_rectangle</span>(<span class='no'>df</span>, <span class='kw'>mesh_code</span> <span class='kw'>=</span> <span class='st'>"mesh_code"</span>, <span class='kw'>view</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre><span class='fu'>mesh_rectangle</span>(<span class='no'>df</span>, <span class='kw'>code</span> <span class='kw'>=</span> <span class='st'>"mesh_code"</span>, <span class='kw'>view</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>df</dt>
       <dd>data.frame</dd>
-      <dt>mesh_code</dt>
+      <dt>code</dt>
       <dd>mesh code</dd>
       <dt>view</dt>
       <dd>option.</dd>
@@ -98,7 +100,7 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># library(dplyr)</span>
-<span class='co'># mesh_rectangle(pref_mesh(33), mesh_code = "id", view = FALSE)</span>
+<span class='co'># mesh_rectangle(pref_mesh(33), code = "id", view = FALSE)</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

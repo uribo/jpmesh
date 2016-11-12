@@ -25,6 +25,10 @@ reference:
     contents:
     - jpnrect
     - pref_mesh
+    
+  - title: Gadgets
+    contents:
+    - mesh_viewer
 
 navbar:
   right:
