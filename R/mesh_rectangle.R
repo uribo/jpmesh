@@ -9,11 +9,12 @@
 #' mesh_area(523504221, order = "harf")
 #' @export
 mesh_area <- function(code, order = c("harf", "quarter", "eight")) {
+
+  if (nchar(code) < 8) {
+    stop("The code must be 8 digits or more.")
+  } 
   
-  # codeが9桁以下だった時のエラー処理が必要。
-  # orderの既定値の指定方法。今のままだと警告が出る
-  
-  if (is.null(order) == TRUE) {
+  if (is.null(order) == FALSE) {
     order = "harf"
   }
   

@@ -105,7 +105,7 @@ fine_mesh_to_latlon <- function(code) {
     long_width <- long_width / 2
   }
   
-  # 以下、南西コーナーの座標を求める。
+  # Below, the coordinates of the southwestern corner are obtained
   lat  <- code12 * 2 / 3
   long <- code34 + 100
   
@@ -121,7 +121,7 @@ fine_mesh_to_latlon <- function(code) {
   lat.c  <- lat  + lat_width  / 2
   long.c <- long + long_width / 2
   
-  lat.c  <- as.numeric(sprintf("%.10f", lat.c)) # 小数点以下10桁まで。
+  lat.c  <- as.numeric(sprintf("%.10f", lat.c))
   long.c <- as.numeric(sprintf("%.10f", long.c))
   
   res <- data.frame(lat_center  = lat.c, 
