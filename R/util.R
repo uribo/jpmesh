@@ -254,3 +254,18 @@ fine_mesh_to_latlon <- function(code) {
   
   return(res)
 }
+
+#' generate null variables for jpmesh
+#' @param df data frame
+bundle_mesh_vars <- function(df) {
+  long_center <- long_error <- lat_center <- lat_error <- NULL
+
+    res <- dplyr::mutate(df,
+                       lng1 = long_center - long_error,
+                       lat1 = lat_center - lat_error,
+                       lng2 = long_center + long_error,
+                       lat2 = lat_center + lat_error)
+    
+    return(res)
+  
+}

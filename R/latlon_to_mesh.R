@@ -66,10 +66,7 @@ latlong_to_sepate_mesh <- function(lat = NULL, long = NULL, order = c("harf", "q
   mesh8 <- latlong_to_meshcode(lat, long, order = 3)
   
   df.mesh <- meshcode_to_latlon(mesh8) %>% 
-    dplyr::mutate(lng1 = long_center - long_error,
-                  lat1 = lat_center - lat_error,
-                  lng2 = long_center + long_error,
-                  lat2 = lat_center + lat_error)
+    bundle_mesh_vars()
   
     if (lat >= df.mesh$lat_center) {
       if (long >= df.mesh$long_center) {

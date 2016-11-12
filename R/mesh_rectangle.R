@@ -18,10 +18,7 @@ mesh_area <- function(code, order = c("harf", "quarter", "eight")) {
   }
   
   d <- meshcode_to_latlon(code) %>% 
-    dplyr::mutate(lng1 = long_center - long_error,
-                  lat1 = lat_center - lat_error,
-                  lng2 = long_center + long_error,
-                  lat2 = lat_center + lat_error)
+    bundle_mesh_vars()
   
   # 500m mesh
   if (length(grep("^[0-9]{9}", code)) == 1) {
@@ -72,16 +69,15 @@ mesh_area <- function(code, order = c("harf", "quarter", "eight")) {
 #' @export
 mesh_rectangle <- function(df, code = "mesh_code", view = TRUE) {
   
+  mesh_code <- NULL
+  
   df.mesh <- df %>% 
     dplyr::select_(code) %>% 
     unique() %>% 
     set_colnames(c("mesh_code")) %>% 
     dplyr::mutate(mesh_area = purrr::map(mesh_code, meshcode_to_latlon)) %>% 
     tidyr::unnest() %>% 
-    dplyr::mutate(lng1 = long_center - long_error,
-                  lat1 = lat_center - lat_error,
-                  lng2 = long_center + long_error,
-                  lat2 = lat_center + lat_error) %>% 
+    bundle_mesh_vars() %>% 
     tibble::rownames_to_column()
   
   if (view != TRUE) {
