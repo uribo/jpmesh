@@ -17,7 +17,13 @@ Overview
 Installation
 ------------
 
-パッケージはGitHub経由でインストール可能です。
+CRANからインストール
+
+``` r
+install.packages("jpmesh")
+```
+
+GitHubからも開発版がインストールできます。
 
 ``` r
 # the development version from GitHub:

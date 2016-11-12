@@ -28,7 +28,13 @@ _English version of README is [here](https://github.com/uribo/jpmesh/blob/master
 
 ## Installation
 
-パッケージはGitHub経由でインストール可能です。
+CRANからインストール
+
+```{r, eval = FALSE, echo = TRUE}
+install.packages("jpmesh")
+```
+
+GitHubからも開発版がインストールできます。
 
 ```{r, eval = FALSE, echo = TRUE}
 # the development version from GitHub:

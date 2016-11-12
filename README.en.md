@@ -15,7 +15,13 @@ In jpmesh, mesh codes and latitude and longitude coordinates are compatible with
 Installation
 ------------
 
-You can installed via GitHub, execute next code.
+Fron CRAN
+
+``` r
+install.packages("jpmesh")
+```
+
+For developers
 
 ``` r
 # the development version from GitHub:
