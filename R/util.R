@@ -269,3 +269,20 @@ bundle_mesh_vars <- function(df) {
     return(res)
   
 }
+
+poly_to_geojson <- function(df) {
+  
+  i <- NULL
+  
+  list.polygons <- foreach(i = 1:nrow(df)) %do% {
+    sp::Polygons(
+      list(sp::Polygon(
+        cbind(
+          c(df[i, ]$lng1, df[i, ]$lng1, df[i, ]$lng2, df[i, ]$lng2, df[i, ]$lng1),
+          c(df[i, ]$lat2, df[i, ]$lat1, df[i, ]$lat1, df[i, ]$lat2, df[i, ]$lat2)))),
+      df[i, ]$mesh_code)
+  }
+  str.geojson <- geojsonio::geojson_json(sp::SpatialPolygons(Srl = list.polygons, pO = 1:nrow(df)), geometry = "polygon")
+  
+  return(str.geojson)
+}

@@ -19,8 +19,7 @@ pref_mesh <- function(code = NULL) {
 #' @import dplyr
 #' @import foreach
 #' @import magrittr
-#' @importFrom readr read_csv
-#' @importFrom readr locale
+#' @import readr
 #' @importFrom broom tidy
 #' @importFrom geojsonio geojson_json
 #' @importFrom rgdal readOGR
@@ -29,7 +28,10 @@ pref_mesh <- function(code = NULL) {
 #' @importFrom tidyr unnest
 #' @importFrom tibble rownames_to_column
 raw_pref_mesh <- function(path){
-  
+
+  mesh_code <- NULL
+  i <- NULL
+    
   df.origin <- readr::read_csv(path, locale = readr::locale(encoding = "cp932"),
                                col_types = list(col_character(), col_character(), col_number())) %>% 
     set_colnames(c("city_code", "city_name", "mesh_code"))
@@ -43,21 +45,12 @@ raw_pref_mesh <- function(path){
     bundle_mesh_vars() %>% 
     tibble::rownames_to_column()
   
-  list.polygons <- foreach(i = 1:nrow(df.pref.mesh)) %do% {
-    sp::Polygons(
-      list(sp::Polygon(
-        cbind(
-          c(df.pref.mesh$lng1[i], df.pref.mesh$lng1[i], df.pref.mesh$lng2[i], df.pref.mesh$lng2[i], df.pref.mesh$lng1[i]),
-          c(df.pref.mesh$lat2[i], df.pref.mesh$lat1[i], df.pref.mesh$lat1[i], df.pref.mesh$lat2[i], df.pref.mesh$lat2[i])))),
-      df.pref.mesh$mesh_code[i])
-  }
-  
-  df.pref.mesh.geo <- sp::SpatialPolygons(Srl = list.polygons, pO = 1:nrow(df.pref.mesh)) %>%
+  df.pref.mesh.geo <- poly_to_geojson(df.pref.mesh) %>%
     geojsonio::geojson_json(geometry = "polygon") %>%
-    rgdal::readOGR(dsn              = .,
+    rgdal::readOGR(
             layer            = "OGRGeoJSON",
             stringsAsFactors = FALSE) %>%
-    broom::tidy(.) %>% 
+    broom::tidy() %>% 
     dplyr::mutate(id = as.numeric(id))
   
   res <- df.pref.mesh.geo %>% left_join(df.origin, by = c("id" = "mesh_code"))
