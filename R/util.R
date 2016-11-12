@@ -35,7 +35,7 @@ detect_gird_area <- function(d = NULL, code = NULL){
   
 }
 
-mesh_harf <- function(d = NULL, code = code9) {
+mesh_harf <- function(d = NULL, code = code) {
   
   res <- detect_gird_area(d, code)
   
