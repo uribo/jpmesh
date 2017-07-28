@@ -10,24 +10,21 @@ export_mesh(code)
 \item{code}{meshcode}
 }
 \value{
-geojson character strings
+sf
 }
 \description{
 Convert and export meshcode area to geojson string.
 }
 \examples{
-# export geojson string
 export_mesh(
   code = latlong_to_meshcode(lat = 35.82083, long = 137.0563, order = 3))
 
 library(leaflet)
 leaflet() \%>\%
 addTiles() \%>\%
-setView(lng = 135.0, lat = 38.0, zoom = 3) \%>\%
-addGeoJSON(
-  export_mesh(
-    code = c(
-    latlong_to_meshcode(lat = 35.82083, long = 137.0563, order = 3),
-    latlong_to_meshcode(lat = 38.40052, long = 141.0131, order = 3))))
+setView(lng = 135.0, lat = 38.0, zoom = 3) \%>\% 
+addPolygons(data = export_mesh(
+code = c(
+latlong_to_meshcode(lat = 35.82083, long = 137.0563, order = 3),
+latlong_to_meshcode(lat = 38.40052, long = 141.0131, order = 3))))
 }
-

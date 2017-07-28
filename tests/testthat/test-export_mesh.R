@@ -1,8 +1,8 @@
 context("meshcode export as geojson")
 
 test_that("typeof", {
-  expect_is(export_mesh(53375084), "geo_json")
-  expect_type(export_mesh(53375084), "character")
+  expect_s3_class(export_mesh(53375084), c("sf", "tbl", "data.frame"))
+  expect_type(export_mesh(53375084), "list")
 })
 
 test_that("usage", {

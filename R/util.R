@@ -270,19 +270,47 @@ bundle_mesh_vars <- function(df) {
   
 }
 
-poly_to_geojson <- function(df) {
+mk_poly <- function(d) {
   
-  i <- NULL
+  long_center <- long_error <- lat_center <- lat_error <- poly <- NULL
   
-  list.polygons <- foreach(i = 1:nrow(df)) %do% {
-    sp::Polygons(
-      list(sp::Polygon(
-        cbind(
-          c(df[i, ]$lng1, df[i, ]$lng1, df[i, ]$lng2, df[i, ]$lng2, df[i, ]$lng1),
-          c(df[i, ]$lat2, df[i, ]$lat1, df[i, ]$lat1, df[i, ]$lat2, df[i, ]$lat2)))),
-      df[i, ]$mesh_code)
-  }
-  str.geojson <- geojsonio::geojson_json(sp::SpatialPolygons(Srl = list.polygons, pO = 1:nrow(df)), geometry = "polygon")
+  res <- d %>%
+    dplyr::mutate(poly = sf::st_polygon(list(rbind(c(long_center - long_error, lat_center - lat_error),
+                                                   c(long_center + long_error, lat_center - lat_error),
+                                                   c(long_center + long_error, lat_center + lat_error),
+                                                   c(long_center - long_error, lat_center + lat_error),
+                                                   c(long_center - long_error, lat_center - lat_error))))) %>%
+    magrittr::use_series(poly)
   
-  return(str.geojson)
+  return(res)
+}
+mk_poly2 <- function(d) {
+  
+  lng1 <- lng2 <- lat1 <- lat2 <- poly <- NULL
+  
+  res <- d %>% 
+    dplyr::mutate(
+      poly = sf::st_polygon(list(cbind(c(lng1, lng1, lng2, lng2, lng1),
+                                       c(lat2, lat1, lat1, lat2, lat2))))
+    ) %>% 
+    magrittr::use_series(poly)
+  
+  return(res)
+}
+
+poly_to_sf <- function(df) {
+  
+  .out <- NULL
+  
+  res <- 
+    tibble::tibble(
+      mesh_code = df$mesh_code,
+      poly =  df %>%
+        purrrlyr::slice_rows("mesh_code") %>%
+        purrrlyr::by_slice(
+          mk_poly2
+        ) %>% magrittr::use_series(.out) %>% sf::st_sfc()
+    ) %>% sf::st_as_sf()
+  
+  return(res)
 }
