@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+.Rapp.history
 .*.Rnb.cached
 data-raw/city_mesh/
 ^README-.*\.png$
