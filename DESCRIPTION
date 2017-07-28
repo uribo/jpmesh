@@ -2,7 +2,6 @@ Package: jpmesh
 Type: Package
 Title: Utilities for Japanese Mesh Code
 Version: 0.3.0.9999
-Date: 2016-11-12
 Authors@R: c(person(given = "Shinya", family = "Uryu",
                                             email = "suika1127@gmail.com",
                                             role  = c("aut", "cre")))
@@ -30,4 +29,5 @@ Imports:
 Suggests:
   testthat
 License: MIT + file LICENSE
-RoxygenNote: 5.0.1
+LazyData: true
+RoxygenNote: 6.0.1
