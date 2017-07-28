@@ -1,3 +1,55 @@
+#' @title mesh rectangle check
+#' 
+#' @description Multiple mesh coverd area.
+#' @param df data.frame
+#' @param code mesh code
+#' @param view option.
+#' @import dplyr
+#' @import leaflet
+#' @importFrom purrr map
+#' @importFrom tidyr unnest
+#' @importFrom magrittr set_colnames
+#' @importFrom tibble rownames_to_column
+#' @examples 
+#' \dontrun{
+#' mesh_rectangle(data.frame(mesh = 6041, 
+#' lat_center = 40.3333333333,
+#' long_center = 141.5,
+#' lat_error =  0.33,
+#' long_error = 0.5), "mesh", view = FALSE)
+#' }
+#' @name mesh_rectangle
+#' @export
+mesh_rectangle <- function(df, code = "mesh_code", view = FALSE) {
+  
+  mesh_code <- NULL
+  
+  my_var <- rlang::enquo(code)
+  df.mesh <- df %>% 
+    dplyr::distinct(!! my_var) %>%  
+    magrittr::set_colnames(c("mesh_code")) %>% 
+    dplyr::mutate(mesh_area = purrr::map(mesh_code, jpmesh::meshcode_to_latlon)) %>% 
+    tidyr::unnest() %>% 
+    bundle_mesh_vars() %>% 
+    tibble::rownames_to_column()
+  
+  if (view != TRUE) {
+    
+    res <- df.mesh
+  } else {
+    
+    map.mesh <- leaflet() %>% 
+      addTiles() %>% 
+      addRectangles(data = df.mesh,
+                    lng1 = df.mesh$lng1, lat1 = df.mesh$lat1,
+                    lng2 = df.mesh$lng2, lat2 = df.mesh$lat2)
+    
+    res <- list(data = df.mesh, 
+                map  = map.mesh)
+  }
+  
+  return(res)
+}
 #' Rectange mesh grid area
 #' 
 #' @description Single mesh coverd area.
@@ -7,6 +59,7 @@
 #' @importFrom tibble rownames_to_column
 #' @examples 
 #' mesh_area(523504221, order = "harf")
+#' @name mesh_area
 #' @export
 mesh_area <- function(code, order = c("harf", "quarter", "eight")) {
 

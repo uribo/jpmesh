@@ -12,22 +12,20 @@ Depends:
 URL: https://github.com/uribo/jpmesh
 BugReports: https://github.com/uribo/jpmesh/issues
 Imports:
-  broom,
   dplyr,
-  foreach,
-  geojsonio,
   leaflet,
   magrittr,
   miniUI,
   purrr,
   readr,
-  rgdal,
+  rlang,
+  sf,
   shiny,
-  sp,
   tibble,
   tidyr
 Suggests:
-  testthat
+  testthat,
+  purrrlyr
 License: MIT + file LICENSE
 LazyData: true
 RoxygenNote: 6.0.1
