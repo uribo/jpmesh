@@ -16,3 +16,14 @@
 #'   \item{abb_name}
 #' }
 "jpnrect"
+
+#' @title Meshcode include the prefecture
+#' 
+#' @description Japanese prefectures mesh dataset
+#' @details  50km meshcode
+#' @format A data frame with 240 rows 2 variables:
+#' \itemize{
+#'   \item{pref}
+#'   \item{mesh}
+#' }
+"prefecture_mesh"
