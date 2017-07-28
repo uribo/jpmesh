@@ -10,9 +10,10 @@ pref_mesh(code = NULL)
 \item{code}{prefecture code (jiscode)}
 }
 \description{
-Japanese prefectures administrations
+deprecated. Japanese prefectures administrations
 }
 \examples{
+\dontrun{
 head(pref_mesh(33))
+} 
 }
-

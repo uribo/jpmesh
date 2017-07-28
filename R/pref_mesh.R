@@ -1,10 +1,12 @@
 #' @title Collect prefecture 1km mesh data
 #' 
-#' @description Japanese prefectures administrations
+#' @description deprecated. Japanese prefectures administrations
 #' @param code prefecture code (jiscode)
 #' @importFrom readr read_rds
 #' @examples 
+#' \dontrun{
 #' head(pref_mesh(33))
+#' } 
 #' @export
 pref_mesh <- function(code = NULL) {
   
