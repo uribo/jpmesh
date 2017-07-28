@@ -21,4 +21,3 @@ meshcode_to_latlon(64414277)
 \author{
 Akio Takenaka
 }
-

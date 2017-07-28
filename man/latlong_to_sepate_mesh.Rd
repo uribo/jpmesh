@@ -26,4 +26,3 @@ latlong_to_sepate_mesh(35.442893, 139.310654, order = "quarter")
 latlong_to_sepate_mesh(35.448767, 139.301706, order = "quarter")
 latlong_to_sepate_mesh(35.449011, 139.311340, order = "quarter")
 }
-

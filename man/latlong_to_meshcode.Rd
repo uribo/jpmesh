@@ -29,4 +29,3 @@ latlong_to_meshcode(35.68949, 139.6917, order = 2)
 \author{
 Akio Takenaka
 }
-

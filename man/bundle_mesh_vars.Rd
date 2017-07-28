@@ -12,4 +12,3 @@ bundle_mesh_vars(df)
 \description{
 generate null variables for jpmesh
 }
-

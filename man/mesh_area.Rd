@@ -17,4 +17,3 @@ Single mesh coverd area.
 \examples{
 mesh_area(523504221, order = "harf")
 }
-
