@@ -25,4 +25,3 @@ jpnrect
 Rectangle Japanese prefectures positions.
 }
 \keyword{datasets}
-
