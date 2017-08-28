@@ -18,7 +18,6 @@ Imports:
   miniUI,
   purrr,
   readr,
-  rlang,
   sf,
   shiny,
   tibble,

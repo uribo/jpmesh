@@ -24,9 +24,9 @@ mesh_rectangle <- function(df, code = "mesh_code", view = FALSE) {
   
   mesh_code <- NULL
   
-  my_var <- rlang::enquo(code)
   df.mesh <- df %>% 
-    dplyr::distinct(!! my_var) %>%  
+    dplyr::select(code) %>% 
+    unique() %>% 
     magrittr::set_colnames(c("mesh_code")) %>% 
     dplyr::mutate(mesh_area = purrr::map(mesh_code, jpmesh::meshcode_to_latlon)) %>% 
     tidyr::unnest() %>% 
