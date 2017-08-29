@@ -7,8 +7,7 @@ build:
         code: |
           apt-get update \
           && apt-get upgrade -y \
-          && apt-get install -y --no-install-recommends \
-          && libssl-dev libssl-dev
+          && apt-get install -y --no-install-recommends libssl-dev libssl-dev
     - script:
         -name: Prepare Install sf Packages
         code: |
