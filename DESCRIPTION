@@ -23,6 +23,7 @@ Imports:
   tibble,
   tidyr
 Suggests:
+  devtools,
   testthat,
   purrrlyr
 License: MIT + file LICENSE

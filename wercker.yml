@@ -19,8 +19,8 @@ build:
         -name: Install Dependency R Packages
         code: |
           install2.r dplyr leaflet purrr \
-          && tibble tidyr shiny miniUI \
-          && sf devtools testthat purrrlyr roxygen2
+          tibble tidyr shiny miniUI \
+          sf devtools testthat purrrlyr roxygen2
     - script:
         name: Package Build Test
         code: |
