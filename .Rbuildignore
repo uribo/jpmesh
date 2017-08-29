@@ -12,3 +12,4 @@
 ^logo\.png$
 ^_pkgdown\.yml$
 ^vignettes$
+wercker.yml
