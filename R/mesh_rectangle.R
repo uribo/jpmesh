@@ -12,7 +12,7 @@
 #' @importFrom tibble rownames_to_column
 #' @examples 
 #' \dontrun{
-#' mesh_rectangle(data.frame(mesh = 6041, 
+#' mesh_rectangle(data.frame(mesh_code = 6041,
 #' lat_center = 40.3333333333,
 #' long_center = 141.5,
 #' lat_error =  0.33,
@@ -24,11 +24,44 @@ mesh_rectangle <- function(df, code = "mesh_code", view = FALSE) {
   
   mesh_code <- NULL
   
+  mesh_separate2half <- function(mesh_code) {
+    last_meshcode <- substr(mesh_code, nchar(mesh_code), nchar(mesh_code))
+    d <- meshcode_to_latlon(mesh_code)
+    
+    if (last_meshcode == "1") {
+      res <- data.frame(
+        lat_center = d$lat_center - d$lat_error / 2,
+        long_center = d$long_center - d$long_error / 2
+      )
+    } else if (last_meshcode == "2") {
+      res <- data.frame(
+        lat_center = d$lat_center - d$lat_error / 2,
+        long_center = d$long_center + d$long_error / 2
+      )
+    } else if (last_meshcode == "3") {
+      res <- data.frame(
+        lat_center = d$lat_center + d$lat_error / 2,
+        long_center = d$long_center - d$long_error / 2
+      )
+    } else if (last_meshcode == "4") {
+      res <- data.frame(
+        lat_center = d$lat_center + d$lat_error / 2,
+        long_center = d$long_center + d$long_error / 2
+      )
+    }
+    
+    res <- res %>% 
+      dplyr::mutate(lat_error = d$lat_error / 2,
+                    long_error = d$long_error / 2)
+    
+    return(res)
+  }
+  
   df.mesh <- df %>% 
-    dplyr::select(code) %>% 
+    dplyr::select(mesh_code) %>% 
     unique() %>% 
     magrittr::set_colnames(c("mesh_code")) %>% 
-    dplyr::mutate(mesh_area = purrr::map(mesh_code, jpmesh::meshcode_to_latlon)) %>% 
+    dplyr::mutate(mesh_area = purrr::map(mesh_code, mesh_separate2half)) %>% 
     tidyr::unnest() %>% 
     bundle_mesh_vars() %>% 
     tibble::rownames_to_column()
