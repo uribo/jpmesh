@@ -64,3 +64,12 @@ test_that("eight mesh", {
   expect_equal(res$lat1[2], res$lat2[3], tolerance = .002)
   
 })
+
+test_that("mesh rectange", {
+  # mesh_rectangle.R
+  d <- mesh_rectangle(data.frame(mesh_code = 6041,
+  lat_center = 40.3333333333,
+  long_center = 141.5,
+  lat_error =  0.33,
+  long_error = 0.5), "mesh", view = FALSE)
+})
