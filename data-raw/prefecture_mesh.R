@@ -3,9 +3,12 @@
 #########################################
 devtools::load_all(".")
 library(sf)
-library(tidyverse) # dplyr, purrr, tidyr
+library(dplyr)
+library(purrr)
+library(tidyr)
 library(jpndistrict)
 library(testthat)
+# library(leaflet)
 
 code_1_20 <- c(3036,
                3622, 3623, 3624, 3631, 3641, 3653,
@@ -54,7 +57,7 @@ sf.jpmesh <- jpmesh.bind %>%
   st_sfc()
 expect_s3_class(sf.jpmesh, c("sfc_POLYGON", "sfc"))
 
-# plot(spdf_jpn_pref(1)["city_name"])
+# plot(spdf_jpn_pref(20)["city_name"])
 # plot(sf.jpmesh %>% st_set_crs(4326), add = TRUE)
 
 sf.jpmesh2 <- sf.jpmesh %>%
@@ -64,36 +67,60 @@ sf.jpmesh2 <- sf.jpmesh %>%
 expect_s3_class(sf.jpmesh2, c("sf", "data.frame"))
 expect_named(sf.jpmesh2, c("meshcode", "geometry"))
 
-filter_mesh_df <- sf.jpmesh2[tibble::tibble(
-  res_contains = st_contains(sf.jpmesh %>% st_set_crs(4326), # 41
-                             jpndistrict::spdf_jpn_pref(1) %>% st_transform(4326))
-) %>%
-  mutate(id = row_number()) %>%
-  tidyr::unnest() %>%
-  use_series(id) %>% unique(), ]
+
+# library(leaflet)
+# leaflet() %>% addTiles() %>%
+#   addPolygons(data = spdf_jpn_pref(21) %>% st_transform(4326),
+#               color = "tomato") %>%
+#   addPolygons(data = sf.jpmesh2[tibble::tibble(
+#     res_contains = st_overlaps(sf.jpmesh %>% st_set_crs(4326),
+#                                spdf_jpn_pref(21) %>% st_transform(4326))
+#   ) %>%
+#     mutate(id = row_number()) %>%
+#     tidyr::unnest() %>%
+#     use_series(id) %>% unique(), ], label = ~meshcode)
 
 export_pref_all_mesh <- function(code = 1) {
-  sf.jpmesh2[tibble::tibble(
-    res_contains = st_contains(sf.jpmesh %>% st_set_crs(4326),
-                               jpndistrict::spdf_jpn_pref(code = sprintf("%02d", code)) %>% st_transform(4326))
+  
+  st_crs(sf.jpmesh) <- 4326
+  sp.pref.crs <- jpndistrict::spdf_jpn_pref(code = code) %>% 
+    st_transform(crs = 4326)
+
+  res1 <- sf.jpmesh2[tibble::tibble(
+    res_contains = st_covers(sf.jpmesh,
+                             sp.pref.crs)
   ) %>%
     mutate(id = row_number()) %>%
     tidyr::unnest() %>%
-    use_series(id) %>% unique(), ] %>% 
+    use_series(id) %>% unique(), ] %>%
     use_series(meshcode) %>% unique()
+  
+  res2 <- sf.jpmesh2[tibble::tibble(
+    res_contains = st_overlaps(sf.jpmesh,
+                               sp.pref.crs)
+  ) %>%
+    mutate(id = row_number()) %>%
+    tidyr::unnest() %>%
+    use_series(id) %>% unique(), ] %>%
+    use_series(meshcode) %>% unique()
+  
+  res <- c(res1, res2) %>% unique()
+  
+  return(res)
+  
 }
 
 # export_pref_all_mesh(1)
-# export_pref_all_mesh(2)
+# export_pref_all_mesh(13)
+# export_pref_all_mesh(21)
 
 prefecture_mesh <- tibble::tibble(
   pref = sprintf("%02d", 1:47),
-  mesh = 1:47 %>% 
+  mesh = 1:47 %>%
     purrr::map(export_pref_all_mesh)
 ) %>% tidyr::unnest()
 expect_s3_class(prefecture_mesh, c("tbl", "data.frame"))
-expect_equal(dim(prefecture_mesh), c(240, 2))
+expect_equal(dim(prefecture_mesh), c(316, 2)) # ~~not use ray's~~
 expect_named(prefecture_mesh, c("pref", "mesh"))
 
 devtools::use_data(prefecture_mesh, overwrite = TRUE)
-
