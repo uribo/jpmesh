@@ -2,6 +2,7 @@
 
 export(detect_mesh)
 export(export_mesh)
+export(find_neighbor_mesh)
 export(fine_separate)
 export(latlong_to_meshcode)
 export(latlong_to_sepate_mesh)
