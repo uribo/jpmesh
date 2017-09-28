@@ -8,7 +8,6 @@ library(purrr)
 library(tidyr)
 library(jpndistrict)
 library(testthat)
-# library(leaflet)
 
 code_1_20 <- c(3036,
                3622, 3623, 3624, 3631, 3641, 3653,
@@ -67,7 +66,6 @@ sf.jpmesh2 <- sf.jpmesh %>%
 expect_s3_class(sf.jpmesh2, c("sf", "data.frame"))
 expect_named(sf.jpmesh2, c("meshcode", "geometry"))
 
-
 # library(leaflet)
 # leaflet() %>% addTiles() %>%
 #   addPolygons(data = spdf_jpn_pref(21) %>% st_transform(4326),
@@ -85,23 +83,23 @@ export_pref_all_mesh <- function(code = 1) {
   st_crs(sf.jpmesh) <- 4326
   sp.pref.crs <- jpndistrict::spdf_jpn_pref(code = code) %>% 
     st_transform(crs = 4326)
-
+  
   res1 <- sf.jpmesh2[tibble::tibble(
-    res_contains = st_covers(sf.jpmesh,
-                             sp.pref.crs)
-  ) %>%
-    mutate(id = row_number()) %>%
-    tidyr::unnest() %>%
-    use_series(id) %>% unique(), ] %>%
+    res_contains = suppressMessages(st_covers(sf.jpmesh,
+                                              sp.pref.crs)
+    )) %>%
+      mutate(id = row_number()) %>%
+      tidyr::unnest() %>%
+      use_series(id) %>% unique(), ] %>%
     use_series(meshcode) %>% unique()
   
   res2 <- sf.jpmesh2[tibble::tibble(
-    res_contains = st_overlaps(sf.jpmesh,
-                               sp.pref.crs)
-  ) %>%
-    mutate(id = row_number()) %>%
-    tidyr::unnest() %>%
-    use_series(id) %>% unique(), ] %>%
+    res_contains = suppressMessages(st_overlaps(sf.jpmesh,
+                                                sp.pref.crs)
+    )) %>%
+      mutate(id = row_number()) %>%
+      tidyr::unnest() %>%
+      use_series(id) %>% unique(), ] %>%
     use_series(meshcode) %>% unique()
   
   res <- c(res1, res2) %>% unique()
@@ -109,7 +107,6 @@ export_pref_all_mesh <- function(code = 1) {
   return(res)
   
 }
-
 # export_pref_all_mesh(1)
 # export_pref_all_mesh(13)
 # export_pref_all_mesh(21)
@@ -118,9 +115,18 @@ prefecture_mesh <- tibble::tibble(
   pref = sprintf("%02d", 1:47),
   mesh = 1:47 %>%
     purrr::map(export_pref_all_mesh)
-) %>% tidyr::unnest()
+) %>% tidyr::unnest() %>% 
+  left_join(readr::read_csv("data-raw/jp_mesh_1.csv",
+                            col_types = "cc--"),
+            by = c("mesh" = "code_1_20")) %>% 
+  rename(name = names_1_20) %>% 
+  mutate(name = stringr::str_to_title(name))
 expect_s3_class(prefecture_mesh, c("tbl", "data.frame"))
-expect_equal(dim(prefecture_mesh), c(316, 2)) # ~~not use ray's~~
-expect_named(prefecture_mesh, c("pref", "mesh"))
+expect_equal(dim(prefecture_mesh), c(316, 3)) # ~~not use ray's~~
+expect_named(prefecture_mesh, c("pref", "mesh", "name"))
+
+# prefecture_mesh %>% 
+#   distinct(name, .keep_all = TRUE) %>% 
+#   mesh_rectangle(code = "mesh", view = TRUE)
 
 devtools::use_data(prefecture_mesh, overwrite = TRUE)
