@@ -37,7 +37,6 @@ Usage
 ``` r
 library(jpmesh)
 library(dplyr, warn.conflicts = FALSE)
-library(ggplot2)
 ```
 
 ### Convert mesh code to coordinate and vice versa
@@ -46,14 +45,14 @@ library(ggplot2)
 
 ``` r
 meshcode_to_latlon(5133)
-#>   lat_center long_center lat_error long_error
-#> 1   34.33333       133.5 0.3333333        0.5
+#>      lat_center long_center    lat_error long_error
+#> 1 34.3333333333       133.5 0.3333333333        0.5
 meshcode_to_latlon(513377)
-#>   lat_center long_center  lat_error long_error
-#> 1     34.625    133.9375 0.04166667     0.0625
+#>   lat_center long_center       lat_error long_error
+#> 1     34.625    133.9375 0.0416666666667     0.0625
 meshcode_to_latlon(51337783)
-#>   lat_center long_center   lat_error long_error
-#> 1   34.65417    133.9187 0.004166667    0.00625
+#>      lat_center long_center        lat_error       long_error
+#> 1 34.6541666667   133.91875 0.00416666669999 0.00624999999999
 ```
 
 緯度経度から、範囲内のメッシュコードを取得
@@ -82,16 +81,18 @@ detect_mesh(523504221, lat = 34.684028, long = 135.529506)
 
 ``` r
 data("jpnrect")
+```
 
+``` r
+plot(jpnrect["abb_name"])
+```
+
+![](README-jpn_simple_map_sf-1.png)
+
+``` r
+library(ggplot2) # 2.2.1.9000
 ggplot() +
-  geom_map(data = jpnrect,
-           map  = jpnrect,
-           aes(x = long, y = lat, map_id = id),
-           fill = "#FFFFFF", color = "black",
-           size = 1) +
-  coord_map() +
-  ggthemes::theme_map() +
-  geom_text(aes(x = longitude, y = latitude, label = abb_name), data = jpnrect, size = 3)
+  geom_sf(data = jpnrect)
 ```
 
 ![](README-jpn_simple_map-1.png)
@@ -99,40 +100,36 @@ ggplot() +
 都道府県別のメッシュコードデータ
 
 ``` r
-pref_mesh(33) %>% head() %>% knitr::kable()
+administration_mesh(code = 33, type = "prefecture") %>% 
+  dplyr::sample_n(5) %>% 
+  knitr::kable()
 ```
 
-| jiscode |      long|       lat|  order| group      |        id| city\_code | city\_name |
-|:--------|---------:|---------:|------:|:-----------|---------:|:-----------|:-----------|
-| 33      |  133.5250|  34.30000|      1| 51333452.1 |  51333452| 33205      | 笠岡市     |
-| 33      |  133.5375|  34.30000|      2| 51333452.1 |  51333452| 33205      | 笠岡市     |
-| 33      |  133.5375|  34.29167|      3| 51333452.1 |  51333452| 33205      | 笠岡市     |
-| 33      |  133.5250|  34.29167|      4| 51333452.1 |  51333452| 33205      | 笠岡市     |
-| 33      |  133.5250|  34.30000|      5| 51333452.1 |  51333452| 33205      | 笠岡市     |
-| 33      |  133.5250|  34.30833|      1| 51333462.1 |  51333462| 33205      | 笠岡市     |
+| mesh\_code | city\_code | city\_name   | geometry                                                                                                                                                  |
+|:-----------|:-----------|:-------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 523357     | 33606      | 苫田郡鏡野町 | 133.8750000000, 134.0000000000, 134.0000000000, 133.8750000000, 133.8750000000, 35.0833333333, 35.0833333333, 35.1666666667, 35.1666666667, 35.0833333333 |
+| 523335     | 33214      | 真庭市       | 133.6250000000, 133.7500000000, 133.7500000000, 133.6250000000, 133.6250000000, 34.9166666667, 34.9166666667, 34.9999999999, 34.9999999999, 34.9166666667 |
+| 523322     | 33210      | 新見市       | 133.2500000000, 133.3750000000, 133.3750000000, 133.2500000000, 133.2500000000, 34.8333333333, 34.8333333333, 34.9166666667, 34.9166666667, 34.8333333333 |
+| 523430     | 33666      | 久米郡美咲町 | 134.0000000000, 134.1250000000, 134.1250000000, 134.0000000000, 134.0000000000, 34.9166666667, 34.9166666667, 34.9999999999, 34.9999999999, 34.9166666667 |
+| 513376     | 33202      | 倉敷市       | 133.7500000000, 133.8750000000, 133.8750000000, 133.7500000000, 133.7500000000, 34.5833333333, 34.5833333333, 34.6666666667, 34.6666666667, 34.5833333333 |
 
 可視化の一例
 
 ``` r
-# For leaflet
-# pref_mesh(33) %>% mesh_rectangle(mesh_code = "id", view = TRUE)
+library(leaflet)
 ```
 
 ``` r
-df.map <- pref_mesh(33) %>% 
-  mutate(mesh_area = purrr::map(id, meshcode_to_latlon)) %>% 
-  tidyr::unnest() %>% 
-  mutate(lng1 = long_center - long_error,
-         lat1 = lat_center - lat_error,
-         lng2 = long_center + long_error,
-         lat2 = lat_center + lat_error)
+# For leaflet
+leaflet() %>% addTiles() %>% 
+  addPolygons(data = administration_mesh(code = 33101, type = "city"))
+```
 
+![](mesh_pref_33_leaflet.png)
+
+``` r
 ggplot() + 
-  geom_map(data = df.map, 
-           map = df.map,
-           aes(x = long, y = lat, map_id = id), 
-           fill = "white", color = "black") + 
-  coord_map(projection = "mercator")
+  geom_sf(data = administration_mesh(code = 33, type = "city"))
 ```
 
 ![](README-mesh_pref33_map-1.png)

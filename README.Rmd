@@ -47,7 +47,6 @@ devtools::install_github("uribo/jpmesh")
 ```{r}
 library(jpmesh)
 library(dplyr, warn.conflicts = FALSE)
-library(ggplot2)
 ```
 
 ### Convert mesh code to coordinate and vice versa
@@ -79,47 +78,58 @@ detect_mesh(523504221, lat = 34.684028, long = 135.529506)
 
 1次メッシュを基礎とした単純化した日本地図の描画
 
-```{r jpn_simple_map, fig.width = 8, fig.height = 6}
+```{r}
 data("jpnrect")
+```
 
+```{r, jpn_simple_map_sf, fig.width = 8, fig.height = 6}
+plot(jpnrect["abb_name"])
+```
+
+```{r jpn_simple_map, fig.width = 8, fig.height = 6}
+library(ggplot2) # 2.2.1.9000
 ggplot() +
-  geom_map(data = jpnrect,
-           map  = jpnrect,
-           aes(x = long, y = lat, map_id = id),
-           fill = "#FFFFFF", color = "black",
-           size = 1) +
-  coord_map() +
-  ggthemes::theme_map() +
-  geom_text(aes(x = longitude, y = latitude, label = abb_name), data = jpnrect, size = 3)
+  geom_sf(data = jpnrect)
 ```
 
 都道府県別のメッシュコードデータ
 
 ```{r, results = 'asis'}
-pref_mesh(33) %>% head() %>% knitr::kable()
+set.seed(71)
+administration_mesh(code = 33, type = "prefecture") %>% 
+  dplyr::sample_n(5) %>% 
+  knitr::kable()
 ```
 
 可視化の一例
 
+```{r}
+library(leaflet)
+```
+
+
 ```{r, eval = FALSE, echo = TRUE}
 # For leaflet
-# pref_mesh(33) %>% mesh_rectangle(mesh_code = "id", view = TRUE)
+leaflet() %>% addTiles() %>% 
+  addProviderTiles("OpenStreetMap.BlackAndWhite") %>% 
+  addPolygons(data = administration_mesh(code = 33101, type = "city"))
 ```
+
+```{r mesh_pref_33_leaflet, include = FALSE}
+library(mapview)
+m <- leaflet(options = leafletOptions(minZoom = 10, maxZoom = 10)) %>% 
+  addTiles() %>% 
+  addProviderTiles("OpenStreetMap.BlackAndWhite") %>% 
+  addPolygons(data = administration_mesh(code = 33101, type = "city"))
+
+mapview::mapshot(m,
+                 file = paste0(getwd(), 
+    "/mesh_pref_33_leaflet.png"))
+```
+
+![](mesh_pref_33_leaflet.png)
 
 ```{r mesh_pref33_map, warning = FALSE}
-df.map <- pref_mesh(33) %>% 
-  mutate(mesh_area = purrr::map(id, meshcode_to_latlon)) %>% 
-  tidyr::unnest() %>% 
-  mutate(lng1 = long_center - long_error,
-         lat1 = lat_center - lat_error,
-         lng2 = long_center + long_error,
-         lat2 = lat_center + lat_error)
-
 ggplot() + 
-  geom_map(data = df.map, 
-           map = df.map,
-           aes(x = long, y = lat, map_id = id), 
-           fill = "white", color = "black") + 
-  coord_map(projection = "mercator")
+  geom_sf(data = administration_mesh(code = 33, type = "city"))
 ```
-
