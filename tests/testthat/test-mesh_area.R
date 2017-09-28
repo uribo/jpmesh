@@ -71,5 +71,11 @@ test_that("mesh rectange", {
   lat_center = 40.3333333333,
   long_center = 141.5,
   lat_error =  0.33,
-  long_error = 0.5), "mesh", view = FALSE)
+  long_error = 0.5), "mesh_code", view = FALSE)
+  
+  expect_equal(dim(d), c(1, 10))
+  expect_named(d, c("rowname", "mesh_code", "lat_center", "long_center", "lat_error", "long_error", "lng1", "lat1", "lng2", "lat2"))
+  expect_equal(d$lat_error[1], 0.333333333, torelance = 0.002)
+  expect_equal(d$long_error[1], 0.5)
+  
 })
