@@ -1,3 +1,16 @@
+# jpmesh 0.4.0 (2017-09-01)
+
+- Using sf api.
+- Add new dataset.
+    - `jpnrect`... Japan Prefecture Mesh Data.
+    - `prefecture_mesh`
+- Enhanced CI and coverage environment (#5).
+- Fix some issues (#6).
+- Add new functions
+    - `pref_mesh()` replicate to `administration_mesh()`
+    - `find_neighbor_mesh()`... Find out neighborhood meshes.
+    - `mesh_rectangle()`... Output mesh rectange.
+
 # jpmesh 0.3.0 (2016-11-12)
 
 ## New Features

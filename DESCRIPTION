@@ -1,7 +1,7 @@
 Package: jpmesh
 Type: Package
 Title: Utilities for Japanese Mesh Code
-Version: 0.3.0.9999
+Version: 0.4.0
 Authors@R: c(person(given = "Shinya", family = "Uryu",
                                             email = "suika1127@gmail.com",
                                             role  = c("aut", "cre")))
@@ -17,6 +17,7 @@ Imports:
   magrittr,
   miniUI,
   purrr,
+  purrrlyr,
   readr,
   sf,
   shiny,
@@ -25,7 +26,7 @@ Imports:
 Suggests:
   devtools,
   testthat,
-  purrrlyr
+  stringr
 License: MIT + file LICENSE
 LazyData: true
 RoxygenNote: 6.0.1
