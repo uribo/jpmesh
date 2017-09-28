@@ -8,6 +8,11 @@ test_that("from latitude and longitude to mesh 1", {
   expect_true(is.numeric(res))
   expect_equal(4, nchar(res))
   expect_equal(res, 5133)
+  
+  expect_error(latlong_to_meshcode(-28.0070630000, 153.429390000))
+  expect_error(latlong_to_meshcode(1.2819450000, 103.844763000))
+  expect_error(latlong_to_meshcode(7.0091360000, 100.479448544))
+  
 })
 
 # Order 2 -----------------------------------------------------------------
@@ -38,6 +43,8 @@ test_that("Separete to harf mesh", {
   expect_true(is.numeric(res))
   expect_equal(9, nchar(res))
   expect_equal(res, 533912341)
+  
+  expect_error(latlong_to_sepate_mesh(-28.0070630000, 153.429390000, order = "harf"))
 })
 
 # Separete Mesh: quarter -----------------------------------------------------------------

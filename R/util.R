@@ -1,3 +1,21 @@
+eval_jp_boundary <- function(longitude, 
+                             latitude) {
+  
+  # ref) https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E3%81%AE%E7%AB%AF%E3%81%AE%E4%B8%80%E8%A6%A7
+  res <- dplyr::if_else(
+    dplyr::between(latitude,
+                   20.425555,
+                   45.52640) &
+      dplyr::between(longitude,
+                     123.00472,
+                     153.9805),
+    TRUE,
+    FALSE
+  )
+  
+  return(res)
+}
+
 detect_gird_area <- function(d = NULL, code = NULL){
   
   lat.e <- d$lat_error / 2

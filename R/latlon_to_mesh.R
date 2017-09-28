@@ -16,6 +16,11 @@ latlong_to_meshcode <- function(lat = NULL, long = NULL, order = 3)
   if (length(grep("[123]", order)) == 0) {
     return(NULL)
   }
+  
+  if (eval_jp_boundary(long, lat) == FALSE) {
+    stop("Latitude / Longitude value is out of range.")
+  } 
+  
 # Latitude ----------------------------------------------------------------
   lat_in_min <- lat * 60
   
