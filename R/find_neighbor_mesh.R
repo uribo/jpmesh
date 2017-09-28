@@ -43,7 +43,7 @@ find_neighbor_mesh <- function(mesh = NULL, contains = TRUE) {
       # res3 <- (mesh - 10) + c(1, 3)
       # res4 <- (mesh - 110) + 3
     } else if (last_meshcode == 2) {
-      res <- mesh + c(-1, 1:2, 11, 9, -98:-99,, -89)
+      res <- mesh + c(-1, 1:2, 11, 9, -98:-99, -89)
       # res1 <- mesh + c(-1, 1, 2)
       # res2 <- (mesh + 10) + c(-1, 1)
       # res3 <- (mesh - 100) + 1:2

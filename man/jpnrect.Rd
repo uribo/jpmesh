@@ -24,4 +24,9 @@ jpnrect
 \description{
 Rectangle Japanese prefectures positions.
 }
+\examples{
+\dontrun{
+plot(jpnrect["abb_name"])
+}
+}
 \keyword{datasets}

@@ -15,6 +15,10 @@
 #'   \item{longitude}
 #'   \item{abb_name}
 #' }
+#' @examples 
+#' \dontrun{
+#' plot(jpnrect["abb_name"])
+#' }
 "jpnrect"
 
 #' @title Meshcode include the prefecture

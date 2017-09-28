@@ -332,3 +332,27 @@ poly_to_sf <- function(df) {
   
   return(res)
 }
+
+mod_mesh_rectangle <- function(df, code = "mesh_code", view = FALSE) {
+  mesh_code <- NULL
+  df.mesh <- df %>%
+    dplyr::select(code) %>%
+    unique() %>%
+    magrittr::set_colnames(c("mesh_code")) %>%
+    dplyr::mutate(mesh_area = purrr::map(mesh_code, meshcode_to_latlon)) %>%
+    tidyr::unnest() %>%
+    bundle_mesh_vars() %>%
+    tibble::rownames_to_column()
+  if (view != TRUE) {
+    res <- df.mesh
+  } else {
+    map.mesh <- leaflet() %>%
+      addTiles() %>%
+      addRectangles(data = df.mesh,
+                    lng1 = df.mesh$lng1, lat1 = df.mesh$lat1,
+                    lng2 = df.mesh$lng2, lat2 = df.mesh$lat2)
+    res <- list(data = df.mesh,
+                map  = map.mesh)
+  }
+  return(res)
+}

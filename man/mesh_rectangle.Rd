@@ -18,7 +18,7 @@ Multiple mesh coverd area.
 }
 \examples{
 \dontrun{
-mesh_rectangle(data.frame(mesh_code = 6041,
+mesh_rectangle(data.frame(mesh = 6041,
 lat_center = 40.3333333333,
 long_center = 141.5,
 lat_error =  0.33,
