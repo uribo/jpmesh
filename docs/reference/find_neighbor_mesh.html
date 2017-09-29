@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Separate more fine mesh order — fine_separate • jpmesh</title>
+<title>Find out neighborhood meshes collection — find_neighbor_mesh • jpmesh</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -95,50 +95,40 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Separate more fine mesh order</h1>
+    <h1>Find out neighborhood meshes collection</h1>
     </div>
 
     
-    <p>Return contains fine mesh codes</p>
+    <p>Find out neighborhood meshes collection</p>
     
 
-    <pre class="usage"><span class='fu'>fine_separate</span>(<span class='kw'>meshcode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"harf"</span>, <span class='st'>"quarter"</span>), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>find_neighbor_mesh</span>(<span class='kw'>mesh</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>contains</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>meshcode</th>
-      <td><p>mesh code</p></td>
+      <th>mesh</th>
+      <td><p>meshcode (under the 1km mesh size)</p></td>
     </tr>
     <tr>
-      <th>order</th>
-      <td><p>Choose mesh order</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>other parameters for paste</p></td>
+      <th>contains</th>
+      <td><p>logical. contains input meshcode</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>character vector</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fine_separate</span>(<span class='fl'>52350400</span>, <span class='st'>"harf"</span>)</div><div class='output co'>#&gt; [1] "523504001" "523504002" "523504003" "523504004"</div><div class='input'><span class='fu'>fine_separate</span>(<span class='fl'>52350400</span>, <span class='st'>"quarter"</span>)</div><div class='output co'>#&gt;  [1] "5235040011" "5235040012" "5235040013" "5235040014" "5235040021"
-#&gt;  [6] "5235040022" "5235040023" "5235040024" "5235040031" "5235040032"
-#&gt; [11] "5235040033" "5235040034" "5235040041" "5235040042" "5235040043"
-#&gt; [16] "5235040044"</div><div class='input'><span class='fu'>fine_separate</span>(<span class='fl'>52350400</span>, <span class='st'>"quarter"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='st'>","</span>)</div><div class='output co'>#&gt; [1] "5235040011,5235040012,5235040013,5235040014,5235040021,5235040022,5235040023,5235040024,5235040031,5235040032,5235040033,5235040034,5235040041,5235040042,5235040043,5235040044"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>find_neighbor_mesh</span>(<span class='fl'>53394501</span>)</div><div class='output co'>#&gt; [1] 53394490 53394491 53394492 53394500 53394501 53394502 53394510 53394511
+#&gt; [9] 53394512</div><div class='input'><span class='fu'>find_neighbor_mesh</span>(<span class='fl'>533945011</span>)</div><div class='output co'>#&gt; [1] 533944904 533944913 533944914 533945002 533945004 533945011 533945012
+#&gt; [8] 533945013 533945014</div><div class='input'><span class='fu'>find_neighbor_mesh</span>(<span class='fl'>533945011</span>, <span class='kw'>contains</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] 533944904 533944913 533944914 533945002 533945004 533945012 533945013
+#&gt; [8] 533945014</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

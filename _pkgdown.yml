@@ -23,12 +23,21 @@ reference:
     
   - title: Mesh data
     contents:
+    - administration_mesh
     - jpnrect
-    - pref_mesh
+    - prefecture_mesh
     
   - title: Gadgets
     contents:
     - mesh_viewer
+  
+  - title: Utilities
+    contents:
+    - bundle_mesh_vars
+    - export_mesh
+    - find_neighbor_mesh
+    - mesh_area
+    - mesh_rectangle
 
 navbar:
   right:
