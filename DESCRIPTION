@@ -8,25 +8,25 @@ Authors@R: c(person(given = "Shinya", family = "Uryu",
 Maintainer: Shinya Uryu <suika1127@gmail.com>
 Description: Helpful functions for using mesh code (80km to 250m) data in Japan. Visualize mesh code using 'ggplot2' and 'leaflet', etc.
 Depends:
-    R (>= 2.10)
+    R (>= 3.1.2)
 URL: https://github.com/uribo/jpmesh
 BugReports: https://github.com/uribo/jpmesh/issues
 Imports:
-  dplyr,
-  leaflet,
+  dplyr (>= 0.7.4),
+  leaflet (>= 1.1.0),
   magrittr,
-  miniUI,
-  purrr,
+  miniUI (>= 0.1.1),
+  purrr (>= 0.2.4),
   purrrlyr,
-  readr,
-  sf,
-  shiny,
-  tibble,
-  tidyr
+  readr (>= 1.1.1),
+  sf (>= 0.5-5),
+  shiny (>= 1.0.5),
+  tibble (>= 1.3.4),
+  tidyr (>= 0.7.2)
 Suggests:
-  devtools,
-  testthat,
-  stringr
+  devtools (>= 1.13.4),
+  testthat (>= 1.0.2),
+  stringr (>= 1.2.0)
 License: MIT + file LICENSE
 LazyData: true
 RoxygenNote: 6.0.1
