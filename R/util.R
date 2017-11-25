@@ -1,14 +1,23 @@
-eval_jp_boundary <- function(longitude, 
-                             latitude) {
+#' It roughly judges whether the given coordinates are within the mesh area.
+#' @param lngitude longitude (double)
+#' @param latitude latitude (double)
+#' @importFrom dplyr between if_else
+#' @examples 
+#' \dontrun{
+#' eval_jp_boundary(139.71471056, 35.70128943)
+#' }
+#' @export
+eval_jp_boundary <- function(longitude = NULL, 
+                             latitude = NULL) {
   
   # ref) https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E3%81%AE%E7%AB%AF%E3%81%AE%E4%B8%80%E8%A6%A7
   res <- dplyr::if_else(
     dplyr::between(latitude,
-                   20.425555,
-                   45.52640) &
+                   20.0,
+                   46.0) &
       dplyr::between(longitude,
-                     123.00472,
-                     153.9805),
+                     120.0,
+                     154.0),
     TRUE,
     FALSE
   )
