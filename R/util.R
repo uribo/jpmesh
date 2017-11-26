@@ -363,5 +363,17 @@ mod_mesh_rectangle <- function(df, code = "mesh_code", view = FALSE) {
     res <- list(data = df.mesh,
                 map  = map.mesh)
   }
+mesh_to_poly <- function(lng_center, lat_center, lng_error, lat_error, ...) 
+{
+  res <- sf::st_polygon(list(rbind(c(lng_center - lng_error, 
+                                     lat_center - lat_error), 
+                                   c(lng_center + lng_error, 
+                                     lat_center - lat_error), 
+                                   c(lng_center +  lng_error, 
+                                     lat_center + lat_error), 
+                                   c(lng_center - lng_error, lat_center + lat_error), 
+                                   c(lng_center - lng_error, lat_center - lat_error)))) %>% 
+    sf::st_sfc() %>% 
+    sf::st_as_text()
   return(res)
 }
