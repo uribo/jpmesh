@@ -1,14 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-jpmesh <img src="logo.png" align="right" width="80px" />
-========================================================
+jpmesh <img src="man/figures/logo.png" align="right" width="80px" />
+====================================================================
 
-[![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/jpmesh)](https://cran.r-project.org/package=jpmesh)[![codecov](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/gh/uribo/jpmesh)
+[![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/jpmesh)](https://cran.r-project.org/package=jpmesh) [![codecov](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/gh/uribo/jpmesh)
 
 Overview
 --------
 
-The **`{jpmesh}`** package is a package that makes it easy to use "regional mesh (i.e. mesh code *JIS X 0410* )" used in Japan from R. Regional mesh is a code given when subdividing Japanese landscape into rectangular subregions by latitude and longitude. Depending on the accuracy of the code, different regional mesh length. By using the same mesh in statistical survey etc., it will become possible to handle the survey results of a large area in the area mesh unit.
+The **jpmesh** package is a package that makes it easy to use "regional mesh (i.e. mesh code *JIS X 0410* )" used in Japan from R. Regional mesh is a code given when subdividing Japanese landscape into rectangular subregions by latitude and longitude. Depending on the accuracy of the code, different regional mesh length. By using the same mesh in statistical survey etc., it will become possible to handle the survey results of a large area in the area mesh unit.
 
 In jpmesh, mesh codes and latitude and longitude coordinates are compatible with mesh codes from the first region mesh, which is the standard region mesh, to the quarter regional mesh of the divided region mesh (from 80 km to 125 m). Features include "conversion from latitude and longitude to regional mesh", "acquisition of latitude and longitude from regional mesh", "mapping on prefecture unit and leaflet".
 
@@ -123,7 +123,7 @@ library(sf)
 plot(jpnrect["abb_name"])
 ```
 
-![](README-jpn_simple_map_sf-1.png)
+![](man/figures/README-jpn_simple_map_sf-1.png)
 
 ``` r
 library(ggplot2) # 2.2.1.9000
@@ -131,7 +131,7 @@ ggplot() +
   geom_sf(data = jpnrect)
 ```
 
-![](README-jpn_simple_map-1.png)
+![](man/figures/README-jpn_simple_map-1.png)
 
 Dataset of mesh code for prefectures.
 
@@ -160,11 +160,11 @@ leaflet() %>% addTiles() %>%
   addPolygons(data = administration_mesh(code = 33101, type = "city"))
 ```
 
-![](README-mesh_pref_33_leaflet-1.png)
+![](man/figures/README-mesh_pref_33_leaflet-1.png)
 
 ``` r
 ggplot() + 
   geom_sf(data = administration_mesh(code = 33, type = "city"))
 ```
 
-![](README-mesh_pref33_map-1.png)
+![](man/figures/README-mesh_pref33_map-1.png)
