@@ -1,37 +1,3 @@
-#' @title Detect file scale mesh code
-#' 
-#' @description Find out position. 
-#' @param meshcode mesh code
-#' @param lat latitude
-#' @param long longitude
-#' @examples 
-#' detect_mesh(52350422, lat = 34.684176, long = 135.526130)
-#' detect_mesh(523504221, lat = 34.684028, long = 135.529506)
-#' @export
-detect_mesh <- function(meshcode, lat, long) {
-  
-  df.mesh <- fine_mesh_to_latlon(meshcode)
-  
-  if (lat >= df.mesh$lat_center) {
-    if (long >= df.mesh$long_center) {
-      code <- 4
-    } else {
-      code <- 3
-    }
-  }
-  if (lat < df.mesh$lat_center) {
-    if (long >= df.mesh$long_center) {
-      code <- 2
-    } else {
-      code <- 1
-    }
-  }
-  
-  res <- paste0(meshcode, code)
-  res <- as.numeric(res)
-  return(res)
-}
-
 #' @title Separate more fine mesh order
 #' 
 #' @description Return contains fine mesh codes
