@@ -1,13 +1,12 @@
+dist: trusty
 language: r
+cache: packages
+sudo: required
 
 r:
   - oldrel
   - release
   - devel
-
-cache: packages
-sudo: required
-dist: trusty
 
 addons:
   postgresql: "9.6"
@@ -23,13 +22,9 @@ before_install:
 
 warnings_are_errors: true
 
-after_success:
-  - Rscript -e "library(covr); codecov()"
-
 before_script:
   - sudo apt-get update
   - sudo apt-get install -y gdal-bin libgdal-dev libgdal1-dev netcdf-bin libproj-dev libv8-dev
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-  - ./travis-tool.sh install_deps
+
+after_success:
+  - Rscript -e "covr::codecov()"
