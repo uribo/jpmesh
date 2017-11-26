@@ -73,9 +73,7 @@ mesh_to_coords <- function(meshcode, ...) {
                     lat_center  = lat.c, 
                     lng_error  = long.c - long,
                     lat_error   = lat.c - lat
-                    )  
-  # 500m以下は最後のコードを元に中心座標を割り当てる
-  
+                    )
   finename_centroid <- function(df, last_code) {
     
     lng_center <- lat_center <- lng_error <- lat_error <- NULL
