@@ -2,9 +2,9 @@ Package: jpmesh
 Type: Package
 Title: Utilities for Japanese Mesh Code
 Version: 0.5.0
-Authors@R: c(person(given = "Shinya", family = "Uryu",
-                                            email = "suika1127@gmail.com",
-                                            role  = c("aut", "cre")))
+Authors@R: c(
+    person(given = "Shinya", family = "Uryu", email = "suika1127@gmail.com", role  = c("aut", "cre"), comment = c(ORCID = "0000-0002-0493-6186"))
+    )
 Maintainer: Shinya Uryu <suika1127@gmail.com>
 Description: Helpful functions for using mesh code (80km to 125m) data in Japan. Visualize mesh code using 'ggplot2' and 'leaflet', etc.
 Depends:
