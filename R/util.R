@@ -1,11 +1,14 @@
-#' It roughly judges whether the given coordinates are within the mesh area.
-#' @param lngitude longitude (double)
+#' @title Check include mesh areas
+#' 
+#' @description It roughly judges whether the given coordinates are within the mesh area.
+#' @param longitude longitude (double)
 #' @param latitude latitude (double)
 #' @importFrom dplyr between if_else
 #' @examples 
 #' \dontrun{
 #' eval_jp_boundary(139.71471056, 35.70128943)
 #' }
+#' @aliases eval_jp_boundary
 #' @export
 eval_jp_boundary <- function(longitude = NULL, 
                              latitude = NULL) {

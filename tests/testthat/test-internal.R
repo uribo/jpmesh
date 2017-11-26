@@ -9,9 +9,8 @@ test_that("multiplication works", {
   expect_false(res)
   
   res <- data.frame(
-    lng = c(139.73199250, 139.69170000, 135.78500278),
-    lat = c(35.70902590, 35.68950000, 34.99483056)
-  ) %>% purrrlyr::by_row(~ eval_jp_boundary(latitude = .x$lat, longitude = .x$lng),
-                         .collate = "cols")
-  expect_equal(res$.out, c(TRUE, TRUE, TRUE))
+    longitude = c(139.73199250, 139.69170000, 135.78500278),
+    latitude = c(35.70902590, 35.68950000, 34.99483056)
+  ) %>% mutate(out = purrr::pmap_lgl(., eval_jp_boundary))
+  expect_equal(res$out, c(TRUE, TRUE, TRUE))
 })

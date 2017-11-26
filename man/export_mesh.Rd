@@ -2,29 +2,21 @@
 % Please edit documentation in R/export_mesh.R
 \name{export_mesh}
 \alias{export_mesh}
-\title{Export rectangle mesh to geojson}
+\title{Export meshcode to geometry}
 \usage{
-export_mesh(code)
+export_mesh(meshcode)
 }
 \arguments{
-\item{code}{meshcode}
+\item{meshcode}{mesh code}
+
+\item{...}{other parameters}
 }
 \value{
-sf
+sf object
 }
 \description{
-Convert and export meshcode area to geojson string.
+Convert and export meshcode area to sf polygon.
 }
 \examples{
-export_mesh(
-  code = latlong_to_meshcode(lat = 35.82083, long = 137.0563, order = 3))
-
-library(leaflet)
-leaflet() \%>\%
-addTiles() \%>\%
-setView(lng = 135.0, lat = 38.0, zoom = 3) \%>\% 
-addPolygons(data = export_mesh(
-code = c(
-latlong_to_meshcode(lat = 35.82083, long = 137.0563, order = 3),
-latlong_to_meshcode(lat = 38.40052, long = 141.0131, order = 3))))
+export_mesh(6441427712)
 }

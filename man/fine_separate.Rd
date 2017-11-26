@@ -4,12 +4,10 @@
 \alias{fine_separate}
 \title{Separate more fine mesh order}
 \usage{
-fine_separate(meshcode = NULL, order = c("harf", "quarter"), ...)
+fine_separate(mesh = NULL, ...)
 }
 \arguments{
-\item{meshcode}{mesh code}
-
-\item{order}{Choose mesh order}
+\item{mesh}{mesh code}
 
 \item{...}{other parameters for paste}
 }
@@ -20,7 +18,7 @@ character vector
 Return contains fine mesh codes
 }
 \examples{
-fine_separate(52350400, "harf")
-fine_separate(52350400, "quarter")
-fine_separate(52350400, "quarter", collapse = ",")
+fine_separate(52350400)
+fine_separate(52350400)
+fine_separate(52350400)
 }

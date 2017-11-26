@@ -6,24 +6,28 @@
 #' @import miniUI
 #' @import leaflet
 #' @importFrom dplyr mutate
-#' @importFrom tibble rownames_to_column
+#' @importFrom purrr pmap
+#' @importFrom sf st_sf
 #' @examples 
 #' \dontrun{
 #' mesh_viewer()
 #' }
 #' @export
+
 mesh_viewer <-  function(...) {
   
   # UI ----------------------------------------------------------------------
-  ui <- miniPage(
-    gadgetTitleBar("Mesh Viewer"),
-    miniTabstripPanel(
-      miniTabPanel("Map", icon = icon("map-o"),
-                   textInput("lat", "Latitude: ", value = 43.0625),
-                   textInput("lon", "Longitude: ", value = 141.3438),
-                   sliderInput("order", "mesh_scale_order", min = 1, max = 3, value = 3),
-                   miniContentPanel(padding = 0,
-                                    leafletOutput("my.map", height = "100%")
+  ui <- miniUI::miniPage(
+    miniUI::gadgetTitleBar("Mesh Viewer"),
+    miniUI::miniTabstripPanel(
+      miniUI::miniTabPanel("Map", icon = icon("map-o"),
+                   shiny::textInput("lng", "Longitude: ", value = 141.3438),
+                   shiny::textInput("lat", "Latitude: ", value = 43.0625),
+                   shiny::selectInput("mesh_size", label = "Select Mesh Size",
+                                      choices = c("80km", "10km", "1km", "500m", "250m", "125m"),
+                                      selected = "1km"),
+                   miniUI::miniContentPanel(padding = 0,
+                                    leaflet::leafletOutput("my.map", height = "100%")
                    )
       )
       )
@@ -32,21 +36,20 @@ mesh_viewer <-  function(...) {
   # Server ------------------------------------------------------------------
   server <- function(input, output, session) {
     
-    output$my.map <- renderLeaflet({
+    . <- NULL
+    
+    output$my.map <- leaflet::renderLeaflet({
       
-      d <- latlong_to_meshcode(as.numeric(input$lat), as.numeric(input$lon), order = as.numeric(input$order)) %>% 
-        meshcode_to_latlon() %>% 
-        bundle_mesh_vars()
+      d <- coords_to_mesh(as.numeric(input$lng), as.numeric(input$lat), mesh_size = input$mesh_size) %>% 
+        mesh_to_coords() %>% 
+        dplyr::mutate(geometry = purrr::pmap(., ~ mesh_to_poly(...))) %>% 
+        sf::st_sf(crs = 4326)
       
-      leaflet() %>% addTiles() %>% addRectangles(data = d, 
-                                                 lng1 = d$lng1, 
-                                                 lat1 = d$lat1, 
-                                                 lng2 = d$lng2, 
-                                                 lat2 = d$lat2)
+      leaflet::leaflet() %>% leaflet::addTiles() %>% leaflet::addPolygons(data  = d)
         
     })
   }
   
-  runGadget(ui, server, viewer = dialogViewer("mesh_viewer", width = 650, height = 500))
+  shiny::runGadget(ui, server, viewer = shiny::dialogViewer("mesh_viewer", width = 650, height = 500))
 }
 
