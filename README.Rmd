@@ -16,13 +16,14 @@ knitr::opts_chunk$set(
 
 # jpmesh <img src="logo.png" align="right" width="80px" />
 
-[![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh) [![codecov](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/gh/uribo/jpmesh)
+[![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/jpmesh)](https://cran.r-project.org/package=jpmesh)[![codecov](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/gh/uribo/jpmesh)
 
 ## Overview
 
 The **`{jpmesh}`** package is a package that makes it easy to use "regional mesh (i.e. mesh code _JIS X 0410_ )" used in Japan from R. Regional mesh is a code given when subdividing Japanese landscape into rectangular subregions by latitude and longitude. Depending on the accuracy of the code, different regional mesh length. By using the same mesh in statistical survey etc., it will become possible to handle the survey results of a large area in the area mesh unit.
 
-In jpmesh, mesh codes and latitude and longitude coordinates are compatible with mesh codes from the first region mesh, which is the standard region mesh, to the quarter regional mesh of the divided region mesh (from 80 km to 250 m). Features include "conversion from latitude and longitude to regional mesh", "acquisition of latitude and longitude from regional mesh", "mapping on prefecture unit and leaflet".
+In jpmesh, mesh codes and latitude and longitude coordinates are compatible with mesh codes from the first region mesh, which is the standard region mesh, to the quarter regional mesh of the divided region mesh (from 80 km to 125 m). Features include "conversion from latitude and longitude to regional mesh", "acquisition of latitude and longitude from regional mesh", "mapping on prefecture unit and leaflet".
 
 ## Installation
 
@@ -45,7 +46,6 @@ devtools::install_github("uribo/jpmesh")
 ```{r}
 library(jpmesh)
 library(dplyr, warn.conflicts = FALSE)
-library(ggplot2)
 ```
 
 ### Convert mesh code to coordinate and vice versa
@@ -53,24 +53,35 @@ library(ggplot2)
 Return the latitude and longitude for specifying the mesh range from the mesh code.
 
 ```{r}
-meshcode_to_latlon(5133)
-meshcode_to_latlon(513377)
-meshcode_to_latlon(51337783)
+mesh_to_coords(5133) # 80km
+mesh_to_coords(513377) # 10km
+mesh_to_coords(51337783) # 1km
+mesh_to_coords(513377831) # 500m
+mesh_to_coords(5133778312) # 250m
+mesh_to_coords(51337783123) # 125m
 ```
 
 Find the mesh code within the range from latitude and longitude.
 
 ```{r}
-latlong_to_meshcode(34, 133, order = 1)
-latlong_to_meshcode(34.583333, 133.875, order = 2)
-latlong_to_meshcode(34.65, 133.9125, order = 3)
+coords_to_mesh(133, 34) # default as 1km meshcode
+coords_to_mesh(133, 34, mesh_size = "80km")
+coords_to_mesh(133, 34, mesh_size = "125m")
 ```
 
-### Detect fine mesh code
+### Detect fine and neighborhood mesh codes
 
 ```{r}
-detect_mesh(52350422, lat = 34.684176, long = 135.526130)
-detect_mesh(523504221, lat = 34.684028, long = 135.529506)
+# Returns a finer mesh of the area of the mesh codes
+# Such as, 80km to 10km mesh codes.
+coords_to_mesh(133, 34, "80km") %>% 
+  fine_separate()
+
+# the value of the adjacent mesh codes
+coords_to_mesh(133, 34, "80km") %>% 
+  find_neighbor_mesh()
+coords_to_mesh(133, 34, "500m") %>% 
+  find_neighbor_mesh()
 ```
 
 ### Utilies
@@ -113,4 +124,3 @@ leaflet() %>% addTiles() %>%
 ggplot() + 
   geom_sf(data = administration_mesh(code = 33, type = "city"))
 ```
-

@@ -1,122 +1,78 @@
 ---
-title: "How to use jpmesh"
+title: "How to use mesh cord in R"
 author: "Shinya Uryu"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{How to use mesh cord in R}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ## 概要
 
-**`{jpmesh}`**パッケージは、日本国内で利用される「地域メッシュ（メッシュコード）」をRから容易に利用可能にするパッケージです。地域メッシュとは、日本国土を緯度・経度により方形の小地域区画に細分することで、同一の基準による統計調査などの結果を得ることが可能となります。80kmから250mまでのメッシュコードに対応し、メッシュコードと緯度経度座標との互換を行います。
+**jpmesh**パッケージは、日本国内で利用される「地域メッシュ（メッシュコード）」をRから容易に利用可能にするパッケージです。地域メッシュとは、日本国土を緯度・経度により方形の小地域区画に細分することで、同一の基準による統計調査などの結果を得ることが可能となります。80kmから125mまでのメッシュコードに対応し、メッシュコードと緯度経度座標との相互変換を行います。
 
-**`{jpmesh}`**の主な機能として、「緯度経度からの地域メッシュへの変換」、「地域メッシュからの緯度経度の取得」、「都道府県単位やleaflet上へのマッピング」があります。なお地域メッシュと緯度経度の変換の基礎は[竹中明夫さんのRコード](http://takenaka-akio.org/etc/meshcode/r_code.html)が基礎となっています。ここではその使い方を紹介します。
+**jpmesh**の主な機能として、「緯度経度からの地域メッシュへの変換」、「地域メッシュからの緯度経度の取得」、「都道府県単位やleaflet上へのマッピング」があります。なお地域メッシュと緯度経度の変換の基礎は[竹中明夫さんのRコード](http://takenaka-akio.org/etc/meshcode/r_code.html)が基礎となっています。ここではその使い方を紹介します。
 
-パッケージをインストールしたら環境内で利用可能にするため、読み込みを行いましょう。
+パッケージをインストールしたら環境内で利用可能にするため、読み込みを行いましょう。また、このサンプルページで用いるパッケージも同時に読み込むようにしておきます。
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 library(jpmesh)
+library(sf)
+library(dplyr)
+library(purrr)
 ```
 
 #### 緯度経度と地域メッシュの相互変換
 
-`meshcode_to_latlon()`関数を利用し、緯度経度から地域メッシュを得ることができます。この関数では8桁までの地域メッシュに対応し、メッシュの中心座標とメッシュの範囲を示す値を返します。より細かな分割地域メッシュから緯度経度を得るには、試験的な関数`fine_mesh_to_latlon()`を使ってください。
+`mesh_to_coords()`関数を利用し、緯度経度から地域メッシュを得ることができます。この関数では11桁までの細分地域メッシュに対応し、メッシュの中心座標とメッシュの範囲を示す値を返します。
 
 ```{r}
-meshcode_to_latlon(5133)
-meshcode_to_latlon(513377)
-meshcode_to_latlon(51337783)
-
-jpmesh:::fine_mesh_to_latlon(5133778311)
+mesh_to_coords(5133)
+mesh_to_coords(513377)
+mesh_to_coords(51337783)
 ```
 
-緯度経度から地域メッシュを得ることもできます。これには`latlong_to_meshcode()`を利用します。引数に緯度と経度を与え、取得対象のメッシュコードの大きさを指定します。
+得られるメッシュの領域データを使ってメッシュのポリゴンを作成する例です。
 
 ```{r}
-latlong_to_meshcode(34, 133, order = 1)
-latlong_to_meshcode(34.583333, 133.875, order = 2)
-latlong_to_meshcode(34.65, 133.9125, order = 3)
+export_mesh(5133778311)
+
+mesh_to_coords(5133778311) %>% 
+  dplyr::mutate(geometry = purrr::pmap_chr(., ~ jpmesh:::mesh_to_poly(...))) %>% 
+  dplyr::select(geometry)
 ```
 
-分割地域メッシュの値を得るには`latlong_to_sepate_mesh()`を利用します。この関数は現在、1/2(500m)地域メッシュ、1/4(250m)地域メッシュまでに対応しています。
+
+緯度経度から地域メッシュを得ることもできます。これには`latlong_to_meshcode()`を利用します。引数に緯度と経度を与え、取得対象のメッシュコードの大きさを指定します。メッシュコードの大きさの初期値は標準地域メッシュ、すなわち1kmメッシュです。
 
 ```{r}
-latlong_to_sepate_mesh(35.442788, 139.301255, order = "harf")
-latlong_to_sepate_mesh(35.442788, 139.301255, order = "quarter")
+coords_to_mesh(133, 34)
+coords_to_mesh(133, 34, mesh_size = "80km")
+coords_to_mesh(133, 34, mesh_size = "125m")
 ```
 
-また対象の地域メッシュ内に含まれる緯度経度からスケールダウンした分割地域メッシュを得ることができます。
+また対象の地域メッシュ内に含まれる緯度経度からスケールダウンした地域メッシュや、隣接するメッシュコードを得ることができます。
 
 ```{r}
-detect_mesh(52350422, lat = 34.684176, long = 135.526130)
-detect_mesh(523504221, lat = 34.684028, long = 135.529506)
+# 80kmメッシュに含まれる10kmメッシュを返します
+coords_to_mesh(133, 34, "80km") %>% 
+  fine_separate()
+
+# 隣接するメッシュコードを同じスケールで返します
+coords_to_mesh(133, 34, "80km") %>% 
+  find_neighbor_mesh()
+coords_to_mesh(133, 34, "500m") %>% 
+  find_neighbor_mesh()
 ```
 
 #### 都道府県単位での基準地域メッシュの描画
 
-**`{jpmesh}`**では、都道府県および市区町村名を含んだ基準地域メッシュのデータセットを用意しています。これを利用することで、都道府県や市区町村単位での地域メッシュを扱うことができます。
-
-```{r}
-library(dplyr)
-```
+**jpmesh**では、都道府県および市区町村名を含んだ基準地域メッシュのデータセットを用意しています。これを利用することで、都道府県や市区町村単位での地域メッシュを扱うことができます。
 
 ```{r, results = "asis"}
-pref_mesh(code = 33) %>% head() %>% 
+administration_mesh(code = 33, type = "prefecture") %>% 
+  head() %>% 
   knitr::kable(format = "markdown")
-```
-
-#### leafletを使った可視化の例
-
-```{r}
-library(leaflet)
-
-d <- meshcode_to_latlon(52350422) %>% 
-  dplyr::mutate(lng1 = long_center - long_error,
-                lat1 = lat_center - lat_error,
-                lng2 = long_center + long_error,
-                lat2 = lat_center + lat_error) %>% 
-  tibble::rownames_to_column()
-
-d2 <- mesh_area(523504221, order = "harf")
-d3 <- mesh_area(5235042212, order = "quarter")
-d4 <- mesh_area(52350422123, order = "eight")
-d5 <- mesh_area(52350422124, order = "eight")
-
-leaflet() %>% 
-  addTiles() %>% 
-  addRectangles(data = d,
-                lng1 = d$lng1, lat1 = d$lat1,
-                lng2 = d$lng2, lat2 = d$lat2, fillColor = "red") %>%
-  addRectangles(data = d2,
-                lng1 = d2$lng1, lat1 = d2$lat1,
-                lng2 = d2$lng2, lat2 = d2$lat2, fillColor = "red") %>%
-  addRectangles(data = d3,
-                lng1 = d3$lng1, lat1 = d3$lat1,
-                lng2 = d3$lng2, lat2 = d3$lat2, fillColor = "red") %>% 
-  addRectangles(data = d4,
-                lng1 = d4$lng1, lat1 = d4$lat1,
-                lng2 = d4$lng2, lat2 = d4$lat2, fillColor = "red") %>% 
-  addRectangles(data = d5,
-                lng1 = d5$lng1, lat1 = d5$lat1,
-                lng2 = d5$lng2, lat2 = d5$lat2, fillColor = "red")
-```
-
-```{r}
-library(purrr)
-
-meshes <- fine_separate(52350422, "harf")
-res <- meshes %>% 
-  fine_separate(52350422, "harf") %>%
-  map(mesh_area, order = "harf") %>%
-  map_df(~ .[c("lng1", "lat1", "lng2", "lat2")])
-res$mesh <- meshes
-
-leaflet() %>% 
-  addTiles() %>% 
-  addRectangles(data = res,
-                lng1 = res$lng1, lat1 = res$lat1,
-                lng2 = res$lng2, lat2 = res$lat2)
 ```

@@ -6,7 +6,7 @@ Authors@R: c(person(given = "Shinya", family = "Uryu",
                                             email = "suika1127@gmail.com",
                                             role  = c("aut", "cre")))
 Maintainer: Shinya Uryu <suika1127@gmail.com>
-Description: Helpful functions for using mesh code (80km to 250m) data in Japan. Visualize mesh code using 'ggplot2' and 'leaflet', etc.
+Description: Helpful functions for using mesh code (80km to 125m) data in Japan. Visualize mesh code using 'ggplot2' and 'leaflet', etc.
 Depends:
     R (>= 3.1.2)
 URL: https://github.com/uribo/jpmesh
