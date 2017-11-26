@@ -20,7 +20,7 @@ build:
         code: |
           install2.r dplyr leaflet purrr \
           tibble readr tidyr shiny miniUI \
-          sf devtools testthat purrrlyr roxygen2 stringr
+          sf devtools testthat rlang roxygen2 stringr
     - script:
         name: Package Build Test
         code: |
