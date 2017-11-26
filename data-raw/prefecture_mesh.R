@@ -6,127 +6,256 @@ library(sf)
 library(dplyr)
 library(purrr)
 library(tidyr)
-library(jpndistrict)
 library(testthat)
 
-code_1_20 <- c(3036,
-               3622, 3623, 3624, 3631, 3641, 3653,
-               3724, 3725, 3741,
-               3823, 3824, 3831, 3841,
-               3926, 3927, 3928, 3942,
-               4027, 4028, 4040, 4042,
-               4128, 4129, 4142,
-               4229, 4230,
-               4328, 4329,
-               4429, 4440,
-               4529, 4530, 4531, 4540,
-               4629, 4630, 4631,
-               4728, 4729, 4730, 4731, 4739, 4740,
-               4828, 4829, 4830, 4831, 4839,
-               4928, 4929, 4930, 4931, 4932, 4933, 4934, 4939,
-               5029, 5030, 5031, 5032, 5033, 5034, 5035, 5036, 5038, 5039,
-               5129, 5130, 5131, 5132, 5133, 5134, 5135, 5136, 5137, 5138, 5139,
-               5229, 5231, 5232, 5233, 5234, 5235, 5236, 5237, 5238, 5239, 5240,
-               5332, 5333, 5334, 5335, 5336, 5337, 5338, 5339, 5340,
-               5432, 5433, 5435, 5436, 5437, 5438, 5439, 5440,
-               5531, 5536, 5537, 5538, 5539, 5540, 5541,
-               5636, 5637, 5638, 5639, 5640, 5641,
-               5738, 5739, 5740, 5741,
-               5839, 5840, 5841,
-               5939, 5940, 5941, 5942,
-               6039, 6040, 6041,
-               6139, 6140, 6141,
-               6239, 6240, 6241, 6243,
-               6339, 6340, 6341, 6342, 6343,
-               6439, 6440, 6441, 6442, 6443, 6444, 6445,
-               6540, 6541, 6542, 6543, 6544, 6545, 6546,
-               6641, 6642, 6643, 6644, 6645, 6646, 6647,
-               6740, 6741, 6742, 6747, 6748,
-               6840, 6841, 6842, 6847, 6848)
+df_jp80km_mesh <- data_frame(
+  meshcode = c(3036,
+           3622, 3623, 3624, 3631, 3641, 3653,
+           3724, 3725, 3741,
+           3823, 3824, 3831, 3841,
+           3926, 3927, 3928, 3942,
+           4027, 4028, 4040, 4042,
+           4128, 4129, 4142,
+           4229, 4230,
+           4328, 4329,
+           4429, 4440,
+           4529, 4530, 4531, 4540,
+           4629, 4630, 4631,
+           4728, 4729, 4730, 4731, 4739, 4740,
+           4828, 4829, 4830, 4831, 4839,
+           4928, 4929, 4930, 4931, 4932, 4933, 4934, 4939,
+           5029, 5030, 5031, 5032, 5033, 5034, 5035, 5036, 5038, 5039,
+           5129, 5130, 5131, 5132, 5133, 5134, 5135, 5136, 5137, 5138, 5139,
+           5229, 5231, 5232, 5233, 5234, 5235, 5236, 5237, 5238, 5239, 5240,
+           5332, 5333, 5334, 5335, 5336, 5337, 5338, 5339, 5340,
+           5432, 5433, 5435, 5436, 5437, 5438, 5439, 5440,
+           5531, 5536, 5537, 5538, 5539, 5540, 5541,
+           5636, 5637, 5638, 5639, 5640, 5641,
+           5738, 5739, 5740, 5741,
+           5839, 5840, 5841,
+           5939, 5940, 5941, 5942,
+           6039, 6040, 6041,
+           6139, 6140, 6141,
+           6239, 6240, 6241, 6243,
+           6339, 6340, 6341, 6342, 6343,
+           6439, 6440, 6441, 6442, 6443, 6444, 6445,
+           6540, 6541, 6542, 6543, 6544, 6545, 6546,
+           6641, 6642, 6643, 6644, 6645, 6646, 6647,
+           6740, 6741, 6742, 6747, 6748,
+           6840, 6841, 6842, 6847, 6848)
+)
 
-jpmesh.bind <- c(code_1_20) %>%
-  purrr::map(jpmesh::meshcode_to_latlon) %>%
-  purrr::map_df(jpmesh:::bundle_mesh_vars) %>%
-  mutate(meshcode = jpmesh::latlong_to_meshcode(lat = lat_center, long = long_center, order = 1) %>% as.character())
-expect_equal(dim(jpmesh.bind), c(176, 9))
+expect_equal(nrow(df_jp80km_mesh), 176L)
 
-sf.jpmesh <- jpmesh.bind %>%
-  purrrlyr::by_row(mk_poly) %>%
-  use_series(.out) %>%
-  st_sfc()
-expect_s3_class(sf.jpmesh, c("sfc_POLYGON", "sfc"))
+####################################
+# 1/200,000 scale
+####################################
+df_1_200000_zumei <- frame_data(
+  ~meshcode_80km, ~name, ~name_roman, ~type,
+  6840, "稚内", "wakkanai", FALSE,
+  6841, "稚内", "wakkanai", TRUE,
+  6842, "稚内", "wakkanai", FALSE,
+  6847, "蕊取", "shibetoro", FALSE,  
+  6848, "蕊取", "shibetoro", TRUE,
+  6740, "天塩", "teshio", FALSE,
+  6741, "天塩", "teshio", TRUE,
+  6742, "枝幸", "esashi", TRUE,
+  6748, "別飛", "bettobu", TRUE,
+  6747, "紗那", "shana", TRUE,
+  6641, "羽幌", "haboro", TRUE,
+  6642, "名寄", "nayoro", TRUE,
+  6643, "紋別", "mombetsu", TRUE,
+  6644, "網走", "abashiri", TRUE,
+  6645, "知床岬", "shiretokomisaki", TRUE,
+  6646, "安渡移矢岬", "atoiyamisaki", TRUE,
+  6647, "得茂別湖", "urumombekko", TRUE,
+  6540, "岩内", "iwanai", FALSE,
+  6541, "留萌", "rumoi", TRUE,
+  6542, "旭川", "asahikawa", TRUE,
+  6543, "北見", "kitami", TRUE,
+  6544, "斜里", "shari", TRUE,
+  6545, "標津", "shibetsu", TRUE,
+  6546, "色丹島", "shikotanto", TRUE,
+  6439, "久遠", "kudo", FALSE,
+  6440, "岩内", "iwanai", TRUE,
+  6441, "札幌", "sapporo", TRUE,
+  6442, "夕張岳", "yobaridake", TRUE,
+  6443, "帯広", "obihiro", TRUE,
+  6444, "釧路", "kushiro", TRUE,
+  6445, "根室", "nemuro", TRUE,
+  6339, "久遠", "kudo", TRUE,
+  6340, "室蘭", "muroran", TRUE,
+  6341, "苫小牧", "tomakomai", TRUE,
+  6342, "浦河", "urakawa", TRUE,
+  6343, "広尾", "hiro", TRUE,
+  6239, "渡島大島", "oshimaoshima", TRUE,
+  6240, "函館", "hakodate", TRUE,
+  6241, "尻屋崎", "shiriyazaki", TRUE,
+  6243, "広尾", "hiro", FALSE,
+  6139, "青森", "aomori", FALSE,
+  6140, "青森", "aomori", TRUE,
+  6141, "野辺地", "noheji", TRUE,
+  6039, "深浦", "fukaura", TRUE,
+  6040, "弘前", "hirosaki", TRUE,
+  6041, "八戸", "hachinohe", TRUE,
+  5939, "男鹿", "oga", TRUE,
+  5940, "秋田", "akita", TRUE,
+  5941, "盛岡", "morioka", TRUE,
+  5942, "盛岡", "morioka", FALSE,
+  5839, "酒田", "sakata", TRUE,
+  5840, "新庄", "shinjo", TRUE,
+  5841, "一関", "ichinoseki", TRUE,
+  5738, "相川", "aikawa", TRUE,
+  5739, "村上", "murakami", TRUE,
+  5740, "仙台", "sendai", TRUE,
+  5741, "石巻", "ishinomaki", TRUE,
+  5636, "輪島", "wajima", TRUE,
+  5637, "輪島", "wajima", FALSE,
+  5638, "長岡", "nagaoka", TRUE,
+  5639, "新潟", "niigata", TRUE,
+  5640, "福島", "fukushima", TRUE,
+  5641, "福島", "fukushima", FALSE,
+  5531, "西郷", "saigo", FALSE,
+  5536, "七尾", "nanao", TRUE,
+  5537, "富山", "toyama", TRUE,
+  5538, "高田", "takada", TRUE,
+  5539, "日光", "nikko", TRUE,
+  5540, "白河", "shirakawa", TRUE,
+  5541, "白河", "shirakawa", FALSE,
+  5432, "西郷", "saigo", FALSE,
+  5433, "西郷", "saigo", TRUE,
+  5435, "金沢", "kanazawa", FALSE,
+  5436, "金沢", "kanazawa", TRUE,
+  5437, "高山", "takayama", TRUE,
+  5438, "長野", "nagano", TRUE,
+  5439, "宇都宮", "utsunomiya", TRUE,
+  5440, "水戸", "mito", TRUE,
+  5332, "大社", "taisha", TRUE,
+  5333, "松江", "matsue", TRUE,
+  5334, "鳥取", "tottori", TRUE,
+  5335, "宮津", "miyazu", TRUE,
+  5336, "岐阜", "gifu", TRUE,
+  5337, "飯田", "iida", TRUE,
+  5338, "甲府", "kofu", TRUE,
+  5339, "東京", "tokyo", TRUE,
+  5340, "千葉", "chiba", TRUE,
+  5229, "厳原", "izuhara", FALSE,
+  5231, "見島", "mishima", TRUE,
+  5232, "浜田", "hamada", TRUE,
+  5233, "高梁", "takahashi", TRUE,
+  5234, "姫路", "himeji", TRUE,
+  5235, "京都及大阪", "kyotoyobiosaka", TRUE,
+  5236, "名古屋", "nagoya", TRUE,
+  5237, "豊橋", "toyohashi", TRUE,
+  5238, "静岡", "shizoka", TRUE,
+  5239, "横須賀", "yokosuka", TRUE,
+  5240, "大多喜", "otaki", TRUE,
+  5129, "厳原", "izuhara", TRUE,
+  5130, "小串", "kogushi", TRUE,
+  5131, "山口", "yamaguchi", TRUE,
+  5132, "広島", "hiroshima", TRUE, 
+  5133, "岡山及丸亀", "okayamaoyobimarugame", TRUE,
+  5134, "徳島", "tokushima", TRUE,
+  5135, "和歌山", "wakayama", TRUE,
+  5136, "伊勢", "ise", TRUE,
+  5137, "伊良湖岬", "iragomisaki", TRUE,
+  5138, "御前崎", "omaezaki", TRUE,
+  5139, "三宅島", "miyakejima", TRUE,
+  5029, "唐津", "karatsu", TRUE,
+  5030, "福岡", "fukoka", TRUE,
+  5031, "中津", "nakatsu", TRUE,
+  5032, "松山", "matsuyama", TRUE,
+  5033, "高知", "kochi", TRUE,
+  5034, "剣山", "tsurugisan", TRUE,
+  5035, "田辺", "tanabe", TRUE,
+  5036, "木本", "kinomoto", TRUE,
+  5038, "御蔵島", "mikurajima", FALSE,
+  5039, "御蔵島", "mikurajima", TRUE,
+  4928, "福江", "fukue", TRUE,
+  4929, "長崎", "nagasaki", TRUE,
+  4930, "熊本", "kumamoto", TRUE,
+  4931, "大分", "oita", TRUE,
+  4932, "宇和島", "uwajima", TRUE,
+  4933, "窪川", "kubokawa", TRUE, 
+  4934, "剣山", "tsurugisan", FALSE,
+  4939, "八丈島", "hachijojima", TRUE,
+  4828, "富江", "tomie", TRUE,
+  4829, "野母崎", "nomozaki", TRUE, 
+  4830, "八代", "yatsushiro", TRUE,
+  4831, "延岡", "nobeoka", TRUE,
+  4839, "八丈島", "hachijojima", FALSE,
+  4728, "富江", "tomie", FALSE,
+  4729, "甑島", "koshikijima", TRUE,
+  4730, "鹿児島", "kagoshima", TRUE,
+  4731, "宮崎", "miyazaki", TRUE,
+  4739, "八丈島", "hachijojima", FALSE,
+  4740, "八丈島", "hachijojima", FALSE,
+  4629, "黒島", "kuroshima", TRUE,
+  4630, "開聞岳", "kaimondake", TRUE,
+  4631, "開聞岳", "kaimondake", FALSE,
+  4529, "中之島", "nakanoshima", FALSE,
+  4530, "屋久島", "yakushima", TRUE,
+  4531, "屋久島", "yakushima", FALSE,
+  4540, "八丈島", "hachijojima", FALSE,
+  4429, "中之島", "nakanoshima", TRUE,
+  4440, "八丈島", "hachijojima", FALSE,
+  4328, "宝島", "takarajima", FALSE,
+  4329, "宝島", "takarajima", TRUE,
+  4229, "奄美大島", "amamioshima", TRUE,
+  4230, "奄美大島", "amamioshima", FALSE,
+  4128, "徳之島", "tokunoshima", TRUE, 
+  4129, "徳之島", "tokunoshima", FALSE,
+  4142, "小笠原諸島", "ogasawarashoto", FALSE,
+  4027, "与論島", "yoronjima", TRUE,
+  4028, "徳之島", "tokunoshima", FALSE,
+  4040, "小笠原諸島", "ogasawarashoto", FALSE,
+  4042, "小笠原諸島", "ogasawarashoto", TRUE,
+  3926, "久米島", "kumejima", TRUE,
+  3927, "那覇", "naha", TRUE,
+  3928, "那覇", "naha", FALSE,
+  3942, "小笠原諸島", "ogasawarashoto", FALSE, ##?
+  3823, "魚釣島", "otsurijima", TRUE,
+  3824, "魚釣島", "otsurijima", FALSE,
+  3831, "那覇", "naha", FALSE,
+  3841, "小笠原諸島", "ogasawarashoto", FALSE,
+  3724, "宮古島", "miyakojima", FALSE,
+  3725, "宮古島", "miyakojima", TRUE,
+  3741, "小笠原諸島", "ogasawarashoto", FALSE,
+  3622, "石垣島", "ishigakijima", FALSE,
+  3623, "石垣島", "ishigakijima", FALSE,
+  3624, "石垣島", "ishigakijima", TRUE,
+  3631, "那覇", "naha", FALSE,
+  3641, "小笠原諸島", "ogasawarashoto", FALSE,
+  3653, "小笠原諸島", "ogasawarashoto", FALSE,
+  3036, "小笠原諸島", "ogasawarashoto", FALSE
+)
+expect_equal(dim(df_1_200000_zumei), c(176, 4))
 
-# plot(spdf_jpn_pref(20)["city_name"])
-# plot(sf.jpmesh %>% st_set_crs(4326), add = TRUE)
+jpmesh_bind <- df_jp80km_mesh %>%
+  mutate(out = pmap(., ~ mesh_to_coords(...))) %>% 
+  tidyr::unnest() %>% 
+  dplyr::select(meshcode, everything())
 
-sf.jpmesh2 <- sf.jpmesh %>%
-  as("Spatial") %>%
-  st_as_sf() %>%
-  mutate(meshcode = jpmesh.bind$meshcode)
-expect_s3_class(sf.jpmesh2, c("sf", "data.frame"))
-expect_named(sf.jpmesh2, c("meshcode", "geometry"))
+expect_equal(dim(jpmesh_bind), c(176, 5))
+
+sf_jpmesh <- jpmesh_bind %>%
+  mutate(geometry = pmap(., ~ mesh_to_poly(...))) %>% 
+  st_sf(crs = 4326) %>% 
+  left_join(df_1_200000_zumei,
+            by = c("meshcode" = "meshcode_80km")) %>% 
+  select(meshcode, name, name_roman, 
+         lng_center, lat_center, lng_error, lat_error, everything()) %>% 
+  mutate(name = stringi::stri_conv(name, to = "UTF8"))
+expect_s3_class(sf_jpmesh, c("sf", "data.frame"))
+expect_equal(dim(sf_jpmesh), c(sf_jpmesh$meshcode %>% n_distinct(), 9))
+expect_named(sf_jpmesh,
+             c("meshcode", "name", "name_roman",
+               "lng_center", "lat_center", "lng_error", "lat_error",
+               "type", "geometry"))
 
 # library(leaflet)
-# leaflet() %>% addTiles() %>%
-#   addPolygons(data = spdf_jpn_pref(21) %>% st_transform(4326),
-#               color = "tomato") %>%
-#   addPolygons(data = sf.jpmesh2[tibble::tibble(
-#     res_contains = st_overlaps(sf.jpmesh %>% st_set_crs(4326),
-#                                spdf_jpn_pref(21) %>% st_transform(4326))
-#   ) %>%
-#     mutate(id = row_number()) %>%
-#     tidyr::unnest() %>%
-#     use_series(id) %>% unique(), ], label = ~meshcode)
+# leaflet(data = sf_jpmesh) %>% addTiles() %>% addPolygons(label = ~as.character(meshcode),
+#                                          labelOptions = labelOptions(noHide = TRUE, textsize = "24px"))
+# plot(sf_jpmesh["meshcode"])
 
-export_pref_all_mesh <- function(code = 1) {
-  
-  st_crs(sf.jpmesh) <- 4326
-  sp.pref.crs <- jpndistrict::spdf_jpn_pref(code = code) %>% 
-    st_transform(crs = 4326)
-  
-  res1 <- sf.jpmesh2[tibble::tibble(
-    res_contains = suppressMessages(st_covers(sf.jpmesh,
-                                              sp.pref.crs)
-    )) %>%
-      mutate(id = row_number()) %>%
-      tidyr::unnest() %>%
-      use_series(id) %>% unique(), ] %>%
-    use_series(meshcode) %>% unique()
-  
-  res2 <- sf.jpmesh2[tibble::tibble(
-    res_contains = suppressMessages(st_overlaps(sf.jpmesh,
-                                                sp.pref.crs)
-    )) %>%
-      mutate(id = row_number()) %>%
-      tidyr::unnest() %>%
-      use_series(id) %>% unique(), ] %>%
-    use_series(meshcode) %>% unique()
-  
-  res <- c(res1, res2) %>% unique()
-  
-  return(res)
-  
-}
-# export_pref_all_mesh(1)
-# export_pref_all_mesh(13)
-# export_pref_all_mesh(21)
-
-prefecture_mesh <- tibble::tibble(
-  pref = sprintf("%02d", 1:47),
-  mesh = 1:47 %>%
-    purrr::map(export_pref_all_mesh)
-) %>% tidyr::unnest() %>% 
-  left_join(readr::read_csv("data-raw/jp_mesh_1.csv",
-                            col_types = "cc--"),
-            by = c("mesh" = "code_1_20")) %>% 
-  rename(name = names_1_20) %>% 
-  mutate(name = stringr::str_to_title(name))
-expect_s3_class(prefecture_mesh, c("tbl", "data.frame"))
-expect_equal(dim(prefecture_mesh), c(316, 3)) # ~~not use ray's~~
-expect_named(prefecture_mesh, c("pref", "mesh", "name"))
-
-# prefecture_mesh %>% 
-#   distinct(name, .keep_all = TRUE) %>% 
-#   mesh_rectangle(code = "mesh", view = TRUE)
-
-devtools::use_data(prefecture_mesh, overwrite = TRUE)
+devtools::use_data(sf_jpmesh, overwrite = TRUE)

@@ -21,13 +21,22 @@
 #' }
 "jpnrect"
 
-#' @title Meshcode include the prefecture
+#' @title 1:200,000 Scale Maps Name with Meshcode of Japan.
 #' 
-#' @description Japanese prefectures mesh dataset
-#' @details  50km meshcode
-#' @format A data frame with 240 rows 2 variables:
+#' @description Information for the 1:200,000 Scale Maps.
+#' @format A data frame with 175 rows 9 variables:
 #' \itemize{
-#'   \item{pref}
-#'   \item{mesh}
+#'   \item{meshcode: 80km meshcode}
+#'   \item{name: names for map}
+#'   \item{name_roman: names for map (roman)}
+#'   \item{lng_center: centroid coordiates of mesh}
+#'   \item{lat_center: centroid coordiates of mesh}
+#'   \item{lng_error: mesh area}
+#'   \item{lat_error: mesh area}
+#'   \item{type: evalueate value to mesh}
 #' }
-"prefecture_mesh"
+#' @examples 
+#' \dontrun{
+#' plot(sf_jpmesh["name_roman"])
+#' }
+"sf_jpmesh"
