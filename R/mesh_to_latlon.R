@@ -1,15 +1,16 @@
 #' @title Get from mesh code to latitude and longitude
 #' 
 #' @description mesh centroid
-#' @param code numeric. mesh code
+#' @param meshcode numeric. mesh code
+#' @param ... other parameters
 #' @author Akio Takenaka
 #' @details http://takenaka-akio.org/etc/j_map/index.html
 #' @examples
-#' meshcode_to_latlon(64414277)
+#' mesh_to_coords(64414277)
 #' @export
-meshcode_to_latlon <- function(code) {
+mesh_to_coords <- function(meshcode, ...) {
   
-  code <- as.character(code)
+  code <- as.character(meshcode)
   
   # 80km mesh
   if (length(grep("^[0-9]{4}", code)) == 1) {
@@ -38,6 +39,18 @@ meshcode_to_latlon <- function(code) {
     long_width <- long_width / 10
   }
   
+  # 500m
+  if (length(grep("^[0-9]{9}", code)) == 1) {
+    code9 <- as.numeric(substring(code, 9, 9))
+  }
+  # 250m
+  if (length(grep("^[0-9]{10}", code)) == 1) {
+    code10 <- as.numeric(substring(code, 10, 10))
+  }
+  # 125m
+  if (length(grep("^[0-9]{11}", code)) == 1) {
+    code11 <- as.numeric(substring(code, 11, 11))
+  }  
   lat  <- code12 * 2 / 3
   long <- code34 + 100
   
@@ -56,10 +69,53 @@ meshcode_to_latlon <- function(code) {
   lat.c  <- as.numeric(sprintf("%.10f", lat.c)) 
   long.c <- as.numeric(sprintf("%.10f", long.c))
   
-  res <- data.frame(lat_center  = lat.c, 
-                    long_center = long.c, 
-                    lat_error   = lat.c - lat,
-                    long_error  = long.c - long)
+  res <- data.frame(lng_center = long.c,
+                    lat_center  = lat.c, 
+                    lng_error  = long.c - long,
+                    lat_error   = lat.c - lat
+                    )  
+  # 500m以下は最後のコードを元に中心座標を割り当てる
+  
+  finename_centroid <- function(df, last_code) {
+    
+    lng_center <- lat_center <- lng_error <- lat_error <- NULL
+    
+    if (last_code == 1) {
+      res <- df %>% 
+        dplyr::mutate(lat_center = lat_center - (lat_error / 2),
+                      lng_center = lng_center - (lng_error / 2))
+    } else if (last_code == 2) {
+      res <- df %>% 
+        dplyr::mutate(lat_center = lat_center + (lat_error / 2),
+                      lng_center = lng_center - (lng_error / 2))
+    } else if (last_code == 3) {
+      res <- df %>% 
+        dplyr::mutate(lat_center = lat_center - (lat_error / 2),
+                      lng_center = lng_center + (lng_error / 2))
+    } else if (last_code == 4) {
+      res <- df %>% 
+        dplyr::mutate(lat_center = lat_center + (lat_error / 2),
+                      lng_center = lng_center + (lng_error / 2)) 
+    }
+    
+    res <- res %>% 
+      dplyr::mutate(lat_error = lat_error / 2,
+                    lng_error = lng_error / 2)
+    
+    return(res)
+  }
+  
+  if (exists("code9")) {
+    res <- finename_centroid(res, code9)
+  }
+  if (exists("code10")) {
+    res <- finename_centroid(res, code10)
+  }
+  if (exists("code11")) {
+    res <- finename_centroid(res, code11)
+  }
+  
+  res <- tibble::as_tibble(res)
   
   return(res)
 }

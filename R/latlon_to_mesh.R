@@ -1,116 +1,79 @@
 #' @title Convert from coordinate to mesh code
 #' 
 #' @description From coordinate to mesh codes.
-#' @param lat numeric. latitude
-#' @param long numeric. longitude
-#' @param order integer. mesh type
+#' @param longitude longitude (double)
+#' @param latitude latitude (double)
+#' @param mesh_size mesh type. From 80km to 125m
+#' @param ... other parameters
+#' @importFrom dplyr case_when
+#' @importFrom rlang quo_expr
 #' @return mesh code (default 3rd meshcode)
 #' @author Akio Takenaka
 #' @details http://takenaka-akio.org/etc/j_map/index.html
 #' @examples 
-#' latlong_to_meshcode(43.06462, 141.3468, order = 3)
-#' latlong_to_meshcode(35.68949, 139.6917, order = 2)
+#' coords_to_mesh(141.3468, 43.06462, mesh_size = "10km")
+#' coords_to_mesh(139.6917, 35.68949, mesh_size = "250m")
+#' coords_to_mesh(139.71475, 35.70078)
 #' @export
-latlong_to_meshcode <- function(lat = NULL, long = NULL, order = 3)
-{
-  if (length(grep("[123]", order)) == 0) {
-    return(NULL)
-  }
+coords_to_mesh <- function(longitude, latitude, mesh_size = "1km", ...) {
   
-  if (eval_jp_boundary(long, lat) == FALSE) {
-    stop("Latitude / Longitude value is out of range.")
-  } 
+  longitude <- rlang::quo_expr(longitude)
+  latitude <- rlang::quo_expr(latitude)
   
-# Latitude ----------------------------------------------------------------
-  lat_in_min <- lat * 60
-  
-  code12 <- as.integer(lat_in_min / 40)
-  lat_rest_in_min <- lat_in_min - code12 * 40
-  
-  code5 <- as.integer(lat_rest_in_min / 5 )
-  lat_rest_in_min <- lat_rest_in_min - code5 * 5
-  
-  code7 <- as.integer(lat_rest_in_min / (5 / 10))
-
-# Longitude ---------------------------------------------------------------
-  code34 <- as.integer(long) - 100
-  long_rest_in_deg <- long - as.integer(long)
-  
-  code6 <- as.integer(long_rest_in_deg * 8)
-  long_rest_in_deg <- long_rest_in_deg - code6 / 8
-  
-  code8 <- as.integer(long_rest_in_deg / (1/80))
-  
-  code <- sprintf("%02d%02d", code12, code34)
-  
-  if (order >= 2) {
-    code <- sprintf("%s%01d%01d", code, code5, code6)
-  }
-  if (order >= 3) {
-    code <- sprintf("%s%01d%01d", code, code7, code8)
-  }
-  
-  return(as.numeric(code))
-}
-
-#' @title Convert from coordinate to separate mesh code
-#' 
-#' @description From coordinate to mesh codes.
-#' @param lat numeric. latitude
-#' @param long numeric. longitude
-#' @param order choose character harf or quarter
-#' @importFrom dplyr mutate
-#' @return separate meshcode
-#' @examples 
-#' latlong_to_sepate_mesh(35.442788, 139.301255, order = "harf")
-#' latlong_to_sepate_mesh(35.442893, 139.310654, order = "quarter")
-#' latlong_to_sepate_mesh(35.448767, 139.301706, order = "quarter")
-#' latlong_to_sepate_mesh(35.449011, 139.311340, order = "quarter")
-#' @export
-latlong_to_sepate_mesh <- function(lat = NULL, long = NULL, order = c("harf", "quarter")) {
-  mesh8 <- latlong_to_meshcode(lat, long, order = 3)
-  
-  df.mesh <- meshcode_to_latlon(mesh8) %>% 
-    bundle_mesh_vars()
-  
-    if (lat >= df.mesh$lat_center) {
-      if (long >= df.mesh$long_center) {
-        mesh9 <- 4
-      } else {
-        mesh9 <- 3
-      } 
-    } else {
-      if (long >= df.mesh$long_center) {
-        mesh9 <- 2
-      } else {
-        mesh9 <- 1
-      }
-    }
-    
-  if (order == "harf") {
-    res <- paste0(mesh8, mesh9)
-  } else {
-    
-    if (lat >= df.mesh$lat_center - (df.mesh$lat_error / 2)) {
-      if (long >= df.mesh$long_center  - (df.mesh$long_error / 2)) {
-        mesh10 <- 4
-      } else {
-        mesh10 <- 3
-      } 
-    } else {
-      if (long >= df.mesh$long_center  - (df.mesh$long_error / 2)) {
-        mesh10 <- 2
-      } else {
-        mesh10 <- 1
-      }
-    }
-    
-    if (order == "quarter") {
-      res <- paste0(mesh8, mesh9, mesh10)
-    }
+  if (eval_jp_boundary(longitude, latitude) == FALSE) {
+    warning("Longitude / Latitude values is out of range.")
+    return(NA)
   }
 
-  res <- as.numeric(res)
+  code12 <- (latitude * 60) %/% 40
+  code_a <- (latitude * 60) %% 40
   
-  return(res)
+  code5 <- code_a %/% 5
+  code_b <- code_a %% 5
+  
+  code7 <- (code_b * 60) %/% 30
+  code_c <- (code_b * 60) %% 30
+  
+  code_s <- code_c %/% 15
+  code_d <- code_c %% 15
+  code_t <- code_d %/% 7.5
+  code_e <- code_d %% 7.5
+  code_u <- code_e %/% 3.75
+  
+  code34 <- as.integer(longitude - 100)
+  code_f <- (longitude - 100) - as.integer(longitude - 100)
+  
+  code6 <- (code_f * 60) %/% 7.5
+  code_g <- (code_f * 60) %% 7.5
+  
+  code8 <- (code_g * 60) %/% 45
+  code_h <- (code_g * 60) %% 45
+  
+  code_x <- code_h %/% 22.5
+  code_i <- code_h %% 22.5
+  code_y <- code_i %/% 11.25
+  code_j <- code_i %% 11.25
+  code_z <- code_j %/% 5.625
+  
+  code9 <- (code_s * 2) + (code_x + 1)
+  code10 <- (code_t * 2) + (code_y + 1)
+  code11 <- (code_u * 2) + (code_z + 1)
+  
+  meshcode <- paste0(code12, code34, code5, code6, code7, code8, code9, code10, code11)
+  
+  mesh_sets <- list(
+    mesh_size == "80km" ~ substr(meshcode, 1, 4),
+    mesh_size == "10km" ~ substr(meshcode, 1, 6),
+    mesh_size == "1km" ~ substr(meshcode, 1, 8),
+    mesh_size == "500m" ~ substr(meshcode, 1, 9),
+    mesh_size == "250m" ~ substr(meshcode, 1, 10),
+    mesh_size == "125m" ~ meshcode
+  )
+  
+  
+  meshcode <- dplyr::case_when(
+    !!! mesh_sets
+  )
+
+  return(meshcode)
 }
