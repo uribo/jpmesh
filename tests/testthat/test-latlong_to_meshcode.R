@@ -9,6 +9,7 @@ test_that("from latitude and longitude to mesh 1", {
   expect_equal(4, nchar(res))
   expect_equal(res, "5133")
   
+  expect_warning(coords_to_mesh(141.3468, 35.68949))
   expect_warning(coords_to_mesh(153.429390000, -28.0070630000))
   expect_warning(coords_to_mesh(103.844763000, 1.2819450000))
   expect_warning(coords_to_mesh(100.479448544, 7.0091360000))
