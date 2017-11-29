@@ -1,3 +1,13 @@
+# jpmesh 1.0.0.9999
+
+## Bug fixes and minor improvements
+
+- Fixed incorrect allocation of fine mesh code number (#8).
+- Modified `eval_jp_boundary()` that internal function.
+    - Add ... parameters to pass additional arguments.
+    - Improved problem of giving mesh code outside of Japan (reopen #6).
+- `fine_separate()`... Correct behavior when entering 1 km meshcode (#9).
+
 # jpmesh 1.0.0 (2017-11-27)
 
 - Consolidation of functions by integration and abolition. Rename of function name. Such as, argument order.
