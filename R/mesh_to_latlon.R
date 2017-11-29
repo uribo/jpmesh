@@ -84,12 +84,12 @@ mesh_to_coords <- function(meshcode, ...) {
                       lng_center = lng_center - (lng_error / 2))
     } else if (last_code == 2) {
       res <- df %>% 
-        dplyr::mutate(lat_center = lat_center + (lat_error / 2),
-                      lng_center = lng_center - (lng_error / 2))
-    } else if (last_code == 3) {
-      res <- df %>% 
         dplyr::mutate(lat_center = lat_center - (lat_error / 2),
                       lng_center = lng_center + (lng_error / 2))
+    } else if (last_code == 3) {
+      res <- df %>% 
+        dplyr::mutate(lat_center = lat_center + (lat_error / 2),
+                      lng_center = lng_center - (lng_error / 2))
     } else if (last_code == 4) {
       res <- df %>% 
         dplyr::mutate(lat_center = lat_center + (lat_error / 2),

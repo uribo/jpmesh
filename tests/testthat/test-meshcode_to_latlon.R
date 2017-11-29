@@ -48,3 +48,16 @@ test_that("Combine other function", {
   expect_equal(res$lng_center - res$lng_error, 135.525)
 
 })
+
+test_that("fine mesh", {
+  res <- fine_separate("36233799") %>% 
+    tibble::as_data_frame() %>% 
+    purrr::set_names(c("meshcode")) %>% 
+    dplyr::mutate(out = purrr::pmap(., mesh_to_coords)) %>% 
+    tidyr::unnest()
+  expect_equal(res$meshcode, c("362337991", "362337992", "362337993", "362337994"))
+  expect_equivalent(res$lng_center, c(123.990625, 123.996875, 123.990625, 123.996875))
+  expect_equivalent(res$lat_center, c(24.3270833334, 24.3270833334, 24.3312500001, 24.3312500001))
+  expect_equivalent(res$lng_error[1], 0.003125)
+})
+
