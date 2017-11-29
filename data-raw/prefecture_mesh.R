@@ -207,8 +207,9 @@ expect_equal(dim(jpmesh_bind), c(176, 5))
 
 sf_jpmesh <- jpmesh_bind %>%
   mutate(geometry = pmap(., ~ mesh_to_poly(...))) %>% 
-  st_sf(crs = 4326) %>% 
-  left_join(df_1_200000_zumei,
+  st_sf(crs = 4326, stringsAsFactors = FALSE) %>% 
+  left_join(df_1_200000_zumei %>% 
+              mutate(meshcode_80km = as.character(meshcode_80km)),
             by = c("meshcode" = "meshcode_80km")) %>% 
   select(meshcode, name, name_roman, 
          lng_center, lat_center, lng_error, lat_error, everything()) %>% 
