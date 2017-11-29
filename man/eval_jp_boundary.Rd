@@ -4,12 +4,14 @@
 \alias{eval_jp_boundary}
 \title{Check include mesh areas}
 \usage{
-eval_jp_boundary(longitude = NULL, latitude = NULL)
+eval_jp_boundary(longitude = NULL, latitude = NULL, ...)
 }
 \arguments{
 \item{longitude}{longitude (double)}
 
 \item{latitude}{latitude (double)}
+
+\item{...}{other parameters}
 }
 \description{
 It roughly judges whether the given coordinates are within the mesh area.

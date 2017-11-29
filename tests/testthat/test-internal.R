@@ -14,3 +14,14 @@ test_that("multiplication works", {
   ) %>% mutate(out = purrr::pmap_lgl(., eval_jp_boundary))
   expect_equal(res$out, c(TRUE, TRUE, TRUE))
 })
+
+test_that("Generate mesh code set", {
+  res <- meshcode_set(mesh_size = "80km")
+  expect_length(res, 176L)
+  expect_equal(res[1], "3036")
+  
+  # Include outbound meshes...
+  # [TODO] exclude outbound meshes
+  res <- meshcode_set(mesh_size = "10km")
+  expect_length(res, 11264L)
+})
