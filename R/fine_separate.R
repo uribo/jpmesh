@@ -14,14 +14,15 @@ fine_separate <- function(mesh = NULL, ...) {
   
   mesh_length <- nchar(mesh)
   
-  res <- if (between(mesh_length, 4, 8)) {
+  res <- if (between(mesh_length, 4, 7)) {
     res <- paste0(mesh,
                 rep(1:8, each = 8),
                 rep(1:8, times = 8))
-  } else if (between(mesh_length, 9, 10)) {
+  } else if (between(mesh_length, 8, 10)) {
     paste0(mesh, 1:4)
 
   } else {
+    message("A value greater than the supported mesh size was inputed.")
     NA_character_
   }
 
