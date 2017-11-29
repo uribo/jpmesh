@@ -100,7 +100,7 @@ meshcode_set_1km <- meshcode_set_10km %>%
 #' @importFrom rlang as_list
 meshcode_set <- function(mesh_size = c("80km", "10km", "1km")) {
   mesh_size <- match.arg(mesh_size)
-  get(glue::glue("meshcode_set_{mesh_size}"), envir = asNamespace("jpmesh"))
+  get(sprintf("meshcode_set_%s", mesh_size), envir = asNamespace("jpmesh"))
 }
 
 
