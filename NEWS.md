@@ -1,12 +1,14 @@
-# jpmesh 1.0.0.9999
+# jpmesh 1.0.1
+
+- add vignettes 1: How to use mesh cord in R
 
 ## Bug fixes and minor improvements
 
-- Fixed incorrect allocation of fine mesh code number (#8).
+- Fixed incorrect allocation of fine mesh code number ([#8](https://github.com/uribo/jpmesh/issues/8)).
 - Modified `eval_jp_boundary()` that internal function.
     - Add ... parameters to pass additional arguments.
-    - Improved problem of giving mesh code outside of Japan (reopen #6).
-- `fine_separate()`... Correct behavior when entering 1 km meshcode (#9).
+    - Improved problem of giving mesh code outside of Japan (reopen [#6](https://github.com/uribo/jpmesh/issues/6)).
+- `fine_separate()`... Correct behavior when entering 1 km meshcode ([#9](https://github.com/uribo/jpmesh/issues/9)).
 
 # jpmesh 1.0.0 (2017-11-27)
 

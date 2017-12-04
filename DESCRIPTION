@@ -1,7 +1,7 @@
 Package: jpmesh
 Type: Package
 Title: Utilities for Japanese Mesh Code
-Version: 1.0.0.9999
+Version: 1.0.1
 Authors@R: c(
     person(given = "Shinya", family = "Uryu", email = "suika1127@gmail.com", role  = c("aut", "cre"), comment = c(ORCID = "0000-0002-0493-6186"))
     )
@@ -24,8 +24,10 @@ Imports:
   tidyr (>= 0.7.2)
 Suggests:
   devtools (>= 1.13.4),
+  knitr,
   testthat (>= 1.0.2),
   stringr (>= 1.2.0)
+VignetteBuilder: knitr
 License: MIT + file LICENSE
 LazyData: true
 RoxygenNote: 6.0.1
