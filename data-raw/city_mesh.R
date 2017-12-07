@@ -22,5 +22,4 @@ df_city_mesh <- 1:length(x) %>%
 
 devtools::use_data(df_city_mesh,
                    overwrite = TRUE,
-                   internal = TRUE,
-                   compress = "xz")
+                   internal = TRUE)

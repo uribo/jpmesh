@@ -1,5 +1,12 @@
 context("internal")
 
+test_that("Internal data", {
+  expect_s3_class(df_city_mesh, "tbl")
+  expect_equal(dim(df_city_mesh), c(899507, 3))
+  expect_named(df_city_mesh, c("city_code", "city_name", "meshcode"))
+  expect_is(df_city_mesh$meshcode[1], "character")
+})
+
 test_that("multiplication works", {
   res <- eval_jp_boundary(135.50800000, 35.70902590)
   expect_true(res)
