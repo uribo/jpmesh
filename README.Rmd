@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/jpmesh)](https://cran.r-project.org/package=jpmesh)
-[![codecov](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/gh/uribo/jpmesh)
+[![Coverage status](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=master)
 
 ## Overview
 
@@ -95,11 +95,13 @@ library(sf)
 plot(jpnrect["abb_name"])
 ```
 
-```{r jpn_simple_map, fig.width = 8, fig.height = 6, eval = TRUE}
+```{r jpn_simple_map, fig.width = 8, fig.height = 6, eval = FALSE, echo = TRUE}
 library(ggplot2) # 2.2.1.9000
 ggplot() +
   geom_sf(data = jpnrect)
 ```
+
+![](man/figures/README-jpn_simple_map-1.png)
 
 Dataset of mesh code for prefectures.
 
@@ -122,7 +124,9 @@ leaflet() %>% addTiles() %>%
 
 ![](man/figures/README-mesh_pref_33_leaflet-1.png)
 
-```{r mesh_pref33_map, warning = FALSE, eval = TRUE}
+```{r mesh_pref33_map, warning = FALSE, eval = FALSE, echo = TRUE}
 ggplot() + 
   geom_sf(data = administration_mesh(code = 33, type = "city"))
 ```
+
+![](man/figures/README-mesh_pref33_map-1.png)
