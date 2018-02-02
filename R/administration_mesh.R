@@ -8,7 +8,7 @@
 #' @importFrom purrr pmap
 #' @examples 
 #' \dontrun{
-#' administration_mesh(code = c(35201))
+#' administration_mesh(code = c(35201), type = "city")
 #' administration_mesh(code = c(35), type = "prefecture")
 #' administration_mesh(code = c(33, 34), type = "prefecture")
 #' }
