@@ -11,6 +11,8 @@
 ^docs$
 ^logo\.png$
 ^_pkgdown\.yml$
-^wercker.yml$
+^wercker\.yml$
 ^codecov\.yml$
 ^CONTRIBUTING\.md$
+^Dockerfile$
+^docker-compose\.yml$

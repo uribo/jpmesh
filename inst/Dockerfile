@@ -12,6 +12,11 @@ RUN apt-get install -y --no-install-recommends \
 
 RUN install2.r --error \
   dplyr leaflet miniUI purrr sf tidyr
-  
+
 RUN install2.r --error \
-  knitr covr testthat devtools roxygen2
+  knitr covr testthat devtools roxygen2 \
+  remotes \
+  usethis shinyjs reprex 
+
+RUN installGithub.r \
+  "r-lib/roxygen2md"
