@@ -10,6 +10,6 @@ meshcode_set(mesh_size = c("80km", "10km", "1km"))
 \item{mesh_size}{Export mesh size from 80km to 1km.}
 }
 \description{
-Unique 176 meshcodes. 
+Unique 176 meshcodes.
 The output code may contain values not found in the actual mesh code.
 }
