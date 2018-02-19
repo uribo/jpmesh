@@ -6,17 +6,17 @@
 \title{Simple displaed as rectangel for Japan (fortified)}
 \format{A data frame with 235 rows 11 variables:
 \itemize{
-  \item{long}
-  \item{lat}
-  \item{order}
-  \item{hole}
-  \item{piece}
-  \item{id}
-  \item{group}
-  \item{mesh_code}
-  \item{latitude}
-  \item{longitude}
-  \item{abb_name}
+\item{long}
+\item{lat}
+\item{order}
+\item{hole}
+\item{piece}
+\item{id}
+\item{group}
+\item{mesh_code}
+\item{latitude}
+\item{longitude}
+\item{abb_name}
 }}
 \usage{
 jpnrect

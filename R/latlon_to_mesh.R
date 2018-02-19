@@ -6,7 +6,7 @@
 #' @param mesh_size mesh type. From 80km to 125m
 #' @param ... other parameters
 #' @importFrom dplyr case_when
-#' @importFrom rlang is_true quo_expr
+#' @importFrom rlang is_true quo_expr warn
 #' @return mesh code (default 3rd meshcode)
 #' @author Akio Takenaka
 #' @details http://takenaka-akio.org/etc/j_map/index.html
@@ -81,11 +81,11 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = "1km", ...) {
       
       return(meshcode)   
     } else if (is.na(check_80km_ares)) {
-      warning("Longitude / Latitude values is out of range.")
-      return(NA)
+      rlang::warn("Longitude / Latitude values is out of range.")
+      return(NA_character_)
     }
     } else if (coords_evalated == FALSE) {
-    warning("Longitude / Latitude values is out of range.")
-    return(NA)
+      rlang::warn("Longitude / Latitude values is out of range.")
+      return(NA_character_)
     }
 }

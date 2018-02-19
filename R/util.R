@@ -46,6 +46,58 @@ mesh_to_poly <- function(lng_center, lat_center, lng_error, lat_error, ...)
   return(res)
 }
 
+is.mesh <- function(mesh) {
+  invisible(is_meshcode(mesh))
+}
+
+is_meshcode <- function(mesh) {
+  
+  res <- dplyr::if_else(grepl("^[0-9]{4,11}$", mesh), TRUE, FALSE)
+  
+  if (res == FALSE) {
+    rlang::inform(paste("meshcode must be numeric ranges", 
+                        min(df_mesh_size_unit$mesh_length), 
+                        "to",
+                        max(df_mesh_size_unit$mesh_length),
+                        "digits"
+    ))
+  } else {
+    res <- dplyr::if_else(is.na(units::drop_units(mesh_size(mesh))),
+                          FALSE,
+                          TRUE)
+    if (res == FALSE) {
+      rlang::inform(paste("meshcode must be follow digits:",
+                          paste(df_mesh_size_unit$mesh_length[1:nrow(df_mesh_size_unit) - 1], collapse = ", "),
+                          "and",
+                          df_mesh_size_unit$mesh_length[nrow(df_mesh_size_unit)]
+      ))
+    }
+  }
+  
+  return(res)
+}
+
+mesh_size <- function(mesh) {
+  
+  dplyr::case_when(
+    nchar(mesh) == df_mesh_size_unit$mesh_length[1] ~ df_mesh_size_unit$mesh_size[1],
+    nchar(mesh) == df_mesh_size_unit$mesh_length[2] ~ df_mesh_size_unit$mesh_size[2],
+    nchar(mesh) == df_mesh_size_unit$mesh_length[3] ~ df_mesh_size_unit$mesh_size[3],
+    nchar(mesh) == df_mesh_size_unit$mesh_length[4] ~ df_mesh_size_unit$mesh_size[4],
+    nchar(mesh) == df_mesh_size_unit$mesh_length[5] ~ df_mesh_size_unit$mesh_size[5],
+    nchar(mesh) == df_mesh_size_unit$mesh_length[6] ~ df_mesh_size_unit$mesh_size[6]
+  )
+  
+}
+
+df_mesh_size_unit <- tibble::data_frame(
+  mesh_length = c(4L, 6L, 8L, 9L, 10L, 11L),
+  mesh_size = c(
+    units::set_units(c(80, 10, 1), "km"),
+    units::set_units(c(500, 250, 125), "m")
+  )
+)
+
 meshcode_set_80km <- as.character(c(3036,
   3622, 3623, 3624, 3631, 3641, 3653,
   3724, 3725, 3741,
@@ -102,5 +154,3 @@ meshcode_set <- function(mesh_size = c("80km", "10km", "1km")) {
   mesh_size <- match.arg(mesh_size)
   get(sprintf("meshcode_set_%s", mesh_size), envir = asNamespace("jpmesh"))
 }
-
-

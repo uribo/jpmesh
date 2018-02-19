@@ -5,13 +5,17 @@
 #' @param ... other parameters for paste
 #' @return character vector
 #' @importFrom purrr map
+#' @importFrom rlang inform
 #' @examples 
-#' fine_separate(52350400)
-#' fine_separate(52350400)
-#' fine_separate(52350400)
+#' fine_separate(5235)
+#' fine_separate(523504)
+#' fine_separate(52350432)
+#' fine_separate(523504321)
+#' fine_separate(5235043211)
 #' @export
 fine_separate <- function(mesh = NULL, ...) {
   
+  if (is.mesh(mesh))
   mesh_length <- nchar(mesh)
   
   res <- if (mesh_length == 4) {
@@ -22,10 +26,10 @@ fine_separate <- function(mesh = NULL, ...) {
     res <- paste0(mesh,
                   rep(0:9, each = 10),
                   rep(0:9, times = 10))
-    } else if (mesh_length >= 8) {
+    } else if (mesh_length >= 8 & mesh_length <= 10) {
       res <- paste0(mesh, 1:4)
   } else {
-    message("A value greater than the supported mesh size was inputed.")
+    rlang::inform("A value greater than the supported mesh size was inputed.")
     NA_character_
   }
 
