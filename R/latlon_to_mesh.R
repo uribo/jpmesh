@@ -1,15 +1,16 @@
 #' @title Convert from coordinate to mesh code
 #' 
 #' @description From coordinate to mesh codes.
-#' @param longitude longitude (double)
-#' @param latitude latitude (double)
+#' @param longitude longitude that approximately to .120.0 to 154.0 (`double`)
+#' @param latitude latitude that approximately to 20.0 to 46.0 (`double`)
 #' @param mesh_size mesh type. From 80km to 125m
 #' @param ... other parameters
 #' @importFrom dplyr case_when
 #' @importFrom rlang is_true quo_expr warn
-#' @return mesh code (default 3rd meshcode)
+#' @return mesh code (default 3rd meshcode aka 1km mesh)
 #' @author Akio Takenaka
 #' @details http://takenaka-akio.org/etc/j_map/index.html
+#' @seealso mesh_to_coords()
 #' @examples 
 #' coords_to_mesh(141.3468, 43.06462, mesh_size = "10km")
 #' coords_to_mesh(139.6917, 35.68949, mesh_size = "250m")

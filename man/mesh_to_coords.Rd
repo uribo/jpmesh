@@ -7,7 +7,7 @@
 mesh_to_coords(meshcode, ...)
 }
 \arguments{
-\item{meshcode}{numeric. mesh code}
+\item{meshcode}{\code{integer}. mesh code}
 
 \item{...}{other parameters}
 }

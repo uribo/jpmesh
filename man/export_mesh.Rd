@@ -4,10 +4,10 @@
 \alias{export_mesh}
 \title{Export meshcode to geometry}
 \usage{
-export_mesh(mesh)
+export_mesh(meshcode)
 }
 \arguments{
-\item{mesh}{mesh code}
+\item{meshcode}{\code{integer}. mesh code}
 }
 \value{
 sf object

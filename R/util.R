@@ -1,8 +1,7 @@
 #' @title Check include mesh areas
 #' 
 #' @description It roughly judges whether the given coordinates are within the mesh area.
-#' @param longitude longitude (double)
-#' @param latitude latitude (double)
+#' @inheritParams coords_to_mesh
 #' @param ... other parameters
 #' @importFrom dplyr between if_else
 #' @examples 
@@ -141,7 +140,7 @@ meshcode_set_1km <- meshcode_set_10km %>%
   purrr::map(fine_separate) %>%
   purrr::flatten_chr()
 
-#' Export 80km meshcode vectors
+#' Export meshcode vectors ranges 80km to 1km.
 #' 
 #' Unique 176 meshcodes. 
 #' The output code may contain values not found in the actual mesh code.
@@ -150,6 +149,9 @@ meshcode_set_1km <- meshcode_set_10km %>%
 #' @importFrom dplyr case_when
 #' @importFrom purrr as_vector map reduce
 #' @importFrom rlang as_list
+#' @examples 
+#' meshcode_set(mesh_size = "80km")
+#' @export
 meshcode_set <- function(mesh_size = c("80km", "10km", "1km")) {
   mesh_size <- match.arg(mesh_size)
   get(sprintf("meshcode_set_%s", mesh_size), envir = asNamespace("jpmesh"))

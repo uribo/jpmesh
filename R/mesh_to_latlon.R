@@ -1,7 +1,7 @@
 #' @title Get from mesh code to latitude and longitude
 #' 
 #' @description mesh centroid
-#' @param meshcode numeric. mesh code
+#' @param meshcode `integer`. mesh code
 #' @param ... other parameters
 #' @author Akio Takenaka
 #' @details http://takenaka-akio.org/etc/j_map/index.html

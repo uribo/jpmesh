@@ -4,10 +4,10 @@
 \alias{fine_separate}
 \title{Separate more fine mesh order}
 \usage{
-fine_separate(mesh = NULL, ...)
+fine_separate(meshcode = NULL, ...)
 }
 \arguments{
-\item{mesh}{mesh code}
+\item{meshcode}{\code{integer}. mesh code}
 
 \item{...}{other parameters for paste}
 }

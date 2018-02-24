@@ -4,15 +4,18 @@
 \alias{find_neighbor_mesh}
 \title{Find out neighborhood meshes collection}
 \usage{
-find_neighbor_mesh(mesh = NULL, contains = TRUE)
+find_neighbor_mesh(meshcode = NULL, contains = TRUE)
 }
 \arguments{
-\item{mesh}{meshcode (under the 1km mesh size)}
+\item{meshcode}{\code{integer}. mesh code}
 
-\item{contains}{logical. contains input meshcode}
+\item{contains}{logical. contains input meshcode (default \code{TRUE})}
+}
+\value{
+mesh code vectors (\code{character})
 }
 \description{
-Find out neighborhood meshes collection
+input should use meshcode under the 1km mesh size.
 }
 \examples{
 find_neighbor_mesh(53394501)
