@@ -25,9 +25,10 @@ Imports:
     units (>= 0.5-1)
 Suggests: 
     covr (>= 3.0.1),
-    knitr (>= 1.18),
+    knitr,
     stringr (>= 1.2.0),
-    testthat (>= 1.0.2)
+    testthat (>= 1.0.2),
+    rmarkdown
 VignetteBuilder: knitr
 LazyData: true
 Encoding: UTF-8

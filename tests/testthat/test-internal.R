@@ -31,4 +31,7 @@ test_that("Generate mesh code set", {
   # [TODO] exclude outbound meshes
   res <- meshcode_set(mesh_size = "10km")
   expect_length(res, 11264L)
+  
+  res <- meshcode_set(mesh_size = "1km")
+  expect_length(res, 1126400L)
 })

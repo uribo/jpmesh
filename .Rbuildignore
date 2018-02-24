@@ -16,3 +16,4 @@
 ^CONTRIBUTING\.md$
 ^Dockerfile$
 ^docker-compose\.yml$
+^vignettes/articles$
