@@ -24,7 +24,8 @@ is_meshcode <- function(meshcode) {
                           TRUE)
     if (res == FALSE) {
       rlang::inform(paste("meshcode must be follow digits:",
-                          paste(df_mesh_size_unit$mesh_length[1:nrow(df_mesh_size_unit) - 1], collapse = ", "),
+                          paste(df_mesh_size_unit$mesh_length[1:nrow(df_mesh_size_unit) - 1], 
+                                collapse = ", "),
                           "and",
                           df_mesh_size_unit$mesh_length[nrow(df_mesh_size_unit)]
       ))

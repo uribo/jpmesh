@@ -64,7 +64,10 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = "1km", ...) {
       code10 <- (code_t * 2) + (code_y + 1)
       code11 <- (code_u * 2) + (code_z + 1)
       
-      meshcode <- paste0(code12, code34, code5, code6, code7, code8, code9, code10, code11)
+      meshcode <- paste0(code12, code34, 
+                         code5, code6, 
+                         code7, code8, 
+                         code9, code10, code11)
       
       mesh_sets <- list(
         mesh_size == "80km" ~ substr(meshcode, 1, 4),

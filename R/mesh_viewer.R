@@ -40,7 +40,9 @@ mesh_viewer <-  function(...) {
     
     output$my.map <- leaflet::renderLeaflet({
       
-      d <- coords_to_mesh(as.numeric(input$lng), as.numeric(input$lat), mesh_size = input$mesh_size) %>% 
+      d <- coords_to_mesh(as.numeric(input$lng), 
+                          as.numeric(input$lat), 
+                          mesh_size = input$mesh_size) %>% 
         mesh_to_coords() %>% 
         dplyr::mutate(geometry = purrr::pmap(., ~ mesh_to_poly(...))) %>% 
         sf::st_sf(crs = 4326)

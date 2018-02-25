@@ -14,5 +14,5 @@ is_corner(meshcode)
 \item{meshcode}{\code{integer}. mesh code}
 }
 \description{
-Predict meshcode format and positions
+Predict meshcode format and positions for utility and certain.
 }
