@@ -76,6 +76,21 @@ is_meshcode <- function(meshcode) {
   return(res)
 }
 
+is_corner <- function(meshcode) {
+  size <- mesh_size(meshcode)
+  
+  if (size == units::as.units(80, "km")) {
+    rlang::abort("enable 10km or 1km mesh")
+  } else if (size == units::as.units(10, "km")) {
+    res <- grepl("(0[0-7]|[0-7]0|7[0-7]|[0-7]7)$", meshcode)
+  } else if (size == units::as.units(1, "km")) {
+    res <- grepl("(0[0-9]|[0-9]0|9[0-9]|[0-9]9)$", meshcode)
+  }
+  
+  return(res)
+  
+}
+
 mesh_size <- function(mesh) {
   
   dplyr::case_when(
@@ -155,4 +170,52 @@ meshcode_set_1km <- meshcode_set_10km %>%
 meshcode_set <- function(mesh_size = c("80km", "10km", "1km")) {
   mesh_size <- match.arg(mesh_size)
   get(sprintf("meshcode_set_%s", mesh_size), envir = asNamespace("jpmesh"))
+}
+
+#' Cutoff mesh of outside the area
+#' 
+#' @inheritParams mesh_to_coords
+cut_off <- function(meshcode) {
+  
+  mesh_80km <- substr(meshcode, 1, 4)
+  
+  res <- meshcode[mesh_80km %in% c(jpmesh::meshcode_set("80km"))]
+  if (length(res) < length(meshcode)) {
+    rlang::warn("Some neighborhood meshes are outside the area.")
+  }
+
+  res <- res %>% sort() %>% 
+    as.character()
+  
+  return(res)
+}
+
+validate_neighbor_mesh <- function(meshcode) {
+  
+  . <- geometry <- NULL
+  
+  df_bbox <- find_neighbor_mesh(meshcode) %>% 
+    tibble::tibble("mesh" = .) %>% 
+    dplyr::mutate(geometry = purrr::pmap(., ~ export_mesh(mesh = ..1) %>% 
+                                           sf::st_as_text())) %>% 
+    tidyr::unnest() %>% 
+    dplyr::mutate(geometry = sf::st_as_sfc(geometry)) %>% 
+    sf::st_sf() %>% 
+    sf::st_union() %>% 
+    sf::st_bbox()
+  
+  df_res <- tibble::tibble(
+    xlim = as.numeric(df_bbox[3] - df_bbox[1]),
+    ylim = as.numeric(df_bbox[4] - df_bbox[2])
+  )
+  
+  return(df_res)
+}
+
+bind_meshpolys <- function(meshcode) {
+  meshcode %>% 
+    purrr::map(fine_separate) %>% 
+    purrr::reduce(c) %>% 
+    unique() %>%
+    export_meshes()
 }
