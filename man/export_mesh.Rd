@@ -13,7 +13,7 @@ export_mesh(meshcode)
 sf object
 }
 \description{
-Convert and export meshcode area to sf polygon.
+Convert and export meshcode area to \code{sfc_POLYGON}.
 }
 \examples{
 export_mesh(6441427712)
