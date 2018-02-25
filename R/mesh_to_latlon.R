@@ -3,12 +3,16 @@
 #' @description mesh centroid
 #' @param meshcode `integer`. mesh code
 #' @param ... other parameters
-#' @author Akio Takenaka
-#' @details http://takenaka-akio.org/etc/j_map/index.html
+#' @references Akio Takenaka: [http://takenaka-akio.org/etc/j_map/index.html](http://takenaka-akio.org/etc/j_map/index.html)
+#' @seealso [coords_to_mesh()] for convert from coordinates to meshcode
 #' @examples
 #' mesh_to_coords(64414277)
 #' @export
 mesh_to_coords <- function(meshcode, ...) {
+  
+  if (!is_meshcode(meshcode)) {
+   stop("Unexpect meshcode value")
+  }
   
   code <- as.character(meshcode)
   
@@ -18,9 +22,6 @@ mesh_to_coords <- function(meshcode, ...) {
     code34 <- as.numeric(substring(code, 3, 4))
     lat_width  <- 2 / 3
     long_width <- 1
-  }
-  else {
-    return(NULL)
   }
   
   # 10km mesh

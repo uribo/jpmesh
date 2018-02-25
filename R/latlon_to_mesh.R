@@ -8,9 +8,8 @@
 #' @importFrom dplyr case_when
 #' @importFrom rlang is_true quo_expr warn
 #' @return mesh code (default 3rd meshcode aka 1km mesh)
-#' @author Akio Takenaka
-#' @details http://takenaka-akio.org/etc/j_map/index.html
-#' @seealso mesh_to_coords()
+#' @references Akio Takenaka: [http://takenaka-akio.org/etc/j_map/index.html](http://takenaka-akio.org/etc/j_map/index.html)
+#' @seealso [mesh_to_coords()] for convert from meshcode to coordinates
 #' @examples 
 #' coords_to_mesh(141.3468, 43.06462, mesh_size = "10km")
 #' coords_to_mesh(139.6917, 35.68949, mesh_size = "250m")

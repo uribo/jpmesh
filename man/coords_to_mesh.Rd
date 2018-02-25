@@ -21,17 +21,14 @@ mesh code (default 3rd meshcode aka 1km mesh)
 \description{
 From coordinate to mesh codes.
 }
-\details{
-http://takenaka-akio.org/etc/j_map/index.html
-}
 \examples{
 coords_to_mesh(141.3468, 43.06462, mesh_size = "10km")
 coords_to_mesh(139.6917, 35.68949, mesh_size = "250m")
 coords_to_mesh(139.71475, 35.70078)
 }
-\seealso{
-mesh_to_coords()
+\references{
+Akio Takenaka: \url{http://takenaka-akio.org/etc/j_map/index.html}
 }
-\author{
-Akio Takenaka
+\seealso{
+\code{\link[=mesh_to_coords]{mesh_to_coords()}} for convert from meshcode to coordinates
 }

@@ -14,12 +14,12 @@ mesh_to_coords(meshcode, ...)
 \description{
 mesh centroid
 }
-\details{
-http://takenaka-akio.org/etc/j_map/index.html
-}
 \examples{
 mesh_to_coords(64414277)
 }
-\author{
-Akio Takenaka
+\references{
+Akio Takenaka: \url{http://takenaka-akio.org/etc/j_map/index.html}
+}
+\seealso{
+\code{\link[=coords_to_mesh]{coords_to_mesh()}} for convert from coordinates to meshcode
 }
