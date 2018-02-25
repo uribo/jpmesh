@@ -18,8 +18,10 @@ RUN install2.r --error \
 RUN install2.r --error \
   knitr covr testthat devtools roxygen2 \
   remotes \
-  usethis shinyjs reprex
+  usethis shinyjs reprex DT
 
 RUN installGithub.r \
   "r-lib/roxygen2md" \
-  "tidyverse/ggplot2"
+  "r-lib/testthat" \
+  "tidyverse/ggplot2" \
+  "hadley/devtools"

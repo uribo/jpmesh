@@ -1,0 +1,79 @@
+---
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, load_employed_pkgs}
+library(magrittr)
+library(jpmesh)
+library(sf)
+library(purrr)
+```
+
+```{r}
+df_polys <- meshcode_set(mesh_size = "80km") %>% 
+  tibble::tibble("mesh" = .) %>% 
+  dplyr::mutate(geometry = purrr::pmap(., ~ export_mesh(mesh = ..1) %>% 
+                                    sf::st_as_text())) %>% 
+  tidyr::unnest() %>% 
+  dplyr::mutate(geometry = st_as_sfc(geometry)) %>% 
+  st_sf()
+```
+
+## base
+
+```{r, eval = FALSE, echo = TRUE}
+df_polys %>% 
+  st_geometry() %>% 
+  plot()
+```
+
+## ggplot2
+
+```{r}
+library(ggplot2)
+ggplot() + 
+  geom_sf(data = df_polys, fill = NA) +
+  geom_text(data = df_polys %>% dplyr::mutate(
+    CENTROID = map(geometry, st_centroid),
+    COORDS = map(CENTROID, st_coordinates),
+    COORDS_X = map_dbl(COORDS, 1),
+    COORDS_Y = map_dbl(COORDS, 2)    
+  ),
+    aes(COORDS_X, COORDS_Y, label = mesh), 
+    size = 3, min.segment.length = 0) +
+  coord_sf(datum = NA) +
+  theme_void()
+```
+
+## leaflet
+
+```{r, eval = FALSE, echo = TRUE}
+library(leaflet)
+leaflet() %>% 
+  addTiles() %>% 
+  addPolygons(data = df_polys)
+```
+
+## plotly
+
+wip...
+
+```{r sessioninfo}
+sessionInfo()
+```
+
+
