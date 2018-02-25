@@ -45,13 +45,13 @@ mesh_to_poly <- function(lng_center, lat_center, lng_error, lat_error, ...)
   return(res)
 }
 
-is.mesh <- function(mesh) {
-  invisible(is_meshcode(mesh))
+is.mesh <- function(meshcode) {
+  invisible(is_meshcode(meshcode))
 }
 
-is_meshcode <- function(mesh) {
+is_meshcode <- function(meshcode) {
   
-  res <- dplyr::if_else(grepl("^[0-9]{4,11}$", mesh), TRUE, FALSE)
+  res <- dplyr::if_else(grepl("^[0-9]{4,11}$", meshcode), TRUE, FALSE)
   
   if (res == FALSE) {
     rlang::inform(paste("meshcode must be numeric ranges", 
@@ -61,7 +61,7 @@ is_meshcode <- function(mesh) {
                         "digits"
     ))
   } else {
-    res <- dplyr::if_else(is.na(units::drop_units(mesh_size(mesh))),
+    res <- dplyr::if_else(is.na(units::drop_units(mesh_size(meshcode))),
                           FALSE,
                           TRUE)
     if (res == FALSE) {

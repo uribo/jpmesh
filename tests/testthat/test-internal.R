@@ -35,3 +35,51 @@ test_that("Generate mesh code set", {
   res <- meshcode_set(mesh_size = "1km")
   expect_length(res, 1126400L)
 })
+
+test_that(
+  "validate", {
+    
+    target <- 4028 %>% 
+      fine_separate()
+    
+    target2 <- target[target %>% 
+                        purrr::map_lgl(
+                          is_corner
+                        ) != TRUE]
+    
+    df_check <- target2 %>% 
+      purrr::map_df(validate_neighbor_mesh) %>% 
+      dplyr::distinct()
+    
+    expect_equal(
+      nrow(df_check),
+      1L
+    )
+    
+    target3 <- target[target %>% 
+                        purrr::map_lgl(
+                          is_corner
+                        ) == TRUE]
+    
+    expect_length(
+      target3,
+      4 * 7)
+    
+  })
+
+test_that(
+  "corner", {
+    expect_true(
+      is_corner(36247799)
+    )
+    expect_false(
+      is_corner(36247788)
+    )
+    
+    expect_error(
+      is_corner(3624),
+      "enable 10km or 1km mesh"
+    )
+    
+  })
+
