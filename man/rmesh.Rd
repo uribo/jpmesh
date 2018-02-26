@@ -14,3 +14,7 @@ rmesh(n, mesh_size = c("1km"))
 \description{
 Generate random sample meshcode
 }
+\examples{
+ 
+rmesh(3, mesh_size = "1km")
+}

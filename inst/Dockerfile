@@ -16,12 +16,14 @@ RUN install2.r --error \
   dplyr leaflet miniUI purrr sf tidyr
 
 RUN install2.r --error \
-  knitr covr testthat devtools roxygen2 \
+  knitr covr roxygen2 \
   remotes \
-  usethis shinyjs reprex DT
+  usethis shinyjs reprex DT 
 
 RUN installGithub.r \
   "r-lib/roxygen2md" \
   "r-lib/testthat" \
+  "r-lib/revdepcheck" \
+  "r-lib/pkgdown" \
   "tidyverse/ggplot2" \
   "hadley/devtools"

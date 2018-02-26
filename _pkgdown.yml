@@ -12,20 +12,18 @@ reference:
 
   - title: Convert mesh code to coordinate (and vice versa)
     contents: 
-    - meshcode_to_latlon
-    - latlong_to_meshcode
-    - latlong_to_sepate_mesh
+    - coords_to_mesh
+    - mesh_to_coords
 
-  - title: Detect file scale mesh code
+  - title: Detect fine scale and neighbourhood meshes
     contents:
-    - detect_mesh
     - fine_separate
+    - neighbor_mesh
     
   - title: Mesh data
     contents:
     - administration_mesh
     - jpnrect
-    - prefecture_mesh
     
   - title: Gadgets
     contents:
@@ -33,11 +31,14 @@ reference:
   
   - title: Utilities
     contents:
-    - bundle_mesh_vars
+    - eval_jp_boundary
     - export_mesh
-    - find_neighbor_mesh
-    - mesh_area
-    - mesh_rectangle
+    - export_meshes
+    - is_corner
+    - is_meshcode
+    - meshcode_set
+    - rmesh
+    - sf_jpmesh
 
 navbar:
   right:

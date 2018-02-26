@@ -81,9 +81,9 @@ coords_to_mesh(133, 34, "80km") %>%
 
 # the value of the adjacent mesh codes
 coords_to_mesh(133, 34, "80km") %>% 
-  find_neighbor_mesh()
+  neighbor_mesh()
 coords_to_mesh(133, 34, "500m") %>% 
-  find_neighbor_mesh()
+  neighbor_mesh()
 ```
 
 ### Utilies

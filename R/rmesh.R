@@ -3,7 +3,7 @@
 #' @description Generate random sample meshcode
 #' @param n Number of samples
 #' @inheritParams meshcode_set
-#' @example 
+#' @examples  
 #' rmesh(3, mesh_size = "1km")
 #' @export
 rmesh <- function(n, mesh_size = c("1km")) {
