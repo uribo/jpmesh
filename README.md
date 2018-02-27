@@ -3,7 +3,13 @@
 jpmesh <img src="man/figures/logo.png" align="right" width="80px" />
 ====================================================================
 
-[![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/jpmesh)](https://cran.r-project.org/package=jpmesh) [![Coverage status](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=master)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/jpmesh?color=FF5254)](https://cran.r-project.org/package=jpmesh) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-project.org/) [![Depsy](http://depsy.org/api/package/cran/jpmesh/badge.svg)](http://depsy.org/package/r/jpmesh)
+
+[![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![wercker status](https://app.wercker.com/status/25d5f835882cf2185751e1d89370269f/s/master "wercker status")](https://app.wercker.com/project/byKey/25d5f835882cf2185751e1d89370269f) [![Coverage status](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=master)
+
+------------------------------------------------------------------------
+
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=for-the-badge)](https://www.tidyverse.org/lifecycle/#maturing) [![npm](https://img.shields.io/npm/l/express.svg?style=for-the-badge)](https://github.com/uribo/jpmesh)
 
 Overview
 --------
@@ -15,9 +21,10 @@ In jpmesh, mesh codes and latitude and longitude coordinates are compatible with
 Installation
 ------------
 
-Fron CRAN
+From CRAN
 
 ``` r
+# latest update 2018-02-25
 install.packages("jpmesh")
 ```
 
@@ -34,7 +41,6 @@ Usage
 
 ``` r
 library(jpmesh)
-library(dplyr, warn.conflicts = FALSE)
 ```
 
 ### Convert mesh code to coordinate and vice versa
@@ -46,32 +52,32 @@ mesh_to_coords(5133) # 80km
 #> # A tibble: 1 x 4
 #>   lng_center lat_center lng_error lat_error
 #>        <dbl>      <dbl>     <dbl>     <dbl>
-#> 1        134       34.3     0.500     0.333
+#> 1       134.       34.3     0.500     0.333
 mesh_to_coords(513377) # 10km
 #> # A tibble: 1 x 4
 #>   lng_center lat_center lng_error lat_error
 #>        <dbl>      <dbl>     <dbl>     <dbl>
-#> 1        134       34.6    0.0625    0.0417
+#> 1       134.       34.6    0.0625    0.0417
 mesh_to_coords(51337783) # 1km
 #> # A tibble: 1 x 4
 #>   lng_center lat_center lng_error lat_error
 #>        <dbl>      <dbl>     <dbl>     <dbl>
-#> 1        134       34.7   0.00625   0.00417
+#> 1       134.       34.7   0.00625   0.00417
 mesh_to_coords(513377831) # 500m
 #> # A tibble: 1 x 4
 #>   lng_center lat_center lng_error lat_error
 #>        <dbl>      <dbl>     <dbl>     <dbl>
-#> 1        134       34.7   0.00312   0.00208
+#> 1       134.       34.7   0.00312   0.00208
 mesh_to_coords(5133778312) # 250m
 #> # A tibble: 1 x 4
 #>   lng_center lat_center lng_error lat_error
 #>        <dbl>      <dbl>     <dbl>     <dbl>
-#> 1        134       34.7   0.00156   0.00104
+#> 1       134.       34.7   0.00156   0.00104
 mesh_to_coords(51337783123) # 125m
 #> # A tibble: 1 x 4
 #>   lng_center lat_center lng_error lat_error
 #>        <dbl>      <dbl>     <dbl>     <dbl>
-#> 1        134       34.7  0.000781  0.000521
+#> 1       134.       34.7  0.000781  0.000521
 ```
 
 Find the mesh code within the range from latitude and longitude.
@@ -119,7 +125,7 @@ Drawing a simplified Japanese map based on the mesh code.
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3
+#> Linking to GEOS 3.6.1, GDAL 2.1.3, proj.4 4.9.3
 plot(jpnrect["abb_name"])
 ```
 
@@ -155,7 +161,8 @@ Example)
 ``` r
 # For leaflet
 library(leaflet)
-leaflet() %>% addTiles() %>% 
+leaflet() %>% 
+  addTiles() %>% 
   addProviderTiles("OpenStreetMap.BlackAndWhite") %>% 
   addPolygons(data = administration_mesh(code = 33101, type = "city"))
 ```
@@ -168,3 +175,8 @@ ggplot() +
 ```
 
 ![](man/figures/README-mesh_pref33_map-1.png)
+
+Code of Conduct
+---------------
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
