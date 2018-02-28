@@ -15,10 +15,13 @@ RUN apt-get install -y --no-install-recommends \
 RUN install2.r --error \
   dplyr leaflet miniUI purrr sf tidyr
 
+# For develop and infrastructure
 RUN install2.r --error \
   knitr covr roxygen2 \
   remotes \
-  usethis shinyjs reprex DT 
+  usethis shinyjs \
+  reprex DT \
+  lintr
 
 RUN installGithub.r \
   "r-lib/roxygen2md" \

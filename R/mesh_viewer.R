@@ -54,4 +54,3 @@ mesh_viewer <-  function(...) {
   
   shiny::runGadget(ui, server, viewer = shiny::dialogViewer("mesh_viewer", width = 650, height = 500))
 }
-
