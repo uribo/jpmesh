@@ -8,8 +8,12 @@
 <title>Utilities for Japanese Mesh Code • jpmesh</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Utilities for Japanese Mesh Code">
+<meta property="og:description" content="Helpful functions for using mesh code (80km to 125m) data in Japan. Visualize mesh code using 'ggplot2' and 'leaflet', etc.">
+<meta property="og:image" content="/logo.png">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -29,7 +33,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="/index.html">
+  <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -45,7 +49,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/usage.html">How to use jpmesh</a>
+      <a href="articles/articles/plots.html">Construct maps with jpmesh</a>
+    </li>
+    <li>
+      <a href="articles/usage.html">How to use mesh cord in R</a>
     </li>
   </ul>
 </li>
@@ -80,17 +87,21 @@
 <div id="jpmesh" class="section level1">
 
 
+<p><a href="https://travis-ci.org/uribo/jpmesh"><img src="https://travis-ci.org/uribo/jpmesh.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://app.wercker.com/project/byKey/25d5f835882cf2185751e1d89370269f"><img src="https://app.wercker.com/status/25d5f835882cf2185751e1d89370269f/s/master" title="wercker status" alt="wercker status"></a> <a href="https://codecov.io/github/uribo/jpmesh?branch=master"><img src="https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg" alt="Coverage status"></a></p>
+<p><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=for-the-badge" alt="lifecycle"></a> <a href="https://github.com/uribo/jpmesh"><img src="https://img.shields.io/npm/l/express.svg?style=for-the-badge" alt="npm"></a></p>
+<hr>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>The <strong><code>{jpmesh}</code></strong> package is a package that makes it easy to use “regional mesh (i.e. mesh code <em>JIS X 0410</em> )” used in Japan from R. Regional mesh is a code given when subdividing Japanese landscape into rectangular subregions by latitude and longitude. Depending on the accuracy of the code, different regional mesh length. By using the same mesh in statistical survey etc., it will become possible to handle the survey results of a large area in the area mesh unit.</p>
-<p>In jpmesh, mesh codes and latitude and longitude coordinates are compatible with mesh codes from the first region mesh, which is the standard region mesh, to the quarter regional mesh of the divided region mesh (from 80 km to 250 m). Features include “conversion from latitude and longitude to regional mesh”, “acquisition of latitude and longitude from regional mesh”, “mapping on prefecture unit and leaflet”.</p>
+<p>The <strong>jpmesh</strong> package is a package that makes it easy to use “regional mesh (i.e. mesh code <em>JIS X 0410</em> )” used in Japan from R. Regional mesh is a code given when subdividing Japanese landscape into rectangular subregions by latitude and longitude. Depending on the accuracy of the code, different regional mesh length. By using the same mesh in statistical survey etc., it will become possible to handle the survey results of a large area in the area mesh unit.</p>
+<p>In jpmesh, mesh codes and latitude and longitude coordinates are compatible with mesh codes from the first region mesh, which is the standard region mesh, to the quarter regional mesh of the divided region mesh (from 80 km to 125 m). Features include “conversion from latitude and longitude to regional mesh”, “acquisition of latitude and longitude from regional mesh”, “mapping on prefecture unit and leaflet”.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>Fron CRAN</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"jpmesh"</span>)</code></pre></div>
+<p>From CRAN</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># latest update 2018-02-25</span>
+<span class="kw">install.packages</span>(<span class="st">"jpmesh"</span>)</code></pre></div>
 <p>For developers</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the development version from GitHub:</span>
 <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
@@ -99,50 +110,91 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(jpmesh)
-<span class="kw">library</span>(dplyr, <span class="dt">warn.conflicts =</span> <span class="ot">FALSE</span>)
-<span class="kw">library</span>(ggplot2)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+<span class="kw">library</span>(jpmesh)</code></pre></div>
 <div id="convert-mesh-code-to-coordinate-and-vice-versa" class="section level3">
 <h3 class="hasAnchor">
 <a href="#convert-mesh-code-to-coordinate-and-vice-versa" class="anchor"></a>Convert mesh code to coordinate and vice versa</h3>
 <p>Return the latitude and longitude for specifying the mesh range from the mesh code.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/meshcode_to_latlon.html">meshcode_to_latlon</a></span>(<span class="dv">5133</span>)
-<span class="co">#&gt;   lat_center long_center lat_error long_error</span>
-<span class="co">#&gt; 1   34.33333       133.5 0.3333333        0.5</span>
-<span class="kw"><a href="reference/meshcode_to_latlon.html">meshcode_to_latlon</a></span>(<span class="dv">513377</span>)
-<span class="co">#&gt;   lat_center long_center  lat_error long_error</span>
-<span class="co">#&gt; 1     34.625    133.9375 0.04166667     0.0625</span>
-<span class="kw"><a href="reference/meshcode_to_latlon.html">meshcode_to_latlon</a></span>(<span class="dv">51337783</span>)
-<span class="co">#&gt;   lat_center long_center   lat_error long_error</span>
-<span class="co">#&gt; 1   34.65417    133.9187 0.004166667    0.00625</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/mesh_to_coords.html">mesh_to_coords</a></span>(<span class="dv">5133</span>) <span class="co"># 80km</span>
+<span class="co">#&gt; # A tibble: 1 x 4</span>
+<span class="co">#&gt;   lng_center lat_center lng_error lat_error</span>
+<span class="co">#&gt;        &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       134.       34.3     0.500     0.333</span>
+<span class="kw"><a href="reference/mesh_to_coords.html">mesh_to_coords</a></span>(<span class="dv">513377</span>) <span class="co"># 10km</span>
+<span class="co">#&gt; # A tibble: 1 x 4</span>
+<span class="co">#&gt;   lng_center lat_center lng_error lat_error</span>
+<span class="co">#&gt;        &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       134.       34.6    0.0625    0.0417</span>
+<span class="kw"><a href="reference/mesh_to_coords.html">mesh_to_coords</a></span>(<span class="dv">51337783</span>) <span class="co"># 1km</span>
+<span class="co">#&gt; # A tibble: 1 x 4</span>
+<span class="co">#&gt;   lng_center lat_center lng_error lat_error</span>
+<span class="co">#&gt;        &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       134.       34.7   0.00625   0.00417</span>
+<span class="kw"><a href="reference/mesh_to_coords.html">mesh_to_coords</a></span>(<span class="dv">513377831</span>) <span class="co"># 500m</span>
+<span class="co">#&gt; # A tibble: 1 x 4</span>
+<span class="co">#&gt;   lng_center lat_center lng_error lat_error</span>
+<span class="co">#&gt;        &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       134.       34.7   0.00312   0.00208</span>
+<span class="kw"><a href="reference/mesh_to_coords.html">mesh_to_coords</a></span>(<span class="dv">5133778312</span>) <span class="co"># 250m</span>
+<span class="co">#&gt; # A tibble: 1 x 4</span>
+<span class="co">#&gt;   lng_center lat_center lng_error lat_error</span>
+<span class="co">#&gt;        &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       134.       34.7   0.00156   0.00104</span>
+<span class="kw"><a href="reference/mesh_to_coords.html">mesh_to_coords</a></span>(<span class="dv">51337783123</span>) <span class="co"># 125m</span>
+<span class="co">#&gt; # A tibble: 1 x 4</span>
+<span class="co">#&gt;   lng_center lat_center lng_error lat_error</span>
+<span class="co">#&gt;        &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       134.       34.7  0.000781  0.000521</span></code></pre></div>
 <p>Find the mesh code within the range from latitude and longitude.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/latlong_to_meshcode.html">latlong_to_meshcode</a></span>(<span class="dv">34</span>, <span class="dv">133</span>, <span class="dt">order =</span> <span class="dv">1</span>)
-<span class="co">#&gt; [1] 5133</span>
-<span class="kw"><a href="reference/latlong_to_meshcode.html">latlong_to_meshcode</a></span>(<span class="fl">34.583333</span>, <span class="fl">133.875</span>, <span class="dt">order =</span> <span class="dv">2</span>)
-<span class="co">#&gt; [1] 513367</span>
-<span class="kw"><a href="reference/latlong_to_meshcode.html">latlong_to_meshcode</a></span>(<span class="fl">34.65</span>, <span class="fl">133.9125</span>, <span class="dt">order =</span> <span class="dv">3</span>)
-<span class="co">#&gt; [1] 51337782</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/coords_to_mesh.html">coords_to_mesh</a></span>(<span class="dv">133</span>, <span class="dv">34</span>) <span class="co"># default as 1km meshcode</span>
+<span class="co">#&gt; [1] "51330000"</span>
+<span class="kw"><a href="reference/coords_to_mesh.html">coords_to_mesh</a></span>(<span class="dv">133</span>, <span class="dv">34</span>, <span class="dt">mesh_size =</span> <span class="st">"80km"</span>)
+<span class="co">#&gt; [1] "5133"</span>
+<span class="kw"><a href="reference/coords_to_mesh.html">coords_to_mesh</a></span>(<span class="dv">133</span>, <span class="dv">34</span>, <span class="dt">mesh_size =</span> <span class="st">"125m"</span>)
+<span class="co">#&gt; [1] "51330000111"</span></code></pre></div>
 </div>
-<div id="detect-fine-mesh-code" class="section level3">
+<div id="detect-fine-and-neighborhood-mesh-codes" class="section level3">
 <h3 class="hasAnchor">
-<a href="#detect-fine-mesh-code" class="anchor"></a>Detect fine mesh code</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/detect_mesh.html">detect_mesh</a></span>(<span class="dv">52350422</span>, <span class="dt">lat =</span> <span class="fl">34.684176</span>, <span class="dt">long =</span> <span class="fl">135.526130</span>)
-<span class="co">#&gt; [1] 523504221</span>
-<span class="kw"><a href="reference/detect_mesh.html">detect_mesh</a></span>(<span class="dv">523504221</span>, <span class="dt">lat =</span> <span class="fl">34.684028</span>, <span class="dt">long =</span> <span class="fl">135.529506</span>)
-<span class="co">#&gt; [1] 5235042212</span></code></pre></div>
+<a href="#detect-fine-and-neighborhood-mesh-codes" class="anchor"></a>Detect fine and neighborhood mesh codes</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Returns a finer mesh of the area of the mesh codes</span>
+<span class="co"># Such as, 80km to 10km mesh codes.</span>
+<span class="kw"><a href="reference/coords_to_mesh.html">coords_to_mesh</a></span>(<span class="dv">133</span>, <span class="dv">34</span>, <span class="st">"80km"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="reference/fine_separate.html">fine_separate</a></span>()
+<span class="co">#&gt;  [1] "513300" "513301" "513302" "513303" "513304" "513305" "513306"</span>
+<span class="co">#&gt;  [8] "513307" "513310" "513311" "513312" "513313" "513314" "513315"</span>
+<span class="co">#&gt; [15] "513316" "513317" "513320" "513321" "513322" "513323" "513324"</span>
+<span class="co">#&gt; [22] "513325" "513326" "513327" "513330" "513331" "513332" "513333"</span>
+<span class="co">#&gt; [29] "513334" "513335" "513336" "513337" "513340" "513341" "513342"</span>
+<span class="co">#&gt; [36] "513343" "513344" "513345" "513346" "513347" "513350" "513351"</span>
+<span class="co">#&gt; [43] "513352" "513353" "513354" "513355" "513356" "513357" "513360"</span>
+<span class="co">#&gt; [50] "513361" "513362" "513363" "513364" "513365" "513366" "513367"</span>
+<span class="co">#&gt; [57] "513370" "513371" "513372" "513373" "513374" "513375" "513376"</span>
+<span class="co">#&gt; [64] "513377"</span>
+
+<span class="co"># the value of the adjacent mesh codes</span>
+<span class="kw"><a href="reference/coords_to_mesh.html">coords_to_mesh</a></span>(<span class="dv">133</span>, <span class="dv">34</span>, <span class="st">"80km"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="reference/neighbor_mesh.html">neighbor_mesh</a></span>()
+<span class="co">#&gt; [1] "5032" "5033" "5034" "5132" "5133" "5134" "5232" "5233" "5234"</span>
+<span class="kw"><a href="reference/coords_to_mesh.html">coords_to_mesh</a></span>(<span class="dv">133</span>, <span class="dv">34</span>, <span class="st">"500m"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="reference/neighbor_mesh.html">neighbor_mesh</a></span>()
+<span class="co">#&gt; [1] "503277994" "503370903" "503370904" "513207092" "513207094" "513300003"</span>
+<span class="co">#&gt; [7] "513300004" "513300001"</span></code></pre></div>
 </div>
 <div id="utilies" class="section level3">
 <h3 class="hasAnchor">
 <a href="#utilies" class="anchor"></a>Utilies</h3>
 <p>Drawing a simplified Japanese map based on the mesh code.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
-<span class="co">#&gt; Linking to GEOS 3.6.1, GDAL 2.1.3, proj.4 4.9.3</span>
+<span class="co">#&gt; Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3</span>
 <span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(jpnrect[<span class="st">"abb_name"</span>])</code></pre></div>
-<p><img src="README-jpn_simple_map_sf-1.png" width="768"></p>
+<p><img src="reference/figures/README-jpn_simple_map_sf-1.png" width="768"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2) <span class="co"># 2.2.1.9000</span>
 <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggsf">geom_sf</a></span>(<span class="dt">data =</span> jpnrect)</code></pre></div>
-<p><img src="README-jpn_simple_map-1.png" width="768"></p>
+<div class="figure">
+<img src="reference/figures/README-jpn_simple_map-1.png">
+</div>
 <p>Dataset of mesh code for prefectures.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">71</span>)
 <span class="kw"><a href="reference/administration_mesh.html">administration_mesh</a></span>(<span class="dt">code =</span> <span class="dv">33</span>, <span class="dt">type =</span> <span class="st">"prefecture"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -150,57 +202,83 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>()</code></pre></div>
 <table class="table">
 <thead><tr class="header">
-<th align="left">mesh_code</th>
-<th align="left">city_code</th>
-<th align="left">city_name</th>
+<th></th>
+<th align="left">meshcode</th>
+<th align="right">lng_center</th>
+<th align="right">lat_center</th>
+<th align="right">lng_error</th>
+<th align="right">lat_error</th>
 <th align="left">geometry</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">523346</td>
-<td align="left">33666</td>
-<td align="left">久米郡美咲町</td>
-<td align="left">133.75000, 133.87500, 133.87500, 133.75000, 133.75000, 35.00000, 35.00000, 35.08333, 35.08333, 35.00000</td>
+<td>33</td>
+<td align="left">523440</td>
+<td align="right">134.0625</td>
+<td align="right">35.04167</td>
+<td align="right">0.0625</td>
+<td align="right">0.0416667</td>
+<td align="left">list(c(134, 134.125, 134.125, 134, 134, 35, 35, 35.08333, 35.08333, 35))</td>
 </tr>
 <tr class="even">
-<td align="left">523304</td>
-<td align="left">33207</td>
-<td align="left">井原市</td>
-<td align="left">133.50000, 133.62500, 133.62500, 133.50000, 133.50000, 34.66667, 34.66667, 34.75000, 34.75000, 34.66667</td>
+<td>54</td>
+<td align="left">523322</td>
+<td align="right">133.3125</td>
+<td align="right">34.87500</td>
+<td align="right">0.0625</td>
+<td align="right">0.0416667</td>
+<td align="left">list(c(133.25, 133.375, 133.375, 133.25, 133.25, 34.83333, 34.83333, 34.91667, 34.91667, 34.83333))</td>
 </tr>
 <tr class="odd">
-<td align="left">523346</td>
-<td align="left">33203</td>
-<td align="left">津山市</td>
-<td align="left">133.75000, 133.87500, 133.87500, 133.75000, 133.75000, 35.00000, 35.00000, 35.08333, 35.08333, 35.00000</td>
+<td>32</td>
+<td align="left">523377</td>
+<td align="right">133.9375</td>
+<td align="right">35.29167</td>
+<td align="right">0.0625</td>
+<td align="right">0.0416667</td>
+<td align="left">list(c(133.875, 134, 134, 133.875, 133.875, 35.25, 35.25, 35.33333, 35.33333, 35.25))</td>
 </tr>
 <tr class="even">
-<td align="left">513470</td>
-<td align="left">33212</td>
-<td align="left">瀬戸内市</td>
-<td align="left">134.00000, 134.12500, 134.12500, 134.00000, 134.00000, 34.58333, 34.58333, 34.66667, 34.66667, 34.58333</td>
+<td>21</td>
+<td align="left">513355</td>
+<td align="right">133.6875</td>
+<td align="right">34.45833</td>
+<td align="right">0.0625</td>
+<td align="right">0.0416667</td>
+<td align="left">list(c(133.625, 133.75, 133.75, 133.625, 133.625, 34.41667, 34.41667, 34.5, 34.5, 34.41667))</td>
 </tr>
 <tr class="odd">
-<td align="left">513375</td>
-<td align="left">33208</td>
-<td align="left">総社市</td>
-<td align="left">133.62500, 133.75000, 133.75000, 133.62500, 133.62500, 34.58333, 34.58333, 34.66667, 34.66667, 34.58333</td>
+<td>30</td>
+<td align="left">523357</td>
+<td align="right">133.9375</td>
+<td align="right">35.12500</td>
+<td align="right">0.0625</td>
+<td align="right">0.0416667</td>
+<td align="left">list(c(133.875, 134, 134, 133.875, 133.875, 35.08333, 35.08333, 35.16667, 35.16667, 35.08333))</td>
 </tr>
 </tbody>
 </table>
 <p>Example)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># For leaflet</span>
 <span class="kw">library</span>(leaflet)
-<span class="kw"><a href="http://www.rdocumentation.org/packages/leaflet/topics/leaflet">leaflet</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/leaflet/topics/map-layers">addTiles</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/leaflet/topics/leaflet">leaflet</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/leaflet/topics/map-layers">addTiles</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/leaflet/topics/addProviderTiles">addProviderTiles</a></span>(<span class="st">"OpenStreetMap.BlackAndWhite"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/leaflet/topics/map-layers">addPolygons</a></span>(<span class="dt">data =</span> <span class="kw"><a href="reference/administration_mesh.html">administration_mesh</a></span>(<span class="dt">code =</span> <span class="dv">33101</span>, <span class="dt">type =</span> <span class="st">"city"</span>))</code></pre></div>
 <div class="figure">
-<img src="README-mesh_pref_33_leaflet-1.png">
+<img src="reference/figures/README-mesh_pref_33_leaflet-1.png">
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggsf">geom_sf</a></span>(<span class="dt">data =</span> <span class="kw"><a href="reference/administration_mesh.html">administration_mesh</a></span>(<span class="dt">code =</span> <span class="dv">33</span>, <span class="dt">type =</span> <span class="st">"city"</span>))</code></pre></div>
-<p><img src="README-mesh_pref33_map-1.png" width="672"></p>
+<div class="figure">
+<img src="reference/figures/README-mesh_pref33_map-1.png">
 </div>
+</div>
+</div>
+<div id="code-of-conduct" class="section level2">
+<h2 class="hasAnchor">
+<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
+<p>Please note that this project is released with a <a href=".github/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>
 </div>
 </div>
@@ -212,7 +290,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cran.r-project.org/package=jpmesh">https://​cran.r-project.org/​package=jpmesh</a>
 </li>
-<li>Browse source code at <br><a href="https://github.com/uribo/jpmesh">https://​github.com/​uribo/​jpmesh</a>
+<li>Browse source code at <br><a href="https://github.com/uribo/jpmesh#readme">https://​github.com/​uribo/​jpmesh#readme</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/uribo/jpmesh/issues">https://​github.com/​uribo/​jpmesh/​issues</a>
 </li>
@@ -223,13 +301,14 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE.html">LICENSE</a></p>
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Shinya Uryu <br><small class="roles"> Author, maintainer </small> </li>
+<li>Shinya Uryu <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-0493-6186" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid"></a> </li>
 </ul>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/uribo/jpmesh"><img src="https://travis-ci.org/uribo/jpmesh.svg?branch=master" alt="Travis-CI Build Status"></a></li>
 <li><a href="https://cran.r-project.org/package=jpmesh"><img src="http://www.r-pkg.org/badges/version/jpmesh" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://codecov.io/gh/uribo/jpmesh"><img src="https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://cran.r-project.org/package=jpmesh"><img src="http://cranlogs.r-pkg.org/badges/jpmesh?color=FF5254" alt="CRAN RStudio mirror downloads"></a></li>
+<li><a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg" alt="minimal R version"></a></li>
+<li><a href="http://depsy.org/package/r/jpmesh"><img src="http://depsy.org/api/package/cran/jpmesh/badge.svg" alt="Depsy"></a></li>
 </ul>
 </div>
 
@@ -241,7 +320,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

@@ -52,6 +52,7 @@ devtools::install_github("uribo/jpmesh")
 ## Usage
 
 ```{r}
+library(magrittr)
 library(jpmesh)
 ```
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simple displaed as rectangel for Japan (fortified) — jpnrect • jpmesh</title>
+<title>Convert from coordinate to mesh code — coords_to_mesh • jpmesh</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Simple displaed as rectangel for Japan (fortified) — jpnrect" />
+<meta property="og:title" content="Convert from coordinate to mesh code — coords_to_mesh" />
 
-<meta property="og:description" content="Rectangle Japanese prefectures positions." />
+<meta property="og:description" content="From coordinate to mesh codes." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -106,42 +106,62 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Simple displaed as rectangel for Japan (fortified)</h1>
+    <h1>Convert from coordinate to mesh code</h1>
     </div>
 
     
-    <p>Rectangle Japanese prefectures positions.</p>
+    <p>From coordinate to mesh codes.</p>
     
 
-    <pre class="usage"><span class='no'>jpnrect</span></pre>
-        
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <pre class="usage"><span class='fu'>coords_to_mesh</span>(<span class='no'>longitude</span>, <span class='no'>latitude</span>, <span class='kw'>mesh_size</span> <span class='kw'>=</span> <span class='st'>"1km"</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>longitude</th>
+      <td><p>longitude that approximately to .120.0 to 154.0 (<code>double</code>)</p></td>
+    </tr>
+    <tr>
+      <th>latitude</th>
+      <td><p>latitude that approximately to 20.0 to 46.0 (<code>double</code>)</p></td>
+    </tr>
+    <tr>
+      <th>mesh_size</th>
+      <td><p>mesh type. From 80km to 125m</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other parameters</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with 235 rows 11 variables:</p><ul>
-<li><p>long</p></li>
-<li><p>lat</p></li>
-<li><p>order</p></li>
-<li><p>hole</p></li>
-<li><p>piece</p></li>
-<li><p>id</p></li>
-<li><p>group</p></li>
-<li><p>mesh_code</p></li>
-<li><p>latitude</p></li>
-<li><p>longitude</p></li>
-<li><p>abb_name</p></li>
-</ul>
+    <p>mesh code (default 3rd meshcode aka 1km mesh)</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Akio Takenaka: <a href='http://takenaka-akio.org/etc/j_map/index.html'>http://takenaka-akio.org/etc/j_map/index.html</a></p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='mesh_to_coords.html'>mesh_to_coords()</a></code> for convert from meshcode to coordinates</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>plot</span>(<span class='no'>jpnrect</span>[<span class='st'>"abb_name"</span>])
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='fu'>coords_to_mesh</span>(<span class='fl'>141.3468</span>, <span class='fl'>43.06462</span>, <span class='kw'>mesh_size</span> <span class='kw'>=</span> <span class='st'>"10km"</span>)</div><div class='output co'>#&gt; [1] "644142"</div><div class='input'><span class='fu'>coords_to_mesh</span>(<span class='fl'>139.6917</span>, <span class='fl'>35.68949</span>, <span class='kw'>mesh_size</span> <span class='kw'>=</span> <span class='st'>"250m"</span>)</div><div class='output co'>#&gt; [1] "5339452532"</div><div class='input'><span class='fu'>coords_to_mesh</span>(<span class='fl'>139.71475</span>, <span class='fl'>35.70078</span>)</div><div class='output co'>#&gt; [1] "53394547"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#format">Format</a></li>
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#references">References</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
