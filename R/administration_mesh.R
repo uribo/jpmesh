@@ -22,7 +22,6 @@ administration_mesh <- function(code, type = c("prefecture")) {
     df_city_mesh <- df_city_mesh %>% 
       dplyr::mutate(meshcode = substr(meshcode, 1, 6))  
   }
-  
   df_origin <- df_city_mesh %>% 
     dplyr::filter(
       grepl(paste0("^(", paste(code, collapse = "|"), ")"), city_code))
