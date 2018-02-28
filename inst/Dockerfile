@@ -10,6 +10,7 @@ RUN apt-get install -y --no-install-recommends \
   libudunits2-dev \
   libgdal-dev \
   libcairo2-dev \
+  libmagick++-dev \
   qpdf
 
 RUN install2.r --error \
@@ -21,7 +22,9 @@ RUN install2.r --error \
   remotes \
   usethis shinyjs \
   reprex DT \
-  lintr
+  lintr \
+  caTools \ # to knitr R Markdown documents
+  magick # create favivon.ico by pkgdown::build_site()
 
 RUN installGithub.r \
   "r-lib/roxygen2md" \
