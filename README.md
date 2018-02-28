@@ -40,6 +40,7 @@ Usage
 -----
 
 ``` r
+library(magrittr)
 library(jpmesh)
 ```
 

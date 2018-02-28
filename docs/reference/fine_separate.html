@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,12 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Separate more fine mesh order — fine_separate" />
+
+<meta property="og:description" content="Return contains fine mesh codes" />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,7 +60,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -68,7 +76,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/usage.html">How to use jpmesh</a>
+      <a href="../articles/articles/plots.html">Construct maps with jpmesh</a>
+    </li>
+    <li>
+      <a href="../articles/usage.html">How to use mesh cord in R</a>
     </li>
   </ul>
 </li>
@@ -102,18 +113,14 @@
     <p>Return contains fine mesh codes</p>
     
 
-    <pre class="usage"><span class='fu'>fine_separate</span>(<span class='kw'>meshcode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"harf"</span>, <span class='st'>"quarter"</span>), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>fine_separate</span>(<span class='kw'>meshcode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>meshcode</th>
-      <td><p>mesh code</p></td>
-    </tr>
-    <tr>
-      <th>order</th>
-      <td><p>Choose mesh order</p></td>
+      <td><p><code>integer</code>. mesh code</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -127,10 +134,30 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fine_separate</span>(<span class='fl'>52350400</span>, <span class='st'>"harf"</span>)</div><div class='output co'>#&gt; [1] "523504001" "523504002" "523504003" "523504004"</div><div class='input'><span class='fu'>fine_separate</span>(<span class='fl'>52350400</span>, <span class='st'>"quarter"</span>)</div><div class='output co'>#&gt;  [1] "5235040011" "5235040012" "5235040013" "5235040014" "5235040021"
-#&gt;  [6] "5235040022" "5235040023" "5235040024" "5235040031" "5235040032"
-#&gt; [11] "5235040033" "5235040034" "5235040041" "5235040042" "5235040043"
-#&gt; [16] "5235040044"</div><div class='input'><span class='fu'>fine_separate</span>(<span class='fl'>52350400</span>, <span class='st'>"quarter"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='st'>","</span>)</div><div class='output co'>#&gt; [1] "5235040011,5235040012,5235040013,5235040014,5235040021,5235040022,5235040023,5235040024,5235040031,5235040032,5235040033,5235040034,5235040041,5235040042,5235040043,5235040044"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>fine_separate</span>(<span class='fl'>5235</span>)</div><div class='output co'>#&gt;  [1] "523500" "523501" "523502" "523503" "523504" "523505" "523506" "523507"
+#&gt;  [9] "523510" "523511" "523512" "523513" "523514" "523515" "523516" "523517"
+#&gt; [17] "523520" "523521" "523522" "523523" "523524" "523525" "523526" "523527"
+#&gt; [25] "523530" "523531" "523532" "523533" "523534" "523535" "523536" "523537"
+#&gt; [33] "523540" "523541" "523542" "523543" "523544" "523545" "523546" "523547"
+#&gt; [41] "523550" "523551" "523552" "523553" "523554" "523555" "523556" "523557"
+#&gt; [49] "523560" "523561" "523562" "523563" "523564" "523565" "523566" "523567"
+#&gt; [57] "523570" "523571" "523572" "523573" "523574" "523575" "523576" "523577"</div><div class='input'><span class='fu'>fine_separate</span>(<span class='fl'>523504</span>)</div><div class='output co'>#&gt;   [1] "52350400" "52350401" "52350402" "52350403" "52350404" "52350405"
+#&gt;   [7] "52350406" "52350407" "52350408" "52350409" "52350410" "52350411"
+#&gt;  [13] "52350412" "52350413" "52350414" "52350415" "52350416" "52350417"
+#&gt;  [19] "52350418" "52350419" "52350420" "52350421" "52350422" "52350423"
+#&gt;  [25] "52350424" "52350425" "52350426" "52350427" "52350428" "52350429"
+#&gt;  [31] "52350430" "52350431" "52350432" "52350433" "52350434" "52350435"
+#&gt;  [37] "52350436" "52350437" "52350438" "52350439" "52350440" "52350441"
+#&gt;  [43] "52350442" "52350443" "52350444" "52350445" "52350446" "52350447"
+#&gt;  [49] "52350448" "52350449" "52350450" "52350451" "52350452" "52350453"
+#&gt;  [55] "52350454" "52350455" "52350456" "52350457" "52350458" "52350459"
+#&gt;  [61] "52350460" "52350461" "52350462" "52350463" "52350464" "52350465"
+#&gt;  [67] "52350466" "52350467" "52350468" "52350469" "52350470" "52350471"
+#&gt;  [73] "52350472" "52350473" "52350474" "52350475" "52350476" "52350477"
+#&gt;  [79] "52350478" "52350479" "52350480" "52350481" "52350482" "52350483"
+#&gt;  [85] "52350484" "52350485" "52350486" "52350487" "52350488" "52350489"
+#&gt;  [91] "52350490" "52350491" "52350492" "52350493" "52350494" "52350495"
+#&gt;  [97] "52350496" "52350497" "52350498" "52350499"</div><div class='input'><span class='fu'>fine_separate</span>(<span class='fl'>52350432</span>)</div><div class='output co'>#&gt; [1] "523504321" "523504322" "523504323" "523504324"</div><div class='input'><span class='fu'>fine_separate</span>(<span class='fl'>523504321</span>)</div><div class='output co'>#&gt; [1] "5235043211" "5235043212" "5235043213" "5235043214"</div><div class='input'><span class='fu'>fine_separate</span>(<span class='fl'>5235043211</span>)</div><div class='output co'>#&gt; [1] "52350432111" "52350432112" "52350432113" "52350432114"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -151,7 +178,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

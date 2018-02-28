@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>License • jpmesh</title>
+<title>Find out neighborhood meshes collection — neighbor_mesh • jpmesh</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -22,12 +22,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script>
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
+<script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="License" />
+<meta property="og:title" content="Find out neighborhood meshes collection — neighbor_mesh" />
+
+<meta property="og:description" content="input should use meshcode under the 1km mesh size." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -43,7 +45,7 @@
   </head>
 
   <body>
-    <div class="container template-license">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -53,18 +55,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">jpmesh</a>
+      <a class="navbar-brand" href="../index.html">jpmesh</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -74,15 +76,15 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/articles/plots.html">Construct maps with jpmesh</a>
+      <a href="../articles/articles/plots.html">Construct maps with jpmesh</a>
     </li>
     <li>
-      <a href="articles/usage.html">How to use mesh cord in R</a>
+      <a href="../articles/usage.html">How to use mesh cord in R</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="news/index.html">News</a>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
       
@@ -102,19 +104,53 @@
       </header>
 
       <div class="row">
-  <div class="contents col-md-12">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>License</h1>
+    <h1>Find out neighborhood meshes collection</h1>
     </div>
 
-<pre>YEAR: 2015-2017
-COPYRIGHT HOLDER: Shinya Uryu
-</pre>
+    
+    <p>input should use meshcode under the 1km mesh size.</p>
+    
+
+    <pre class="usage"><span class='fu'>neighbor_mesh</span>(<span class='no'>meshcode</span>, <span class='kw'>contains</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>meshcode</th>
+      <td><p><code>integer</code>. mesh code</p></td>
+    </tr>
+    <tr>
+      <th>contains</th>
+      <td><p>logical. contains input meshcode (default <code>TRUE</code>)</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>mesh code vectors (<code>character</code>)</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>neighbor_mesh</span>(<span class='fl'>53394501</span>)</div><div class='output co'>#&gt; [1] "53393590" "53393591" "53393592" "53394500" "53394501" "53394502" "53394510"
+#&gt; [8] "53394511" "53394512"</div><div class='input'><span class='fu'>neighbor_mesh</span>(<span class='fl'>533945011</span>)</div><div class='output co'>#&gt; [1] "533935904" "533935913" "533935914" "533945002" "533945004" "533945012"
+#&gt; [7] "533945013" "533945014" "533945011"</div><div class='input'><span class='fu'>neighbor_mesh</span>(<span class='fl'>533945011</span>, <span class='kw'>contains</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "533935904" "533935913" "533935914" "533945002" "533945004" "533945012"
+#&gt; [7] "533945013" "533945014"</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
-
 </div>
-
 
       <footer>
       <div class="copyright">

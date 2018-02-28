@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,10 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Function reference" />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,7 +58,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -68,7 +74,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/usage.html">How to use jpmesh</a>
+      <a href="../articles/articles/plots.html">Construct maps with jpmesh</a>
+    </li>
+    <li>
+      <a href="../articles/usage.html">How to use mesh cord in R</a>
     </li>
   </ul>
 </li>
@@ -97,7 +106,7 @@
     <div class="page-header">
       <h1>
         Reference
-        <small>version&nbsp;0.4.0</small>
+        <small>version&nbsp;1.1.0.9000</small>
       </h1>
     </div>
 
@@ -119,41 +128,35 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="meshcode_to_latlon.html">meshcode_to_latlon</a></code> </p>
-          </td>
-          <td><p>Get from mesh code to latitude and longitude</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="latlong_to_meshcode.html">latlong_to_meshcode</a></code> </p>
+            <p><code><a href="coords_to_mesh.html">coords_to_mesh</a></code> </p>
           </td>
           <td><p>Convert from coordinate to mesh code</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="latlong_to_sepate_mesh.html">latlong_to_sepate_mesh</a></code> </p>
+            <p><code><a href="mesh_to_coords.html">mesh_to_coords</a></code> </p>
           </td>
-          <td><p>Convert from coordinate to separate mesh code</p></td>
+          <td><p>Get from mesh code to latitude and longitude</p></td>
         </tr>
       </tbody><tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-detect-file-scale-mesh-code" class="hasAnchor"><a href="#section-detect-file-scale-mesh-code" class="anchor"></a>Detect file scale mesh code</h2>
+            <h2 id="section-detect-fine-scale-and-neighbourhood-meshes" class="hasAnchor"><a href="#section-detect-fine-scale-and-neighbourhood-meshes" class="anchor"></a>Detect fine scale and neighbourhood meshes</h2>
             <p class="section-desc"></p>
           </th>
         </tr>
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="detect_mesh.html">detect_mesh</a></code> </p>
-          </td>
-          <td><p>Detect file scale mesh code</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
             <p><code><a href="fine_separate.html">fine_separate</a></code> </p>
           </td>
           <td><p>Separate more fine mesh order</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="neighbor_mesh.html">neighbor_mesh</a></code> </p>
+          </td>
+          <td><p>Find out neighborhood meshes collection</p></td>
         </tr>
       </tbody><tbody>
         <tr>
@@ -174,12 +177,6 @@
             <p><code><a href="jpnrect.html">jpnrect</a></code> </p>
           </td>
           <td><p>Simple displaed as rectangel for Japan (fortified)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="prefecture_mesh.html">prefecture_mesh</a></code> </p>
-          </td>
-          <td><p>Meshcode include the prefecture</p></td>
         </tr>
       </tbody><tbody>
         <tr>
@@ -205,33 +202,45 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="bundle_mesh_vars.html">bundle_mesh_vars</a></code> </p>
+            <p><code><a href="eval_jp_boundary.html">eval_jp_boundary</a></code> </p>
           </td>
-          <td><p>generate null variables for jpmesh</p></td>
+          <td><p>Check include mesh areas</p></td>
         </tr><tr>
           <!--  -->
           <td>
             <p><code><a href="export_mesh.html">export_mesh</a></code> </p>
           </td>
-          <td><p>Export rectangle mesh to geojson</p></td>
+          <td><p>Export meshcode to geometry</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="find_neighbor_mesh.html">find_neighbor_mesh</a></code> </p>
+            <p><code><a href="export_meshes.html">export_meshes</a></code> </p>
           </td>
-          <td><p>Find out neighborhood meshes collection</p></td>
+          <td><p>Export meshcode to geometry</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="mesh_area.html">mesh_area</a></code> </p>
+            <p><code><a href="is_mesh.html">is_meshcode</a></code> <code><a href="is_mesh.html">is_corner</a></code> </p>
           </td>
-          <td><p>Rectange mesh grid area</p></td>
+          <td><p>Predict meshcode format and positions</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="mesh_rectangle.html">mesh_rectangle</a></code> </p>
+            <p><code><a href="meshcode_set.html">meshcode_set</a></code> </p>
           </td>
-          <td><p>mesh rectangle check</p></td>
+          <td><p>Export meshcode vectors ranges 80km to 1km.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="rmesh.html">rmesh</a></code> </p>
+          </td>
+          <td><p>Generate random sample meshcode</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sf_jpmesh.html">sf_jpmesh</a></code> </p>
+          </td>
+          <td><p>1:200,000 Scale Maps Name with Meshcode of Japan.</p></td>
         </tr>
       </tbody>
       </table>
@@ -242,7 +251,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-convert-mesh-code-to-coordinate-and-vice-versa-">Convert mesh code to coordinate (and vice versa)</a></li>
-      <li><a href="#section-detect-file-scale-mesh-code">Detect file scale mesh code</a></li>
+      <li><a href="#section-detect-fine-scale-and-neighbourhood-meshes">Detect fine scale and neighbourhood meshes</a></li>
       <li><a href="#section-mesh-data">Mesh data</a></li>
       <li><a href="#section-gadgets">Gadgets</a></li>
       <li><a href="#section-utilities">Utilities</a></li>
@@ -256,7 +265,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

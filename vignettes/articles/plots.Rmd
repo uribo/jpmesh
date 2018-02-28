@@ -1,10 +1,10 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "Construct maps with jpmesh"
+author: "Shinya Uryu"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Construct maps with jpmesh}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,7 +12,9 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  warning = FALSE, 
+  message = FALSE
 )
 ```
 
@@ -43,7 +45,15 @@ df_polys %>%
 
 ## ggplot2
 
+```{r, include = FALSE}
+if (compareVersion(as.character(packageVersion("ggplot2")), 
+               "2.2.1.9000") > 0) {
+  devtools::install_github("tidyverse/ggplot2", ref = "39e4a3b")
+}
+```
+
 ```{r}
+# Use develop version (2.2.1.9000)
 library(ggplot2)
 ggplot() + 
   geom_sf(data = df_polys, fill = NA) +
@@ -54,7 +64,7 @@ ggplot() +
     COORDS_Y = map_dbl(COORDS, 2)    
   ),
     aes(COORDS_X, COORDS_Y, label = mesh), 
-    size = 3, min.segment.length = 0) +
+    size = 1.2, min.segment.length = 0) +
   coord_sf(datum = NA) +
   theme_void()
 ```
@@ -75,5 +85,3 @@ wip...
 ```{r sessioninfo}
 sessionInfo()
 ```
-
-
