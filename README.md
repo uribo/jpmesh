@@ -3,7 +3,7 @@
 jpmesh <img src="man/figures/logo.png" align="right" width="80px" />
 ====================================================================
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/jpmesh?color=FF5254)](https://cran.r-project.org/package=jpmesh) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-project.org/) [![Depsy](http://depsy.org/api/package/cran/jpmesh/badge.svg)](http://depsy.org/package/r/jpmesh)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/jpmesh?color=FF5254)](https://cran.r-project.org/package=jpmesh) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-project.org/) [![Depsy](http://depsy.org/api/package/cran/jpmesh/badge.svg)](http://depsy.org/package/r/jpmesh) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1185742.svg)](https://doi.org/10.5281/zenodo.1185742)
 
 [![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![wercker status](https://app.wercker.com/status/25d5f835882cf2185751e1d89370269f/s/master "wercker status")](https://app.wercker.com/project/byKey/25d5f835882cf2185751e1d89370269f) [![Coverage status](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=master)
 
@@ -126,7 +126,7 @@ Drawing a simplified Japanese map based on the mesh code.
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3
+#> Linking to GEOS 3.6.1, GDAL 2.1.3, proj.4 4.9.3
 plot(jpnrect["abb_name"])
 ```
 
