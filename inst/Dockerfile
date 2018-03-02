@@ -23,8 +23,10 @@ RUN install2.r --error \
   usethis shinyjs \
   reprex DT \
   lintr \
-  caTools \ to knitr R Markdown documents
-  magick # create favivon.ico by pkgdown::build_site()
+  # to knitr R Markdown documents
+  caTools \
+  # create favivon.ico by pkgdown::build_site()
+  magick
 
 RUN installGithub.r \
   "r-lib/roxygen2md" \
