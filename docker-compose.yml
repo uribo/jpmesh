@@ -3,6 +3,6 @@ services:
   rstudio:
     build: "."
     ports: 
-      - "8788:8787"
+      - "8787:8787"
     volumes:
-      - "../.:/home/rstudio/jpmesh"
+      - ".:/home/rstudio/jpmesh"

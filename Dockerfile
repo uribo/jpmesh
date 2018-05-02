@@ -1,5 +1,4 @@
-FROM rocker/rstudio:3.4.3
-MAINTAINER "Shinya Uryu" <suika1127@gmail.com>
+FROM rocker/rstudio:3.5.0
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
