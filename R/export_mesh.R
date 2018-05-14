@@ -13,9 +13,30 @@ export_mesh <- function(meshcode) {
   . <- NULL
   
   if (is.mesh(meshcode))
-    mesh_to_coords(meshcode) %>% 
-    purrr::pmap_chr(., ~ mesh_to_poly(...)) %>% 
-    sf::st_as_sfc(crs = 4326)
+    if (mesh_size(meshcode) <= units::as_units(0.5, "km")) {
+      d <- 
+        mesh_to_coords(meshcode)
+      
+      res <- sf::st_polygon(list(rbind(c(d$lng_center - d$lng_error, 
+                                         d$lat_center - d$lat_error), 
+                                       c(d$lng_center + d$lng_error, 
+                                         d$lat_center - d$lat_error), 
+                                       c(d$lng_center +  d$lng_error, 
+                                         d$lat_center + d$lat_error), 
+                                  c(d$lng_center - d$lng_error, d$lat_center + d$lat_error), 
+                                  c(d$lng_center - d$lng_error, d$lat_center - d$lat_error)))) %>% 
+        sf::st_sfc(crs = 4326)
+      
+    } else {
+      res <- 
+        mesh_to_coords(meshcode) %>% 
+        purrr::pmap_chr(., ~ mesh_to_poly(...)) %>% 
+        sf::st_as_sfc(crs = 4326)  
+    }
+
+  return(res)
+  
+  
 }
 
 #' Export meshcode to geometry
