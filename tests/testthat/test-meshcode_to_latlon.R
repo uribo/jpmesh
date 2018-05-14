@@ -92,12 +92,12 @@ test_that("fine mesh", {
   expect_equal(
     res$meshcode, 
     c("362337991", "362337992", "362337993", "362337994"))
-  expect_equivalent(
+  expect_identical(
     res$lng_center, 
     c(123.990625, 123.996875, 123.990625, 123.996875))
-  expect_equivalent(
+  expect_equal(
     res$lat_center, 
-    c(24.3270833334, 24.3270833334, 24.3312500001, 24.3312500001))
+    c(24.32708, 24.32708, 24.33125, 24.33125), tolerance = 0.002)
   expect_equivalent(
     res$lng_error[1], 0.003125)
 })
