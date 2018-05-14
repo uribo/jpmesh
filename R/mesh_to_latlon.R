@@ -70,9 +70,9 @@ mesh_to_coords <- function(meshcode, ...) {
   lat.c  <- as.numeric(sprintf("%.10f", lat.c)) 
   long.c <- as.numeric(sprintf("%.10f", long.c))
   
-  res <- data.frame(lng_center = long.c,
+  res <- data.frame(lng_center  = long.c,
                     lat_center  = lat.c, 
-                    lng_error  = long.c - long,
+                    lng_error   = long.c - long,
                     lat_error   = lat.c - lat
                     )
   finename_centroid <- function(df, last_code) {
@@ -81,23 +81,31 @@ mesh_to_coords <- function(meshcode, ...) {
     
     if (last_code == 1) {
       res <- df %>% 
-        dplyr::mutate(lat_center = lat_center - (lat_error / 2),
-                      lng_center = lng_center - (lng_error / 2))
+        dplyr::mutate(lat_center = (lat_center + lat_error) -
+                        (lat_error / 2) * 3,
+                      lng_center = (lng_center + lng_error) -
+                        (lng_error / 2) * 3)
     } else if (last_code == 2) {
       res <- df %>% 
-        dplyr::mutate(lat_center = lat_center - (lat_error / 2),
-                      lng_center = lng_center + (lng_error / 2))
+        dplyr::mutate(lat_center = (lat_center + lat_error) - 
+                        (lat_error / 2) * 3,
+                      lng_center = (lng_center + lng_error) - 
+                        (lng_error / 2))
     } else if (last_code == 3) {
       res <- df %>% 
-        dplyr::mutate(lat_center = lat_center + (lat_error / 2),
-                      lng_center = lng_center - (lng_error / 2))
+        dplyr::mutate(lat_center = (lat_center + lat_error) - 
+                        (lat_error / 2),
+                      lng_center = (lng_center + lng_error) - 
+                        (lng_error / 2) * 3) 
     } else if (last_code == 4) {
       res <- df %>% 
-        dplyr::mutate(lat_center = lat_center + (lat_error / 2),
-                      lng_center = lng_center + (lng_error / 2)) 
+        dplyr::mutate(lat_center = (lat_center + lat_error) - 
+                        (lat_error / 2),
+                      lng_center = (lng_center + lng_error) - 
+                        (lng_error / 2))
     }
     
-    res <- res %>% 
+    res <- res %>%
       dplyr::mutate(lat_error = lat_error / 2,
                     lng_error = lng_error / 2)
     
@@ -105,7 +113,9 @@ mesh_to_coords <- function(meshcode, ...) {
   }
   
   if (exists("code9")) {
-    res <- finename_centroid(res, code9)
+    res <- finename_centroid(dplyr::mutate(res,
+                         lat_error = 0.004165,
+                         lng_error = 0.00625), code9)
   }
   if (exists("code10")) {
     res <- finename_centroid(res, code10)

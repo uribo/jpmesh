@@ -97,7 +97,8 @@ find_neighbor_finemesh <- function(meshcode, contains = TRUE) {
   size <- mesh_size(meshcode)
   
   if (size == units::as.units(0.5, "km")) {
-    df_poly <- substr(meshcode, 1, nchar(meshcode) - 1) %>% 
+    df_poly <- 
+      substr(meshcode, 1, nchar(meshcode) - 1) %>% 
       find_neighbor_mesh() %>% 
       purrr::map(bind_meshpolys) %>% 
       purrr::reduce(rbind)
@@ -105,17 +106,19 @@ find_neighbor_finemesh <- function(meshcode, contains = TRUE) {
     touches_row <- 
       suppressMessages(
         1:nrow(df_poly) %>% 
-          purrr::map_dbl(., ~ sum(as.numeric(sf::st_touches(df_poly[.x, ],
+          purrr::map_dbl(., ~ sum(as.numeric(sf::st_disjoint(df_poly[.x, ],
                                                             df_poly[which(
-                                                              df_poly$meshcode == meshcode), "geometry"])))))
+                                                              df_poly$meshcode == meshcode), "geometry"], 
+                                                            sparse = TRUE, 
+                                                            prepared = TRUE)))))
     
     neighbor <- df_poly %>% 
-      dplyr::slice(c(which(!is.na(touches_row))))
+      dplyr::slice(c(which(is.na(touches_row))))
     
     neighbor <- neighbor$meshcode
     
-    if (rlang::is_true(contains)) {
-      neighbor <- c(neighbor, meshcode)
+    if (rlang::is_false(contains)) {
+      neighbor <- neighbor[!neighbor %in% meshcode]
     }
     
     return(neighbor)
