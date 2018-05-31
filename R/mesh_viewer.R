@@ -14,7 +14,7 @@
 #' }
 #' @export
 
-mesh_viewer <-  function(...) {
+mesh_viewer <-  function(...) { # nocov start
   
   # UI ----------------------------------------------------------------------
   ui <- miniUI::miniPage(
@@ -53,4 +53,5 @@ mesh_viewer <-  function(...) {
   }
   
   shiny::runGadget(ui, server, viewer = shiny::dialogViewer("mesh_viewer", width = 650, height = 500))
-}
+  
+} # nocov end
