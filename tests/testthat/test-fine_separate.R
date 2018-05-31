@@ -27,6 +27,34 @@ test_that("Separate more fine mesh order", {
     suppressMessages(fine_separate("36233799123")),
     NA_character_
   )
+})
 
-
+test_that("Coarse multiple meshes to large size", {
+  m <- c("493214294", "493214392", "493215203", "493215301")
+  
+  expect_is(
+    coarse_gather(m),
+    "character"
+  )
+  
+  expect_length(
+    coarse_gather(m),
+    4L
+  )
+  
+  expect_equal(
+    coarse_gather(m),
+    c("49321429", "49321439", "49321520", "49321530")
+  )
+  
+  expect_equal(
+    coarse_gather(m, distinct = TRUE),
+    coarse_gather(m)
+  )
+  
+  expect_equal(
+    coarse_gather(coarse_gather(m), distinct = TRUE),
+    c("493214", "493215")
+  )
+  
 })
