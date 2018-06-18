@@ -18,9 +18,9 @@ neighbor_mesh <- function(meshcode, contains = TRUE) {
   
   size <- mesh_size(meshcode)
   
-  res <- if (size >= units::as.units(1, "km")) {
+  res <- if (size >= units::as_units(1, "km")) {
     find_neighbor_mesh(meshcode, contains = contains)  
-  } else if (size == units::as.units(0.5, "km")) {
+  } else if (size == units::as_units(0.5, "km")) {
     find_neighbor_finemesh(meshcode, contains = contains)
   }
   
@@ -32,9 +32,9 @@ find_neighbor_mesh <- function(meshcode = NULL, contains = TRUE) {
   meshcode <- as.numeric(meshcode)
   size <- mesh_size(meshcode)
 
-  if (size == units::as.units(80, "km")) {
+  if (size == units::as_units(80, "km")) {
     res <- meshcode - c(1, -1, 101, 100, 0, 99, -99, -100, -101)
-  } else if (size == units::as.units(10, "km")) {
+  } else if (size == units::as_units(10, "km")) {
     if (is_corner(meshcode)) {
       if (grepl("(00|70|07|77|0[1-6]|[1-6]7|[1-6]0|7[1-6])$", meshcode)) {
         res <- dplyr::case_when(
@@ -52,7 +52,7 @@ find_neighbor_mesh <- function(meshcode = NULL, contains = TRUE) {
     # Must be ends 1-7
     res <- res[grepl("[8-9]$", res) == FALSE] %>%
       unique()
-  } else if (size == units::as.units(1, "km")) {
+  } else if (size == units::as_units(1, "km")) {
     
     if (is_corner(meshcode)) {
       if (grepl("(00|09|90|99|010[1-8]|[1-8]9|[1-8]0|9[1-8]|0[1-8])$", meshcode)) {
@@ -96,7 +96,7 @@ find_neighbor_finemesh <- function(meshcode, contains = TRUE) {
   meshcode <- as.numeric(meshcode)
   size <- mesh_size(meshcode)
   
-  if (size == units::as.units(0.5, "km")) {
+  if (size == units::as_units(0.5, "km")) {
     df_poly <- 
       substr(meshcode, 1, nchar(meshcode) - 1) %>% 
       find_neighbor_mesh() %>% 
