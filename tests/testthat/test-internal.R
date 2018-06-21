@@ -50,7 +50,8 @@ test_that(
                         ) != TRUE]
     
     df_check <- target2 %>% 
-      purrr::map_df(validate_neighbor_mesh) %>% 
+      purrr::map(validate_neighbor_mesh) %>% 
+      purrr::reduce(rbind) %>% 
       unique()
     
     expect_equal(

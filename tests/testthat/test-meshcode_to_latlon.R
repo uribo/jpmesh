@@ -92,7 +92,8 @@ test_that("fine mesh", {
   res <- 
     cbind(res,
         res$meshcode %>% 
-          purrr::map_df(mesh_to_coords))
+          purrr::map(mesh_to_coords) %>% 
+          purrr::reduce(rbind))
 
   expect_equal(
     res$meshcode, 
