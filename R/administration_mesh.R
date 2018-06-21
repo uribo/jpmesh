@@ -18,7 +18,7 @@ administration_mesh <- function(code, type = c("city", "prefecture")) {
     df_city_mesh$meshcode <- substr(df_city_mesh$meshcode, 1, 6)
   }
   
-  subset(df_city_mesh, grepl(paste0("^(", paste(code, collapse = "|"), ")"), city_code)) %>% 
+  subset(df_city_mesh, grepl(paste0("^(", paste(sprintf("%02d", code), collapse = "|"), ")"), city_code)) %>% 
     .$meshcode %>% 
     unique() %>% 
     export_meshes()
