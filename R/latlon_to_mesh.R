@@ -5,7 +5,6 @@
 #' @param latitude latitude that approximately to 20.0 to 46.0 (`double`)
 #' @param mesh_size mesh type. From 80km to 125m
 #' @param ... other parameters
-#' @importFrom dplyr case_when
 #' @importFrom rlang is_true quo_expr warn
 #' @return mesh code (default 3rd meshcode aka 1km mesh)
 #' @references Akio Takenaka: [http://takenaka-akio.org/etc/j_map/index.html](http://takenaka-akio.org/etc/j_map/index.html)
@@ -69,18 +68,20 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = "1km", ...) {
                          code7, code8, 
                          code9, code10, code11)
       
-      mesh_sets <- list(
-        mesh_size == "80km" ~ substr(meshcode, 1, 4),
-        mesh_size == "10km" ~ substr(meshcode, 1, 6),
-        mesh_size == "1km" ~ substr(meshcode, 1, 8),
-        mesh_size == "500m" ~ substr(meshcode, 1, 9),
-        mesh_size == "250m" ~ substr(meshcode, 1, 10),
-        mesh_size == "125m" ~ meshcode
-      )
-      
-      meshcode <- dplyr::case_when(
-        !!! mesh_sets
-      )
+      meshcode <- 
+        if (mesh_size == "80km") {
+          substr(meshcode, 1, 4)
+        } else if (mesh_size == "10km") {
+          substr(meshcode, 1, 6)
+        } else if (mesh_size == "1km") {
+          substr(meshcode, 1, 8)
+        } else if (mesh_size == "500m") {
+          substr(meshcode, 1, 9)
+        } else if (mesh_size == "250m") {
+          substr(meshcode, 1, 10)
+        } else if (mesh_size == "125m") {
+          meshcode
+        }
       
       return(meshcode)   
     } else if (is.na(check_80km_ares)) {
