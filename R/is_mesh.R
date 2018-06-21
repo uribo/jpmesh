@@ -9,7 +9,7 @@ NULL
 #' @rdname is_mesh
 is_meshcode <- function(meshcode) {
   
-  res <- dplyr::if_else(grepl("^[0-9]{4,11}$", meshcode), TRUE, FALSE)
+  res <- ifelse(grepl("^[0-9]{4,11}$", meshcode), TRUE, FALSE)
   
   if (res == FALSE) {
     rlang::inform(paste("meshcode must be numeric ranges", 
@@ -19,7 +19,7 @@ is_meshcode <- function(meshcode) {
                         "digits"
     ))
   } else {
-    res <- dplyr::if_else(is.na(units::drop_units(mesh_size(meshcode))),
+    res <- ifelse(is.na(units::drop_units(mesh_size(meshcode))),
                           FALSE,
                           TRUE)
     if (res == FALSE) {

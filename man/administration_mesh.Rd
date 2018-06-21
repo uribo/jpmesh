@@ -4,7 +4,7 @@
 \alias{administration_mesh}
 \title{Extract administration mesh}
 \usage{
-administration_mesh(code, type = c("prefecture"))
+administration_mesh(code, type = c("city", "prefecture"))
 }
 \arguments{
 \item{code}{administration code}

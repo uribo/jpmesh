@@ -84,11 +84,17 @@ test_that("Combine other function", {
 })
 
 test_that("fine mesh", {
-  res <- fine_separate("36233799") %>% 
+  res <- 
+    fine_separate("36233799") %>% 
     tibble::as_data_frame() %>% 
-    purrr::set_names(c("meshcode")) %>% 
-    dplyr::mutate(out = purrr::pmap(., mesh_to_coords)) %>% 
-    tidyr::unnest()
+    purrr::set_names(c("meshcode"))
+
+  res <- 
+    cbind(res,
+        res$meshcode %>% 
+          purrr::map(mesh_to_coords) %>% 
+          purrr::reduce(rbind))
+
   expect_equal(
     res$meshcode, 
     c("362337991", "362337992", "362337993", "362337994"))

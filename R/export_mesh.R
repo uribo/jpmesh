@@ -3,14 +3,12 @@
 #' @description Convert and export meshcode area to `sfc_POLYGON`.
 #' @inheritParams mesh_to_coords
 #' @importFrom purrr pmap_chr
-#' @importFrom sf st_as_sfc
+#' @importFrom sf st_as_sfc st_polygon st_sfc
 #' @return sf object
 #' @examples
 #' export_mesh(6441427712)
 #' @export
 export_mesh <- function(meshcode) {
-  
-  . <- NULL
   
   if (is.mesh(meshcode))
     if (mesh_size(meshcode) <= units::as_units(0.5, "km")) {
@@ -29,13 +27,12 @@ export_mesh <- function(meshcode) {
       
     } else {
       res <- 
-        mesh_to_coords(meshcode) %>% 
-        purrr::pmap_chr(., ~ mesh_to_poly(...)) %>% 
+        purrr::pmap_chr(mesh_to_coords(meshcode), 
+                        mesh_to_poly) %>% 
         sf::st_as_sfc(crs = 4326)  
     }
 
   return(res)
-  
   
 }
 
@@ -43,6 +40,9 @@ export_mesh <- function(meshcode) {
 #' 
 #' @description Convert and export meshcode area to `sf`.
 #' @param meshes mesh code sets
+#' @importFrom purrr map_chr
+#' @importFrom sf st_as_sfc st_as_text st_sf
+#' @importFrom tibble tibble
 #' @examples 
 #' export_meshes("4128")
 #' \dontrun{
@@ -51,15 +51,16 @@ export_mesh <- function(meshcode) {
 #' }
 #' @export
 export_meshes <- function(meshes) {
+
+  df_meshes <- 
+    tibble::tibble("meshcode" = as.character(meshes))
   
-  . <- geometry <- NULL
-  
-  meshes %>% 
-    as.character() %>% 
-    tibble::tibble("meshcode" = .) %>% 
-    dplyr::mutate(geometry = purrr::pmap(., ~ export_mesh(meshcode = ..1) %>% 
-                                           sf::st_as_text())) %>% 
-    tidyr::unnest() %>% 
-    dplyr::mutate(geometry = sf::st_as_sfc(geometry)) %>% 
+  df_meshes$geometry <- 
+    purrr::map_chr(df_meshes$meshcode,
+                   ~ export_mesh(meshcode = .x) %>% 
+                     sf::st_as_text()) %>% 
+    sf::st_as_sfc()
+    
+  df_meshes %>% 
     sf::st_sf(crs = 4326)
 }

@@ -37,7 +37,6 @@ In jpmesh, mesh codes and latitude and longitude coordinates are compatible with
 From CRAN
 
 ```{r, eval = FALSE, echo = TRUE}
-# latest update 2018-02-25
 install.packages("jpmesh")
 ```
 
@@ -52,7 +51,6 @@ devtools::install_github("uribo/jpmesh")
 ## Usage
 
 ```{r}
-library(magrittr)
 library(jpmesh)
 ```
 
@@ -114,7 +112,7 @@ Dataset of mesh code for prefectures.
 ```{r, results = 'asis'}
 set.seed(71)
 administration_mesh(code = 33, type = "prefecture") %>% 
-  dplyr::sample_n(5) %>% 
+  head() %>% 
   knitr::kable()
 ```
 

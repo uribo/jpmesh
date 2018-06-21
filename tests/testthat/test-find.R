@@ -18,7 +18,7 @@ test_that("neighborhood meshes", {
   
   expect_identical(
     neighbor_mesh(533945011, contains = TRUE),
-    find_neighbor_finemesh(533945011, contains = TRUE)  
+    find_neighbor_finemesh(533945011, contains = TRUE)
   )
     
   expect_warning(

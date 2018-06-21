@@ -3,7 +3,6 @@
 #' @description It roughly judges whether the given coordinates are within the mesh area.
 #' @inheritParams coords_to_mesh
 #' @param ... other parameters
-#' @importFrom dplyr between if_else
 #' @examples 
 #' \dontrun{
 #' eval_jp_boundary(139.71471056, 35.70128943)
@@ -13,18 +12,14 @@
 eval_jp_boundary <- function(longitude = NULL, 
                              latitude = NULL,
                              ...) {
-    res <- dplyr::if_else(
-    dplyr::between(latitude,
-                   20.0,
-                   46.0) &
-      dplyr::between(longitude,
-                     120.0,
-                     154.0),
+  
+  ifelse(
+    ifelse(latitude >= 20.0 & latitude <= 46.0, TRUE, FALSE) &   
+      ifelse(longitude >= 120.0 & longitude <= 154.0, TRUE, FALSE),
     TRUE,
     FALSE
   )
   
-  return(res)
 }
 
 
@@ -45,22 +40,29 @@ mesh_to_poly <- function(lng_center, lat_center, lng_error, lat_error, ...) {
 
 mesh_size <- function(mesh) {
   
-  dplyr::case_when(
-    nchar(mesh) == df_mesh_size_unit$mesh_length[1] ~ df_mesh_size_unit$mesh_size[1],
-    nchar(mesh) == df_mesh_size_unit$mesh_length[2] ~ df_mesh_size_unit$mesh_size[2],
-    nchar(mesh) == df_mesh_size_unit$mesh_length[3] ~ df_mesh_size_unit$mesh_size[3],
-    nchar(mesh) == df_mesh_size_unit$mesh_length[4] ~ df_mesh_size_unit$mesh_size[4],
-    nchar(mesh) == df_mesh_size_unit$mesh_length[5] ~ df_mesh_size_unit$mesh_size[5],
-    nchar(mesh) == df_mesh_size_unit$mesh_length[6] ~ df_mesh_size_unit$mesh_size[6]
+  mesh_length <- as.character(nchar(mesh))
+  
+  res <- switch (mesh_length,
+          "4" = df_mesh_size_unit$mesh_size[1],
+          "6" = df_mesh_size_unit$mesh_size[2],
+          "8" = df_mesh_size_unit$mesh_size[3],
+          "9" = df_mesh_size_unit$mesh_size[4],
+          "10" = df_mesh_size_unit$mesh_size[5],
+          "11" = df_mesh_size_unit$mesh_size[6]
   )
   
+  if (is.null(res))
+    res <- units::as_units(NA_integer_, "km")
+  
+  return(res)
 }
 
-df_mesh_size_unit <- tibble::data_frame(
-  mesh_length = c(4L, 6L, 8L, 9L, 10L, 11L),
-  mesh_size = c(
-    units::set_units(c(80, 10, 1), "km"),
-    units::set_units(c(500, 250, 125), "m")
+df_mesh_size_unit <- 
+  tibble::data_frame(
+    mesh_length = c(4L, 6L, 8L, 9L, 10L, 11L),
+    mesh_size = c(
+      units::set_units(c(80, 10, 1), "km"),
+      units::set_units(c(500, 250, 125), "m")
   )
 )
 
@@ -113,9 +115,6 @@ meshcode_set_1km <- meshcode_set_10km %>%
 #' The output code may contain values not found in the actual mesh code.
 #' 
 #' @param mesh_size Export mesh size from 80km to 1km.
-#' @importFrom dplyr case_when
-#' @importFrom purrr as_vector map reduce
-#' @importFrom rlang as_list
 #' @examples 
 #' meshcode_set(mesh_size = "80km")
 #' @export
@@ -131,7 +130,7 @@ cut_off <- function(meshcode) {
   
   mesh_80km <- substr(meshcode, 1, 4)
   
-  res <- meshcode[mesh_80km %in% c(jpmesh::meshcode_set("80km"))]
+  res <- meshcode[mesh_80km %in% c(meshcode_set("80km"))]
   if (length(res) < length(meshcode)) {
     rlang::warn("Some neighborhood meshes are outside the area.")
   }
@@ -144,24 +143,25 @@ cut_off <- function(meshcode) {
 
 validate_neighbor_mesh <- function(meshcode) {
   
-  . <- geometry <- NULL
+  df_bbox <- 
+    tibble::tibble("mesh" = find_neighbor_mesh(meshcode))
   
-  df_bbox <- find_neighbor_mesh(meshcode) %>% 
-    tibble::tibble("mesh" = .) %>% 
-    dplyr::mutate(geometry = purrr::pmap(., ~ export_mesh(mesh = ..1) %>% 
-                                           sf::st_as_text())) %>% 
-    tidyr::unnest() %>% 
-    dplyr::mutate(geometry = sf::st_as_sfc(geometry)) %>% 
+  df_bbox$geometry <- 
+    purrr::map_chr(df_bbox$mesh,
+                   ~ export_mesh(mesh = .x) %>% 
+                     sf::st_as_text()) %>% 
+    sf::st_as_sfc(crs = 4326)
+
+  df_bbox <- 
+    df_bbox %>% 
     sf::st_sf() %>% 
     sf::st_union() %>% 
     sf::st_bbox()
   
-  df_res <- tibble::tibble(
+  tibble::tibble(
     xlim = as.numeric(df_bbox[3] - df_bbox[1]),
-    ylim = as.numeric(df_bbox[4] - df_bbox[2])
-  )
+    ylim = as.numeric(df_bbox[4] - df_bbox[2]))
   
-  return(df_res)
 }
 
 bind_meshpolys <- function(meshcode) {

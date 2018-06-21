@@ -5,7 +5,6 @@
 #' @import shiny
 #' @import miniUI
 #' @import leaflet
-#' @importFrom dplyr mutate
 #' @importFrom purrr pmap
 #' @importFrom sf st_sf
 #' @examples 
@@ -20,7 +19,7 @@ mesh_viewer <-  function(...) { # nocov start
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("Mesh Viewer"),
     miniUI::miniTabstripPanel(
-      miniUI::miniTabPanel("Map", icon = icon("map-o"),
+      miniUI::miniTabPanel("Map", icon = shiny::icon("map-o"),
                    shiny::textInput("lng", "Longitude: ", value = 141.3438),
                    shiny::textInput("lat", "Latitude: ", value = 43.0625),
                    shiny::selectInput("mesh_size", label = "Select Mesh Size",
@@ -43,15 +42,17 @@ mesh_viewer <-  function(...) { # nocov start
       d <- coords_to_mesh(as.numeric(input$lng), 
                           as.numeric(input$lat), 
                           mesh_size = input$mesh_size) %>% 
-        mesh_to_coords() %>% 
-        dplyr::mutate(geometry = purrr::pmap(., ~ mesh_to_poly(...))) %>% 
-        sf::st_sf(crs = 4326)
+        export_meshes()
       
-      leaflet::leaflet() %>% leaflet::addTiles() %>% leaflet::addPolygons(data  = d)
+      leaflet::leaflet() %>% 
+        leaflet::addTiles() %>% 
+        leaflet::addPolygons(data  = d)
         
     })
   }
   
-  shiny::runGadget(ui, server, viewer = shiny::dialogViewer("mesh_viewer", width = 650, height = 500))
+  shiny::runGadget(ui, 
+                   server, 
+                   viewer = shiny::dialogViewer("mesh_viewer", width = 650, height = 500))
   
 } # nocov end

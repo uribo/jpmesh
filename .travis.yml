@@ -1,14 +1,13 @@
 # ref) https://github.com/edzer/sf_dep/blob/master/.travis.yml
-
 dist: trusty
-language: R
-sudo: required
+language: r
 cache: packages
+sudo: required
 
 r:
-- oldrel
-- release
-# - devel
+  - oldrel
+  - release
+#  - devel
 
 before_install:
   - sudo add-apt-repository ppa:ubuntugis/ppa --yes
@@ -17,5 +16,11 @@ before_install:
 
 warnings_are_errors: true
 
+r_packages:
+  - lintr
+  
+before_script:
+  - Rscript -e 'devtools::install_github("jimhester/covr")'
+
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - Rscript -e "covr::codecov(); lintr::lint_package()"

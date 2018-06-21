@@ -16,10 +16,12 @@ test_that("multiplication works", {
   expect_false(res)
   
   res <- data.frame(
-    longitude = c(139.73199250, 139.69170000, 135.78500278),
-    latitude = c(35.70902590, 35.68950000, 34.99483056)
-  ) %>% mutate(out = purrr::pmap_lgl(., eval_jp_boundary))
-  expect_equal(res$out, c(TRUE, TRUE, TRUE))
+    longitude = c(139.73199250, 139.69170000, 135.78500278, 120),
+    latitude = c(35.70902590, 35.68950000, 34.99483056, 19.3)
+  )
+  res$out <- purrr::map2_lgl(res$longitude,
+                             res$latitude, eval_jp_boundary)
+  expect_equal(res$out, c(TRUE, TRUE, TRUE, FALSE))
 })
 
 test_that("Generate mesh code set", {
@@ -48,8 +50,9 @@ test_that(
                         ) != TRUE]
     
     df_check <- target2 %>% 
-      purrr::map_df(validate_neighbor_mesh) %>% 
-      dplyr::distinct()
+      purrr::map(validate_neighbor_mesh) %>% 
+      purrr::reduce(rbind) %>% 
+      unique()
     
     expect_equal(
       nrow(df_check),

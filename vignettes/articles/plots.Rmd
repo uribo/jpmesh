@@ -19,20 +19,14 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, load_employed_pkgs}
-library(magrittr)
 library(jpmesh)
 library(sf)
-library(purrr)
 ```
 
 ```{r}
-df_polys <- meshcode_set(mesh_size = "80km") %>% 
-  tibble::tibble("mesh" = .) %>% 
-  dplyr::mutate(geometry = purrr::pmap(., ~ export_mesh(mesh = ..1) %>% 
-                                    sf::st_as_text())) %>% 
-  tidyr::unnest() %>% 
-  dplyr::mutate(geometry = st_as_sfc(geometry)) %>% 
-  st_sf()
+df_polys <- 
+  meshcode_set(mesh_size = "80km") %>% 
+  jpmesh::export_meshes()
 ```
 
 ## base
@@ -57,14 +51,14 @@ if (compareVersion(as.character(packageVersion("ggplot2")),
 library(ggplot2)
 ggplot() + 
   geom_sf(data = df_polys, fill = NA) +
-  geom_text(data = df_polys %>% dplyr::mutate(
-    CENTROID = map(geometry, st_centroid),
-    COORDS = map(CENTROID, st_coordinates),
-    COORDS_X = map_dbl(COORDS, 1),
-    COORDS_Y = map_dbl(COORDS, 2)    
-  ),
-    aes(COORDS_X, COORDS_Y, label = mesh), 
-    size = 1.2, min.segment.length = 0) +
+  geom_text(data = cbind(
+  mesh = df_polys$meshcode,
+  df_polys$geometry %>% 
+  st_centroid() %>% 
+  st_coordinates() %>% 
+    as.data.frame()),
+    aes(X, Y, label = mesh), 
+    size = 1.2) +
   coord_sf(datum = NA) +
   theme_void()
 ```
@@ -77,6 +71,7 @@ leaflet() %>%
   addTiles() %>% 
   addPolygons(data = df_polys)
 ```
+
 
 ## plotly
 
