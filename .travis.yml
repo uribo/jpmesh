@@ -16,11 +16,5 @@ before_install:
 
 warnings_are_errors: true
 
-r_packages:
-  - lintr
-  
-before_script:
-  - Rscript -e 'devtools::install_github("jimhester/covr")'
-
 after_success:
   - Rscript -e "covr::codecov(); lintr::lint_package()"
