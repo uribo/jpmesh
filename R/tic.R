@@ -1,4 +1,3 @@
-library(tic)
 add_package_checks()
 
 if (Sys.getenv("id_rsa") != "") {
