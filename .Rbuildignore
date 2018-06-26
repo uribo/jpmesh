@@ -21,3 +21,4 @@
 ^\.github$
 ^CODE_OF_CONDUCT\.md$
 ^\.lintr$
+^tic.R$
