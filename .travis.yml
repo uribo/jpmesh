@@ -47,4 +47,4 @@ deploy:
 after_deploy: R -q -e 'tic::after_deploy()'
 after_script: R -q -e 'tic::after_script()'
 after_success:
-  - R -q -e 'covr::codecov(quiet = FALSE)'
+  - R -q -e 'covr::codecov(quiet = FALSE); lintr::lint_package()'

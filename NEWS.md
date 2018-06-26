@@ -1,4 +1,12 @@
-# jpmesh 1.1.0.9000
+# jpmesh 1.1.1 (2018-06-26)
+
+- Withdrawal from the tidyverse. Remove depends on stringr, tidyr and dplyr.
+- Follow up the units package update.
+- Fixed overlapped probrem ([#20](https://github.com/uribo/jpmesh/issues/20))
+
+### New features
+
+- `coarse_gather()`... Scale-down function [#22](https://github.com/uribo/jpmesh/issues/22)
 
 # jpmesh 1.1.0 (2018-02-25)
 
