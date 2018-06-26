@@ -21,18 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Export meshcode to geometry — export_meshes" />
 
 <meta property="og:description" content="Convert and export meshcode area to sf." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">jpmesh</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">jpmesh</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -84,7 +94,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -96,6 +106,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -103,19 +114,23 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Export meshcode to geometry</h1>
+    <small class="dont-index">Source: <a href='https://github.com/uribo/jpmesh#readme/blob/master/R/export_mesh.R'><code>R/export_mesh.R</code></a></small>
+    <div class="hidden name"><code>export_meshes.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Convert and export meshcode area to <code>sf</code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>export_meshes</span>(<span class='no'>meshes</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -133,9 +148,9 @@
 #&gt; epsg (SRID):    4326
 #&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #&gt; # A tibble: 1 x 2
-#&gt;   meshcode                       geometry
-#&gt;   &lt;chr&gt;                 &lt;S3: sfc_POLYGON&gt;
-#&gt; 1 4128     POLYGON ((128 27.33333, 129...</div><span class='co'># NOT RUN {</span>
+#&gt;   meshcode                                                     geometry
+#&gt;   &lt;chr&gt;                                                   &lt;POLYGON [°]&gt;
+#&gt; 1 4128     ((128 27.33333, 129 27.33333, 129 28, 128 28, 128 27.33333))</div><span class='co'># NOT RUN {</span>
 <span class='fu'>find_neighbor_mesh</span>(<span class='fl'>37250395</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>export_meshes</span>()
 <span class='co'># }</span></pre>
@@ -163,5 +178,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

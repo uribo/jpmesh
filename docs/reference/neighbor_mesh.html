@@ -21,18 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Find out neighborhood meshes collection — neighbor_mesh" />
 
 <meta property="og:description" content="input should use meshcode under the 1km mesh size." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">jpmesh</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">jpmesh</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -84,7 +94,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -96,6 +106,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -103,19 +114,23 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Find out neighborhood meshes collection</h1>
+    <small class="dont-index">Source: <a href='https://github.com/uribo/jpmesh#readme/blob/master/R/find_neighbor_mesh.R'><code>R/find_neighbor_mesh.R</code></a></small>
+    <div class="hidden name"><code>neighbor_mesh.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>input should use meshcode under the 1km mesh size.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>neighbor_mesh</span>(<span class='no'>meshcode</span>, <span class='kw'>contains</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -135,8 +150,8 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>neighbor_mesh</span>(<span class='fl'>53394501</span>)</div><div class='output co'>#&gt; [1] "53393590" "53393591" "53393592" "53394500" "53394501" "53394502" "53394510"
-#&gt; [8] "53394511" "53394512"</div><div class='input'><span class='fu'>neighbor_mesh</span>(<span class='fl'>533945011</span>)</div><div class='output co'>#&gt; [1] "533935904" "533935913" "533935914" "533945002" "533945004" "533945012"
-#&gt; [7] "533945013" "533945014" "533945011"</div><div class='input'><span class='fu'>neighbor_mesh</span>(<span class='fl'>533945011</span>, <span class='kw'>contains</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "533935904" "533935913" "533935914" "533945002" "533945004" "533945012"
+#&gt; [8] "53394511" "53394512"</div><div class='input'><span class='fu'>neighbor_mesh</span>(<span class='fl'>533945011</span>)</div><div class='output co'>#&gt; [1] "533935904" "533935913" "533935914" "533945002" "533945004" "533945011"
+#&gt; [7] "533945012" "533945013" "533945014"</div><div class='input'><span class='fu'>neighbor_mesh</span>(<span class='fl'>533945011</span>, <span class='kw'>contains</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "533935904" "533935913" "533935914" "533945002" "533945004" "533945012"
 #&gt; [7] "533945013" "533945014"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -164,5 +179,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

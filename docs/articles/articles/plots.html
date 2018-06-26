@@ -8,8 +8,8 @@
 <title>Construct maps with jpmesh • jpmesh</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
-<script src="../../jquery.sticky-kit.min.js"></script><script src="../../pkgdown.js"></script><meta property="og:title" content="Construct maps with jpmesh">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<script src="../../pkgdown.js"></script><meta property="og:title" content="Construct maps with jpmesh">
 <meta property="og:description" content="">
 <meta property="og:image" content="/logo.png">
 <meta name="twitter:card" content="summary">
@@ -19,7 +19,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -28,8 +28,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../../index.html">jpmesh</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../../index.html">jpmesh</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
@@ -57,7 +61,7 @@
   </ul>
 </li>
 <li>
-  <a href="../../news/index.html">News</a>
+  <a href="../../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -77,28 +81,25 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Construct maps with jpmesh</h1>
                         <h4 class="author">Shinya Uryu</h4>
             
-            <h4 class="date">2018-02-28</h4>
-          </div>
+            <h4 class="date">2018-06-26</h4>
+      
+      <small class="dont-index">Source: <a href="https://github.com/uribo/jpmesh#readme/blob/master/vignettes/articles/plots.Rmd"><code>vignettes/articles/plots.Rmd</code></a></small>
+      <div class="hidden name"><code>plots.Rmd</code></div>
+
+    </div>
 
     
     
-<div class="contents">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
-<span class="kw">library</span>(jpmesh)
-<span class="kw">library</span>(sf)
-<span class="kw">library</span>(purrr)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_polys &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/meshcode_set.html">meshcode_set</a></span>(<span class="dt">mesh_size =</span> <span class="st">"80km"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(<span class="st">"mesh"</span> =<span class="st"> </span>.) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">geometry =</span> purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map2">pmap</a></span>(., <span class="op">~</span><span class="st"> </span><span class="kw"><a href="../../reference/export_mesh.html">export_mesh</a></span>(<span class="dt">mesh =</span> ..<span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">                                    </span>sf<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_as_text">st_as_text</a></span>())) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>tidyr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/unnest">unnest</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">geometry =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_as_sfc">st_as_sfc</a></span>(geometry)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/sf">st_sf</a></span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(jpmesh)
+<span class="kw">library</span>(sf)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_polys &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../../reference/meshcode_set.html">meshcode_set</a></span>(<span class="dt">mesh_size =</span> <span class="st">"80km"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>jpmesh<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/jpmesh/topics/export_meshes">export_meshes</a></span>()</code></pre></div>
 <div id="base" class="section level2">
 <h2 class="hasAnchor">
 <a href="#base" class="anchor"></a>base</h2>
@@ -113,17 +114,17 @@
 <span class="kw">library</span>(ggplot2)
 <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggsf">geom_sf</a></span>(<span class="dt">data =</span> df_polys, <span class="dt">fill =</span> <span class="ot">NA</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_text">geom_text</a></span>(<span class="dt">data =</span> df_polys <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(
-    <span class="dt">CENTROID =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(geometry, st_centroid),
-    <span class="dt">COORDS =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(CENTROID, st_coordinates),
-    <span class="dt">COORDS_X =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_dbl</a></span>(COORDS, <span class="dv">1</span>),
-    <span class="dt">COORDS_Y =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_dbl</a></span>(COORDS, <span class="dv">2</span>)    
-  ),
-    <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(COORDS_X, COORDS_Y, <span class="dt">label =</span> mesh), 
-    <span class="dt">size =</span> <span class="fl">1.2</span>, <span class="dt">min.segment.length =</span> <span class="dv">0</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_text">geom_text</a></span>(<span class="dt">data =</span> <span class="kw">cbind</span>(
+  <span class="dt">mesh =</span> df_polys<span class="op">$</span>meshcode,
+  df_polys<span class="op">$</span>geometry <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/geos_unary">st_centroid</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_coordinates">st_coordinates</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">as.data.frame</span>()),
+    <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(X, Y, <span class="dt">label =</span> mesh), 
+    <span class="dt">size =</span> <span class="fl">1.2</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggsf">coord_sf</a></span>(<span class="dt">datum =</span> <span class="ot">NA</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_void</a></span>()</code></pre></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 </div>
 <div id="leaflet" class="section level2">
 <h2 class="hasAnchor">
@@ -138,7 +139,7 @@
 <a href="#plotly" class="anchor"></a>plotly</h2>
 <p>wip…</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()
-<span class="co">#&gt; R version 3.4.3 (2017-11-30)</span>
+<span class="co">#&gt; R version 3.5.0 (2018-04-23)</span>
 <span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span>
 <span class="co">#&gt; Running under: Debian GNU/Linux 9 (stretch)</span>
 <span class="co">#&gt; </span>
@@ -158,27 +159,29 @@
 <span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; other attached packages:</span>
-<span class="co">#&gt; [1] ggplot2_2.2.1.9000 bindrcpp_0.2       purrr_0.2.4       </span>
-<span class="co">#&gt; [4] sf_0.6-0           jpmesh_1.1.0.9000  magrittr_1.5      </span>
+<span class="co">#&gt; [1] ggplot2_2.2.1.9000 sf_0.6-3           jpmesh_1.1.1      </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; loaded via a namespace (and not attached):</span>
-<span class="co">#&gt;  [1] Rcpp_0.12.15      plyr_1.8.4        pillar_1.2.1     </span>
-<span class="co">#&gt;  [4] compiler_3.4.3    bindr_0.1         class_7.3-14     </span>
-<span class="co">#&gt;  [7] tools_3.4.3       digest_0.6.15     gtable_0.2.0     </span>
-<span class="co">#&gt; [10] evaluate_0.10.1   tibble_1.4.2      pkgconfig_2.0.1  </span>
-<span class="co">#&gt; [13] rlang_0.2.0.9000  shiny_1.0.5       DBI_0.7          </span>
-<span class="co">#&gt; [16] crosstalk_1.0.0   yaml_2.1.17       e1071_1.6-8      </span>
-<span class="co">#&gt; [19] withr_2.1.1.9000  dplyr_0.7.4       stringr_1.3.0    </span>
-<span class="co">#&gt; [22] knitr_1.20        htmlwidgets_1.0   tidyselect_0.2.4 </span>
-<span class="co">#&gt; [25] classInt_0.1-24   rprojroot_1.3-2   leaflet_1.1.0    </span>
-<span class="co">#&gt; [28] grid_3.4.3        glue_1.2.0        R6_2.2.2         </span>
-<span class="co">#&gt; [31] rmarkdown_1.8     tidyr_0.8.0       udunits2_0.13    </span>
-<span class="co">#&gt; [34] scales_0.5.0.9000 backports_1.1.2   htmltools_0.3.6  </span>
-<span class="co">#&gt; [37] units_0.5-1       assertthat_0.2.0  colorspace_1.3-2 </span>
-<span class="co">#&gt; [40] mime_0.5          xtable_1.8-2      httpuv_1.3.5     </span>
-<span class="co">#&gt; [43] stringi_1.1.6     miniUI_0.1.1      lazyeval_0.2.1   </span>
-<span class="co">#&gt; [46] munsell_0.4.3</span></code></pre></div>
-</div>
+<span class="co">#&gt;  [1] tidyselect_0.2.4   purrr_0.2.5        colorspace_1.3-2  </span>
+<span class="co">#&gt;  [4] miniUI_0.1.1.1     htmltools_0.3.6    yaml_2.1.19       </span>
+<span class="co">#&gt;  [7] rlang_0.2.1        e1071_1.6-8        pkgdown_1.1.0.9000</span>
+<span class="co">#&gt; [10] later_0.7.3        pillar_1.2.3       withr_2.1.2       </span>
+<span class="co">#&gt; [13] glue_1.2.0.9000    DBI_1.0.0          bindrcpp_0.2.2    </span>
+<span class="co">#&gt; [16] plyr_1.8.4         bindr_0.1.1        stringr_1.3.1     </span>
+<span class="co">#&gt; [19] munsell_0.5.0      commonmark_1.5     gtable_0.2.0      </span>
+<span class="co">#&gt; [22] htmlwidgets_1.2    memoise_1.1.0      evaluate_0.10.1   </span>
+<span class="co">#&gt; [25] knitr_1.20         httpuv_1.4.4.1     crosstalk_1.0.0   </span>
+<span class="co">#&gt; [28] class_7.3-14       Rcpp_0.12.17       xtable_1.8-2      </span>
+<span class="co">#&gt; [31] promises_1.0.1     backports_1.1.2    scales_0.5.0      </span>
+<span class="co">#&gt; [34] classInt_0.2-3     desc_1.2.0         leaflet_2.0.1     </span>
+<span class="co">#&gt; [37] mime_0.5           fs_1.2.3           digest_0.6.15     </span>
+<span class="co">#&gt; [40] stringi_1.2.3      dplyr_0.7.5        shiny_1.1.0       </span>
+<span class="co">#&gt; [43] rprojroot_1.3-2    grid_3.5.0         tools_3.5.0       </span>
+<span class="co">#&gt; [46] magrittr_1.5       lazyeval_0.2.1     tibble_1.4.2      </span>
+<span class="co">#&gt; [49] pkgconfig_2.0.1    crayon_1.3.4       MASS_7.3-50       </span>
+<span class="co">#&gt; [52] xml2_1.2.0         spData_0.2.9.0     assertthat_0.2.0  </span>
+<span class="co">#&gt; [55] rmarkdown_1.10     roxygen2_6.0.1     rstudioapi_0.7    </span>
+<span class="co">#&gt; [58] R6_2.2.2           units_0.6-0        compiler_3.5.0</span></code></pre></div>
 </div>
   </div>
 
@@ -208,6 +211,8 @@
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

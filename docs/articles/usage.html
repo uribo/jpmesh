@@ -8,8 +8,8 @@
 <title>How to use mesh cord in R • jpmesh</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="How to use mesh cord in R">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><meta property="og:title" content="How to use mesh cord in R">
 <meta property="og:description" content="">
 <meta property="og:image" content="/logo.png">
 <meta name="twitter:card" content="summary">
@@ -19,7 +19,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -28,8 +28,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">jpmesh</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">jpmesh</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
@@ -57,7 +61,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -77,17 +81,20 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>How to use mesh cord in R</h1>
                         <h4 class="author">Shinya Uryu</h4>
             
-            <h4 class="date">2018-02-28</h4>
-          </div>
+            <h4 class="date">2018-06-26</h4>
+      
+      <small class="dont-index">Source: <a href="https://github.com/uribo/jpmesh#readme/blob/master/vignettes/usage.Rmd"><code>vignettes/usage.Rmd</code></a></small>
+      <div class="hidden name"><code>usage.Rmd</code></div>
+
+    </div>
 
     
     
-<div class="contents">
 <div class="section level2">
 <h2>概要</h2>
 <p><strong>jpmesh</strong>パッケージは、日本国内で利用される「地域メッシュ（メッシュコード）」をRから容易に利用可能にするパッケージです。地域メッシュとは、日本国土を緯度・経度により方形の小地域区画に細分することで、同一の基準による統計調査などの結果を得ることが可能となります。80kmから125mまでのメッシュコードに対応し、メッシュコードと緯度経度座標との相互変換を行います。</p>
@@ -95,7 +102,6 @@
 <p>パッケージをインストールしたら環境内で利用可能にするため、読み込みを行いましょう。また、このサンプルページで用いるパッケージも同時に読み込むようにしておきます。</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(jpmesh)
 <span class="kw">library</span>(sf)
-<span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(purrr)</code></pre></div>
 <div class="section level4">
 <h4>緯度経度と地域メッシュの相互変換</h4>
@@ -104,7 +110,7 @@
 <pre><code>## # A tibble: 1 x 4
 ##   lng_center lat_center lng_error lat_error
 ##        &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1       134.       34.3     0.500     0.333</code></pre>
+## 1       134.       34.3       0.5     0.333</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/mesh_to_coords.html">mesh_to_coords</a></span>(<span class="dv">513377</span>)</code></pre></div>
 <pre><code>## # A tibble: 1 x 4
 ##   lng_center lat_center lng_error lat_error
@@ -124,13 +130,6 @@
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +datum=WGS84 +no_defs</code></pre>
 <pre><code>## POLYGON ((133.9125 34.65, 133.9156 34.65, 133.9...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/mesh_to_coords.html">mesh_to_coords</a></span>(<span class="dv">5133778311</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">geometry =</span> purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map2">pmap_chr</a></span>(., <span class="op">~</span><span class="st"> </span>jpmesh<span class="op">:::</span><span class="kw">mesh_to_poly</span>(...))) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(geometry)</code></pre></div>
-<pre><code>## # A tibble: 1 x 1
-##   geometry                                                                
-##   &lt;chr&gt;                                                                   
-## 1 POLYGON ((133.9125 34.65, 133.9156 34.65, 133.9156 34.65208, 133.9125 3…</code></pre>
 <p>緯度経度から地域メッシュを得ることもできます。これには<code><a href="../reference/coords_to_mesh.html">coords_to_mesh()</a></code>を利用します。引数に緯度と経度を与え、取得対象のメッシュコードの大きさを指定します。メッシュコードの大きさの初期値は標準地域メッシュ、すなわち1kmメッシュです。</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span>(<span class="dv">133</span>, <span class="dv">34</span>)</code></pre></div>
 <pre><code>## [1] "51330000"</code></pre>
@@ -158,8 +157,8 @@
 <pre><code>## [1] "5032" "5033" "5034" "5132" "5133" "5134" "5232" "5233" "5234"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span>(<span class="dv">133</span>, <span class="dv">34</span>, <span class="st">"500m"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/neighbor_mesh.html">neighbor_mesh</a></span>()</code></pre></div>
-<pre><code>## [1] "503277994" "503370903" "503370904" "513207092" "513207094" "513300003"
-## [7] "513300004" "513300001"</code></pre>
+<pre><code>## [1] "503277994" "503370903" "503370904" "513207092" "513207094" "513300001"
+## [7] "513300002" "513300003" "513300004"</code></pre>
 </div>
 <div class="section level4">
 <h4>都道府県単位での基準地域メッシュの描画</h4>
@@ -169,68 +168,36 @@
 <span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">format =</span> <span class="st">"markdown"</span>)</code></pre></div>
 <table class="table">
 <colgroup>
-<col width="6%">
-<col width="7%">
-<col width="7%">
-<col width="7%">
-<col width="7%">
-<col width="64%">
+<col width="9%">
+<col width="90%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">meshcode</th>
-<th align="right">lng_center</th>
-<th align="right">lat_center</th>
-<th align="right">lng_error</th>
-<th align="right">lat_error</th>
 <th align="left">geometry</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left">513376</td>
-<td align="right">133.8125</td>
-<td align="right">34.62500</td>
-<td align="right">0.0625</td>
-<td align="right">0.0416667</td>
 <td align="left">list(c(133.75, 133.875, 133.875, 133.75, 133.75, 34.58333, 34.58333, 34.66667, 34.66667, 34.58333))</td>
 </tr>
 <tr class="even">
 <td align="left">513377</td>
-<td align="right">133.9375</td>
-<td align="right">34.62500</td>
-<td align="right">0.0625</td>
-<td align="right">0.0416667</td>
 <td align="left">list(c(133.875, 134, 134, 133.875, 133.875, 34.58333, 34.58333, 34.66667, 34.66667, 34.58333))</td>
 </tr>
 <tr class="odd">
 <td align="left">523305</td>
-<td align="right">133.6875</td>
-<td align="right">34.70833</td>
-<td align="right">0.0625</td>
-<td align="right">0.0416667</td>
 <td align="left">list(c(133.625, 133.75, 133.75, 133.625, 133.625, 34.66667, 34.66667, 34.75, 34.75, 34.66667))</td>
 </tr>
 <tr class="even">
 <td align="left">523306</td>
-<td align="right">133.8125</td>
-<td align="right">34.70833</td>
-<td align="right">0.0625</td>
-<td align="right">0.0416667</td>
 <td align="left">list(c(133.75, 133.875, 133.875, 133.75, 133.75, 34.66667, 34.66667, 34.75, 34.75, 34.66667))</td>
 </tr>
 <tr class="odd">
 <td align="left">523307</td>
-<td align="right">133.9375</td>
-<td align="right">34.70833</td>
-<td align="right">0.0625</td>
-<td align="right">0.0416667</td>
 <td align="left">list(c(133.875, 134, 134, 133.875, 133.875, 34.66667, 34.66667, 34.75, 34.75, 34.66667))</td>
 </tr>
 <tr class="even">
 <td align="left">523315</td>
-<td align="right">133.6875</td>
-<td align="right">34.79167</td>
-<td align="right">0.0625</td>
-<td align="right">0.0416667</td>
 <td align="left">list(c(133.625, 133.75, 133.75, 133.625, 133.625, 34.75, 34.75, 34.83333, 34.83333, 34.75))</td>
 </tr>
 </tbody>
@@ -241,7 +208,7 @@
 <h2 class="hasAnchor">
 <a href="#session-information" class="anchor"></a>Session Information</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()</code></pre></div>
-<pre><code>## R version 3.4.3 (2017-11-30)
+<pre><code>## R version 3.5.0 (2018-04-23)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Debian GNU/Linux 9 (stretch)
 ## 
@@ -261,28 +228,28 @@
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] bindrcpp_0.2      purrr_0.2.4       dplyr_0.7.4       sf_0.6-0         
-## [5] jpmesh_1.1.0.9000
+## [1] purrr_0.2.5  sf_0.6-3     jpmesh_1.1.1
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.15           highr_0.6              pillar_1.2.1          
-##  [4] compiler_3.4.3         bindr_0.1              prettyunits_1.0.2     
-##  [7] progress_1.1.2.9002    class_7.3-14           tools_3.4.3           
-## [10] digest_0.6.15          evaluate_0.10.1        tibble_1.4.2          
-## [13] pkgconfig_2.0.1        rlang_0.2.0.9000       cli_1.0.0.9001        
-## [16] shiny_1.0.5            DBI_0.7                crosstalk_1.0.0       
-## [19] yaml_2.1.17            e1071_1.6-8            withr_2.1.1.9000      
-## [22] xml2_1.2.0             stringr_1.3.0          knitr_1.20            
-## [25] hms_0.4.1              htmlwidgets_1.0        tidyselect_0.2.4      
-## [28] classInt_0.1-24        rprojroot_1.3-2        leaflet_1.1.0         
-## [31] grid_3.4.3             glue_1.2.0             R6_2.2.2              
-## [34] rmarkdown_1.8          selectr_0.3-1          tidyr_0.8.0           
-## [37] udunits2_0.13          magrittr_1.5           ansistrings_1.0.0.9000
-## [40] backports_1.1.2        htmltools_0.3.6        units_0.5-1           
-## [43] assertthat_0.2.0       mime_0.5               xtable_1.8-2          
-## [46] httpuv_1.3.5           utf8_1.1.3             stringi_1.1.6         
-## [49] miniUI_0.1.1           crayon_1.3.4</code></pre>
-</div>
+##  [1] progress_1.2.0     miniUI_0.1.1.1     htmltools_0.3.6   
+##  [4] yaml_2.1.19        utf8_1.1.4         rlang_0.2.1       
+##  [7] e1071_1.6-8        pkgdown_1.1.0.9000 later_0.7.3       
+## [10] pillar_1.2.3       glue_1.2.0.9000    withr_2.1.2       
+## [13] DBI_1.0.0          selectr_0.4-1      stringr_1.3.1     
+## [16] commonmark_1.5     htmlwidgets_1.2    memoise_1.1.0     
+## [19] evaluate_0.10.1    knitr_1.20         httpuv_1.4.4.1    
+## [22] crosstalk_1.0.0    class_7.3-14       fansi_0.2.3       
+## [25] highr_0.7          Rcpp_0.12.17       xtable_1.8-2      
+## [28] promises_1.0.1     backports_1.1.2    classInt_0.2-3    
+## [31] desc_1.2.0         leaflet_2.0.1      mime_0.5          
+## [34] fs_1.2.3           hms_0.4.2          digest_0.6.15     
+## [37] stringi_1.2.3      shiny_1.1.0        rprojroot_1.3-2   
+## [40] grid_3.5.0         cli_1.0.0.9002     tools_3.5.0       
+## [43] magrittr_1.5       tibble_1.4.2       crayon_1.3.4      
+## [46] pkgconfig_2.0.1    MASS_7.3-50        xml2_1.2.0        
+## [49] prettyunits_1.0.2  spData_0.2.9.0     assertthat_0.2.0  
+## [52] rmarkdown_1.10     roxygen2_6.0.1     rstudioapi_0.7    
+## [55] R6_2.2.2           units_0.6-0        compiler_3.5.0</code></pre>
 </div>
   </div>
 
@@ -310,6 +277,8 @@
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

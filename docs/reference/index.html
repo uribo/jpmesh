@@ -21,16 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Function reference" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">jpmesh</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">jpmesh</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -82,7 +92,7 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -94,6 +104,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -101,150 +112,146 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;1.1.0.9000</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-convert-mesh-code-to-coordinate-and-vice-versa-" class="hasAnchor"><a href="#section-convert-mesh-code-to-coordinate-and-vice-versa-" class="anchor"></a>Convert mesh code to coordinate (and vice versa)</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="coords_to_mesh.html">coords_to_mesh</a></code> </p>
-          </td>
-          <td><p>Convert from coordinate to mesh code</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="mesh_to_coords.html">mesh_to_coords</a></code> </p>
-          </td>
-          <td><p>Get from mesh code to latitude and longitude</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-detect-fine-scale-and-neighbourhood-meshes" class="hasAnchor"><a href="#section-detect-fine-scale-and-neighbourhood-meshes" class="anchor"></a>Detect fine scale and neighbourhood meshes</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="fine_separate.html">fine_separate</a></code> </p>
-          </td>
-          <td><p>Separate more fine mesh order</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="neighbor_mesh.html">neighbor_mesh</a></code> </p>
-          </td>
-          <td><p>Find out neighborhood meshes collection</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-mesh-data" class="hasAnchor"><a href="#section-mesh-data" class="anchor"></a>Mesh data</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="administration_mesh.html">administration_mesh</a></code> </p>
-          </td>
-          <td><p>Extract administration mesh</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="jpnrect.html">jpnrect</a></code> </p>
-          </td>
-          <td><p>Simple displaed as rectangel for Japan (fortified)</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-gadgets" class="hasAnchor"><a href="#section-gadgets" class="anchor"></a>Gadgets</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="mesh_viewer.html">mesh_viewer</a></code> </p>
-          </td>
-          <td><p>interactive meshcode check</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="eval_jp_boundary.html">eval_jp_boundary</a></code> </p>
-          </td>
-          <td><p>Check include mesh areas</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="export_mesh.html">export_mesh</a></code> </p>
-          </td>
-          <td><p>Export meshcode to geometry</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="export_meshes.html">export_meshes</a></code> </p>
-          </td>
-          <td><p>Export meshcode to geometry</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="is_mesh.html">is_meshcode</a></code> <code><a href="is_mesh.html">is_corner</a></code> </p>
-          </td>
-          <td><p>Predict meshcode format and positions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="meshcode_set.html">meshcode_set</a></code> </p>
-          </td>
-          <td><p>Export meshcode vectors ranges 80km to 1km.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rmesh.html">rmesh</a></code> </p>
-          </td>
-          <td><p>Generate random sample meshcode</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_jpmesh.html">sf_jpmesh</a></code> </p>
-          </td>
-          <td><p>1:200,000 Scale Maps Name with Meshcode of Japan.</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-convert-mesh-code-to-coordinate-and-vice-versa-" class="hasAnchor"><a href="#section-convert-mesh-code-to-coordinate-and-vice-versa-" class="anchor"></a>Convert mesh code to coordinate (and vice versa)</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="coords_to_mesh.html">coords_to_mesh()</a></code> </p>
+        </td>
+        <td><p>Convert from coordinate to mesh code</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mesh_to_coords.html">mesh_to_coords()</a></code> </p>
+        </td>
+        <td><p>Get from mesh code to latitude and longitude</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-detect-fine-scale-and-neighbourhood-meshes" class="hasAnchor"><a href="#section-detect-fine-scale-and-neighbourhood-meshes" class="anchor"></a>Detect fine scale and neighbourhood meshes</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="fine_separate.html">fine_separate()</a></code> </p>
+        </td>
+        <td><p>Separate more fine mesh order</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="neighbor_mesh.html">neighbor_mesh()</a></code> </p>
+        </td>
+        <td><p>Find out neighborhood meshes collection</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-mesh-data" class="hasAnchor"><a href="#section-mesh-data" class="anchor"></a>Mesh data</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="administration_mesh.html">administration_mesh()</a></code> </p>
+        </td>
+        <td><p>Extract administration mesh</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="jpnrect.html">jpnrect</a></code> </p>
+        </td>
+        <td><p>Simple displaed as rectangel for Japan (fortified)</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-gadgets" class="hasAnchor"><a href="#section-gadgets" class="anchor"></a>Gadgets</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="mesh_viewer.html">mesh_viewer()</a></code> </p>
+        </td>
+        <td><p>interactive meshcode check</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="eval_jp_boundary.html">eval_jp_boundary()</a></code> </p>
+        </td>
+        <td><p>Check include mesh areas</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="export_mesh.html">export_mesh()</a></code> </p>
+        </td>
+        <td><p>Export meshcode to geometry</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="export_meshes.html">export_meshes()</a></code> </p>
+        </td>
+        <td><p>Export meshcode to geometry</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is_mesh.html">is_meshcode()</a></code> <code><a href="is_mesh.html">is_corner()</a></code> </p>
+        </td>
+        <td><p>Predict meshcode format and positions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="meshcode_set.html">meshcode_set()</a></code> </p>
+        </td>
+        <td><p>Export meshcode vectors ranges 80km to 1km.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rmesh.html">rmesh()</a></code> </p>
+        </td>
+        <td><p>Generate random sample meshcode</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sf_jpmesh.html">sf_jpmesh</a></code> </p>
+        </td>
+        <td><p>1:200,000 Scale Maps Name with Meshcode of Japan.</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -271,5 +278,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
