@@ -122,38 +122,46 @@ find_neighbor_mesh <- function(meshcode = NULL, contains = TRUE) {
 
 find_neighbor_finemesh <- function(meshcode, contains = TRUE) {
   
-  . <- NULL
-  meshcode <- as.numeric(meshcode)
-  size <- mesh_size(meshcode)
+  relate <- NULL
   
-  if (size == units::as_units(0.5, "km")) {
-    df_poly <- 
-      substr(meshcode, 1, nchar(meshcode) - 1) %>% 
-      find_neighbor_mesh() %>% 
-      purrr::map(bind_meshpolys) %>% 
+    df_poly <-
+      substr(meshcode, 1,
+             nchar(eval(meshcode)) - 1) %>%
+      find_neighbor_mesh() %>%
+      purrr::map(bind_meshpolys) %>%
       purrr::reduce(rbind)
     
-    touches_row <- 
-      suppressMessages(
-        1:nrow(df_poly) %>% 
-          purrr::map_dbl(., ~ sum(as.numeric(sf::st_disjoint(df_poly[.x, ],
-                                                            df_poly[which(
-                                                              df_poly$meshcode == meshcode), "geometry"], 
-                                                            sparse = TRUE, 
-                                                            prepared = TRUE)))))
+    df_poly$n <- 1:nrow(df_poly)
     
+    df_poly$relate <- 
+      suppressWarnings(
+        suppressMessages(
+        sapply(df_poly$geometry, 
+             sf::st_relate, 
+             y = sf::st_buffer(
+               df_poly$geometry[which(df_poly$meshcode == meshcode)], 
+               dist = 0.00005), 
+             sparse = FALSE)))
     
-    neighbor <- df_poly[c(which(is.na(touches_row))), ]
+    if (length(df_poly$meshcode[df_poly$relate %in% c("212101212", "2FF1FF212")]) != 9) { # nolint
+      df_poly$relate <- 
+        suppressWarnings(
+          suppressMessages(
+            sapply(df_poly$geometry, 
+                   sf::st_relate, 
+                   y = sf::st_buffer(
+                     df_poly$geometry[which(df_poly$meshcode == meshcode)], 
+                     dist = 0.0002), 
+                   sparse = FALSE)))  
+    }
     
-    neighbor <- neighbor$meshcode
+    neighbor <- 
+      subset(df_poly, relate %in% c("212101212", "2FF1FF212"))$meshcode
     
     if (rlang::is_false(contains)) {
       neighbor <- neighbor[!neighbor %in% meshcode]
     }
     
     return(neighbor)
-    
-  }
-} 
 
-  
+} 
