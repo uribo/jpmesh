@@ -51,3 +51,12 @@ test_that("success", {
   )
 
 })
+
+test_that("failed", {
+  
+  expect_null(suppressMessages(neighbor_mesh(3725124021)))
+  expect_message(
+    neighbor_mesh(3725124021),
+    "Too small meshsize. Enable 80km to 500m size."
+  )
+  
