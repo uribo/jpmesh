@@ -49,6 +49,13 @@ test_that("success", {
     neighbor_mesh(654175922, contains = FALSE),
     8L
   )
+  
+  expect_equal(
+    neighbor_mesh(362450794),
+    c("362450791", "362450792", "362450793",
+      "362450794", "362450891", "362450892",
+      "362451701", "362451703", "362451801")
+  )
 
 })
 
@@ -60,3 +67,48 @@ test_that("failed", {
     "Too small meshsize. Enable 80km to 500m size."
   )
   
+})
+
+test_that("corners", {
+  
+  expect_is(
+    neighbor_mesh(53390000),
+    "character")
+  expect_length(
+    neighbor_mesh(53390100),
+    9L)
+  expect_equal(
+    neighbor_mesh(53391000, contains = FALSE),
+    c("53380799", "53381709", "53381719",
+      "53390090", "53390091", "53391001", 
+      "53391010", "53391011"))
+  
+  res <- 
+    neighbor_mesh(53390109) %>% 
+    export_meshes()
+  res$relate <- 
+    c(sf::st_relate(res$geometry, res$geometry[5], sparse = FALSE))
+  
+  expect_equal(
+    res$relate,
+    c("FF2F01212", "FF2F11212", "FF2F01212",
+      "FF2F11212", "2FFF1FFF2", "FF2F01212",
+      "FF2F11212", "FF2F11212", "FF2F01212")
+  )
+  
+  expect_equivalent(
+    neighbor_mesh(53390009) %>% 
+      export_meshes() %>% 
+      sf::st_union() %>% 
+      sf::st_area(),
+    9455968,
+    tolerance = 0.002
+  )
+  
+  
+  expect_length(
+    neighbor_mesh(53391100),
+    9L
+  )
+  
+})

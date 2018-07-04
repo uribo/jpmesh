@@ -66,3 +66,9 @@ test_that("Separete to quarter mesh", {
   res <- coords_to_mesh(139.311340, 35.449011, mesh_size = "250m")
   expect_equal(res, "5339123444")
 })
+
+test_that("125m", {
+  res <- coords_to_mesh(133.9125, 34.65, mesh_size = "125m")
+  expect_equal(nchar(res), 11L)
+  expect_equal(res, "51337782222")
+})

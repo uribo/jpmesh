@@ -57,4 +57,9 @@ test_that("Coarse multiple meshes to large size", {
     c("493214", "493215")
   )
   
+  set.seed(123)
+  expect_equal(
+    coarse_gather(rmesh(1, "10km")),
+    "4929"
+  )
 })

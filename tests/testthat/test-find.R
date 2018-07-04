@@ -96,3 +96,34 @@ test_that("neighborhood meshes", {
       "37251209", "37251300", "37251301"))
   
 })
+
+test_that("corners", {
+  
+  expect_length(
+    neighbor_mesh(533400),
+    9L)
+  
+  expect_length(
+    neighbor_mesh(533407),
+    6L)
+  
+  expect_equal(
+    suppressWarnings(neighbor_mesh(533470, contains = FALSE)),
+    c("533367", "533377", "533387", 
+      "533460", "533461", "533471"))
+  expect_equal(
+    suppressWarnings(neighbor_mesh(533477, contains = FALSE)),
+    c("533466", "533467", "533476",
+      "533560", "533570", "543500"))
+  
+  expect_length(
+    neighbor_mesh(533406, contains = FALSE),
+    8L)
+  expect_length(
+    neighbor_mesh(533416, contains = FALSE),
+    8L)
+  expect_length(
+    neighbor_mesh(523376, contains = FALSE),
+    8L)
+  
+})
