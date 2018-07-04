@@ -30,6 +30,7 @@ RUN set -x && \
   install2.r --error \
     knitr \
     covr \
+    mapview \
     roxygen2 \
     remotes \
     usethis \
