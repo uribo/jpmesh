@@ -96,6 +96,7 @@ test_that("corners", {
       "FF2F11212", "FF2F11212", "FF2F01212")
   )
   
+  skip_if_not_installed("lwgeom")
   expect_equivalent(
     neighbor_mesh(53390009) %>% 
       export_meshes() %>% 

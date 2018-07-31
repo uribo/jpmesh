@@ -1,4 +1,4 @@
-FROM rocker/rstudio:3.5.0
+FROM rocker/rstudio:3.5.1
 
 RUN set -x && \
   apt-get update && \
@@ -16,11 +16,13 @@ RUN set -x && \
   apt-get install -y --no-install-recommends \
     libmagick++-dev \
     qpdf && \
+  apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
 RUN set -x && \
   install2.r --error \
     leaflet \
+    lwgeom \
     miniUI \
     purrr \
     sf \
@@ -30,6 +32,7 @@ RUN set -x && \
   install2.r --error \
     knitr \
     covr \
+    devtools \
     mapview \
     roxygen2 \
     remotes \

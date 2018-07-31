@@ -24,6 +24,7 @@ Imports:
     magrittr (>= 1.5)
 Suggests: 
     knitr (>= 1.20),
+    lwgeom (>= 0.1-4),
     testthat (>= 1.0.2),
     rmarkdown (>= 1.10)
 VignetteBuilder: knitr
