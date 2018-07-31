@@ -4,7 +4,7 @@
 \alias{coords_to_mesh}
 \title{Convert from coordinate to mesh code}
 \usage{
-coords_to_mesh(longitude, latitude, mesh_size = "1km", ...)
+coords_to_mesh(longitude, latitude, mesh_size = "1km", geometry = NULL, ...)
 }
 \arguments{
 \item{longitude}{longitude that approximately to .120.0 to 154.0 (\code{double})}
@@ -12,6 +12,8 @@ coords_to_mesh(longitude, latitude, mesh_size = "1km", ...)
 \item{latitude}{latitude that approximately to 20.0 to 46.0 (\code{double})}
 
 \item{mesh_size}{mesh type. From 80km to 125m}
+
+\item{geometry}{XY sfg object}
 
 \item{...}{other parameters}
 }
@@ -25,6 +27,10 @@ From coordinate to mesh codes.
 coords_to_mesh(141.3468, 43.06462, mesh_size = "10km")
 coords_to_mesh(139.6917, 35.68949, mesh_size = "250m")
 coords_to_mesh(139.71475, 35.70078)
+
+library(sf)
+coords_to_mesh(geometry = st_point(c(139.71475, 35.70078)))
+coords_to_mesh(geometry = st_point(c(130.4412895, 30.2984335)))
 }
 \references{
 Akio Takenaka: \url{http://takenaka-akio.org/etc/j_map/index.html}

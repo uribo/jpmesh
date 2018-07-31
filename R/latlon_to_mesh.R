@@ -4,6 +4,7 @@
 #' @param longitude longitude that approximately to .120.0 to 154.0 (`double`)
 #' @param latitude latitude that approximately to 20.0 to 46.0 (`double`)
 #' @param mesh_size mesh type. From 80km to 125m
+#' @param geometry XY sfg object
 #' @param ... other parameters
 #' @importFrom rlang is_true quo_expr warn
 #' @return mesh code (default 3rd meshcode aka 1km mesh)
@@ -13,11 +14,33 @@
 #' coords_to_mesh(141.3468, 43.06462, mesh_size = "10km")
 #' coords_to_mesh(139.6917, 35.68949, mesh_size = "250m")
 #' coords_to_mesh(139.71475, 35.70078)
+#' 
+#' library(sf)
+#' coords_to_mesh(geometry = st_point(c(139.71475, 35.70078)))
+#' coords_to_mesh(geometry = st_point(c(130.4412895, 30.2984335)))
 #' @export
-coords_to_mesh <- function(longitude, latitude, mesh_size = "1km", ...) {
+coords_to_mesh <- function(longitude, latitude, mesh_size = "1km", geometry = NULL, ...) {
   
-  longitude <- rlang::quo_expr(longitude)
-  latitude <- rlang::quo_expr(latitude)
+  if (!is.null(geometry)) {
+    if (sf::st_is(geometry, "POINT")) {
+      
+      coords <-
+        if (sf::st_is(geometry, "POINT")) {
+          list(longitude = sf::st_coordinates(geometry)[1],
+               latitude =  sf::st_coordinates(geometry)[2])
+        }
+      
+      if (!rlang::is_missing(longitude) | !rlang::is_missing(latitude))
+        rlang::inform("the condition assigned coord and geometry, only the geometry will be used") # nolint
+      
+      longitude <- coords$longitude
+      latitude <- coords$latitude
+    
+    }
+  } else {
+    longitude <- rlang::quo_expr(longitude)
+    latitude <- rlang::quo_expr(latitude)  
+  }
   
   coords_evalated <- eval_jp_boundary(longitude, latitude)
 

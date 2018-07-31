@@ -72,3 +72,41 @@ test_that("125m", {
   expect_equal(nchar(res), 11L)
   expect_equal(res, "51337782222")
 })
+
+# sfg object --------------------------------------------------------------
+test_that("Input XY sfg", {
+  
+  skip_if_not_installed("sf")
+  res <- 
+    coords_to_mesh(geometry = sf::st_point(c(139.71475, 35.70078)))
+  expect_equal(res, "53394547")
+  
+  res <- 
+    coords_to_mesh(geometry = sf::st_point(c(139.71475, 35.70078)), 
+                   mesh_size = "500m")
+  expect_equal(res, "533945471")
+  
+  res <- 
+    coords_to_mesh(geometry = sf::st_point(c(130.4412895, 30.2984335)))
+  
+  expect_equal(
+    res,
+    coords_to_mesh(130.4412895, 30.2984335)
+  )
+  
+  expect_message(
+    coords_to_mesh(130.4412895, 30.2984335, 
+                   geometry = sf::st_point(c(130.4412895, 30.2984335))),
+    "only the geometry will be used"
+  )
+  
+  expect_warning(expect_equal(
+    nrow(administration_mesh(code = "08220", "city") %>% 
+           dplyr::mutate(geometry = sf::st_centroid(geometry)) %>% 
+           dplyr::mutate(meshcode_copy = purrr::pmap_chr(., ~ coords_to_mesh(mesh_size = "1km", geometry = ..2))) %>% 
+           dplyr::mutate(check = all.equal(meshcode, meshcode_copy)) %>% 
+           dplyr::filter(check == FALSE)),
+    0
+  ))
+  
+})
