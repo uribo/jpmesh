@@ -13,4 +13,11 @@ test_that("multiplication works", {
   res <- administration_mesh(code = c(33, 34), type = "prefecture")
   expect_equal(dim(res), c(204, 2))
   
+  res <- 
+    administration_mesh(code = "08220", type = "city")
+  expect_equal(dim(res), c(331, 2))
+  
+  res <- 
+    administration_mesh(code = c("08220", "08221"), type = "city")
+  expect_equal(dim(res), c(461, 2))
 })
