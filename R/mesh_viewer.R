@@ -13,8 +13,9 @@
 #' }
 #' @export
 
-mesh_viewer <-  function(...) { # nocov start
+mesh_viewer <- function(...) {
   
+  # nocov start
   # UI ----------------------------------------------------------------------
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("Mesh Viewer"),
@@ -35,8 +36,6 @@ mesh_viewer <-  function(...) { # nocov start
   # Server ------------------------------------------------------------------
   server <- function(input, output, session) {
     
-    . <- NULL
-    
     output$my.map <- leaflet::renderLeaflet({
       
       d <- coords_to_mesh(as.numeric(input$lng), 
@@ -46,7 +45,7 @@ mesh_viewer <-  function(...) { # nocov start
       
       leaflet::leaflet() %>% 
         leaflet::addTiles() %>% 
-        leaflet::addPolygons(data  = d)
+        leaflet::addPolygons(data = d)
         
     })
   }
@@ -54,5 +53,5 @@ mesh_viewer <-  function(...) { # nocov start
   shiny::runGadget(ui, 
                    server, 
                    viewer = shiny::dialogViewer("mesh_viewer", width = 650, height = 500))
-  
-} # nocov end
+  # nocov end 
+}

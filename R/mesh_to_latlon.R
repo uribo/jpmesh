@@ -77,32 +77,30 @@ mesh_to_coords <- function(meshcode, ...) {
                     )
   finename_centroid <- function(df, last_code) {
     
-    lng_center <- lat_center <- lng_error <- lat_error <- NULL
-    
     if (last_code == 1) {
-      df$lat_center = 
+      df$lat_center <- 
         (df$lat_center + df$lat_error) - (df$lat_error / 2) * 3
-      df$lng_center = 
+      df$lng_center <- 
         (df$lng_center + df$lng_error) - (df$lng_error / 2) * 3
     } else if (last_code == 2) {
-      df$lat_center = 
+      df$lat_center <-
         (df$lat_center + df$lat_error) - (df$lat_error / 2) * 3
-      df$lng_center = 
+      df$lng_center <- 
         (df$lng_center + df$lng_error) - (df$lng_error / 2)
     } else if (last_code == 3) {
-      df$lat_center = 
+      df$lat_center <-
         (df$lat_center + df$lat_error) - (df$lat_error / 2)
-      df$lng_center = 
+      df$lng_center <- 
         (df$lng_center + df$lng_error) - (df$lng_error / 2) * 3
     } else if (last_code == 4) {
-      df$lat_center = 
+      df$lat_center <- 
         (df$lat_center + df$lat_error) - (df$lat_error / 2)
-      df$lng_center = 
+      df$lng_center <- 
         (df$lng_center + df$lng_error) - (df$lng_error / 2)
     }
     
-    df$lat_error = df$lat_error / 2
-    df$lng_error = df$lng_error / 2
+    df$lat_error <- df$lat_error / 2
+    df$lng_error <- df$lng_error / 2
     res <- df
     
     return(res)
@@ -110,8 +108,8 @@ mesh_to_coords <- function(meshcode, ...) {
   
   if (exists("code9")) {
     
-    res$lat_error = 0.004165
-    res$lng_error = 0.00625
+    res$lat_error <- 0.004165
+    res$lng_error <- 0.00625
     
     res <- finename_centroid(res, code9)
   }
