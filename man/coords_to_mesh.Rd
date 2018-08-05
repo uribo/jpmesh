@@ -4,7 +4,8 @@
 \alias{coords_to_mesh}
 \title{Convert from coordinate to mesh code}
 \usage{
-coords_to_mesh(longitude, latitude, mesh_size = "1km", geometry = NULL, ...)
+coords_to_mesh(longitude, latitude, mesh_size = "1km", geometry = NULL,
+  ...)
 }
 \arguments{
 \item{longitude}{longitude that approximately to .120.0 to 154.0 (\code{double})}

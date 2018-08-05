@@ -48,9 +48,11 @@ RUN set -x && \
   install2.r --error \
     magick && \
   installGithub.r \
+    "r-lib/devtools" \
     "r-lib/roxygen2md" \
     "r-lib/testthat" \
     "r-lib/revdepcheck" \
     "r-lib/pkgdown" \
-    "tidyverse/ggplot2" \
-    "hadley/devtools"
+    "r-lib/pkgload" \ 
+    "klutometis/roxygen" \
+    "tidyverse/ggplot2"

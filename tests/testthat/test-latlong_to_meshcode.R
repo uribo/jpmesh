@@ -100,13 +100,20 @@ test_that("Input XY sfg", {
     "only the geometry will be used"
   )
   
-  expect_warning(expect_equal(
-    nrow(administration_mesh(code = "08220", "city") %>% 
-           dplyr::mutate(geometry = sf::st_centroid(geometry)) %>% 
-           dplyr::mutate(meshcode_copy = purrr::pmap_chr(., ~ coords_to_mesh(mesh_size = "1km", geometry = ..2))) %>% 
-           dplyr::mutate(check = all.equal(meshcode, meshcode_copy)) %>% 
-           dplyr::filter(check == FALSE)),
+  res <- 
+    administration_mesh(code = "08220", "city")
+  suppressWarnings(res$geometry <- 
+    sf::st_centroid(res$geometry))
+  res$meshcode_copy <- 
+    res %>% 
+    purrr::pmap_chr(., ~ coords_to_mesh(mesh_size = "1km", geometry = ..2))
+  suppressWarnings(res$geometry <- 
+                     sf::st_centroid(res$geometry))
+  res$check <- all.equal(res$meshcode, res$meshcode_copy)
+  
+  expect_equal(
+    sum(res$check == FALSE),
     0
-  ))
+  )
   
 })

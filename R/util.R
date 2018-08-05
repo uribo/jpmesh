@@ -171,3 +171,22 @@ bind_meshpolys <- function(meshcode) {
     unique() %>%
     export_meshes()
 }
+
+code_reform <- function(jis_code) {
+  . <- NULL
+  
+  checked <-
+    jis_code %>%
+    purrr::map(nchar) %>%
+    purrr::keep(~ .x %in% c(1, 2, 5)) %>%
+    length()
+  
+  if (length(jis_code) != checked)
+    rlang::abort("Input jis-code must to 2 or 5 digits.")
+  
+  jis_code %>%
+    purrr::map(as.numeric) %>%
+    purrr::map_if(.p = nchar(.) %in% c(1, 2), ~ sprintf("%02d", .x)) %>%
+    purrr::map_if(.p = nchar(.) %in% c(4, 5), ~ sprintf("%05d", .x)) %>%
+    purrr::flatten_chr()
+}

@@ -18,36 +18,42 @@ administration_mesh <- function(code, type = c("city", "prefecture")) {
   
   . <- city_code <- NULL
   
-  # [todo] replace to jpndistrict:::admins_code_validate in the future
-  if (code[1] %>% purrr::map_lgl(
-    purrr::negate(~ nchar(.x) %in% c(1, 2, 5))) == TRUE) {
-    rlang::abort("Input code must to 2 or 5 digits.")
-  }
+  checked_code <- 
+    code_reform(code)
   
-  if (nchar(code[1]) == 1)
-    code <- 
-      sprintf("%02d", as.numeric(code[1]))
+  mis_match <- 
+    checked_code[!checked_code %in% c(sprintf("%02d", seq(1, 47, by = 1)), 
+                                      unique(df_city_mesh$city_code))]
+  
+  if (!identical(mis_match, character(0))) {
+    rlang::inform(
+      paste(length(mis_match), "matching code were not found."))
+    
+    checked_code <- 
+      checked_code[!checked_code %in% mis_match]
+  }
 
-  if (nchar(code[1]) == 2) 
-    code_nchar <- 2
-  if (nchar(code[1]) == 5)
-    code_nchar <- 5
-
-  if (code_nchar == 2) 
-    if (code[1] %in% sprintf("%02d", seq(1, 47, by = 1)) == FALSE)
-      rlang::abort("Input prefecture code must to range from 1 to 47.")
+  if (length(checked_code %>% 
+             purrr::map_chr(~ substr(.x, 1,2)) %>% 
+             unique()) < length(checked_code))
+    rlang::inform("The city and the prefecture including it was givend.\nWill return prefecture meshes.") # nolint
   
   if (type == "prefecture") {
-    df_city_mesh$meshcode <- substr(df_city_mesh$meshcode, 1, 6)
+    df_city_mesh$meshcode <- 
+      substr(df_city_mesh$meshcode, 1, 6)
   }
   
-  target <- 
-    paste(sprintf(paste0("%0", code_nchar, "d"), as.numeric(code)), collapse = "|")
-  
-  subset(df_city_mesh, 
-         grepl(paste0("^(", target, ")"), 
-               city_code)) %>% 
-    .$meshcode %>% 
+  checked_code %>% 
+    purrr::map(
+      ~ subset(df_city_mesh, 
+               grepl(paste0("^(", .x, ")"), 
+                     city_code)) %>% 
+        .$meshcode      
+    ) %>% 
+    purrr::flatten_chr() %>% 
     unique() %>% 
-    export_meshes()
+    purrr::map(
+      ~ export_meshes(.x)  
+    ) %>% 
+    purrr::reduce(rbind)
 }
