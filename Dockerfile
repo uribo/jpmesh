@@ -55,4 +55,5 @@ RUN set -x && \
     "r-lib/pkgdown" \
     "r-lib/pkgload" \ 
     "klutometis/roxygen" \
-    "tidyverse/ggplot2"
+    "tidyverse/ggplot2" && \
+  rm -rf /tmp/downloaded_packages/ /tmp/*.rds
