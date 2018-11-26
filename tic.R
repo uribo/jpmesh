@@ -10,8 +10,6 @@ if (Sys.getenv("id_rsa") != "") {
     add_step(step_setup_ssh())
   
   get_stage("deploy") %>%
-    add_code_step(remotes::install_local(getwd())) %>%
-    add_step(step_setup_push_deploy(path = "docs", branch = "master")) %>%
-    add_code_step(packagedocs::build_vignettes()) %>%
-    add_step(step_do_push_deploy(path = "docs", branch = "master"))
+    add_step(step_build_pkgdown()) %>%
+    add_step(step_push_deploy(path = "docs", branch = "master"))
 }

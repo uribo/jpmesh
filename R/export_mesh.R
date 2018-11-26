@@ -12,18 +12,13 @@ export_mesh <- function(meshcode) {
   
   if (is.mesh(meshcode))
     if (mesh_size(meshcode) <= units::as_units(0.5, "km")) {
-      d <- 
-        mesh_to_coords(meshcode)
+
+      res <- 
+        export_mesh(substr(meshcode, 1, nchar(meshcode) - 1)) %>% 
+        sf::st_make_grid(n = c(2, 2))
       
-      res <- sf::st_polygon(list(rbind(c(d$lng_center - d$lng_error, 
-                                         d$lat_center - d$lat_error), 
-                                       c(d$lng_center + d$lng_error, 
-                                         d$lat_center - d$lat_error), 
-                                       c(d$lng_center +  d$lng_error, 
-                                         d$lat_center + d$lat_error), 
-                                  c(d$lng_center - d$lng_error, d$lat_center + d$lat_error), 
-                                  c(d$lng_center - d$lng_error, d$lat_center - d$lat_error)))) %>% 
-        sf::st_sfc(crs = 4326)
+      res <- 
+        res[as.numeric(substr(meshcode, nchar(meshcode), nchar(meshcode)))]
       
     } else {
       res <- 
