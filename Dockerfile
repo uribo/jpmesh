@@ -1,16 +1,9 @@
-FROM rocker/rstudio:3.5.2
+FROM rocker/geospatial:devel
 
 RUN set -x && \
   apt-get update && \
-  apt-get install -y --no-install-recommends \
-    libudunits2-dev \
-    libssl-dev \
-    libxml2-dev \
-    libcurl4-openssl-dev && \
     : "options" && \
   apt-get install -y --no-install-recommends \
-    libudunits2-dev \
-    libgdal-dev \
     libcairo2-dev && \
     : "For install magick" && \
   apt-get install -y --no-install-recommends \
@@ -27,12 +20,7 @@ RUN set -x && \
 RUN set -x && \
   install2.r --error \
     leaflet \
-    lwgeom \
-    miniUI \
-    purrr \
-    sf \
-    tidyr \
-    dplyr && \
+    miniUI && \
   : "For develop and infrastructure" && \
   install2.r --error \
     knitr \
@@ -40,7 +28,6 @@ RUN set -x && \
     devtools \
     mapview \
     roxygen2 \
-    remotes \
     usethis \
     shinyjs \
     reprex \
@@ -59,6 +46,6 @@ RUN set -x && \
     "r-lib/revdepcheck" \
     "r-lib/pkgdown" \
     "r-lib/pkgload" \ 
-    "klutometis/roxygen" \
-    "tidyverse/ggplot2" && \
+    "r-spatial/lwgeom" \
+    "klutometis/roxygen" && \
   rm -rf /tmp/downloaded_packages/ /tmp/*.rds
