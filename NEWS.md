@@ -1,4 +1,6 @@
-# jpmesh 1.1.1.9000
+# jpmesh 1.1.2 (2019-03-20)
+
+- Fix devel version's test.
 
 # jpmesh 1.1.1 (2018-06-26)
 
