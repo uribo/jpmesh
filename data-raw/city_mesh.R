@@ -20,6 +20,6 @@ df_city_mesh <- 1:length(x) %>%
                            col_types = list(col_character(), col_character(), col_character())) %>% 
            purrr::set_names(c("city_code", "city_name", "meshcode")))
 
-devtools::use_data(df_city_mesh,
+usethis::use_data(df_city_mesh,
                    overwrite = TRUE,
                    internal = TRUE)

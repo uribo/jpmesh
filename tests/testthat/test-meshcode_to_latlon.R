@@ -86,7 +86,7 @@ test_that("Combine other function", {
 test_that("fine mesh", {
   res <- 
     fine_separate("36233799") %>% 
-    tibble::as_data_frame() %>% 
+    tibble::as_tibble() %>% 
     purrr::set_names(c("meshcode"))
 
   res <- 

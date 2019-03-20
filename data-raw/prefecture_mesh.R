@@ -1,7 +1,7 @@
 #########################################
 # 47都道府県がどのメッシュに該当するか
 #########################################
-devtools::load_all(".")
+pkgload::load_all()
 library(sf)
 library(dplyr)
 library(purrr)
@@ -227,4 +227,4 @@ expect_named(sf_jpmesh,
 # plot(sf_jpmesh["meshcode"])
 
 # For use a dataset
-devtools::use_data(sf_jpmesh, overwrite = TRUE)
+usethis::use_data(sf_jpmesh, overwrite = TRUE)

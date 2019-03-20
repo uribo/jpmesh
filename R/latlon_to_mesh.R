@@ -6,7 +6,7 @@
 #' @param mesh_size mesh type. From 80km to 125m
 #' @param geometry XY sfg object
 #' @param ... other parameters
-#' @importFrom rlang is_true quo_expr warn
+#' @importFrom rlang is_true quo_squash warn
 #' @return mesh code (default 3rd meshcode aka 1km mesh)
 #' @references Akio Takenaka: [http://takenaka-akio.org/etc/j_map/index.html](http://takenaka-akio.org/etc/j_map/index.html)
 #' @seealso [mesh_to_coords()] for convert from meshcode to coordinates
@@ -38,8 +38,8 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = "1km", geometry = NU
     
     }
   } else {
-    longitude <- rlang::quo_expr(longitude)
-    latitude <- rlang::quo_expr(latitude)  
+    longitude <- rlang::quo_squash(longitude)
+    latitude <- rlang::quo_squash(latitude)  
   }
   
   coords_evalated <- eval_jp_boundary(longitude, latitude)
