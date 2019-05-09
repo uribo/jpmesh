@@ -2,31 +2,25 @@
 
 |field    |value                        |
 |:--------|:----------------------------|
-|version  |R version 3.4.3 (2017-11-30) |
+|version  |R version 3.6.0 (2019-04-26) |
 |os       |Debian GNU/Linux 9 (stretch) |
 |system   |x86_64, linux-gnu            |
 |ui       |RStudio                      |
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
-|tz       |UTC                          |
-|date     |2018-02-25                   |
+|ctype    |en_US.UTF-8                  |
+|tz       |Etc/UTC                      |
+|date     |2019-05-09                   |
 
 # Dependencies
 
 |package |old   |new   |Δ  |
 |:-------|:-----|:-----|:--|
-|jpmesh  |1.0.1 |1.1.0 |*  |
-|readr   |1.1.1 |NA    |*  |
+|jpmesh  |1.1.2 |1.1.3 |*  |
 
 # Revdeps
 
-## Couldn't check (1)
-
-|package     |version |error |warning |note |
-|:-----------|:-------|:-----|:-------|:----|
-|jpndistrict |?       |      |        |     |
-
-## All (1)
+## Failed to check (1)
 
 |package     |version |error |warning |note |
 |:-----------|:-------|:-----|:-------|:----|
