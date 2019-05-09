@@ -61,16 +61,8 @@ test_that("Coarse multiple meshes to large size", {
   
   res <- coarse_gather(rmesh(1, "10km"))
   
-  skip_if(grepl("development", version$status))
-  expect_equal(
-    res,
-    "4929"
-  )
-  skip_if(!grepl("development", version$status))
-  expect_equal(
-    res,
-    "4728"
-  )
-  
-  
+  if (getRversion() >= "3.6.0")
+    expect_equal(res, "4728")
+  else 
+    expect_equal(res, "4929")
 })

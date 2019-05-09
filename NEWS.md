@@ -1,3 +1,7 @@
+# jpmesh 1.1.3 (2019-05-04)
+
+- Fix R version test.
+
 # jpmesh 1.1.2 (2019-03-20)
 
 - Fix devel version's test.
