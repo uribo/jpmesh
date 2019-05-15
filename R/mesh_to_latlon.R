@@ -107,28 +107,15 @@ mesh_to_coords <- function(meshcode, ...) {
   }
   
   if (exists("code9")) {
-    
-    res$lat_error <- 0.004165
-    res$lng_error <- 0.00625
-    
     res <- finename_centroid(res, code9)
   }
   if (exists("code10")) {
-    
-    res$lat_error <- res$lat_error / 2
-    res$lng_error <- res$lng_error / 2
-    
     res <- finename_centroid(res, code10)
   }
   if (exists("code11")) {
-    
-    res$lat_error <- res$lat_error / 2
-    res$lng_error <- res$lng_error / 2
-    
     res <- finename_centroid(res, code11)
   }
   
-  res <- tibble::as_tibble(res)
-  
-  return(res)
+  tibble::as_tibble(res)
+
 }
