@@ -11,7 +11,7 @@
 mesh_to_coords <- function(meshcode, ...) {
   
   if (!is_meshcode(meshcode)) {
-   stop("Unexpect meshcode value")
+   rlang::abort("Unexpect meshcode value")
   }
   
   code <- as.character(meshcode)
@@ -73,8 +73,8 @@ mesh_to_coords <- function(meshcode, ...) {
   res <- data.frame(lng_center  = long.c,
                     lat_center  = lat.c, 
                     lng_error   = long.c - long,
-                    lat_error   = lat.c - lat
-                    )
+                    lat_error   = lat.c - lat)
+  
   finename_centroid <- function(df, last_code) {
     
     if (last_code == 1) {

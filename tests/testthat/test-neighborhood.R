@@ -93,8 +93,7 @@ test_that("corners", {
     res$relate,
     c("FF2F01212", "FF2F11212", "FF2F01212",
       "FF2F11212", "2FFF1FFF2", "FF2F01212",
-      "FF2F11212", "FF2F11212", "FF2F01212")
-  )
+      "FF2F11212", "FF2F11212", "FF2F01212"))
   
   skip_if_not_installed("lwgeom")
   expect_equivalent(
@@ -105,7 +104,6 @@ test_that("corners", {
     9455968,
     tolerance = 0.002
   )
-  
   
   expect_length(
     neighbor_mesh(53391100),
