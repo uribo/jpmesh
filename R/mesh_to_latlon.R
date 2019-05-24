@@ -14,44 +14,38 @@ mesh_to_coords <- function(meshcode, ...) {
    rlang::abort("Unexpect meshcode value")
   }
   
-  code <- as.character(meshcode)
+  size <- mesh_size(meshcode)
   
-  # 80km mesh
-  if (length(grep("^[0-9]{4}", code)) == 1) {
-    code12 <- as.numeric(substring(code, 1, 2))
-    code34 <- as.numeric(substring(code, 3, 4))
+  if (size <= units::as_units(80, "km")) {
+    code12 <- as.numeric(substring(meshcode, 1, 2))
+    code34 <- as.numeric(substring(meshcode, 3, 4))
     lat_width  <- 2 / 3
     long_width <- 1
   }
   
-  # 10km mesh
-  if (length(grep("^[0-9]{6}", code)) == 1) {
-    code5 <- as.numeric(substring(code, 5, 5))
-    code6 <- as.numeric(substring(code, 6, 6))
+  if (size <= units::as_units(10, "km")) {
+    code5 <- as.numeric(substring(meshcode, 5, 5))
+    code6 <- as.numeric(substring(meshcode, 6, 6))
     lat_width  <- lat_width / 8
     long_width <- long_width / 8
   }
   
-  # 1km mesh
-  if (length(grep("^[0-9]{8}", code)) == 1) {
-    code7 <- as.numeric(substring(code, 7, 7))
-    code8 <- as.numeric(substring(code, 8, 8))
+  if (size <= units::as_units(1, "km")) {
+    code7 <- as.numeric(substring(meshcode, 7, 7))
+    code8 <- as.numeric(substring(meshcode, 8, 8))
     lat_width  <- lat_width / 10
     long_width <- long_width / 10
   }
   
-  # 500m
-  if (length(grep("^[0-9]{9}", code)) == 1) {
-    code9 <- as.numeric(substring(code, 9, 9))
-  }
-  # 250m
-  if (length(grep("^[0-9]{10}", code)) == 1) {
-    code10 <- as.numeric(substring(code, 10, 10))
-  }
-  # 125m
-  if (length(grep("^[0-9]{11}", code)) == 1) {
-    code11 <- as.numeric(substring(code, 11, 11))
-  }  
+  if (size <= units::as_units(0.5, "km"))
+    code9 <- as.numeric(substring(meshcode, 9, 9))
+
+  if (size <= units::as_units(0.25, "km"))
+    code10 <- as.numeric(substring(meshcode, 10, 10))
+  
+  if (size <= units::as_units(0.125, "km"))
+    code11 <- as.numeric(substring(meshcode, 11, 11))
+  
   lat  <- code12 * 2 / 3
   long <- code34 + 100
   
@@ -106,16 +100,12 @@ mesh_to_coords <- function(meshcode, ...) {
     return(res)
   }
   
-  if (exists("code9")) {
+  if (exists("code9"))
     res <- finename_centroid(res, code9)
-  }
-  if (exists("code10")) {
+  if (exists("code10"))
     res <- finename_centroid(res, code10)
-  }
-  if (exists("code11")) {
+  if (exists("code11"))
     res <- finename_centroid(res, code11)
-  }
   
   tibble::as_tibble(res)
-
 }
