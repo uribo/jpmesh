@@ -16,8 +16,6 @@ administration_mesh <- function(code, type = c("city", "prefecture")) {
 
   rlang::arg_match(type)
   
-  . <- city_code <- NULL
-  
   checked_code <- 
     code_reform(code)
   
@@ -34,7 +32,7 @@ administration_mesh <- function(code, type = c("city", "prefecture")) {
   }
 
   if (length(checked_code %>% 
-             purrr::map_chr(~ substr(.x, 1,2)) %>% 
+             purrr::map_chr(~ substr(.x, 1, 2)) %>% 
              unique()) < length(checked_code))
     rlang::inform("The city and the prefecture including it was givend.\nWill return prefecture meshes.") # nolint
   
@@ -48,8 +46,7 @@ administration_mesh <- function(code, type = c("city", "prefecture")) {
       ~ subset(df_city_mesh, 
                grepl(paste0("^(", .x, ")"), 
                      city_code)) %>% 
-        .$meshcode      
-    ) %>% 
+        purrr::pluck("meshcode")) %>% 
     purrr::flatten_chr() %>% 
     unique() %>% 
     purrr::map(
