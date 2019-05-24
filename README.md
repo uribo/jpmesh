@@ -1,25 +1,44 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-jpmesh <img src="man/figures/logo.png" align="right" width="80px" />
-====================================================================
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/jpmesh?color=FF5254)](https://cran.r-project.org/package=jpmesh) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-project.org/) [![Depsy](http://depsy.org/api/package/cran/jpmesh/badge.svg)](http://depsy.org/package/r/jpmesh) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1185742.svg)](https://doi.org/10.5281/zenodo.1185742)
+# jpmesh <img src="man/figures/logo.png" align="right" width="80px" />
 
-[![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![wercker status](https://app.wercker.com/status/25d5f835882cf2185751e1d89370269f/s/master "wercker status")](https://app.wercker.com/project/byKey/25d5f835882cf2185751e1d89370269f) [![Coverage status](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=master)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh)
+[![CRAN RStudio mirror
+downloads](http://cranlogs.r-pkg.org/badges/jpmesh?color=FF5254)](https://cran.r-project.org/package=jpmesh)
+[![minimal R
+version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-project.org/)
+[![Depsy](http://depsy.org/api/package/cran/jpmesh/badge.svg)](http://depsy.org/package/r/jpmesh)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1185742.svg)](https://doi.org/10.5281/zenodo.1185742)
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=for-the-badge)](https://www.tidyverse.org/lifecycle/#maturing) [![npm](https://img.shields.io/npm/l/express.svg?style=for-the-badge)](https://github.com/uribo/jpmesh)
+[![Travis-CI Build
+Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh)
+[![Coverage
+status](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=master)
 
-------------------------------------------------------------------------
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=for-the-badge)](https://www.tidyverse.org/lifecycle/#maturing)
+[![npm](https://img.shields.io/npm/l/express.svg?style=for-the-badge)](https://github.com/uribo/jpmesh)
 
-Overview
---------
+-----
 
-The **jpmesh** package is a package that makes it easy to use "regional mesh (i.e. mesh code *JIS X 0410* )" used in Japan from R. Regional mesh is a code given when subdividing Japanese landscape into rectangular subregions by latitude and longitude. Depending on the accuracy of the code, different regional mesh length. By using the same mesh in statistical survey etc., it will become possible to handle the survey results of a large area in the area mesh unit.
+## Overview
 
-In jpmesh, mesh codes and latitude and longitude coordinates are compatible with mesh codes from the first region mesh, which is the standard region mesh, to the quarter regional mesh of the divided region mesh (from 80 km to 125 m). Features include "conversion from latitude and longitude to regional mesh", "acquisition of latitude and longitude from regional mesh", "mapping on prefecture unit and leaflet".
+The **jpmesh** package is a package that makes it easy to use “regional
+mesh (i.e. mesh code *JIS X 0410* )” used in Japan from R. Regional mesh
+is a code given when subdividing Japanese landscape into rectangular
+subregions by latitude and longitude. Depending on the accuracy of the
+code, different regional mesh length. By using the same mesh in
+statistical survey etc., it will become possible to handle the survey
+results of a large area in the area mesh unit.
 
-Installation
-------------
+In jpmesh, mesh codes and latitude and longitude coordinates are
+compatible with mesh codes from the first region mesh, which is the
+standard region mesh, to the quarter regional mesh of the divided region
+mesh (from 80 km to 125 m). Features include “conversion from latitude
+and longitude to regional mesh”, “acquisition of latitude and longitude
+from regional mesh”, “mapping on prefecture unit and leaflet”.
+
+## Installation
 
 From CRAN
 
@@ -31,12 +50,11 @@ For developers
 
 ``` r
 # the development version from GitHub:
-install.packages("devtools")
-devtools::install_github("uribo/jpmesh")
+install.packages("remotes")
+remotes::install_github("uribo/jpmesh")
 ```
 
-Usage
------
+## Usage
 
 ``` r
 library(jpmesh)
@@ -44,7 +62,8 @@ library(jpmesh)
 
 ### Convert mesh code to coordinate and vice versa
 
-Return the latitude and longitude for specifying the mesh range from the mesh code.
+Return the latitude and longitude for specifying the mesh range from the
+mesh code.
 
 ``` r
 mesh_to_coords(5133) # 80km
@@ -71,12 +90,12 @@ mesh_to_coords(5133778312) # 250m
 #> # A tibble: 1 x 4
 #>   lng_center lat_center lng_error lat_error
 #>        <dbl>      <dbl>     <dbl>     <dbl>
-#> 1       134.       34.7   0.00156   0.00104
+#> 1       134.       34.7  0.000781  0.000521
 mesh_to_coords(51337783123) # 125m
 #> # A tibble: 1 x 4
 #>   lng_center lat_center lng_error lat_error
 #>        <dbl>      <dbl>     <dbl>     <dbl>
-#> 1       134.       34.7  0.000781  0.000521
+#> 1       134.       34.7  0.000195  0.000130
 ```
 
 Find the mesh code within the range from latitude and longitude.
@@ -124,19 +143,24 @@ Drawing a simplified Japanese map based on the mesh code.
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3
-plot(jpnrect["abb_name"])
+#> Linking to GEOS 3.7.2, GDAL 2.4.1, PROJ 6.0.0
+plot(st_geometry(jpnrect))
 ```
 
-![](man/figures/README-jpn_simple_map_sf-1.png)
+![](man/figures/README-jpn_simple_map_sf-1.png)<!-- -->
 
 ``` r
-library(ggplot2) # 2.2.1.9000
+library(ggplot2)
+#> Registered S3 methods overwritten by 'ggplot2':
+#>   method         from 
+#>   [.quosures     rlang
+#>   c.quosures     rlang
+#>   print.quosures rlang
 ggplot() +
   geom_sf(data = jpnrect)
 ```
 
-![](man/figures/README-jpn_simple_map-1.png)
+![](man/figures/README-jpn_simple_map-1.png)<!-- -->
 
 Dataset of mesh code for prefectures.
 
@@ -147,14 +171,14 @@ administration_mesh(code = 33, type = "prefecture") %>%
   knitr::kable()
 ```
 
-| meshcode | geometry                                                                                            |
-|:---------|:----------------------------------------------------------------------------------------------------|
-| 513376   | list(c(133.75, 133.875, 133.875, 133.75, 133.75, 34.58333, 34.58333, 34.66667, 34.66667, 34.58333)) |
-| 513377   | list(c(133.875, 134, 134, 133.875, 133.875, 34.58333, 34.58333, 34.66667, 34.66667, 34.58333))      |
-| 523305   | list(c(133.625, 133.75, 133.75, 133.625, 133.625, 34.66667, 34.66667, 34.75, 34.75, 34.66667))      |
-| 523306   | list(c(133.75, 133.875, 133.875, 133.75, 133.75, 34.66667, 34.66667, 34.75, 34.75, 34.66667))       |
-| 523307   | list(c(133.875, 134, 134, 133.875, 133.875, 34.66667, 34.66667, 34.75, 34.75, 34.66667))            |
-| 523315   | list(c(133.625, 133.75, 133.75, 133.625, 133.625, 34.75, 34.75, 34.83333, 34.83333, 34.75))         |
+| meshcode | geometry                                                                                                                      |
+| :------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| 513376   | list(c(133.75, 133.875, 133.875, 133.75, 133.75, 34.5833333333, 34.5833333333, 34.6666666667, 34.6666666667, 34.5833333333))  |
+| 513377   | list(c(133.875, 134, 134, 133.875, 133.875, 34.5833333333, 34.5833333333, 34.6666666667, 34.6666666667, 34.5833333333))       |
+| 523305   | list(c(133.625, 133.75, 133.75, 133.625, 133.625, 34.6666666667, 34.6666666667, 34.7499999999, 34.7499999999, 34.6666666667)) |
+| 523306   | list(c(133.75, 133.875, 133.875, 133.75, 133.75, 34.6666666667, 34.6666666667, 34.7499999999, 34.7499999999, 34.6666666667))  |
+| 523307   | list(c(133.875, 134, 134, 133.875, 133.875, 34.6666666667, 34.6666666667, 34.7499999999, 34.7499999999, 34.6666666667))       |
+| 523315   | list(c(133.625, 133.75, 133.75, 133.625, 133.625, 34.75, 34.75, 34.8333333334, 34.8333333334, 34.75))                         |
 
 Example)
 
@@ -176,7 +200,8 @@ ggplot() +
 
 ![](man/figures/README-mesh_pref33_map-1.png)
 
-Code of Conduct
----------------
+## Code of Conduct
 
-Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of
+Conduct](.github/CODE_OF_CONDUCT.md). By participating in this project
+you agree to abide by its terms.
