@@ -4,6 +4,5 @@ get_stage("install") %>%
   add_code_step(install.packages("lwgeom", configure.args = "--without-liblwgeom"))
 
 if (ci_on_travis()) {
-  do_pkgdown()
+  do_pkgdown(path = ".", branch = "gh-pages")
 }
-
