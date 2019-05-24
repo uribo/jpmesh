@@ -1,3 +1,5 @@
+url: https://uribo.github.io/jpmesh
+
 templates:
   params:
     bootswatch: paper
@@ -15,8 +17,9 @@ reference:
     - coords_to_mesh
     - mesh_to_coords
 
-  - title: Detect fine scale and neighbourhood meshes
+  - title: Detect fine - coarse scale and neighbourhood meshes
     contents:
+    - coarse_gather
     - fine_separate
     - neighbor_mesh
     
