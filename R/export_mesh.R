@@ -9,26 +9,15 @@
 #' export_mesh(6441427712)
 #' @export
 export_mesh <- function(meshcode) {
-  
   if (is.mesh(meshcode))
     if (mesh_size(meshcode) <= units::as_units(0.5, "km")) {
-
-      res <- 
-        export_mesh(substr(meshcode, 1, nchar(meshcode) - 1)) %>% 
+      res <- export_mesh(substr(meshcode, 1, nchar(meshcode) - 1)) %>% # nolint 
         sf::st_make_grid(n = c(2, 2))
-      
-      res <- 
-        res[as.numeric(substr(meshcode, nchar(meshcode), nchar(meshcode)))]
-      
+      res <- res[as.numeric(substr(meshcode, nchar(meshcode), nchar(meshcode)))]
     } else {
-      res <- 
-        purrr::pmap_chr(mesh_to_coords(meshcode), 
-                        mesh_to_poly) %>% 
-        sf::st_as_sfc(crs = 4326)  
+      res <- sf::st_as_sfc(purrr::pmap_chr(mesh_to_coords(meshcode), mesh_to_poly), crs = 4326) # nolint
     }
-
   return(res)
-  
 }
 
 #' Export meshcode to geometry
@@ -46,16 +35,10 @@ export_mesh <- function(meshcode) {
 #' }
 #' @export
 export_meshes <- function(meshes) {
-
-  df_meshes <- 
-    tibble::tibble("meshcode" = as.character(meshes))
-  
-  df_meshes$geometry <- 
-    purrr::map_chr(df_meshes$meshcode,
-                   ~ export_mesh(meshcode = .x) %>% 
-                     sf::st_as_text()) %>% 
-    sf::st_as_sfc()
-    
-  df_meshes %>% 
-    sf::st_sf(crs = 4326)
+  df_meshes <- tibble::tibble("meshcode" = as.character(meshes))
+  sf::st_sf(df_meshes,
+            geometry = purrr::map_chr(df_meshes$meshcode,
+                                        ~ export_mesh(meshcode = .x) %>% # nolint
+                                          sf::st_as_text()) %>% sf::st_as_sfc(), crs = 4326) %>% # nolint
+    tibble::new_tibble(subclass = "sf", nrow = nrow(df_meshes))
 }

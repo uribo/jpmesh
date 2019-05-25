@@ -14,7 +14,6 @@
 #' @export
 
 mesh_viewer <- function(...) {
-  
   # nocov start
   # UI ----------------------------------------------------------------------
   ui <- miniUI::miniPage(
@@ -23,40 +22,31 @@ mesh_viewer <- function(...) {
       miniUI::miniTabPanel("Map", icon = shiny::icon("map-o"),
                    shiny::textInput("lng", "Longitude: ", value = 141.3438),
                    shiny::textInput("lat", "Latitude: ", value = 43.0625),
-                   shiny::selectInput("mesh_size", label = "Select Mesh Size",
-                                      choices = c("80km", "10km", "1km", 
+                   shiny::selectInput("mesh_size",
+                                      label = "Select Mesh Size",
+                                      choices = c("80km", "10km", "1km",
                                                   "500m", "250m", "125m"),
                                       selected = "1km"),
                    miniUI::miniContentPanel(padding = 0,
                                     leaflet::leafletOutput("my.map", height = "100%") # nolint
-                   )
-      )
-      )
-    )
-  
+                   ))))
   jpmesh:::meshcode_set()
-  
   # Server ------------------------------------------------------------------
   server <- function(input, output, session) {
-    
     output$my.map <- leaflet::renderLeaflet({
-      
-      d <- coords_to_mesh(as.numeric(input$lng), 
-                          as.numeric(input$lat), 
-                          mesh_size = input$mesh_size) %>% 
+    d <- coords_to_mesh(as.numeric(input$lng),
+                        as.numeric(input$lat),
+                        mesh_size = input$mesh_size) %>%
         export_meshes()
-      
-      leaflet::leaflet() %>% 
-        leaflet::addTiles() %>% 
-        leaflet::addPolygons(data = d)
-        
+    leaflet::leaflet() %>%
+      leaflet::addTiles() %>%
+      leaflet::addPolygons(data = d)
     })
   }
-  
-  shiny::runGadget(ui, 
-                   server, 
-                   viewer = shiny::dialogViewer("mesh_viewer", 
-                                                width = 650, 
+  shiny::runGadget(ui,
+                   server,
+                   viewer = shiny::dialogViewer("mesh_viewer",
+                                                width = 650,
                                                 height = 500))
-  # nocov end 
+  # nocov end
 }

@@ -14,11 +14,9 @@ test_that("multiplication works", {
   expect_false(res)
   res <- eval_jp_boundary(153.429390000, -28.0070630000)
   expect_false(res)
-  
   res <- data.frame(
     longitude = c(139.73199250, 139.69170000, 135.78500278, 120),
-    latitude = c(35.70902590, 35.68950000, 34.99483056, 19.3)
-  )
+    latitude = c(35.70902590, 35.68950000, 34.99483056, 19.3))
   res$out <- purrr::map2_lgl(res$longitude,
                              res$latitude, eval_jp_boundary)
   expect_equal(res$out, c(TRUE, TRUE, TRUE, FALSE))
@@ -28,46 +26,37 @@ test_that("Generate mesh code set", {
   res <- meshcode_set(mesh_size = "80km")
   expect_length(res, 176L)
   expect_equal(res[1], "3036")
-  
   # Include outbound meshes...
   # [TODO] exclude outbound meshes
   res <- meshcode_set(mesh_size = "10km")
   expect_length(res, 11264L)
-  
   res <- meshcode_set(mesh_size = "1km")
   expect_length(res, 1126400L)
 })
 
 test_that(
   "validate", {
-    
-    target <- 4028 %>% 
+    target <- 4028 %>%
       fine_separate()
-    
-    target2 <- target[target %>% 
+    target2 <- target[target %>%
                         purrr::map_lgl(
                           is_corner
                         ) != TRUE]
-    
-    df_check <- target2 %>% 
-      purrr::map(validate_neighbor_mesh) %>% 
-      purrr::reduce(rbind) %>% 
+    df_check <- target2 %>%
+      purrr::map(validate_neighbor_mesh) %>%
+      purrr::reduce(rbind) %>%
       unique()
-    
     expect_equal(
       nrow(df_check),
       1L
     )
-    
-    target3 <- target[target %>% 
+    target3 <- target[target %>%
                         purrr::map_lgl(
                           is_corner
                         ) == TRUE]
-    
     expect_length(
       target3,
       4 * 7)
-    
   })
 
 test_that(
@@ -78,10 +67,8 @@ test_that(
     expect_false(
       is_corner(36247788)
     )
-    
     expect_error(
       is_corner(3624),
       "enable 10km or 1km mesh"
     )
-    
-  })
+})

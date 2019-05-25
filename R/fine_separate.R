@@ -14,10 +14,8 @@
 #' fine_separate(5235043211)
 #' @export
 fine_separate <- function(meshcode = NULL, ...) {
-  
   if (is.mesh(meshcode))
   mesh_length <- nchar(meshcode)
-  
   res <- if (mesh_length == 4) {
     res <- paste0(meshcode,
                 rep(0:7, each = 8),
@@ -32,9 +30,7 @@ fine_separate <- function(meshcode = NULL, ...) {
     rlang::inform("A value greater than the supported mesh size was inputed.")
     NA_character_
   }
-
   return(res)
-  
 }
 
 #' @title Gather more coarse mesh
@@ -53,11 +49,7 @@ fine_separate <- function(meshcode = NULL, ...) {
 #' coarse_gather(coarse_gather(m), distinct = TRUE)
 #' @export
 coarse_gather <- function(meshes, distinct = FALSE) {
-  
-  res <- 
-    meshes %>% 
-    purrr::map_chr(
-      function(x) {
+  res <- purrr::map_chr(meshes, function(x) {
         if (mesh_size(x) == units::set_units(0.5, "km")) {
           substr(x, 1, 8)
         } else if (mesh_size(x) == units::set_units(1, "km")) {
@@ -67,11 +59,7 @@ coarse_gather <- function(meshes, distinct = FALSE) {
         }
       }
     )
-  
-  if (rlang::is_true(distinct)) {
+  if (rlang::is_true(distinct))
     res <- unique(res)
-  }
-  
   return(res)
-  
 }

@@ -7,6 +7,5 @@
 #' rmesh(3, mesh_size = "1km")
 #' @export
 rmesh <- function(n, mesh_size = c("1km")) {
-  meshcode_set(mesh_size = mesh_size) %>% 
-    sample(n)
-} 
+   sample(meshcode_set(mesh_size = mesh_size), n)
+}
