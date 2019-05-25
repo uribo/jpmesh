@@ -37,14 +37,16 @@ test_that("multiplication works", {
   
   expect_message(
     expect_equal(
-      nrow(administration_mesh(code = c("35", "35201", "34202"), type = "prefecture")),
+      nrow(administration_mesh(code = c("35", "35201", "34202"), 
+                               type = "prefecture")),
       120L
     ),
-    "The city and the prefecture including it was givend.\nWill return prefecture meshes."
+    "The city and the prefecture including it was givend.\nWill return prefecture meshes." # nolint
   )
   expect_message(
     expect_equal(
-      nrow(administration_mesh(code = c("34202", "34999"), type = "prefecture")),
+      nrow(administration_mesh(code = c("34202", "34999"), 
+                               type = "prefecture")),
       13
     ),
     "1 matching code were not found"
@@ -57,7 +59,8 @@ test_that("Failed patterns", {
     administration_mesh(code = 123)
   )
   expect_error(
-    administration_mesh(code = c("08220", "08221"), type = "cities")
+    administration_mesh(code = c("08220", "08221"), 
+                        type = "cities")
   )
   
 })

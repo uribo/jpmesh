@@ -73,7 +73,7 @@ find_neighbor_mesh <- function(meshcode = NULL, contains = TRUE) {
   } else if (size == units::as_units(1, "km")) {
     
     if (is_corner(meshcode)) {
-      if (grepl("(00|09|90|99|010[1-8]|[1-8]9|[1-8]0|9[1-8]|0[1-8])$", meshcode)) {
+      if (grepl("(00|09|90|99|010[1-8]|[1-8]9|[1-8]0|9[1-8]|0[1-8])$", meshcode)) { # nolint
         
         res <- 
           meshcode - if (grepl("0000$", meshcode)) {

@@ -20,7 +20,7 @@ script: R -q -e 'tic::script()'
 after_success:
   - R CMD INSTALL $PKG_TARBALL
   - R -q -e 'tic::after_success()'
-  - R -q -e "covr::codecov(); lintr::lint_package()"
+  - R -q -e 'covr::codecov(); lintr::lint_package(path = ".", relative_path = TRUE, lintr::trailing_whitespace_linter(NULL))'
 after_failure: R -q -e 'tic::after_failure()'
 before_deploy: R -q -e 'tic::before_deploy()'
 deploy:

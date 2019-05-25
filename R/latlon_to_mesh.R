@@ -19,7 +19,7 @@
 #' coords_to_mesh(geometry = st_point(c(139.71475, 35.70078)))
 #' coords_to_mesh(geometry = st_point(c(130.4412895, 30.2984335)))
 #' @export
-coords_to_mesh <- function(longitude, latitude, mesh_size = "1km", geometry = NULL, ...) {
+coords_to_mesh <- function(longitude, latitude, mesh_size = "1km", geometry = NULL, ...) { # nolint
   
   if (!is.null(geometry)) {
     if (sf::st_is(geometry, "POINT")) {

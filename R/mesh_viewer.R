@@ -24,14 +24,17 @@ mesh_viewer <- function(...) {
                    shiny::textInput("lng", "Longitude: ", value = 141.3438),
                    shiny::textInput("lat", "Latitude: ", value = 43.0625),
                    shiny::selectInput("mesh_size", label = "Select Mesh Size",
-                                      choices = c("80km", "10km", "1km", "500m", "250m", "125m"),
+                                      choices = c("80km", "10km", "1km", 
+                                                  "500m", "250m", "125m"),
                                       selected = "1km"),
                    miniUI::miniContentPanel(padding = 0,
-                                    leaflet::leafletOutput("my.map", height = "100%")
+                                    leaflet::leafletOutput("my.map", height = "100%") # nolint
                    )
       )
       )
     )
+  
+  jpmesh:::meshcode_set()
   
   # Server ------------------------------------------------------------------
   server <- function(input, output, session) {
@@ -52,6 +55,8 @@ mesh_viewer <- function(...) {
   
   shiny::runGadget(ui, 
                    server, 
-                   viewer = shiny::dialogViewer("mesh_viewer", width = 650, height = 500))
+                   viewer = shiny::dialogViewer("mesh_viewer", 
+                                                width = 650, 
+                                                height = 500))
   # nocov end 
 }

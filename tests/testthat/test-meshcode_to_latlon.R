@@ -82,7 +82,8 @@ test_that("Combine other function", {
     mesh_to_coords()
   
   expect_that(res, is_a("data.frame"))
-  expect_equal(names(res), c("lng_center", "lat_center", "lng_error", "lat_error"))
+  expect_equal(names(res), 
+               c("lng_center", "lat_center", "lng_error", "lat_error"))
   
   expect_equal(res$lat_center - res$lat_error, 34.68333, tolerance = .002)
   expect_equal(res$lng_center - res$lng_error, 135.525)
