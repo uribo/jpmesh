@@ -136,7 +136,7 @@ ggplot() +
 ggsave(
   ggplot() + 
   geom_sf(data = administration_mesh(code = 33, type = "city")),
-  filename = here::here("man/figures/README-mesh_pref33_map-1.png"),
+  filename = "man/figures/README-mesh_pref33_map-1.png",
   width = 8,
   height = 6,
   units = "in")

@@ -18,6 +18,7 @@ after_install: R -q -e 'tic::after_install()'
 before_script: R -q -e 'tic::before_script()'
 script: R -q -e 'tic::script()'
 after_success:
+  - R CMD INSTALL $PKG_TARBALL
   - R -q -e 'tic::after_success()'
   - R -q -e "covr::codecov(); lintr::lint_package()"
 after_failure: R -q -e 'tic::after_failure()'
