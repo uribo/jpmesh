@@ -30,7 +30,6 @@ mesh_viewer <- function(...) {
                    miniUI::miniContentPanel(padding = 0,
                                     leaflet::leafletOutput("my.map", height = "100%") # nolint
                    ))))
-  jpmesh:::meshcode_set()
   # Server ------------------------------------------------------------------
   server <- function(input, output, session) {
     output$my.map <- leaflet::renderLeaflet({
