@@ -9,7 +9,7 @@ library(tidyr)
 library(testthat)
 
 df_jp80km_mesh <- data_frame(
-  meshcode = meshcode_set(mesh_size = "80km")
+  meshcode = meshcode_set(mesh_size = 80)
 )
 
 expect_equal(nrow(df_jp80km_mesh), 176L)

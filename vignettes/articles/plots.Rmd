@@ -25,7 +25,7 @@ library(sf)
 
 ```{r}
 df_polys <- 
-  meshcode_set(mesh_size = "80km") %>% 
+  meshcode_set(mesh_size = 80) %>% 
   jpmesh::export_meshes()
 ```
 

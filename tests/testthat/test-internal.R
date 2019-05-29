@@ -23,14 +23,14 @@ test_that("multiplication works", {
 })
 
 test_that("Generate mesh code set", {
-  res <- meshcode_set(mesh_size = "80km")
+  res <- meshcode_set(mesh_size = 80)
   expect_length(res, 176L)
   expect_equal(res[1], "3036")
   # Include outbound meshes...
   # [TODO] exclude outbound meshes
-  res <- meshcode_set(mesh_size = "10km")
+  res <- meshcode_set(mesh_size = 10)
   expect_length(res, 11264L)
-  res <- meshcode_set(mesh_size = "1km")
+  res <- meshcode_set(mesh_size = 1)
   expect_length(res, 1126400L)
 })
 

@@ -51,8 +51,8 @@ df_mesh_size_unit <-
   tibble::data_frame(
     mesh_length = c(4L, 6L, 8L, 9L, 10L, 11L),
     mesh_size = c(
-      units::set_units(c(80, 10, 1), "km"),
-      units::set_units(c(500, 250, 125), "m")
+      units::as_units(c(80, 10, 1), "km"),
+      units::as_units(c(500, 250, 125), "m")
   )
 )
 
@@ -106,11 +106,10 @@ meshcode_set_1km <- meshcode_set_10km %>%
 #' 
 #' @param mesh_size Export mesh size from 80km to 1km.
 #' @examples 
-#' meshcode_set(mesh_size = "80km")
+#' meshcode_set(mesh_size = 80)
 #' @export
-meshcode_set <- function(mesh_size = c("80km", "10km", "1km")) {
-  mesh_size <- match.arg(mesh_size)
-  get(sprintf("meshcode_set_%s", mesh_size), envir = asNamespace("jpmesh")) # nolint
+meshcode_set <- function(mesh_size = c(80, 10, 1)) {
+  get(sprintf("meshcode_set_%skm", mesh_size), envir = asNamespace("jpmesh")) # nolint
 }
 
 #' Cutoff mesh of outside the area
@@ -118,7 +117,7 @@ meshcode_set <- function(mesh_size = c("80km", "10km", "1km")) {
 #' @inheritParams mesh_to_coords
 cut_off <- function(meshcode) {
   mesh_80km <- substr(meshcode, 1, 4)
-  res <- meshcode[mesh_80km %in% c(meshcode_set("80km"))]
+  res <- meshcode[mesh_80km %in% c(meshcode_set(80))]
   if (length(res) < length(meshcode)) {
     rlang::warn("Some neighborhood meshes are outside the area.")
   }

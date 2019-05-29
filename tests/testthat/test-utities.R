@@ -34,8 +34,8 @@ test_that("mesh size", {
     df_mesh_size_unit$mesh_size[1], "units")
   expect_equal(
     mesh_size(mesh = 4567),
-    units::set_units(80, "km"))
+    units::as_units(80, "km"))
   expect_equal(
     mesh_size(mesh = 456781),
-    units::set_units(10, "km"))
+    units::as_units(10, "km"))
 })

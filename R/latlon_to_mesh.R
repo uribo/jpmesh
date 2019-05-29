@@ -3,7 +3,8 @@
 #' @description From coordinate to mesh codes.
 #' @param longitude longitude that approximately to .120.0 to 154.0 (`double`)
 #' @param latitude latitude that approximately to 20.0 to 46.0 (`double`)
-#' @param mesh_size mesh type. From 80km to 125m
+#' @param mesh_size Gives the unit in km for target mesh type. 
+#' That is, 1 for 1km, and 0.5 for 500m. From 80km to 125m. Default is 1.
 #' @param geometry XY sfg object
 #' @param ... other parameters
 #' @importFrom rlang is_true quo_squash warn
@@ -11,15 +12,24 @@
 #' @references Akio Takenaka: [http://takenaka-akio.org/etc/j_map/index.html](http://takenaka-akio.org/etc/j_map/index.html)
 #' @seealso [mesh_to_coords()] for convert from meshcode to coordinates
 #' @examples 
-#' coords_to_mesh(141.3468, 43.06462, mesh_size = "10km")
-#' coords_to_mesh(139.6917, 35.68949, mesh_size = "250m")
+#' coords_to_mesh(141.3468, 43.06462, mesh_size = 1)
+#' coords_to_mesh(139.6917, 35.68949, mesh_size = 0.250)
 #' coords_to_mesh(139.71475, 35.70078)
 #' 
 #' library(sf)
 #' coords_to_mesh(geometry = st_point(c(139.71475, 35.70078)))
 #' coords_to_mesh(geometry = st_point(c(130.4412895, 30.2984335)))
 #' @export
-coords_to_mesh <- function(longitude, latitude, mesh_size = "1km", geometry = NULL, ...) { # nolint
+coords_to_mesh <- function(longitude, latitude, mesh_size = 1, geometry = NULL, ...) { # nolint
+  to_mesh_size <- units::as_units(mesh_size, "km")
+  if (rlang::is_true(identical(which(to_mesh_size %in% df_mesh_size_unit$mesh_size), integer(0)))) # nolint
+    rlang::abort(
+      paste0("`mesh_size` should be one of: ",
+             paste(
+               units::drop_units(df_mesh_size_unit$mesh_size)[-6],
+               collapse = ", "),
+             " or ",
+            paste(units::drop_units(df_mesh_size_unit$mesh_size)[6])))
   if (rlang::is_false(is.null(geometry))) {
     if (sf::st_is(geometry, "POINT")) {
       coords <-
@@ -41,7 +51,7 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = "1km", geometry = NU
     code12 <- (latitude * 60) %/% 40
     code34 <- as.integer(longitude - 100)
     check_80km_ares <- paste0(code12, code34) %>%
-      match(meshcode_set(mesh_size = "80km")) %>%
+      match(meshcode_set(mesh_size = 80.000)) %>%
       any()
     if (rlang::is_true(check_80km_ares)) {
       code_a <- (latitude * 60) %% 40
@@ -70,17 +80,17 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = "1km", geometry = NU
       meshcode <- paste0(code12, code34, code5, code6,
                          code7, code8, code9, code10, code11)
       meshcode <-
-        if (mesh_size == "80km") {
+        if (to_mesh_size == units::as_units(80.000, "km")) {
           substr(meshcode, 1, 4)
-        } else if (mesh_size == "10km") {
+        } else if (to_mesh_size == units::as_units(10.000, "km")) {
           substr(meshcode, 1, 6)
-        } else if (mesh_size == "1km") {
+        } else if (to_mesh_size == units::as_units(1.000, "km")) {
           substr(meshcode, 1, 8)
-        } else if (mesh_size == "500m") {
+        } else if (to_mesh_size == units::as_units(0.500, "km")) {
           substr(meshcode, 1, 9)
-        } else if (mesh_size == "250m") {
+        } else if (to_mesh_size == units::as_units(0.250, "km")) {
           substr(meshcode, 1, 10)
-        } else if (mesh_size == "125m") {
+        } else if (to_mesh_size == units::as_units(0.125, "km")) {
           meshcode
         }
       return(meshcode)
