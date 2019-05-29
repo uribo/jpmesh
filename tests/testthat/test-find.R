@@ -4,7 +4,7 @@ test_that("neighborhood meshes", {
   expect_error(
     neighbor_mesh("aaa"))
   set.seed(71)
-  res <- neighbor_mesh(rmesh(1, mesh_size = "80km"))
+  res <- neighbor_mesh(rmesh(1, mesh_size = 80))
   expect_is(res, "character")
   expect_length(
     neighbor_mesh(56362655, contains = FALSE),

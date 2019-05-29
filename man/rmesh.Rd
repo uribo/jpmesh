@@ -4,7 +4,7 @@
 \alias{rmesh}
 \title{Generate random sample meshcode}
 \usage{
-rmesh(n, mesh_size = c("1km"))
+rmesh(n, mesh_size = 1)
 }
 \arguments{
 \item{n}{Number of samples}
@@ -16,5 +16,5 @@ Generate random sample meshcode
 }
 \examples{
  
-rmesh(3, mesh_size = "1km")
+rmesh(3, mesh_size = 1)
 }

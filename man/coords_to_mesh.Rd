@@ -4,7 +4,7 @@
 \alias{coords_to_mesh}
 \title{Convert from coordinate to mesh code}
 \usage{
-coords_to_mesh(longitude, latitude, mesh_size = "1km", geometry = NULL,
+coords_to_mesh(longitude, latitude, mesh_size = 1, geometry = NULL,
   ...)
 }
 \arguments{
@@ -12,7 +12,8 @@ coords_to_mesh(longitude, latitude, mesh_size = "1km", geometry = NULL,
 
 \item{latitude}{latitude that approximately to 20.0 to 46.0 (\code{double})}
 
-\item{mesh_size}{mesh type. From 80km to 125m}
+\item{mesh_size}{Gives the unit in km for target mesh type.
+That is, 1 for 1km, and 0.5 for 500m. From 80km to 125m. Default is 1.}
 
 \item{geometry}{XY sfg object}
 
@@ -25,8 +26,8 @@ mesh code (default 3rd meshcode aka 1km mesh)
 From coordinate to mesh codes.
 }
 \examples{
-coords_to_mesh(141.3468, 43.06462, mesh_size = "10km")
-coords_to_mesh(139.6917, 35.68949, mesh_size = "250m")
+coords_to_mesh(141.3468, 43.06462, mesh_size = 1)
+coords_to_mesh(139.6917, 35.68949, mesh_size = 0.250)
 coords_to_mesh(139.71475, 35.70078)
 
 library(sf)

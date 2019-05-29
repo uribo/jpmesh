@@ -30,13 +30,13 @@ is_meshcode <- function(meshcode) {
 }
 
 is.mesh <- function(meshcode) {
-  invisible(is_meshcode(meshcode))
+  invisible(is_meshcode(meshcode)) # nolint
 }
 
 #' @export
 #' @rdname is_mesh
 is_corner <- function(meshcode) {
-  size <- mesh_size(meshcode)
+  size <- mesh_size(meshcode) # nolint
   if (size == units::as_units(80, "km")) {
     rlang::abort("enable 10km or 1km mesh")
   } else if (size == units::as_units(10, "km")) {

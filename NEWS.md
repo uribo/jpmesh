@@ -1,5 +1,17 @@
 # jpmesh (development version)
 
+- API changes to functions that take `mesh_size` ([#35](https://github.com/uribo/jpmesh/issues/35)). It has been changed to a numeric value in km unit instead of the mesh size string.
+
+```r
+jpmesh::coords_to_mesh(141.3468, 43.06462, mesh_size = "10km")
+```
+
+to
+
+```r
+jpmesh::coords_to_mesh(141.3468, 43.06462, mesh_size = 10)
+```
+
 # jpmesh 1.1.3 (2019-05-09)
 
 - Fix R version test.

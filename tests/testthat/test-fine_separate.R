@@ -13,7 +13,7 @@ test_that("Separate more fine mesh order", {
   expect_equal(res[length(res)], "52350499")
   res <- fine_separate("36233799")
   expect_length(res, 4)
-  expect_equal(res, paste0("36233799", 1:4))
+  expect_equal(res, paste0("36233799", seq_len(4)))
   expect_message(
     fine_separate("36233799123"),
     "A value greater than the supported mesh size was inputed."
@@ -47,7 +47,7 @@ test_that("Coarse multiple meshes to large size", {
     c("493214", "493215")
   )
   set.seed(123)
-  res <- coarse_gather(rmesh(1, "10km"))
+  res <- coarse_gather(rmesh(1, 10))
   if (getRversion() >= "3.6.0")
     expect_equal(res, "4728")
   else
