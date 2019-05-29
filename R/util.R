@@ -33,28 +33,26 @@ mesh_to_poly <- function(lng_center, lat_center, lng_error, lat_error, ...) {
     sf::st_as_text()
 }
 
-mesh_size <- function(mesh) {
-  mesh_length <- as.character(nchar(mesh))
-  res <- switch (mesh_length,
-          "4" = df_mesh_size_unit$mesh_size[1],
-          "6" = df_mesh_size_unit$mesh_size[2],
-          "8" = df_mesh_size_unit$mesh_size[3],
-          "9" = df_mesh_size_unit$mesh_size[4],
-          "10" = df_mesh_size_unit$mesh_size[5],
-          "11" = df_mesh_size_unit$mesh_size[6])
-  if (is.null(res))
+mesh_size <- function(meshcode) {
+  mesh_length <- as.character(nchar(meshcode))
+  res <- switch(mesh_length,
+          "4" = mesh_units[1],
+          "6" = mesh_units[2],
+          "8" = mesh_units[3],
+          "9" = mesh_units[4],
+          "10" = mesh_units[5],
+          "11" = mesh_units[6])
+  if (rlang::is_null(res))
     res <- units::as_units(NA_integer_, "km")
   return(res)
 }
 
+mesh_units <- units::as_units(c(80.000, 10.000, 1.000, 0.500, 0.250, 0.125), "km") # nolint
+
 df_mesh_size_unit <-
-  tibble::data_frame(
+  tibble::tibble(
     mesh_length = c(4L, 6L, 8L, 9L, 10L, 11L),
-    mesh_size = c(
-      units::as_units(c(80, 10, 1), "km"),
-      units::as_units(c(500, 250, 125), "m")
-  )
-)
+    mesh_size = mesh_units)
 
 meshcode_set_80km <- as.character(c(3036,
   3622, 3623, 3624, 3631, 3641, 3653,

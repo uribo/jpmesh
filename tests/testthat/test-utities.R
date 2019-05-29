@@ -31,7 +31,7 @@ test_that("mesh size", {
     df_mesh_size_unit,
     c("mesh_length", "mesh_size"))
   expect_s3_class(
-    df_mesh_size_unit$mesh_size[1], "units")
+    mesh_units[1], "units")
   expect_equal(
     mesh_size(mesh = 4567),
     units::as_units(80, "km"))
