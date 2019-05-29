@@ -38,4 +38,7 @@ test_that("mesh size", {
   expect_equal(
     mesh_size(mesh = 456781),
     units::as_units(10, "km"))
+  expect_equal(
+    mesh_size(mesh = 11111),
+    units::as_units(NA_integer_, "km"))
 })

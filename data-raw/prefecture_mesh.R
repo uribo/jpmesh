@@ -8,7 +8,7 @@ library(purrr)
 library(tidyr)
 library(testthat)
 
-df_jp80km_mesh <- data_frame(
+df_jp80km_mesh <- tibble(
   meshcode = meshcode_set(mesh_size = 80)
 )
 
