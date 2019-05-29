@@ -11,10 +11,10 @@
 #' @name neighbor_mesh
 #' @export
 neighbor_mesh <- function(meshcode, contains = TRUE) {
-  if (rlang::is_false(is_meshcode(meshcode))) {
+  if (rlang::is_false(is_meshcode(meshcode))) { # nolint
     rlang::abort("Unexpect meshcode value")
   }
-  size <- mesh_size(meshcode)
+  size <- mesh_size(meshcode) # nolint
   if (size < units::as_units(0.5, "km")) {
     rlang::inform("Too small meshsize. Enable 80km to 500m size.")
   }
@@ -29,7 +29,7 @@ neighbor_mesh <- function(meshcode, contains = TRUE) {
 
 find_neighbor_mesh <- function(meshcode = NULL, contains = TRUE) {
   meshcode <- as.numeric(meshcode)
-  size <- mesh_size(meshcode)
+  size <- mesh_size(meshcode) # nolint
   # nolint start
   if (size == units::as_units(80, "km")) {
     res <- meshcode - c(1, -1, 101, 100, 0, 99, -99, -100, -101)
@@ -101,7 +101,7 @@ find_neighbor_mesh <- function(meshcode = NULL, contains = TRUE) {
   if (rlang::is_false(contains)) {
     res <- res[res != meshcode]
   }
-  neighbor <- cut_off(res) %>% unique()
+  neighbor <- unique(cut_off(res)) # nolint
   return(neighbor)
 }
 
@@ -109,7 +109,7 @@ find_neighbor_finemesh <- function(meshcode, contains = TRUE) {
   relate <- NULL
   df_poly <-
     substr(meshcode, 1, nchar(eval(meshcode)) - 1) %>%
-    find_neighbor_mesh() %>%
+    find_neighbor_mesh() %>% # nolint
     purrr::map(bind_meshpolys) %>%
     purrr::reduce(rbind)
   df_poly$n <- 1:nrow(df_poly)

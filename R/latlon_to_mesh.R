@@ -46,12 +46,12 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = 1, geometry = NULL, 
     longitude <- rlang::quo_squash(longitude)
     latitude <- rlang::quo_squash(latitude)
   }
-  coords_evalated <- eval_jp_boundary(longitude, latitude)
+  coords_evalated <- eval_jp_boundary(longitude, latitude) # nolint
   if (coords_evalated == TRUE) {
     code12 <- (latitude * 60) %/% 40
     code34 <- as.integer(longitude - 100)
     check_80km_ares <- paste0(code12, code34) %>%
-      match(meshcode_set(mesh_size = 80.000)) %>%
+      match(meshcode_set(mesh_size = 80.000)) %>% # nolint
       any()
     if (rlang::is_true(check_80km_ares)) {
       code_a <- (latitude * 60) %% 40

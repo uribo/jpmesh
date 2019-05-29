@@ -8,7 +8,7 @@
 #' @export
 rmesh <- function(n, mesh_size = 1) {
   if (mesh_size %in% c(80, 10, 1)) {
-    sample(meshcode_set(mesh_size = mesh_size), n)
+    sample(meshcode_set(mesh_size = mesh_size), n) # nolint
   } else {
     rlang::abort(paste0(
       "`mesh_size` should be one of: ",

@@ -14,7 +14,7 @@
 #' @export
 administration_mesh <- function(code, type = c("city", "prefecture")) {
   rlang::arg_match(type)
-  checked_code <- code_reform(code)
+  checked_code <- code_reform(code) # nolint
   # nolint start
   mis_match <- checked_code[!checked_code %in% c(sprintf("%02d", seq_len(47)), unique(df_city_mesh$city_code))] # nolint
   if (rlang::is_false(identical(mis_match, character(0)))) {

@@ -41,7 +41,7 @@ fine_separate <- function(meshcode = NULL, ...) {
 #' @return character vector
 #' @importFrom purrr map_chr
 #' @importFrom rlang is_true
-#' @importFrom units set_units
+#' @importFrom units as_units
 #' @examples 
 #' m <- c("493214294", "493214392", "493215203", "493215301")
 #' coarse_gather(m)
@@ -50,11 +50,11 @@ fine_separate <- function(meshcode = NULL, ...) {
 #' @export
 coarse_gather <- function(meshes, distinct = FALSE) {
   res <- purrr::map_chr(meshes, function(x) {
-        if (mesh_size(x) == units::set_units(0.5, "km")) {
+        if (mesh_size(x) == units::as_units(0.5, "km")) {
           substr(x, 1, 8)
-        } else if (mesh_size(x) == units::set_units(1, "km")) {
+        } else if (mesh_size(x) == units::as_units(1, "km")) {
           substr(x, 1, 6)
-        } else if (mesh_size(x) == units::set_units(10, "km")) {
+        } else if (mesh_size(x) == units::as_units(10, "km")) {
           substr(x, 1, 4)
         }
       }

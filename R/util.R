@@ -117,7 +117,7 @@ meshcode_set <- function(mesh_size = c(80, 10, 1)) {
 #' @inheritParams mesh_to_coords
 cut_off <- function(meshcode) {
   mesh_80km <- substr(meshcode, 1, 4)
-  res <- meshcode[mesh_80km %in% c(meshcode_set(80))]
+  res <- meshcode[mesh_80km %in% c(meshcode_set(80))] # nolint
   if (length(res) < length(meshcode)) {
     rlang::warn("Some neighborhood meshes are outside the area.")
   }

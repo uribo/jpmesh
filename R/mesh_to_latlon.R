@@ -11,7 +11,7 @@
 mesh_to_coords <- function(meshcode, ...) {
   if (rlang::is_false(is_meshcode(meshcode)))
     rlang::abort("Unexpect meshcode value")
-  size <- mesh_size(meshcode)
+  size <- mesh_size(meshcode) # nolint
   if (size <= units::as_units(80, "km")) {
     code12 <- as.numeric(substring(meshcode, 1, 2))
     code34 <- as.numeric(substring(meshcode, 3, 4))
