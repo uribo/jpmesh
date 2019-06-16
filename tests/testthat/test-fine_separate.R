@@ -46,6 +46,10 @@ test_that("Coarse multiple meshes to large size", {
     coarse_gather(coarse_gather(m), distinct = TRUE),
     c("493214", "493215")
   )
+  expect_equal(
+    coarse_gather("5639331"),
+    coarse_gather("56393322")
+  )
   set.seed(123)
   res <- coarse_gather(rmesh(1, 10))
   if (getRversion() >= "3.6.0")
