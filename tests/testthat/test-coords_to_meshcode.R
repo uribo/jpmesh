@@ -31,6 +31,8 @@ test_that("from latitude and longitude to mesh 2", {
 
 # Separete Mesh: harf -----------------------------------------------------------------
 test_that("Separete to harf mesh", {
+  res <- coords_to_mesh(139.301255, 35.442788, mesh_size = 5.0)
+  expect_equal(res, "5339121")
   res <- coords_to_mesh(139.301255, 35.442788, mesh_size = 0.500)
   expect_true(is.character(res))
   expect_equal(9, nchar(res))

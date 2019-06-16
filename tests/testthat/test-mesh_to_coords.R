@@ -30,6 +30,12 @@ test_that("Calculate correct value for mesh_code (10km)", {
     c("lng_center", "lat_center", "lng_error", "lat_error"))
   expect_equal(res$lat_center - res$lat_error, 34.583333)
   expect_equal(res$lng_center - res$lng_error, 133.875)
+  res_5km <- mesh_to_coords(5133773)
+  expect_equal(res_5km$lat_center - res_5km$lat_error, 34.625)
+  expect_equal(res_5km$lng_center - res_5km$lng_error, 133.875)
+  expect_equal(res_5km$lng_error,
+               res$lng_error / 2,
+               tolerance = 0.002)
 })
 
 # 1km mesh ----------------------------------------------------------------
