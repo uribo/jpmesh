@@ -99,9 +99,9 @@ meshcode_set_10km <- meshcode_set_80km %>%
   purrr::map(fine_separate) %>%
   purrr::flatten_chr()
 
-meshcode_set_5km <- 
-  meshcode_set_10km %>% 
-  purrr::map(~ paste0(.x, seq.int(1, 4))) %>% 
+meshcode_set_5km <-
+  meshcode_set_10km %>%
+  purrr::map(~ paste0(.x, seq.int(1, 4))) %>%
   purrr::flatten_chr()
 
 meshcode_set_1km <- meshcode_set_10km %>%
