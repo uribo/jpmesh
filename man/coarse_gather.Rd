@@ -4,10 +4,10 @@
 \alias{coarse_gather}
 \title{Gather more coarse mesh}
 \usage{
-coarse_gather(meshes, distinct = FALSE)
+coarse_gather(meshcode, distinct = FALSE)
 }
 \arguments{
-\item{meshes}{mesh code sets}
+\item{meshcode}{\code{character}. mesh code}
 
 \item{distinct}{return unique meshcodes}
 }

@@ -7,7 +7,7 @@
 mesh_to_coords(meshcode, ...)
 }
 \arguments{
-\item{meshcode}{\code{integer}. mesh code}
+\item{meshcode}{\code{character}. mesh code}
 
 \item{...}{other parameters}
 }
@@ -15,7 +15,7 @@ mesh_to_coords(meshcode, ...)
 mesh centroid
 }
 \examples{
-mesh_to_coords(64414277)
+mesh_to_coords("64414277")
 }
 \references{
 Akio Takenaka: \url{http://takenaka-akio.org/etc/j_map/index.html}

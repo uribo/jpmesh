@@ -11,7 +11,7 @@ is_meshcode(meshcode)
 is_corner(meshcode)
 }
 \arguments{
-\item{meshcode}{\code{integer}. mesh code}
+\item{meshcode}{\code{character}. mesh code}
 }
 \description{
 Predict meshcode format and positions for utility and certain.

@@ -7,7 +7,7 @@
 fine_separate(meshcode = NULL, ...)
 }
 \arguments{
-\item{meshcode}{\code{integer}. mesh code}
+\item{meshcode}{\code{character}. mesh code}
 
 \item{...}{other parameters for paste}
 }

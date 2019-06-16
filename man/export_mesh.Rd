@@ -7,14 +7,14 @@
 export_mesh(meshcode)
 }
 \arguments{
-\item{meshcode}{\code{integer}. mesh code}
+\item{meshcode}{\code{character}. mesh code}
 }
 \value{
-sf object
+sfc object
 }
 \description{
 Convert and export meshcode area to \code{sfc_POLYGON}.
 }
 \examples{
-export_mesh(6441427712)
+export_mesh("6441427712")
 }

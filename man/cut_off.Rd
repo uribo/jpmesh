@@ -7,7 +7,7 @@
 cut_off(meshcode)
 }
 \arguments{
-\item{meshcode}{\code{integer}. mesh code}
+\item{meshcode}{\code{character}. mesh code}
 }
 \description{
 Cutoff mesh of outside the area

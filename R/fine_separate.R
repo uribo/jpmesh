@@ -36,7 +36,7 @@ fine_separate <- function(meshcode = NULL, ...) {
 #' @title Gather more coarse mesh
 #' 
 #' @description Return coarse gather mesh codes
-#' @inheritParams export_meshes
+#' @inheritParams mesh_to_coords
 #' @param distinct return unique meshcodes
 #' @return character vector
 #' @importFrom purrr map_chr
@@ -48,8 +48,8 @@ fine_separate <- function(meshcode = NULL, ...) {
 #' coarse_gather(coarse_gather(m))
 #' coarse_gather(coarse_gather(m), distinct = TRUE)
 #' @export
-coarse_gather <- function(meshes, distinct = FALSE) {
-  res <- purrr::map_chr(meshes, function(x) {
+coarse_gather <- function(meshcode, distinct = FALSE) {
+  res <- purrr::map_chr(meshcode, function(x) {
         if (mesh_size(x) == units::as_units(0.5, "km")) {
           substr(x, 1, 8)
         } else if (mesh_size(x) %in% units::as_units(c(1, 5), "km")) {

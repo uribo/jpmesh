@@ -7,7 +7,7 @@
 mesh_size(meshcode)
 }
 \arguments{
-\item{meshcode}{\code{integer}. mesh code}
+\item{meshcode}{\code{character}. mesh code}
 }
 \description{
 Returns a unit object of mesh size for the given number.

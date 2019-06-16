@@ -1,12 +1,12 @@
 #' @title Get from mesh code to latitude and longitude
 #' 
 #' @description mesh centroid
-#' @param meshcode `integer`. mesh code
+#' @param meshcode `character`. mesh code
 #' @param ... other parameters
 #' @references Akio Takenaka: [http://takenaka-akio.org/etc/j_map/index.html](http://takenaka-akio.org/etc/j_map/index.html)
 #' @seealso [coords_to_mesh()] for convert from coordinates to meshcode
 #' @examples
-#' mesh_to_coords(64414277)
+#' mesh_to_coords("64414277")
 #' @export
 mesh_to_coords <- function(meshcode, ...) {
   if (rlang::is_false(is_meshcode(meshcode)))
