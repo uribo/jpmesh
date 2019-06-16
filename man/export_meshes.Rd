@@ -2,12 +2,19 @@
 % Please edit documentation in R/export_mesh.R
 \name{export_meshes}
 \alias{export_meshes}
+\alias{meshcode_sf}
 \title{Export meshcode to geometry}
 \usage{
-export_meshes(meshes)
+export_meshes(meshcode)
+
+meshcode_sf(data, mesh_var)
 }
 \arguments{
-\item{meshes}{mesh code sets}
+\item{meshcode}{\code{character}. mesh code}
+
+\item{data}{data frmae}
+
+\item{mesh_var}{unquoted expressions for meshcode variable.}
 }
 \description{
 Convert and export meshcode area to \code{sf}.
@@ -15,7 +22,11 @@ Convert and export meshcode area to \code{sf}.
 \examples{
 export_meshes("4128")
 \dontrun{
-find_neighbor_mesh(37250395) \%>\% 
+find_neighbor_mesh("37250395") \%>\% 
   export_meshes()
 }
+d <- data.frame(id = seq.int(4),
+            meshcode = rmesh(4),
+            stringsAsFactors = FALSE)
+meshcode_sf(d, meshcode)
 }
