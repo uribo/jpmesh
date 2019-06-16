@@ -4,7 +4,7 @@
 \alias{meshcode_set}
 \title{Export meshcode vectors ranges 80km to 1km.}
 \usage{
-meshcode_set(mesh_size = c(80, 10, 1))
+meshcode_set(mesh_size = c(80, 10, 5, 1))
 }
 \arguments{
 \item{mesh_size}{Export mesh size from 80km to 1km.}

@@ -43,20 +43,21 @@ mesh_size <- function(meshcode) {
   res <- switch(mesh_length,
           "4" = mesh_units[1],
           "6" = mesh_units[2],
-          "8" = mesh_units[3],
-          "9" = mesh_units[4],
-          "10" = mesh_units[5],
-          "11" = mesh_units[6])
+          "7" = mesh_units[3],
+          "8" = mesh_units[4],
+          "9" = mesh_units[5],
+          "10" = mesh_units[6],
+          "11" = mesh_units[7])
   if (rlang::is_null(res))
     res <- units::as_units(NA_integer_, "km")
   return(res)
 }
 
-mesh_units <- units::as_units(c(80.000, 10.000, 1.000, 0.500, 0.250, 0.125), "km") # nolint
+mesh_units <- units::as_units(c(80.000, 10.000, 5.000, 1.000, 0.500, 0.250, 0.125), "km") # nolint
 
 df_mesh_size_unit <-
   tibble::tibble(
-    mesh_length = c(4L, 6L, 8L, 9L, 10L, 11L),
+    mesh_length = c(4L, 6L, 7L, 8L, 9L, 10L, 11L),
     mesh_size = mesh_units)
 
 meshcode_set_80km <- as.character(c(3036,
