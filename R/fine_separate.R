@@ -52,7 +52,7 @@ coarse_gather <- function(meshes, distinct = FALSE) {
   res <- purrr::map_chr(meshes, function(x) {
         if (mesh_size(x) == units::as_units(0.5, "km")) {
           substr(x, 1, 8)
-        } else if (mesh_size(x) == units::as_units(1, "km")) {
+        } else if (mesh_size(x) %in% units::as_units(c(1, 5), "km")) {
           substr(x, 1, 6)
         } else if (mesh_size(x) == units::as_units(10, "km")) {
           substr(x, 1, 4)

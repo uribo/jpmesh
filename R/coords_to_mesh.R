@@ -84,6 +84,9 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = 1, geometry = NULL, 
           substr(meshcode, 1, 4)
         } else if (to_mesh_size == units::as_units(10.000, "km")) {
           substr(meshcode, 1, 6)
+        } else if (to_mesh_size == units::as_units(5.000, "km")) {
+          paste0(substr(meshcode, 1, 6),
+                 (code_b %/% (5 / 2) * 2) + (code_g %/% (7.5 / 2) + 1))
         } else if (to_mesh_size == units::as_units(1.000, "km")) {
           substr(meshcode, 1, 8)
         } else if (to_mesh_size == units::as_units(0.500, "km")) {

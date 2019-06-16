@@ -9,11 +9,11 @@ test_that("is meshcode", {
     is_meshcode(4567891230))
   expect_false(
     is_meshcode(45678))
-  expect_false(
+  expect_true(
     is_meshcode(4567811))
   expect_message(
     is_meshcode(45678),
-    "meshcode must be follow digits: 4, 6, 8, 9, 10 and 11")
+    "meshcode must be follow digits: 4, 6, 7, 8, 9, 10 and 11")
   expect_false(
     is_meshcode(456789123450))
   expect_false(
@@ -26,7 +26,7 @@ test_that("is meshcode", {
 test_that("mesh size", {
   expect_equal(
     dim(df_mesh_size_unit),
-    c(6, 2))
+    c(7, 2))
   expect_named(
     df_mesh_size_unit,
     c("mesh_length", "mesh_size"))
