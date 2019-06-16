@@ -99,6 +99,11 @@ meshcode_set_10km <- meshcode_set_80km %>%
   purrr::map(fine_separate) %>%
   purrr::flatten_chr()
 
+meshcode_set_5km <- 
+  meshcode_set_10km %>% 
+  purrr::map(~ paste0(.x, seq.int(1, 4))) %>% 
+  purrr::flatten_chr()
+
 meshcode_set_1km <- meshcode_set_10km %>%
   purrr::map(fine_separate) %>%
   purrr::flatten_chr()
@@ -112,7 +117,7 @@ meshcode_set_1km <- meshcode_set_10km %>%
 #' @examples 
 #' meshcode_set(mesh_size = 80)
 #' @export
-meshcode_set <- function(mesh_size = c(80, 10, 1)) {
+meshcode_set <- function(mesh_size = c(80, 10, 5, 1)) {
   get(sprintf("meshcode_set_%skm", mesh_size), envir = asNamespace("jpmesh")) # nolint
 }
 
