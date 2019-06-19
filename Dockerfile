@@ -26,6 +26,7 @@ RUN set -x && \
     knitr \
     covr \
     devtools \
+    jpmesh \
     mapview \
     roxygen2 \
     usethis \
