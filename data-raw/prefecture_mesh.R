@@ -9,15 +9,14 @@ library(tidyr)
 library(testthat)
 
 df_jp80km_mesh <- tibble(
-  meshcode = meshcode_set(mesh_size = 80)
-)
+  meshcode = meshcode_set(mesh_size = 80))
 
 expect_equal(nrow(df_jp80km_mesh), 176L)
 
 ####################################
 # 1/200,000 scale
 ####################################
-df_1_200000_zumei <- frame_data(
+df_1_200000_zumei <- tribble(
   ~meshcode_80km, ~name, ~name_roman, ~type,
   6840, "稚内", "wakkanai", FALSE,
   6841, "稚内", "wakkanai", TRUE,
@@ -199,26 +198,21 @@ df_1_200000_zumei <- frame_data(
 expect_equal(dim(df_1_200000_zumei), c(176, 4))
 
 jpmesh_bind <- df_jp80km_mesh %>%
-  mutate(out = pmap(., ~ mesh_to_coords(...))) %>% 
-  tidyr::unnest() %>% 
-  dplyr::select(meshcode, everything())
+  meshcode_sf(meshcode)
 
 expect_equal(dim(jpmesh_bind), c(176, 5))
 
 sf_jpmesh <- jpmesh_bind %>%
-  mutate(geometry = pmap(., ~ mesh_to_poly(...))) %>% 
-  st_sf(crs = 4326, stringsAsFactors = FALSE) %>% 
   left_join(df_1_200000_zumei %>% 
               mutate(meshcode_80km = as.character(meshcode_80km)),
             by = c("meshcode" = "meshcode_80km")) %>% 
-  select(meshcode, name, name_roman, 
-         lng_center, lat_center, lng_error, lat_error, everything()) %>% 
+  select(meshcode, name, name_roman, everything()) %>% 
   mutate(name = stringi::stri_conv(name, to = "UTF8"))
-expect_s3_class(sf_jpmesh, c("sf", "data.frame"))
-expect_equal(dim(sf_jpmesh), c(sf_jpmesh$meshcode %>% n_distinct(), 9))
+expect_s3_class(sf_jpmesh, c("sf"))
+expect_s3_class(sf_jpmesh, c("tbl_df"))
+expect_equal(dim(sf_jpmesh), c(sf_jpmesh$meshcode %>% n_distinct(), 5))
 expect_named(sf_jpmesh,
              c("meshcode", "name", "name_roman",
-               "lng_center", "lat_center", "lng_error", "lat_error",
                "type", "geometry"))
 
 # library(leaflet)
