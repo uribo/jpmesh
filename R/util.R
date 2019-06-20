@@ -53,7 +53,8 @@ mesh_size <- function(meshcode) {
   return(res)
 }
 
-mesh_units <- units::as_units(c(80.000, 10.000, 5.000, 1.000, 0.500, 0.250, 0.125), "km") # nolint
+mesh_units <- units::as_units(c(80.000, 10.000, 5.000,
+                                1.000, 0.500, 0.250, 0.125), "km") # nolint
 
 df_mesh_size_unit <-
   tibble::tibble(
