@@ -16,6 +16,7 @@ reference:
     contents: 
     - coords_to_mesh
     - mesh_to_coords
+    - mesh_convert
 
   - title: Detect fine - coarse scale and neighbourhood meshes
     contents:
