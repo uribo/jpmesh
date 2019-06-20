@@ -13,6 +13,8 @@ coarse_gather(meshcode, distinct = FALSE)
 }
 \value{
 character vector
+
+meshcode as \code{character}
 }
 \description{
 Return coarse gather mesh codes

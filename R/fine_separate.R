@@ -7,11 +7,12 @@
 #' @importFrom purrr map
 #' @importFrom rlang inform
 #' @examples 
-#' fine_separate(5235)
-#' fine_separate(523504)
-#' fine_separate(52350432)
-#' fine_separate(523504321)
-#' fine_separate(5235043211)
+#' fine_separate("5235")
+#' fine_separate("523504")
+#' fine_separate("52350432")
+#' fine_separate("523504321")
+#' fine_separate("5235043211")
+#' @return meshcode as `character`
 #' @export
 fine_separate <- function(meshcode = NULL, ...) {
   if (is.mesh(meshcode))
@@ -47,18 +48,19 @@ fine_separate <- function(meshcode = NULL, ...) {
 #' coarse_gather(m)
 #' coarse_gather(coarse_gather(m))
 #' coarse_gather(coarse_gather(m), distinct = TRUE)
+#' @return meshcode as `character`
 #' @export
 coarse_gather <- function(meshcode, distinct = FALSE) {
   res <- purrr::map_chr(meshcode, function(x) {
-        if (mesh_size(x) == units::as_units(0.5, "km")) {
-          substr(x, 1, 8)
-        } else if (mesh_size(x) %in% units::as_units(c(1, 5), "km")) {
-          substr(x, 1, 6)
-        } else if (mesh_size(x) == units::as_units(10, "km")) {
-          substr(x, 1, 4)
-        }
-      }
-    )
+    if (mesh_size(x) == units::as_units(0.5, "km")) {
+      substr(x, 1, 8)
+    } else if (mesh_size(x) %in% units::as_units(c(1, 5), "km")) {
+      substr(x, 1, 6)
+    } else if (mesh_size(x) == units::as_units(10, "km")) {
+      substr(x, 1, 4)
+    }
+  }
+  )
   if (rlang::is_true(distinct))
     res <- unique(res)
   return(res)

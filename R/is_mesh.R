@@ -16,7 +16,7 @@ is_meshcode <- function(meshcode) {
             min(df_mesh_size_unit$mesh_length), 
             "to",
             max(df_mesh_size_unit$mesh_length),
-            "digits"))
+            "digits"))    
   else
     res <- ifelse(is.na(units::drop_units(mesh_size(meshcode))), FALSE, TRUE)
     if (res == FALSE)

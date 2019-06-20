@@ -15,7 +15,10 @@ export_mesh <- function(meshcode) {
         sf::st_make_grid(n = c(2, 2))
       res <- res[as.numeric(substr(meshcode, nchar(meshcode), nchar(meshcode)))]
     } else {
-      res <- sf::st_as_sfc(purrr::pmap_chr(mesh_to_coords(meshcode), mesh_to_poly), crs = 4326) # nolint
+      res <- sf::st_as_sfc(
+        purrr::pmap_chr(mesh_to_coords(meshcode),
+                        mesh_to_poly),
+        crs = 4326)
     }
   return(res)
 }
@@ -39,8 +42,10 @@ export_meshes <- function(meshcode) {
   df_meshes <- tibble::tibble("meshcode" = as.character(meshcode))
   sf::st_sf(df_meshes,
             geometry = purrr::map_chr(df_meshes$meshcode,
-                                        ~ export_mesh(meshcode = .x) %>% # nolint
-                                          sf::st_as_text()) %>% sf::st_as_sfc(), crs = 4326) %>% # nolint
+                                        ~ export_mesh(meshcode = .x) %>%
+                                          sf::st_as_text()) %>%
+              sf::st_as_sfc(),
+            crs = 4326) %>%
     tibble::new_tibble(subclass = "sf", nrow = nrow(df_meshes))
 }
 

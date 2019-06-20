@@ -13,14 +13,16 @@ fine_separate(meshcode = NULL, ...)
 }
 \value{
 character vector
+
+meshcode as \code{character}
 }
 \description{
 Return contains fine mesh codes
 }
 \examples{
-fine_separate(5235)
-fine_separate(523504)
-fine_separate(52350432)
-fine_separate(523504321)
-fine_separate(5235043211)
+fine_separate("5235")
+fine_separate("523504")
+fine_separate("52350432")
+fine_separate("523504321")
+fine_separate("5235043211")
 }
