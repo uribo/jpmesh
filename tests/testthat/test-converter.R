@@ -6,7 +6,7 @@ test_that("scale up", {
                mesh_convert(res, to_mesh_size = 10))
   res <- mesh_convert("52350432", to_mesh_size = 10)
   expect_equal(mesh_size(res), units::as_units(10, "km"))
-  res_area <- res %>% 
+  res_area <- res %>%
     export_meshes() %>%
     sf::st_area()
   expect_equal(res_area,
