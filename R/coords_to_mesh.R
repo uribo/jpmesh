@@ -29,30 +29,37 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = 1, geometry = NULL, 
                units::drop_units(mesh_units)[-6],
                collapse = ", "),
              " or ",
-            paste(units::drop_units(mesh_units)[6])))
+             paste(units::drop_units(mesh_units)[6])))
   if (rlang::is_false(is.null(geometry))) {
-    if (sf::st_is(geometry, "POINT")) {
-      coords <-
-        if (sf::st_is(geometry, "POINT")) {
-          list(longitude = sf::st_coordinates(geometry)[1],
-               latitude =  sf::st_coordinates(geometry)[2])
-        }
-      if (!rlang::is_missing(longitude) | !rlang::is_missing(latitude))
-        rlang::inform("the condition assigned coord and geometry, only the geometry will be used") # nolint
-      longitude <- coords$longitude
-      latitude <- coords$latitude
-    }
+    geometry <- sf::st_sfc(geometry)
+    coords <-
+      lapply(geometry, function(x) {
+        if (sf::st_is(x, "POINT"))
+          list(longitude = sf::st_coordinates(x)[1],
+               latitude =  sf::st_coordinates(x)[2])
+        else
+          list(longitude = sf::st_coordinates(sf::st_centroid(x))[1],
+               latitude =  sf::st_coordinates(sf::st_centroid(x))[2])
+      })
+    if (!rlang::is_missing(longitude) | !rlang::is_missing(latitude))
+      rlang::inform("the condition assigned coord and geometry, only the geometry will be used") # nolint
+    longitude <-
+      coords %>%
+      purrr::map("longitude")
+    latitude <-
+      coords %>%
+      purrr::map("latitude")
   } else {
     longitude <- rlang::quo_squash(longitude)
     latitude <- rlang::quo_squash(latitude)
   }
-    purrr::pmap_chr(
-      list(longitude = longitude,
-           latitude = latitude,
-           to_mesh_size = to_mesh_size),
-      ~ .coord2mesh(..1, ..2, ..3))
+  purrr::pmap_chr(
+    list(longitude = longitude,
+         latitude = latitude,
+         to_mesh_size = to_mesh_size),
+    ~ .coord2mesh(..1, ..2, ..3))
 }
-  
+
 .coord2mesh <- function(longitude, latitude, to_mesh_size) {
   coords_evalated <-
     purrr::map2_lgl(longitude,

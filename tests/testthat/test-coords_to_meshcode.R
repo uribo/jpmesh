@@ -89,9 +89,25 @@ test_that("Input XY sfg", {
 })
 
 test_that("vectorize", {
-  res <- coords_to_mesh(longitude = c(140.1062, 139.7688),
-                 latitude = c(36.07917, 35.67917))
+  res <- coords_to_mesh(
+    longitude = c(140.1062, 139.7688),
+    latitude = c(36.07917, 35.67917)
+  )
   expect_length(res, 2L)
   expect_equal(res,
                c("54400098", "53394611"))
+  meshes <- c("51337793", "54387643")
+  d <- meshes %>%
+    export_meshes()
+  d$longitude <-
+    purrr::pmap_dbl(d, ~ mesh_to_coords(..1)[[1]])
+  d$latitude <-
+    purrr::pmap_dbl(d, ~ mesh_to_coords(..1)[[2]])
+  res <-
+    coords_to_mesh(longitude = d$longitude,
+                   latitude = d$latitude)
+  expect_equal(res,
+               coords_to_mesh(geometry = d$geometry))
+  expect_equal(res,
+               meshes)
 })
