@@ -46,7 +46,18 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = 1, geometry = NULL, 
     longitude <- rlang::quo_squash(longitude)
     latitude <- rlang::quo_squash(latitude)
   }
-  coords_evalated <- eval_jp_boundary(longitude, latitude) # nolint
+    purrr::pmap_chr(
+      list(longitude = longitude,
+           latitude = latitude,
+           to_mesh_size = to_mesh_size),
+      ~ .coord2mesh(..1, ..2, ..3))
+}
+  
+.coord2mesh <- function(longitude, latitude, to_mesh_size) {
+  coords_evalated <-
+    purrr::map2_lgl(longitude,
+                    latitude,
+                    ~ eval_jp_boundary(.x, .y))
   if (coords_evalated == TRUE) {
     code12 <- (latitude * 60) %/% 40
     code34 <- as.integer(longitude - 100)
@@ -77,8 +88,15 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = 1, geometry = NULL, 
       code9 <- (code_s * 2) + (code_x + 1)
       code10 <- (code_t * 2) + (code_y + 1)
       code11 <- (code_u * 2) + (code_z + 1)
-      meshcode <- paste0(code12, code34, code5, code6,
-                         code7, code8, code9, code10, code11)
+      meshcode <- paste0(code12,
+                         code34,
+                         code5,
+                         code6,
+                         code7,
+                         code8,
+                         code9,
+                         code10,
+                         code11)
       meshcode <-
         if (to_mesh_size == units::as_units(80.000, "km")) {
           substr(meshcode, 1, 4)
@@ -101,8 +119,8 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = 1, geometry = NULL, 
       rlang::warn("Longitude / Latitude values is out of range.")
       return(NA_character_)
     }
-    } else if (coords_evalated == FALSE) {
-      rlang::warn("Longitude / Latitude values is out of range.")
-      return(NA_character_)
-    }
+  } else if (coords_evalated == FALSE) {
+    rlang::warn("Longitude / Latitude values is out of range.")
+    return(NA_character_)
+  }
 }

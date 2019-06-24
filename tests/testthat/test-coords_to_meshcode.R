@@ -87,3 +87,11 @@ test_that("Input XY sfg", {
   res$check <- all.equal(res$meshcode, res$meshcode_copy)
   expect_equal(sum(res$check == FALSE), 0)
 })
+
+test_that("vectorize", {
+  res <- coords_to_mesh(longitude = c(140.1062, 139.7688),
+                 latitude = c(36.07917, 35.67917))
+  expect_length(res, 2L)
+  expect_equal(res,
+               c("54400098", "53394611"))
+})
