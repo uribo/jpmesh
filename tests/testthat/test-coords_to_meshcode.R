@@ -77,7 +77,7 @@ test_that("Input XY sfg", {
                    geometry = sf::st_point(c(130.4412895, 30.2984335))),
     "only the geometry will be used")
   res <-
-    administration_mesh(code = "08220", "city")
+    administration_mesh(code = "08220", to_mesh_size = 1)
   suppressWarnings(res$geometry <- sf::st_centroid(res$geometry))
   res$meshcode_copy <-
     res %>%

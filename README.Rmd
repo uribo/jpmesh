@@ -119,7 +119,7 @@ Dataset of mesh code for prefectures.
 
 ```{r, results = 'asis'}
 set.seed(71)
-administration_mesh(code = 33, type = "prefecture") %>% 
+administration_mesh(code = 33, to_mesh_size = 80) %>% 
   head() %>% 
   knitr::kable()
 ```
@@ -132,20 +132,20 @@ library(leaflet)
 leaflet() %>% 
   addTiles() %>% 
   addProviderTiles("OpenStreetMap.BlackAndWhite") %>% 
-  addPolygons(data = administration_mesh(code = 33101, type = "city"))
+  addPolygons(data = administration_mesh(code = 33101, to_mesh_size = 1))
 ```
 
 ![](man/figures/README-mesh_pref_33_leaflet-1.png)
 
 ```{r mesh_pref33_map, warning = FALSE, echo = TRUE, eval = FALSE}
 ggplot() + 
-  geom_sf(data = administration_mesh(code = 33, type = "city"))
+  geom_sf(data = administration_mesh(code = 33, to_mesh_size = 1))
 ```
 
 ```{r, include = FALSE}
 ggsave(
   ggplot() + 
-  geom_sf(data = administration_mesh(code = 33, type = "city")),
+  geom_sf(data = administration_mesh(code = 33, to_mesh_size = 1)),
   filename = "man/figures/README-mesh_pref33_map-1.png",
   width = 8,
   height = 6,
