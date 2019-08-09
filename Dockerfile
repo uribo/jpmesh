@@ -25,10 +25,8 @@ RUN set -x && \
   install2.r --error \
     knitr \
     covr \
-    devtools \
     jpmesh \
     mapview \
-    roxygen2 \
     usethis \
     shinyjs \
     reprex \
@@ -42,11 +40,10 @@ RUN set -x && \
     magick && \
   installGithub.r \
     "r-lib/devtools" \
+    "r-lib/roxygen2" \
     "r-lib/roxygen2md" \
     "r-lib/testthat" \
     "r-lib/revdepcheck" \
     "r-lib/pkgdown" \
-    "r-lib/pkgload" \ 
-    "r-spatial/lwgeom" \
-    "klutometis/roxygen" && \
+    "r-spatial/lwgeom" && \
   rm -rf /tmp/downloaded_packages/ /tmp/*.rds
