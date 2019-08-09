@@ -13,11 +13,11 @@ rmesh <- function(n, mesh_size = 1) {
     rlang::abort(paste0(
       "`mesh_size` should be one of: ",
       paste(
-        units::drop_units(mesh_units)[c(1, 2)],
+        units::drop_units(mesh_units)[c(1, 2, 3)],
         collapse = ", "
       ),
       " or ",
-      paste(units::drop_units(mesh_units)[3])
+      paste(units::drop_units(mesh_units)[4])
     ))
   }
 }
