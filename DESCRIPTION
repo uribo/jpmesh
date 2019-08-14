@@ -27,7 +27,8 @@ Suggests:
     lintr (>= 1.0.3),
     lwgeom (>= 0.1-4),
     testthat (>= 2.1.0),
-    rmarkdown (>= 1.10)
+    rmarkdown (>= 1.10),
+    vdiffr (>= 0.3.0)
 VignetteBuilder: knitr
 LazyData: true
 Encoding: UTF-8
