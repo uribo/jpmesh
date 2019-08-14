@@ -31,7 +31,8 @@ RUN set -x && \
     shinyjs \
     reprex \
     DT \
-    lintr && \
+    lintr \
+    vdiffr && \
   : "to knitr R Markdown documents" && \
   install2.r --error \
     caTools && \
