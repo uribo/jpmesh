@@ -55,7 +55,7 @@ test_that("multiplication works", {
 })
 
 test_that("Failed patterns", {
-  expect_error(expect_warning(administration_mesh(code = 123)))
+  expect_warning(expect_error(administration_mesh(code = 123)))
   expect_error(administration_mesh(code = c("08220", "08221"),
                to_mesh_size = 8))
 })

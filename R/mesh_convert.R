@@ -6,6 +6,7 @@
 #' the meshcode of one small scale will be returned. If it is the same as the original size, 
 #' the meshcode of the input will be returne.
 #' @examples 
+#' \dontrun{
 #' mesh_convert(meshcode = "52350432", to_mesh_size = 80)
 #' mesh_convert("52350432", 10)
 #' # Scale down
@@ -16,6 +17,7 @@
 #' mesh_convert(5235043213", 0.125)
 #' mesh_convert("52350432", 1)
 #' mesh_convert("52350432131", 0.125)
+#' }
 #' @export
 #' @rdname converter
 mesh_convert <- function(meshcode = NULL, to_mesh_size = NULL) {

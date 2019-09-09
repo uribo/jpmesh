@@ -4,7 +4,7 @@
 #' @param meshcode `character`. mesh code
 #' @param ... other parameters
 #' @references Akio Takenaka: [http://takenaka-akio.org/etc/j_map/index.html](http://takenaka-akio.org/etc/j_map/index.html)
-#' @seealso [coords_to_mesh()] for convert from coordinates to meshcode
+#' @seealso [coords_to_mesh()] for convert from coordinates to meshcode.
 #' @examples
 #' mesh_to_coords("64414277")
 #' @export

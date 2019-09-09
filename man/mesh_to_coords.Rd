@@ -21,5 +21,5 @@ mesh_to_coords("64414277")
 Akio Takenaka: \url{http://takenaka-akio.org/etc/j_map/index.html}
 }
 \seealso{
-\code{\link[=coords_to_mesh]{coords_to_mesh()}} for convert from coordinates to meshcode
+\code{\link[=coords_to_mesh]{coords_to_mesh()}} for convert from coordinates to meshcode.
 }
