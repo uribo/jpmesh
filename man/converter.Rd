@@ -10,9 +10,22 @@ mesh_convert(meshcode = NULL, to_mesh_size = NULL)
 \item{meshcode}{\code{character}. mesh code}
 
 \item{to_mesh_size}{target mesh type. From 80km to 0.125km. If \code{NULL},
-the meshcode of one small scale will be returned. If it is the same as the original size,
-the meshcode of the input will be returne.}
+the meshcode of one small scale will be returned.
+If it is the same as the original size, the meshcode of the input
+will be return.}
 }
 \description{
 Return different meshcode values included in the mesh.
+}
+\examples{
+mesh_convert(meshcode = "52350432", to_mesh_size = 80)
+mesh_convert("52350432", 10)
+# Scale down
+mesh_convert("52350432", 0.500)
+mesh_convert("52350432", 0.250)
+mesh_convert(meshcode = "52350432", 0.125)
+mesh_convert("523504323", 0.250)
+mesh_convert("5235043213", 0.125)
+mesh_convert("52350432", 1)
+mesh_convert("52350432131", 0.125)
 }

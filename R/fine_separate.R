@@ -1,12 +1,11 @@
 #' @title Separate more fine mesh order
-#' 
 #' @description Return contains fine mesh codes
 #' @inheritParams mesh_to_coords
 #' @param ... other parameters for paste
 #' @return character vector
 #' @importFrom purrr map
 #' @importFrom rlang inform
-#' @examples 
+#' @examples
 #' fine_separate("5235")
 #' fine_separate("523504")
 #' fine_separate("52350432")
@@ -35,7 +34,6 @@ fine_separate <- function(meshcode = NULL, ...) {
 }
 
 #' @title Gather more coarse mesh
-#' 
 #' @description Return coarse gather mesh codes
 #' @inheritParams mesh_to_coords
 #' @param distinct return unique meshcodes
@@ -43,7 +41,7 @@ fine_separate <- function(meshcode = NULL, ...) {
 #' @importFrom purrr map_chr
 #' @importFrom rlang is_true
 #' @importFrom units as_units
-#' @examples 
+#' @examples
 #' m <- c("493214294", "493214392", "493215203", "493215301")
 #' coarse_gather(m)
 #' coarse_gather(coarse_gather(m))

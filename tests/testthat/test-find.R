@@ -6,7 +6,7 @@ test_that("neighborhood meshes", {
   set.seed(71)
   res <- neighbor_mesh(rmesh(1, mesh_size = 80))
   expect_is(res, "character")
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "neighbor-mesh-80km",
     plot(export_meshes(res), col = "white"))
   expect_length(
@@ -23,7 +23,7 @@ test_that("neighborhood meshes", {
   expect_equal(
     res,
     c("6641", "6642", "6643", "6741", "6742", "6841", "6842"))
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "neighbor-mesh-80km-7meshes",
     plot(export_meshes(res), col = "white"))
   res <- find_neighbor_mesh(674257)
@@ -33,7 +33,7 @@ test_that("neighborhood meshes", {
   expect_equal(
     unique(substr(res, 1, 4)),
     "6742")
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "neighbor-mesh-10km-6meshes",
     plot(export_meshes(res), col = "white"))
   res <- find_neighbor_mesh(5337)
@@ -56,12 +56,12 @@ test_that("neighborhood meshes", {
       "53394501", "53394502", "53394510", "53394511", "53394512"))
   res <- find_neighbor_finemesh(533945011, contains = FALSE)
   expect_length(res, 8L)
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "neighbor-mesh-1km-self-contains-false",
     plot(export_meshes(res), col = "blue"))
   res <- find_neighbor_finemesh(533945011, contains = TRUE)
   expect_length(res, 9L)
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "neighbor-mesh-1km-self-contains-true",
     plot(export_meshes(res), col = "blue"))
   # ref) #13

@@ -1,14 +1,13 @@
 #' @title Get from mesh code to latitude and longitude
-#' 
 #' @description mesh centroid
 #' @param meshcode `character`. mesh code
 #' @param ... other parameters
-#' @references Akio Takenaka: [http://takenaka-akio.org/etc/j_map/index.html](http://takenaka-akio.org/etc/j_map/index.html)
+#' @references Akio Takenaka: [http://takenaka-akio.org/etc/j_map/index.html](http://takenaka-akio.org/etc/j_map/index.html) # nolint
 #' @seealso [coords_to_mesh()] for convert from coordinates to meshcode.
 #' @examples
 #' mesh_to_coords("64414277")
 #' @export
-mesh_to_coords <- function(meshcode, ...) {
+mesh_to_coords <- function(meshcode, ...) { # nolint
   if (rlang::is_false(is_meshcode(meshcode)))
     rlang::abort("Unexpect meshcode value")
   size <- mesh_size(meshcode) # nolint
@@ -49,12 +48,12 @@ mesh_to_coords <- function(meshcode, ...) {
     lat  <- lat  + (code7 * 2 / 3) / 8 / 10
     long <- long +  code8 / 8 / 10
   }
-  lat.c  <- as.numeric(sprintf("%.10f", lat  + lat_width  / 2))
-  long.c <- as.numeric(sprintf("%.10f", long + long_width / 2))
-  res <- data.frame(lng_center  = long.c,
-                    lat_center  = lat.c,
-                    lng_error   = long.c - long,
-                    lat_error   = lat.c - lat)
+  lat_c  <- as.numeric(sprintf("%.10f", lat  + lat_width  / 2))
+  long_c <- as.numeric(sprintf("%.10f", long + long_width / 2))
+  res <- data.frame(lng_center  = long_c,
+                    lat_center  = lat_c,
+                    lng_error   = long_c - long,
+                    lat_error   = lat_c - lat)
   finename_centroid <- function(df, last_code) {
     if (last_code == 1) {
       df$lat_center <-

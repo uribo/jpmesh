@@ -1,5 +1,4 @@
-#' Predict meshcode format and positions
-#' 
+#' @title Predict meshcode format and positions
 #' @description Predict meshcode format and positions for utility and certain.
 #' @inheritParams mesh_to_coords
 #' @name is_mesh
@@ -29,7 +28,7 @@ is_meshcode <- function(meshcode) {
   return(res)
 }
 
-is.mesh <- function(meshcode) {
+is.mesh <- function(meshcode) { # nolint
   invisible(is_meshcode(meshcode)) # nolint
 }
 

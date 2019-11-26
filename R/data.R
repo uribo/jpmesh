@@ -1,5 +1,4 @@
 #' @title Simple displaed as rectangel for Japan (fortified)
-#' 
 #' @description Rectangle Japanese prefectures positions.
 #' @format A data frame with 235 rows 11 variables:
 #' \itemize{
@@ -15,14 +14,13 @@
 #'   \item{longitude}
 #'   \item{abb_name}
 #' }
-#' @examples 
+#' @examples
 #' \dontrun{
 #' plot(jpnrect["abb_name"])
 #' }
 "jpnrect"
 
 #' @title 1:200,000 Scale Maps Name with Meshcode of Japan.
-#' 
 #' @description Information for the 1:200,000 Scale Maps.
 #' @format A data frame with 175 rows 9 variables:
 #' \itemize{
@@ -35,7 +33,7 @@
 #'   \item{lat_error: mesh area}
 #'   \item{type: evalueate value to mesh}
 #' }
-#' @examples 
+#' @examples
 #' \dontrun{
 #' plot(sf_jpmesh["name_roman"])
 #' }

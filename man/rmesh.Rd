@@ -15,6 +15,5 @@ rmesh(n, mesh_size = 1)
 Generate random sample meshcode
 }
 \examples{
- 
 rmesh(3, mesh_size = 1)
 }

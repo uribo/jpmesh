@@ -1,12 +1,10 @@
 #' @title Check include mesh areas
-#' 
-#' @description It roughly judges whether the given coordinates are within the mesh area.
+#' @description It roughly judges whether the given coordinates are within
+#' the mesh area.
 #' @inheritParams coords_to_mesh
 #' @param ... other parameters
-#' @examples 
-#' \dontrun{
+#' @examples
 #' eval_jp_boundary(139.71471056, 35.70128943)
-#' }
 #' @aliases eval_jp_boundary
 #' @export
 eval_jp_boundary <- function(longitude = NULL, latitude = NULL, ...) {
@@ -35,7 +33,6 @@ mesh_to_poly <- function(lng_center, lat_center, lng_error, lat_error, ...) {
 
 #' @title Identifer to mesh size
 #' @description Returns a unit object of mesh size for the given number.
-#' 
 #' @inheritParams mesh_to_coords
 #' @export
 mesh_size <- function(meshcode) {
@@ -109,21 +106,18 @@ meshcode_set_1km <- meshcode_set_10km %>%
   purrr::map(fine_separate) %>%
   purrr::flatten_chr()
 
-#' Export meshcode vectors ranges 80km to 1km.
-#' 
-#' Unique 176 meshcodes. 
+#' @title Export meshcode vectors ranges 80km to 1km.
+#' @description Unique 176 meshcodes.
 #' The output code may contain values not found in the actual mesh code.
-#' 
 #' @param mesh_size Export mesh size from 80km to 1km.
-#' @examples 
+#' @examples
 #' meshcode_set(mesh_size = 80)
 #' @export
 meshcode_set <- function(mesh_size = c(80, 10, 5, 1)) {
   get(sprintf("meshcode_set_%skm", mesh_size), envir = asNamespace("jpmesh")) # nolint
 }
 
-#' Cutoff mesh of outside the area
-#' 
+#' @title Cutoff mesh of outside the area
 #' @inheritParams mesh_to_coords
 cut_off <- function(meshcode) {
   mesh_80km <- substr(meshcode, 1, 4)

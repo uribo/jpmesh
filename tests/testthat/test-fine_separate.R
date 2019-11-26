@@ -7,20 +7,20 @@ test_that("Separate more fine mesh order", {
   expect_length(res, 64)
   expect_equal(res[1], "523500")
   expect_equal(res[length(res)], "523577")
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "fine-separate-80km",
     plot(export_meshes(res), col = "white"))
   res <- fine_separate(523504)
   expect_length(res, 100)
   expect_equal(res[1], "52350400")
   expect_equal(res[length(res)], "52350499")
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "fine-separate-10km",
     plot(export_meshes(res), col = "white"))
   res <- fine_separate("36233799")
   expect_length(res, 4)
   expect_equal(res, paste0("36233799", seq_len(4)))
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "fine-separate-1km",
     plot(export_meshes(res), col = "white"))
   expect_message(

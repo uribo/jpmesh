@@ -21,10 +21,8 @@ Convert and export meshcode area to \code{sf}.
 }
 \examples{
 export_meshes("4128")
-\dontrun{
-find_neighbor_mesh("37250395") \%>\% 
+find_neighbor_mesh("37250395") \%>\%
   export_meshes()
-}
 d <- data.frame(id = seq.int(4),
             meshcode = rmesh(4),
             stringsAsFactors = FALSE)

@@ -6,7 +6,7 @@ test_that("japan rectangle sf", {
   expect_equal(dim(jpnrect), c(47, 4))
   expect_named(jpnrect, c("jis_code", "abb_name", "mesh_code", "geometry"))
   expect_is(jpnrect$geometry, c("sfc_POLYGON", "sfc"))
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "japan-rectangle",
     plot(st_geometry(jpnrect), col = "white"))
 })

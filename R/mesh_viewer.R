@@ -1,11 +1,11 @@
 #' @title interactive meshcode check
-#' 
 #' @description Shiny gadgets for jpmesh.
 #' @param ... other parameters
 #' @importFrom shiny dialogViewer runGadget selectInput textInput
-#' @importFrom miniUI gadgetTitleBar miniContentPanel miniTabstripPanel miniTabPanel miniPage 
+#' @importFrom miniUI gadgetTitleBar miniContentPanel miniTabstripPanel
+#' miniTabPanel miniPage
 #' @importFrom leaflet addTiles addPolygons leaflet leafletOutput renderLeaflet
-#' @examples 
+#' @examples
 #' \dontrun{
 #' mesh_viewer()
 #' }

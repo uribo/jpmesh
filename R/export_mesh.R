@@ -1,5 +1,4 @@
 #' @title Export meshcode to geometry
-#' 
 #' @description Convert and export meshcode area to `sfc_POLYGON`.
 #' @inheritParams mesh_to_coords
 #' @importFrom purrr pmap_chr
@@ -23,19 +22,16 @@ export_mesh <- function(meshcode) {
   return(res)
 }
 
-#' Export meshcode to geometry
-#' 
+#' @title Export meshcode to geometry
 #' @description Convert and export meshcode area to `sf`.
 #' @inheritParams mesh_to_coords
 #' @importFrom purrr map_chr
 #' @importFrom sf st_as_sfc st_as_text st_sf
 #' @importFrom tibble tibble
-#' @examples 
+#' @examples
 #' export_meshes("4128")
-#' \dontrun{
-#' find_neighbor_mesh("37250395") %>% 
+#' find_neighbor_mesh("37250395") %>%
 #'   export_meshes()
-#' }
 #' @export
 #' @name export_meshes
 export_meshes <- function(meshcode) {
@@ -53,7 +49,7 @@ export_meshes <- function(meshcode) {
 #' @param data data frmae
 #' @param mesh_var unquoted expressions for meshcode variable.
 #' @export
-#' @examples 
+#' @examples
 #' d <- data.frame(id = seq.int(4),
 #'             meshcode = rmesh(4),
 #'             stringsAsFactors = FALSE)

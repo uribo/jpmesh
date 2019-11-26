@@ -1,21 +1,20 @@
 #' @title Convert from coordinate to mesh code
-#' 
 #' @description From coordinate to mesh codes.
 #' @param longitude longitude that approximately to .120.0 to 154.0 (`double`)
 #' @param latitude latitude that approximately to 20.0 to 46.0 (`double`)
-#' @param mesh_size Gives the unit in km for target mesh type. 
+#' @param mesh_size Gives the unit in km for target mesh type.
 #' That is, 1 for 1km, and 0.5 for 500m. From 80km to 125m. Default is 1.
 #' @param geometry XY sfg object
 #' @param ... other parameters
 #' @importFrom rlang is_true quo_squash warn
 #' @return mesh code (default 3rd meshcode aka 1km mesh)
-#' @references Akio Takenaka: [http://takenaka-akio.org/etc/j_map/index.html](http://takenaka-akio.org/etc/j_map/index.html)
+#' @references Akio Takenaka: [http://takenaka-akio.org/etc/j_map/index.html](http://takenaka-akio.org/etc/j_map/index.html) # nolint
 #' @seealso [mesh_to_coords()] for convert from meshcode to coordinates
-#' @examples 
+#' @examples
 #' coords_to_mesh(141.3468, 43.06462, mesh_size = 1)
 #' coords_to_mesh(139.6917, 35.68949, mesh_size = 0.250)
 #' coords_to_mesh(139.71475, 35.70078)
-#' 
+#' # Using sf (point as sfg object)
 #' library(sf)
 #' coords_to_mesh(geometry = st_point(c(139.71475, 35.70078)))
 #' coords_to_mesh(geometry = st_point(c(130.4412895, 30.2984335)))

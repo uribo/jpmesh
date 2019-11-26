@@ -14,10 +14,9 @@ eval_jp_boundary(longitude = NULL, latitude = NULL, ...)
 \item{...}{other parameters}
 }
 \description{
-It roughly judges whether the given coordinates are within the mesh area.
+It roughly judges whether the given coordinates are within
+the mesh area.
 }
 \examples{
-\dontrun{
 eval_jp_boundary(139.71471056, 35.70128943)
-}
 }

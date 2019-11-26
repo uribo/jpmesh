@@ -21,6 +21,10 @@ mesh_convert("52350432", 80)
 mesh_convert("52350432", 0.500)
 ```
 
+## Improvement
+
+- Add image test
+
 # jpmesh 1.1.3 (2019-05-09)
 
 - Fix R version test.
@@ -35,7 +39,7 @@ mesh_convert("52350432", 0.500)
 - Follow up the units package update.
 - Fixed overlapped probrem ([#20](https://github.com/uribo/jpmesh/issues/20))
 
-### New features
+## New features
 
 - `coarse_gather()`... Scale-down function [#22](https://github.com/uribo/jpmesh/issues/22)
 

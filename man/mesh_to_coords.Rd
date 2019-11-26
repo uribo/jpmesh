@@ -18,7 +18,7 @@ mesh centroid
 mesh_to_coords("64414277")
 }
 \references{
-Akio Takenaka: \url{http://takenaka-akio.org/etc/j_map/index.html}
+Akio Takenaka: \url{http://takenaka-akio.org/etc/j_map/index.html} # nolint
 }
 \seealso{
 \code{\link[=coords_to_mesh]{coords_to_mesh()}} for convert from coordinates to meshcode.

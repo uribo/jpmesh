@@ -2,7 +2,7 @@ context("administration_mesh")
 
 test_that("multiplication works", {
   res <- administration_mesh(code = "35201", to_mesh_size = 1)
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "administration-1kmmesh-city35201",
     plot(res, col = "white"))
   expect_equal(dim(res), c(805, 2))
@@ -10,7 +10,7 @@ test_that("multiplication works", {
   expect_s3_class(res, c("sf"))
   expect_s3_class(res, c("tbl_df"))
   res <- administration_mesh(code = "8", to_mesh_size = 80)
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "administration-80kmmesh-pref08",
     plot(res, col = "white"))
   expect_equal(nrow(res), 5)
@@ -21,22 +21,22 @@ test_that("multiplication works", {
     administration_mesh(code = "08", to_mesh_size = 10),
     administration_mesh(code = "8", to_mesh_size = 10))
   res <- administration_mesh(code = "35", to_mesh_size = 10)
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "administration-10kmmesh-pref35",
     plot(res, col = "white"))
   expect_equal(dim(res), c(108, 2))
   res <- administration_mesh(code = c("33", "34"), to_mesh_size = 10)
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "administration-10kmmesh-pref33-34",
     plot(res, col = "white"))
   expect_equal(dim(res), c(204, 2))
   res <- administration_mesh(code = "08220", to_mesh_size = 1)
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "administration-1kmmesh-city08220",
     plot(res, col = "white"))
   expect_equal(dim(res), c(331, 2))
   res <- administration_mesh(code = c("08220", "08221"), to_mesh_size = 1)
-  expect_doppelganger(
+  vdiffr::expect_doppelganger(
     "administration-1kmmesh-city08220-08221",
     plot(res, col = "white"))
   expect_equal(dim(res), c(461, 2))
