@@ -1,14 +1,13 @@
 #' Find out neighborhood meshes collection
-#' 
 #' @inheritParams mesh_to_coords
 #' @param contains logical. contains input meshcode (default `TRUE`)
 #' @description input should use meshcode under the 1km mesh size.
 #' @return mesh code vectors (`character`)
-#' @examples 
+#' @examples
 #' neighbor_mesh(53394501)
 #' neighbor_mesh(533945011)
 #' neighbor_mesh(533945011, contains = FALSE)
-#' @name neighbor_mesh
+#' @rdname neighbor_mesh
 #' @export
 neighbor_mesh <- function(meshcode, contains = TRUE) {
   if (rlang::is_false(is_meshcode(meshcode))) { # nolint
@@ -27,7 +26,9 @@ neighbor_mesh <- function(meshcode, contains = TRUE) {
   return(res)
 }
 
-find_neighbor_mesh <- function(meshcode = NULL, contains = TRUE) {
+#' @rdname neighbor_mesh
+#' @export
+find_neighbor_mesh <- function(meshcode = NULL, contains = TRUE) { # nolint
   meshcode <- as.numeric(meshcode)
   size <- mesh_size(meshcode) # nolint
   # nolint start
@@ -112,7 +113,7 @@ find_neighbor_finemesh <- function(meshcode, contains = TRUE) {
     find_neighbor_mesh() %>% # nolint
     purrr::map(bind_meshpolys) %>%
     purrr::reduce(rbind)
-  df_poly$n <- 1:nrow(df_poly)
+  df_poly$n <- seq_len(nrow(df_poly))
   # nolint start
   df_poly$relate <- 
     suppressWarnings(

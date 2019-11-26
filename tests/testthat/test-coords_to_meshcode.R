@@ -20,7 +20,7 @@ test_that("from latitude and longitude to mesh 2", {
   expect_equal(res, "513367")
 })
 
-# Order 3 -----------------------------------------------------------------
+# Order 3 -----------------------------------------------------
 test_that("from latitude and longitude to mesh 2", {
   res <- coords_to_mesh(133.9125, 34.65, mesh_size = 1.000)
   expect_true(is.character(res))
@@ -29,17 +29,19 @@ test_that("from latitude and longitude to mesh 2", {
   expect_equal(res, coords_to_mesh(133.9125, 34.65))
 })
 
-# Separete Mesh: harf -----------------------------------------------------------------
+# Separete Mesh: harf -----------------------------------------
 test_that("Separete to harf mesh", {
-  res <- coords_to_mesh(139.301255, 35.442788, mesh_size = 5.0)
+  res <- coords_to_mesh(139.301255, 35.442788,
+                        mesh_size = 5.0)
   expect_equal(res, "5339121")
-  res <- coords_to_mesh(139.301255, 35.442788, mesh_size = 0.500)
+  res <- coords_to_mesh(139.301255, 35.442788,
+                        mesh_size = 0.500)
   expect_true(is.character(res))
   expect_equal(9, nchar(res))
   expect_equal(res, "533912341")
 })
 
-# Separete Mesh: quarter -----------------------------------------------------------------
+# Separete Mesh: quarter ---------------------------------------
 test_that("Separete to quarter mesh", {
   res <- coords_to_mesh(133.9125, 34.65, mesh_size = 0.250)
   expect_true(is.character(res))
