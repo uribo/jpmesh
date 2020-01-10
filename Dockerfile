@@ -1,4 +1,4 @@
-FROM rocker/geospatial:3.6.1
+FROM rocker/geospatial:3.6.2
 
 RUN set -x && \
   apt-get update && \
@@ -18,33 +18,20 @@ RUN set -x && \
   echo "GITHUB_PAT=$GITHUB_PAT" >> /usr/local/lib/R/etc/Renviron
 
 RUN set -x && \
-  install2.r --error \
+  install2.r --error --skipinstalled --repos 'http://mran.revolutionanalytics.com/snapshot/2019-12-28' \
     leaflet \
-    miniUI && \
-  : "For develop and infrastructure" && \
-  install2.r --error \
+    miniUI \
     knitr \
     covr \
     jpmesh \
+    lwgeom \
     mapview \
     usethis \
     shinyjs \
     reprex \
     DT \
     lintr \
-    vdiffr && \
-  : "to knitr R Markdown documents" && \
-  install2.r --error \
-    caTools && \
-  : "create favivon.ico by pkgdown::build_site()" && \
-  install2.r --error \
+    vdiffr \
+    caTools \
     magick && \
-  installGithub.r \
-    "r-lib/devtools" \
-    "r-lib/roxygen2" \
-    "r-lib/roxygen2md" \
-    "r-lib/testthat" \
-    "r-lib/revdepcheck" \
-    "r-lib/pkgdown" \
-    "r-spatial/lwgeom" && \
   rm -rf /tmp/downloaded_packages/ /tmp/*.rds
