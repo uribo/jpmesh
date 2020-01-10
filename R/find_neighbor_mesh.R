@@ -41,7 +41,7 @@ find_neighbor_mesh <- function(meshcode = NULL, contains = TRUE) { # nolint
           if (grepl("00$", meshcode)) 
             c(0, 1, -83, 10, 11, -93, -10023, -9930, -9929)
           else if (grepl("07$", meshcode))
-            c(-1, 0, 1, 9, 10, 11, -9931, -9930, -9929)
+            c(-1, 0, 93, 9, 10, 103, -9931, -9930, -9837)
           else if (grepl("70$", meshcode))
             c(0, 1, 9930, 9931, -9, -10, -93, -83, -103)
           else if (grepl("77$", meshcode))
@@ -49,13 +49,13 @@ find_neighbor_mesh <- function(meshcode = NULL, contains = TRUE) { # nolint
           else if (grepl("0[1-6]$", meshcode))
             c(-1, 0, 1, 9, 10, 11, -9931, -9930, -9929)
           else if (grepl("[1-6]7$", meshcode))
-            c(-1, 0, 1, 9, 10, 11, -9, -10, -11)
+            c(-1, 0, 93, 9, 10, 103, -11, -10, 83)
           else if (grepl("[1-6]0$", meshcode))
             c(0, 1, -9, -10, 11, 10, -83, -93, -103)    
           else if (grepl("7[1-6]$", meshcode))
             c(-1, 0, 1, 9929, 9930, 9931, -11, -10, -9)    
       }} else
-        res <- meshcode + c(9, 10, 11, -1, 1, -9, -10, -11)
+        res <- meshcode + c(9, 10, 11, -1, 0, 1, -9, -10, -11)
     # Must be ends 1-7
     res <- unique(res[grepl("[8-9]$", res) == FALSE])  
   } else if (size == units::as_units(1, "km")) {

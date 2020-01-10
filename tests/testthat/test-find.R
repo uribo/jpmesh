@@ -95,7 +95,7 @@ test_that("corners", {
     9L)
   expect_length(
     neighbor_mesh(533407),
-    6L)
+    9L)
   expect_equal(
     suppressWarnings(neighbor_mesh(533470, contains = FALSE)),
     c("533367", "533377", "533387",
