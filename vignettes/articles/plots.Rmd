@@ -39,26 +39,21 @@ df_polys %>%
 
 ## ggplot2
 
-```{r, include = FALSE}
-if (compareVersion(as.character(packageVersion("ggplot2")), 
-               "2.2.1.9000") > 0) {
-  devtools::install_github("tidyverse/ggplot2", ref = "39e4a3b")
-}
-```
-
-```{r}
-# Use develop version (2.2.1.9000)
+```{r, eval = TRUE, echo = TRUE, fig.width = 7}
 library(ggplot2)
-ggplot() + 
+ggplot() +
   geom_sf(data = df_polys, fill = NA) +
-  geom_text(data = cbind(
-  mesh = df_polys$meshcode,
-  df_polys$geometry %>% 
-  st_centroid() %>% 
-  st_coordinates() %>% 
-    as.data.frame()),
-    aes(X, Y, label = mesh), 
-    size = 1.2) +
+  geom_text(
+    data = cbind(
+      mesh = df_polys$meshcode,
+      df_polys$geometry %>%
+        st_centroid() %>%
+        st_coordinates() %>%
+        as.data.frame()
+    ),
+    aes(X, Y, label = mesh),
+    size = 1.2
+  ) +
   coord_sf(datum = NA) +
   theme_void()
 ```
