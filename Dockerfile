@@ -18,7 +18,7 @@ RUN set -x && \
   echo "GITHUB_PAT=$GITHUB_PAT" >> /usr/local/lib/R/etc/Renviron
 
 RUN set -x && \
-  install2.r --error --skipinstalled --repos 'http://mran.revolutionanalytics.com/snapshot/2019-12-28' \
+  install2.r --error --skipinstalled --repos 'http://mran.revolutionanalytics.com/snapshot/2020-03-22' \
     leaflet \
     miniUI \
     knitr \
@@ -34,4 +34,7 @@ RUN set -x && \
     vdiffr \
     caTools \
     magick && \
+  installGithub.r \
+    r-lib/revdepcheck \
+    r-spatial/sf && \
   rm -rf /tmp/downloaded_packages/ /tmp/*.rds

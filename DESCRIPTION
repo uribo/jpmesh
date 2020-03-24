@@ -24,13 +24,13 @@ Imports:
     magrittr (>= 1.5)
 Suggests: 
     knitr (>= 1.20),
-    lintr (>= 1.0.3),
+    lintr (>= 2.0.1),
     lwgeom (>= 0.1-4),
     testthat (>= 2.1.0),
     rmarkdown (>= 1.10),
-    vdiffr (>= 0.3.0)
+    vdiffr (>= 0.3.1)
 VignetteBuilder: knitr
 LazyData: true
 Encoding: UTF-8
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
