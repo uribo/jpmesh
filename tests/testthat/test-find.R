@@ -18,7 +18,8 @@ test_that("neighborhood meshes", {
   expect_warning(
     find_neighbor_mesh(6742),
     "Some neighborhood meshes are outside the area.")
-  res <- suppressWarnings(find_neighbor_mesh(6742, contains = TRUE))
+  res <- 
+    expect_warning(find_neighbor_mesh(6742, contains = TRUE))
   expect_length(res, 7L)
   expect_equal(
     res,
@@ -26,7 +27,8 @@ test_that("neighborhood meshes", {
   vdiffr::expect_doppelganger(
     "neighbor-mesh-80km-7meshes",
     plot(export_meshes(res), col = "white"))
-  res <- find_neighbor_mesh(674257)
+  res <- 
+    expect_warning(find_neighbor_mesh(674257))
   expect_length(
     res,
     6L)

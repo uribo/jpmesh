@@ -55,5 +55,5 @@ test_that("multiplication works", {
 })
 
 test_that("Failed patterns", {
-  expect_error(administration_mesh(code = 123))
+  expect_error(administration_mesh(code = 123, to_mesh_size = 10))
 })

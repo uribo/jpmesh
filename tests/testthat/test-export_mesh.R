@@ -6,8 +6,7 @@ test_that("typeof", {
   expect_type(res, "list")
   vdiffr::expect_doppelganger(
     "export-mesh-1km",
-    plot(res, col = "white")
-  )
+    plot(res, col = "white"))
   expect_equal(sf::st_crs(export_mesh(sample(meshcode_set(80), 1)))$epsg, 4326) # nolint
 })
 

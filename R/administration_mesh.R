@@ -12,11 +12,15 @@
 #' }
 #' @name administration_mesh
 #' @export
-administration_mesh <- function(code, to_mesh_size = c(80, 10, 1)) {
-  if (!to_mesh_size %in% c(80, 10, 1))
-    rlang::abort("`to_mesh_size expects 80, 10 or 1`")
-  to_mesh_size <- units::as_units(to_mesh_size, "km")
-  checked_code <- code_reform(code) # nolint
+administration_mesh <- function(code, to_mesh_size) {
+  to_mesh_size_chr <-
+    as.character(to_mesh_size)
+  rlang::arg_match(to_mesh_size_chr,
+                   c("80", "10", "1"))
+  to_mesh_size <-
+    units::as_units(as.numeric(to_mesh_size), "km")
+  checked_code <-
+    code_reform(code)
   mis_match <-
     checked_code[!checked_code %in% c(sprintf("%02d", seq_len(47)),
                                       unique(df_city_mesh$city_code))]

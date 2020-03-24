@@ -4,7 +4,7 @@
 \alias{administration_mesh}
 \title{Extract administration mesh}
 \usage{
-administration_mesh(code, to_mesh_size = c(80, 10, 1))
+administration_mesh(code, to_mesh_size)
 }
 \arguments{
 \item{code}{administration code}
