@@ -1,3 +1,4 @@
 linters: lintr::with_defaults(line_length_linter(120L),
+                              object_usage_linter = NULL,
                               commented_code_linter = NULL,
                               trailing_whitespace_linter = NULL)
