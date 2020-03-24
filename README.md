@@ -15,6 +15,7 @@ version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-pr
 Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh)
 [![Coverage
 status](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=master)
+![R-CMD-check](https://github.com/uribo/jpmesh/workflows/R-CMD-check/badge.svg)
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=for-the-badge)](https://www.tidyverse.org/lifecycle/#maturing)
 [![npm](https://img.shields.io/npm/l/express.svg?style=for-the-badge)](https://github.com/uribo/jpmesh)
@@ -128,16 +129,14 @@ mesh_convert("52350432", 0.500)
 # Such as, 80km to 10km mesh codes.
 coords_to_mesh(133, 34, 80) %>% 
   fine_separate()
-#>  [1] "513300" "513301" "513302" "513303" "513304" "513305" "513306"
-#>  [8] "513307" "513310" "513311" "513312" "513313" "513314" "513315"
-#> [15] "513316" "513317" "513320" "513321" "513322" "513323" "513324"
-#> [22] "513325" "513326" "513327" "513330" "513331" "513332" "513333"
-#> [29] "513334" "513335" "513336" "513337" "513340" "513341" "513342"
-#> [36] "513343" "513344" "513345" "513346" "513347" "513350" "513351"
-#> [43] "513352" "513353" "513354" "513355" "513356" "513357" "513360"
-#> [50] "513361" "513362" "513363" "513364" "513365" "513366" "513367"
-#> [57] "513370" "513371" "513372" "513373" "513374" "513375" "513376"
-#> [64] "513377"
+#>  [1] "513300" "513301" "513302" "513303" "513304" "513305" "513306" "513307"
+#>  [9] "513310" "513311" "513312" "513313" "513314" "513315" "513316" "513317"
+#> [17] "513320" "513321" "513322" "513323" "513324" "513325" "513326" "513327"
+#> [25] "513330" "513331" "513332" "513333" "513334" "513335" "513336" "513337"
+#> [33] "513340" "513341" "513342" "513343" "513344" "513345" "513346" "513347"
+#> [41] "513350" "513351" "513352" "513353" "513354" "513355" "513356" "513357"
+#> [49] "513360" "513361" "513362" "513363" "513364" "513365" "513366" "513367"
+#> [57] "513370" "513371" "513372" "513373" "513374" "513375" "513376" "513377"
 
 # the value of the adjacent mesh codes
 coords_to_mesh(133, 34, 80) %>% 
@@ -155,7 +154,7 @@ Drawing a simplified Japanese map based on the mesh code.
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.5.1, GDAL 2.1.2, PROJ 4.9.3
+#> Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
 plot(st_geometry(jpnrect))
 ```
 
@@ -163,11 +162,6 @@ plot(st_geometry(jpnrect))
 
 ``` r
 library(ggplot2)
-#> Registered S3 methods overwritten by 'ggplot2':
-#>   method         from 
-#>   [.quosures     rlang
-#>   c.quosures     rlang
-#>   print.quosures rlang
 ggplot() +
   geom_sf(data = jpnrect)
 ```
@@ -178,19 +172,19 @@ Dataset of mesh code for prefectures.
 
 ``` r
 set.seed(71)
-administration_mesh(code = 33, type = "prefecture") %>% 
+administration_mesh(code = 33, to_mesh_size = 80) %>% 
   head() %>% 
   knitr::kable()
 ```
 
-| meshcode | geometry                                                                                            |
-| :------- | :-------------------------------------------------------------------------------------------------- |
-| 513376   | list(c(133.75, 133.875, 133.875, 133.75, 133.75, 34.58333, 34.58333, 34.66667, 34.66667, 34.58333)) |
-| 513377   | list(c(133.875, 134, 134, 133.875, 133.875, 34.58333, 34.58333, 34.66667, 34.66667, 34.58333))      |
-| 523305   | list(c(133.625, 133.75, 133.75, 133.625, 133.625, 34.66667, 34.66667, 34.75, 34.75, 34.66667))      |
-| 523306   | list(c(133.75, 133.875, 133.875, 133.75, 133.75, 34.66667, 34.66667, 34.75, 34.75, 34.66667))       |
-| 523307   | list(c(133.875, 134, 134, 133.875, 133.875, 34.66667, 34.66667, 34.75, 34.75, 34.66667))            |
-| 523315   | list(c(133.625, 133.75, 133.75, 133.625, 133.625, 34.75, 34.75, 34.83333, 34.83333, 34.75))         |
+| meshcode | geometry                                                                           |
+| :------- | :--------------------------------------------------------------------------------- |
+| 5133     | list(c(133, 134, 134, 133, 133, 34, 34, 34.66667, 34.66667, 34))                   |
+| 5233     | list(c(133, 134, 134, 133, 133, 34.66667, 34.66667, 35.33333, 35.33333, 34.66667)) |
+| 5234     | list(c(134, 135, 135, 134, 134, 34.66667, 34.66667, 35.33333, 35.33333, 34.66667)) |
+| 5134     | list(c(134, 135, 135, 134, 134, 34, 34, 34.66667, 34.66667, 34))                   |
+| 5333     | list(c(133, 134, 134, 133, 133, 35.33333, 35.33333, 36, 36, 35.33333))             |
+| 5334     | list(c(134, 135, 135, 134, 134, 35.33333, 35.33333, 36, 36, 35.33333))             |
 
 Example)
 
@@ -200,14 +194,14 @@ library(leaflet)
 leaflet() %>% 
   addTiles() %>% 
   addProviderTiles("OpenStreetMap.BlackAndWhite") %>% 
-  addPolygons(data = administration_mesh(code = 33101, type = "city"))
+  addPolygons(data = administration_mesh(code = 33101, to_mesh_size = 1))
 ```
 
 ![](man/figures/README-mesh_pref_33_leaflet-1.png)
 
 ``` r
 ggplot() + 
-  geom_sf(data = administration_mesh(code = 33, type = "city"))
+  geom_sf(data = administration_mesh(code = 33, to_mesh_size = 1))
 ```
 
 ![](man/figures/README-mesh_pref33_map-1.png)
