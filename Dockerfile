@@ -33,7 +33,8 @@ RUN set -x && \
     lintr \
     vdiffr \
     caTools \
-    magick && \
+    magick \
+    roxygen2 && \
   installGithub.r \
     r-lib/revdepcheck \
     r-spatial/sf && \

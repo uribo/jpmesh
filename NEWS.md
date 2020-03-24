@@ -23,7 +23,12 @@ mesh_convert("52350432", 0.500)
 
 ## Improvement
 
-- Add image test
+- Add image test with vdiffr ([#41](https://github.com/uribo/jpmesh/pull/41)).
+- Introducing GitHub actions.
+
+## Bug fixes and minor improvements
+
+- The bounding box value returned by `mesh_to_coords()` is incorrect ([#31](https://github.com/uribo/jpmesh/issues/31))
 
 # jpmesh 1.1.3 (2019-05-09)
 
