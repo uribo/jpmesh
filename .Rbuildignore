@@ -12,15 +12,13 @@
 ^docs$
 ^logo\.png$
 ^_pkgdown\.yml$
-^wercker\.yml$
 ^codecov\.yml$
-^CONTRIBUTING\.md$
 ^Dockerfile$
 ^docker-compose\.yml$
 ^vignettes/articles$
 ^\.Rprofile$
 ^\.github$
-^CODE_OF_CONDUCT\.md$
 ^\.lintr$
 ^tic\.R$
 ^CRAN-RELEASE$
+^README\.md$

@@ -10,8 +10,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.argin = "center",
   fig.path = "man/figures/README-",
-  warning = FALSE
-)
+  warning = FALSE)
 ```
 
 # jpmesh <img src="man/figures/logo.png" align="right" width="80px" />
@@ -19,7 +18,7 @@ knitr::opts_chunk$set(
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/jpmesh?color=FF5254)](https://cran.r-project.org/package=jpmesh) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-project.org/) [![Depsy](http://depsy.org/api/package/cran/jpmesh/badge.svg)](http://depsy.org/package/r/jpmesh) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1185742.svg)](https://doi.org/10.5281/zenodo.1185742)
 
-[![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![Coverage status](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=master) ![R-CMD-check](https://github.com/uribo/jpmesh/workflows/R-CMD-check/badge.svg)
+[![Travis-CI Build Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh) [![Coverage status](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=master) [![R-CMD-check](https://github.com/uribo/jpmesh/workflows/R-CMD-check/badge.svg)](https://github.com/uribo/jpmesh/actions?query=workflow%3AR-CMD-check)
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=for-the-badge)](https://www.tidyverse.org/lifecycle/#maturing) 
 [![npm](https://img.shields.io/npm/l/express.svg?style=for-the-badge)](https://github.com/uribo/jpmesh)
@@ -87,7 +86,7 @@ mesh_convert("52350432", 0.500)
 
 ### Detect fine and neighborhood mesh codes
 
-```{r}
+```{r, message=FALSE}
 # Returns a finer mesh of the area of the mesh codes
 # Such as, 80km to 10km mesh codes.
 coords_to_mesh(133, 34, 80) %>% 
@@ -104,7 +103,7 @@ coords_to_mesh(133, 34, 0.5) %>%
 
 Drawing a simplified Japanese map based on the mesh code.
 
-```{r, jpn_simple_map_sf, fig.width = 8, fig.height = 6, eval = TRUE}
+```{r, jpn_simple_map_sf, fig.width = 8, fig.height = 6, eval = TRUE, message=FALSE}
 library(sf)
 plot(st_geometry(jpnrect))
 ```
@@ -127,7 +126,7 @@ administration_mesh(code = 33, to_mesh_size = 80) %>%
 Example)
 
 ```{r, eval = FALSE, echo = TRUE}
-# For leaflet
+# For leaflet and mapview
 library(leaflet)
 leaflet() %>% 
   addTiles() %>% 
@@ -142,7 +141,7 @@ ggplot() +
   geom_sf(data = administration_mesh(code = 33, to_mesh_size = 1))
 ```
 
-```{r, include = FALSE}
+```{r, eval = FALSE, include = FALSE}
 ggsave(
   ggplot() + 
   geom_sf(data = administration_mesh(code = 33, to_mesh_size = 1)),

@@ -4,7 +4,8 @@
 \name{sf_jpmesh}
 \alias{sf_jpmesh}
 \title{1:200,000 Scale Maps Name with Meshcode of Japan.}
-\format{A data frame with 175 rows 9 variables:
+\format{
+A data frame with 175 rows 9 variables:
 \itemize{
 \item{meshcode: 80km meshcode}
 \item{name: names for map}
@@ -14,7 +15,8 @@
 \item{lng_error: mesh area}
 \item{lat_error: mesh area}
 \item{type: evalueate value to mesh}
-}}
+}
+}
 \usage{
 sf_jpmesh
 }

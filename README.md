@@ -15,7 +15,7 @@ version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-pr
 Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh)
 [![Coverage
 status](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=master)
-![R-CMD-check](https://github.com/uribo/jpmesh/workflows/R-CMD-check/badge.svg)
+[![R-CMD-check](https://github.com/uribo/jpmesh/workflows/R-CMD-check/badge.svg)](https://github.com/uribo/jpmesh/actions?query=workflow%3AR-CMD-check)
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=for-the-badge)](https://www.tidyverse.org/lifecycle/#maturing)
 [![npm](https://img.shields.io/npm/l/express.svg?style=for-the-badge)](https://github.com/uribo/jpmesh)
@@ -154,7 +154,6 @@ Drawing a simplified Japanese map based on the mesh code.
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
 plot(st_geometry(jpnrect))
 ```
 
@@ -189,7 +188,7 @@ administration_mesh(code = 33, to_mesh_size = 80) %>%
 Example)
 
 ``` r
-# For leaflet
+# For leaflet and mapview
 library(leaflet)
 leaflet() %>% 
   addTiles() %>% 
