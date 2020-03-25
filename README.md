@@ -3,9 +3,9 @@
 
 # jpmesh <img src="man/figures/logo.png" align="right" width="80px" />
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh)
 [![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/jpmesh?color=FF5254)](https://cran.r-project.org/package=jpmesh)
+downloads](https://cranlogs.r-pkg.org/badges/jpmesh?color=FF5254)](https://cran.r-project.org/package=jpmesh)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-project.org/)
 [![Depsy](http://depsy.org/api/package/cran/jpmesh/badge.svg)](http://depsy.org/package/r/jpmesh)

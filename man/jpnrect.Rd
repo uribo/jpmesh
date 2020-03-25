@@ -4,8 +4,7 @@
 \name{jpnrect}
 \alias{jpnrect}
 \title{Simple displaed as rectangel for Japan (fortified)}
-\format{
-A data frame with 235 rows 11 variables:
+\format{A data frame with 235 rows 11 variables:
 \itemize{
 \item{long}
 \item{lat}
@@ -18,8 +17,7 @@ A data frame with 235 rows 11 variables:
 \item{latitude}
 \item{longitude}
 \item{abb_name}
-}
-}
+}}
 \usage{
 jpnrect
 }
