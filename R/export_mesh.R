@@ -46,7 +46,7 @@ export_meshes <- function(meshcode) {
 }
 
 #' @name export_meshes
-#' @param data data frmae
+#' @param data data.frame
 #' @param mesh_var unquoted expressions for meshcode variable.
 #' @export
 #' @examples

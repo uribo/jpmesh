@@ -12,7 +12,7 @@ meshcode_sf(data, mesh_var)
 \arguments{
 \item{meshcode}{\code{character}. mesh code}
 
-\item{data}{data frmae}
+\item{data}{data.frame}
 
 \item{mesh_var}{unquoted expressions for meshcode variable.}
 }
