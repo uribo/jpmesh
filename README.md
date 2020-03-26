@@ -9,7 +9,7 @@ downloads](https://cranlogs.r-pkg.org/badges/jpmesh?color=FF5254)](https://cran.
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-project.org/)
 [![Depsy](http://depsy.org/api/package/cran/jpmesh/badge.svg)](http://depsy.org/package/r/jpmesh)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1185742.svg)](https://doi.org/10.5281/zenodo.1185742)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3727438.svg)](https://doi.org/10.5281/zenodo.3727438)
 
 [![Travis-CI Build
 Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh)

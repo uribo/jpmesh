@@ -1,3 +1,5 @@
+# jpmesh (development version)
+
 # jpmesh 1.2.0 (2020-03-26)
 
 - API changes to functions that take `mesh_size` ([#35](https://github.com/uribo/jpmesh/issues/35)). It has been changed to a numeric value in km unit instead of the mesh size string.
