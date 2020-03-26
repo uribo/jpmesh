@@ -109,7 +109,7 @@ mesh_convert <- function(meshcode = NULL, to_mesh_size = NULL) { # nolint
           grep(substr(meshcode, 1, 10),
                res,
                value = TRUE) %>%
-          purrr::map( ~ paste0(.x, seq_len(4))) %>%
+          purrr::map(~ paste0(.x, seq_len(4))) %>%
           purrr::reduce(c) # nocov end
     }
     res

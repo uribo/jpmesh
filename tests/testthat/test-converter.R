@@ -55,8 +55,9 @@ test_that("scale down", {
     mesh_convert(meshcode, 0.5),
     c(meshcode,
      paste0(substr(meshcode, 1, nchar(meshcode) - 1), seq.int(2, 4))))
-  meshcode <- "5235043211"
-  to_mesh_size = 0.125
+  expect_length(
+    mesh_convert(meshcode, 0.125),
+    4L)
 })
 
 test_that("bad request", {
