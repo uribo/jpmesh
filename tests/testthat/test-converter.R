@@ -38,6 +38,25 @@ test_that("scale down", {
   meshcode <- "523504323"
   expect_equal(mesh_convert(meshcode, 0.250),
                paste0(meshcode, seq_len(4)))
+  meshcode <- "3641"
+  expect_length(
+    mesh_convert(meshcode, 10),
+    64L)
+  expect_length(
+    mesh_convert(meshcode, 1),
+    6400L)
+  meshcode <- "523504321"
+  expect_equal(
+    mesh_convert(meshcode, 1),
+    substr(meshcode, 1, nchar(meshcode) - 1)
+  )
+  meshcode <- "5235043211"
+  expect_equal(
+    mesh_convert(meshcode, 0.5),
+    c(meshcode,
+     paste0(substr(meshcode, 1, nchar(meshcode) - 1), seq.int(2, 4))))
+  meshcode <- "5235043211"
+  to_mesh_size = 0.125
 })
 
 test_that("bad request", {

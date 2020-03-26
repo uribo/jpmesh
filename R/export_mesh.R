@@ -35,7 +35,8 @@ export_mesh <- function(meshcode) {
 #' @export
 #' @name export_meshes
 export_meshes <- function(meshcode) {
-  df_meshes <- tibble::tibble("meshcode" = as.character(meshcode))
+  df_meshes <-
+    tibble::tibble("meshcode" = as.character(meshcode))
   sf::st_sf(df_meshes,
             geometry = purrr::map_chr(df_meshes$meshcode,
                                         ~ export_mesh(meshcode = .x) %>%
@@ -55,7 +56,8 @@ export_meshes <- function(meshcode) {
 #'             stringsAsFactors = FALSE)
 #' meshcode_sf(d, meshcode)
 meshcode_sf <- function(data, mesh_var) {
-  meshcode <- rlang::quo_name(rlang::enquo(mesh_var))
+  meshcode <-
+    rlang::quo_name(rlang::enquo(mesh_var))
   sf::st_sf(
     data,
     geometry = data %>%

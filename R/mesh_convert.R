@@ -23,21 +23,25 @@ mesh_convert <- function(meshcode = NULL, to_mesh_size = NULL) { # nolint
   if (rlang::is_false(is_meshcode(meshcode))) {
     return(NA_character_)
   }
-  from_mesh_size <- df_mesh_size_unit$mesh_size[which(df_mesh_size_unit$mesh_size == mesh_size(meshcode))] # nolint
+  from_mesh_size <- 
+    df_mesh_size_unit$mesh_size[which(df_mesh_size_unit$mesh_size == mesh_size(meshcode))] # nolint
     if (rlang::is_null(to_mesh_size))
       to_mesh_size <-
         units::drop_units(
           df_mesh_size_unit$mesh_size[which(df_mesh_size_unit$mesh_size == mesh_size(meshcode)) + 1]) # nolint
-    to_mesh_size <- units::as_units(to_mesh_size, "km")
+    to_mesh_size <-
+      units::as_units(to_mesh_size, "km")
     if (from_mesh_size == to_mesh_size) {
       res <- meshcode
     } else if (from_mesh_size > to_mesh_size) {
       if (to_mesh_size == units::as_units(10, "km"))
-        res <- grep(pattern = paste0("^(", meshcode, ")"),
-                    x = meshcode_set_10km, value = TRUE)
+        res <-
+          grep(pattern = paste0("^(", meshcode, ")"),
+               x = meshcode_set_10km, value = TRUE)
       if (to_mesh_size == units::as_units(1, "km"))
-        res <- grep(pattern = paste0("^(", meshcode, ")"),
-                    x = meshcode_set_1km, value = TRUE)
+        res <-
+          grep(pattern = paste0("^(", meshcode, ")"),
+               x = meshcode_set_1km, value = TRUE)
       if (to_mesh_size <= units::as_units(0.500, "km"))
         res <- grep(pattern = paste0("^(",
                                      substr(meshcode, 1, 8),
@@ -80,32 +84,33 @@ mesh_convert <- function(meshcode = NULL, to_mesh_size = NULL) { # nolint
                                      ")"),
                     x = meshcode_set_10km, value = TRUE)
       if (to_mesh_size == units::as_units(1, "km"))
-        res <- grep(pattern = paste0("^(",
-                                     substr(meshcode, 1, 8),
-                                     ")"),
-                    x = meshcode_set_1km, value = TRUE)
+        res <- 
+          grep(pattern = paste0("^(",
+                                substr(meshcode, 1, 8),
+                                ")"),
+               x = meshcode_set_1km, value = TRUE)
       if (to_mesh_size <= units::as_units(0.500, "km"))
         res <-
-        grep(pattern = paste0("^(",
-                            substr(meshcode, 1, 9),
-                            ")"),
-           x = substr(fine_mesh_set, 1, 9), value = TRUE) %>%
-        unique() %>%
-        paste0(seq_len(4))
+          grep(pattern = paste0("^(",
+                                substr(meshcode, 1, 9),
+                                ")"),
+               x = substr(fine_mesh_set, 1, 9), value = TRUE) %>%
+          unique() %>%
+          paste0(seq_len(4))
       if (to_mesh_size <= units::as_units(0.250, "km"))
-        res <-  grep(substr(meshcode, 1, 9),
-                     res,
-                     value = TRUE) %>%
-          purrr::map(
-            ~ paste0(.x, seq_len(4))) %>%
+        res <-
+          grep(substr(meshcode, 1, 9),
+               res,
+               value = TRUE) %>%
+          purrr::map(~ paste0(.x, seq_len(4))) %>%
           purrr::reduce(c)
       if (to_mesh_size <= units::as_units(0.125, "km"))
-        res <-  grep(substr(meshcode, 1, 10),
-                     res,
-                     value = TRUE) %>%
-          purrr::map(
-            ~ paste0(.x, seq_len(4))) %>%
-          purrr::reduce(c)
+        res <- # nocov start
+          grep(substr(meshcode, 1, 10),
+               res,
+               value = TRUE) %>%
+          purrr::map( ~ paste0(.x, seq_len(4))) %>%
+          purrr::reduce(c) # nocov end
     }
     res
 }

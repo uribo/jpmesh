@@ -77,6 +77,7 @@ test_that("Combine other function", {
                c("lng_center", "lat_center", "lng_error", "lat_error"))
   expect_equal(res$lat_center - res$lat_error, 34.68333, tolerance = .002)
   expect_equal(res$lng_center - res$lng_error, 135.525)
+  expect_error(coords_to_mesh(135.527193, 34.688732, mesh_size = 123))
 })
 
 test_that("fine mesh", {
