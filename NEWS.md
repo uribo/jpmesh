@@ -23,6 +23,8 @@ mesh_convert("52350432", 80)
 mesh_convert("52350432", 0.500)
 ```
 
+- `meshcode_sf()` export data.frame to sf which include meshcode variable.
+
 ## Improvement
 
 - Add image test with vdiffr ([#41](https://github.com/uribo/jpmesh/pull/41)).
@@ -60,7 +62,7 @@ mesh_convert("52350432", 0.500)
 ## New features
 
 - `is_meshcode()`, `is_corner()`... Predict meshcode format and positions for utility and certain.
-- `rmesh()`... 
+- `rmesh()`... Generate random sample meshcode.
 - Rename `find_neighbor_mesh()` to `neighbor_mesh()` and separate features (not export functions).
 - `export_meshes()`
 
