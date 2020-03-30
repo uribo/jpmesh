@@ -43,7 +43,7 @@ export_meshes <- function(meshcode) {
                                           sf::st_as_text()) %>%
               sf::st_as_sfc(),
             crs = 4326) %>%
-    tibble::new_tibble(subclass = "sf", nrow = nrow(df_meshes))
+    tibble::new_tibble(class = "sf", nrow = nrow(df_meshes))
 }
 
 #' @name export_meshes
@@ -66,5 +66,5 @@ meshcode_sf <- function(data, mesh_var) {
       sf::st_geometry(),
     crs = 4326
   ) %>%
-    tibble::new_tibble(nrow = nrow(data), subclass = "sf")
+    tibble::new_tibble(nrow = nrow(data), class = "sf")
 }
