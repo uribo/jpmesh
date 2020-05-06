@@ -9,3 +9,4 @@ data-raw/city_mesh/
 ^README-.*\.png$
 *.DS_Store
 inst/doc
+README.html

@@ -1,4 +1,4 @@
-# jpmesh (development version)
+# jpmesh 1.2.1 (2020-05-06)
 
 - Meshcode evaluation is now more stringent.
     - Fixed a problem where a non-existent mesh code would return an incorrect value when given as input ([#45](https://github.com/uribo/jpmesh/issues/45)).
