@@ -1,3 +1,5 @@
+# jpmesh (development version)
+
 # jpmesh 1.2.1 (2020-05-06)
 
 - Meshcode evaluation is now more stringent.
