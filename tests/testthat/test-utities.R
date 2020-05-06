@@ -2,15 +2,15 @@ context("Utities function for packages")
 
 test_that("is meshcode", {
   expect_true(
-    is_meshcode(mesh = 4567))
+    is_meshcode(mesh = 5440))
   expect_true(
-    is_meshcode(45673210))
+    is_meshcode(54401026))
   expect_true(
-    is_meshcode(4567891230))
+    is_meshcode(5440102612))
   expect_false(
     is_meshcode(45678))
   expect_true(
-    is_meshcode(4567811))
+    is_meshcode(54401026))
   expect_message(
     is_meshcode(45678),
     "meshcode must be follow digits: 4, 6, 7, 8, 9, 10 and 11")
@@ -33,10 +33,10 @@ test_that("mesh size", {
   expect_s3_class(
     mesh_units[1], "units")
   expect_equal(
-    mesh_size(mesh = 4567),
+    mesh_size(mesh = 5440),
     units::as_units(80, "km"))
   expect_equal(
-    mesh_size(mesh = 456781),
+    mesh_size(mesh = 544010),
     units::as_units(10, "km"))
   expect_equal(
     mesh_size(mesh = 11111),
