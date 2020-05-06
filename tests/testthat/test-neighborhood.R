@@ -24,6 +24,13 @@ test_that("return value", {
     neighbor_mesh(533945011),
     neighbor_mesh("533945011")
   )
+  res <-
+    neighbor_mesh(513474923, contains = TRUE)
+  expect_equal(
+    res,
+    c("513474912", "513474914", "513474921",
+      "513474922", "513474923", "513474924", 
+      "523404012", "523404021", "523404022"))
 })
 
 test_that("success", {
