@@ -14,7 +14,7 @@
 #' @return meshcode as `character`
 #' @export
 fine_separate <- function(meshcode = NULL, ...) {
-  if (is.mesh(meshcode))
+  if (is_meshcode(meshcode))
     mesh_length <- nchar(meshcode)
   res <- if (mesh_length == 4) {
     res <- paste0(meshcode,

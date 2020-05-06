@@ -3,12 +3,12 @@
 #' @inheritParams mesh_to_coords
 #' @importFrom purrr pmap_chr
 #' @importFrom sf st_as_sfc st_polygon st_sfc
-#' @return sfc object
+#' @return [sfc][sf::st_as_sfc] object
 #' @examples
 #' export_mesh("6441427712")
 #' @export
 export_mesh <- function(meshcode) {
-  if (is.mesh(meshcode))
+  if (is_meshcode(meshcode)) {
     if (mesh_size(meshcode) <= units::as_units(0.5, "km")) {
       res <- export_mesh(substr(meshcode, 1, nchar(meshcode) - 1)) %>% # nolint 
         sf::st_make_grid(n = c(2, 2))
@@ -19,6 +19,9 @@ export_mesh <- function(meshcode) {
                         mesh_to_poly),
         crs = 4326)
     }
+  } else {
+    res <- NULL
+  }
   return(res)
 }
 

@@ -38,8 +38,8 @@ mesh_to_coords <- function(meshcode, ...) { # nolint
     code10 <- as.numeric(substring(meshcode, 10, 10))
   if (size <= units::as_units(0.125, "km"))
     code11 <- as.numeric(substring(meshcode, 11, 11))
-    lat  <- code12 * 2 / 3
-    long <- code34 + 100
+  lat  <- code12 * 2 / 3
+  long <- code34 + 100
   if (exists("code5") && exists("code6")) {
     lat  <- lat  + (code5 * 2 / 3) / 8
     long <- long +  code6 / 8

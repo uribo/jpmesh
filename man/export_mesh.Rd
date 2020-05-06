@@ -10,7 +10,7 @@ export_mesh(meshcode)
 \item{meshcode}{\code{character}. mesh code}
 }
 \value{
-sfc object
+\link[sf:st_as_sfc]{sfc} object
 }
 \description{
 Convert and export meshcode area to \code{sfc_POLYGON}.
