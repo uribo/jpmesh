@@ -1,4 +1,4 @@
-FROM rocker/geospatial:3.6.3
+FROM rocker/geospatial:4.0.0
 
 RUN set -x && \
   apt-get update && \
@@ -9,6 +9,10 @@ RUN set -x && \
   apt-get install -y --no-install-recommends \
     libmagick++-dev \
     qpdf && \
+  apt-get install -y \
+    r-cran-covr \
+    r-cran-lwgeom \
+    r-cran-roxygen2 && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
@@ -18,23 +22,19 @@ RUN set -x && \
   echo "GITHUB_PAT=$GITHUB_PAT" >> /usr/local/lib/R/etc/Renviron
 
 RUN set -x && \
-  install2.r --error --repos 'http://mran.revolutionanalytics.com/snapshot/2020-05-04' \
+  install2.r --error --ncpus -1 --repos 'http://mran.revolutionanalytics.com/snapshot/2020-05-30' \
     leaflet \
     miniUI \
     knitr \
-    covr \
     jpmesh \
-    lwgeom \
     mapview \
     usethis \
     shinyjs \
     reprex \
-    DT \
     lintr \
-    vdiffr \
-    caTools \
     magick \
-    roxygen2 && \
+    roxygen2 \
+    vdiffr && \
   installGithub.r \
     r-lib/revdepcheck \
     r-spatial/sf && \
