@@ -11,8 +11,6 @@ version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-pr
 [![Depsy](http://depsy.org/api/package/cran/jpmesh/badge.svg)](http://depsy.org/package/r/jpmesh)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3727438.svg)](https://doi.org/10.5281/zenodo.3727438)
 
-[![Travis-CI Build
-Status](https://travis-ci.org/uribo/jpmesh.svg?branch=master)](https://travis-ci.org/uribo/jpmesh)
 [![Coverage
 status](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=master)
 [![R-CMD-check](https://github.com/uribo/jpmesh/workflows/R-CMD-check/badge.svg)](https://github.com/uribo/jpmesh/actions?query=workflow%3AR-CMD-check)
@@ -176,14 +174,14 @@ administration_mesh(code = 33, to_mesh_size = 80) %>%
   knitr::kable()
 ```
 
-| meshcode | geometry                                                                           |
-| :------- | :--------------------------------------------------------------------------------- |
-| 5133     | list(c(133, 134, 134, 133, 133, 34, 34, 34.66667, 34.66667, 34))                   |
-| 5233     | list(c(133, 134, 134, 133, 133, 34.66667, 34.66667, 35.33333, 35.33333, 34.66667)) |
-| 5234     | list(c(134, 135, 135, 134, 134, 34.66667, 34.66667, 35.33333, 35.33333, 34.66667)) |
-| 5134     | list(c(134, 135, 135, 134, 134, 34, 34, 34.66667, 34.66667, 34))                   |
-| 5333     | list(c(133, 134, 134, 133, 133, 35.33333, 35.33333, 36, 36, 35.33333))             |
-| 5334     | list(c(134, 135, 135, 134, 134, 35.33333, 35.33333, 36, 36, 35.33333))             |
+| meshcode | geometry                     |
+| :------- | :--------------------------- |
+| 5133     | POLYGON ((133 34, 134 34, 1… |
+| 5233     | POLYGON ((133 34.66667, 134… |
+| 5234     | POLYGON ((134 34.66667, 135… |
+| 5134     | POLYGON ((134 34, 135 34, 1… |
+| 5333     | POLYGON ((133 35.33333, 134… |
+| 5334     | POLYGON ((134 35.33333, 135… |
 
 Example)
 
