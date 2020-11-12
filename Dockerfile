@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.0.0
+FROM rocker/geospatial:4.0.3@sha256:bda9e2ecfeabd1c506fdb49842c5735f0fd77fa1b8c3530b8ddbbbc6b6106692
 
 RUN set -x && \
   apt-get update && \
@@ -22,7 +22,7 @@ RUN set -x && \
   echo "GITHUB_PAT=$GITHUB_PAT" >> /usr/local/lib/R/etc/Renviron
 
 RUN set -x && \
-  install2.r --error --ncpus -1 --repos 'http://mran.revolutionanalytics.com/snapshot/2020-05-30' \
+  install2.r --error --ncpus -1 --repos 'https://cran.microsoft.com/snapshot/2020-11-11/' \
     leaflet \
     miniUI \
     knitr \
@@ -36,6 +36,5 @@ RUN set -x && \
     roxygen2 \
     vdiffr && \
   installGithub.r \
-    r-lib/revdepcheck \
-    r-spatial/sf && \
+    r-lib/revdepcheck && \
   rm -rf /tmp/downloaded_packages/ /tmp/*.rds
