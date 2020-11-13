@@ -28,6 +28,9 @@ From coordinate to mesh codes.
 coords_to_mesh(141.3468, 43.06462, mesh_size = 1)
 coords_to_mesh(139.6917, 35.68949, mesh_size = 0.250)
 coords_to_mesh(139.71475, 35.70078)
+coords_to_mesh(c(141.3468, 139.71475), 
+               c(43.06462, 35.70078), 
+               mesh_size = c(1, 10))
 # Using sf (point as sfg object)
 library(sf)
 coords_to_mesh(geometry = st_point(c(139.71475, 35.70078)))
