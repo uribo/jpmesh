@@ -21,7 +21,8 @@ Imports:
     shiny (>= 1.0.5),
     tibble (>= 3.0.0),
     units (>= 0.5-1),
-    magrittr (>= 1.5)
+    magrittr (>= 1.5),
+    vctrs (>= 0.3.4)
 Suggests: 
     knitr (>= 1.20),
     lintr (>= 2.0.1),
