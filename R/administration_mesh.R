@@ -26,7 +26,8 @@ administration_mesh <- function(code, to_mesh_size) {
                                       unique(df_city_mesh$city_code))]
   if (rlang::is_false(identical(mis_match, character(0))))
     rlang::inform(paste(length(mis_match), "matching code were not found."))
-  checked_code <- checked_code[!checked_code %in% mis_match]
+  checked_code <- 
+    checked_code[!checked_code %in% mis_match]
   if (length(unique(nchar(checked_code))) > 1)
     rlang::inform("The city and the prefecture including it was givend.\nWill return prefecture's meshes.") # nolint
   res_meshes <-

@@ -23,7 +23,8 @@
 #' coords_to_mesh(geometry = st_point(c(130.4412895, 30.2984335)))
 #' @export
 coords_to_mesh <- function(longitude, latitude, mesh_size = 1, geometry = NULL, ...) { # nolint
-  to_mesh_size <- units::as_units(mesh_size, "km")
+  to_mesh_size <- 
+    units::as_units(mesh_size, "km")
   if (rlang::is_true(identical(which(to_mesh_size %in% mesh_units), integer(0)))) # nolint
     rlang::abort(
       paste0("`mesh_size` should be one of: ",
@@ -33,7 +34,8 @@ coords_to_mesh <- function(longitude, latitude, mesh_size = 1, geometry = NULL, 
              " or ",
              paste(units::drop_units(mesh_units)[6])))
   if (rlang::is_false(is.null(geometry))) {
-    geometry <- sf::st_sfc(geometry)
+    geometry <- 
+      sf::st_sfc(geometry)
     coords <-
       lapply(geometry, function(x) {
         if (sf::st_is(x, "POINT"))
