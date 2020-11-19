@@ -49,6 +49,5 @@ administration_mesh <- function(code, to_mesh_size) {
   }
   res_meshes %>%
     unique() %>%
-    purrr::map(~ export_meshes(.x)) %>%
-    purrr::reduce(rbind)
+    export_meshes()
 }

@@ -4,10 +4,12 @@
 \alias{meshcode_set}
 \title{Export meshcode vectors ranges 80km to 1km.}
 \usage{
-meshcode_set(mesh_size = c(80, 10, 5, 1))
+meshcode_set(mesh_size = c(80, 10, 1), .raw = TRUE)
 }
 \arguments{
 \item{mesh_size}{Export mesh size from 80km to 1km.}
+
+\item{.raw}{return as character}
 }
 \description{
 Unique 176 meshcodes.
@@ -15,4 +17,5 @@ The output code may contain values not found in the actual mesh code.
 }
 \examples{
 meshcode_set(mesh_size = 80)
+meshcode_set(mesh_size = 80, .raw = FALSE)
 }
