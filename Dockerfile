@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.0.3@sha256:624acf6ad02b87166980e9aa61de61b9de9f51f09113a0a3943b88b532fc4499
+FROM rocker/geospatial:4.0.3@sha256:645ac1e38fd639d09e3bbdbb812bab470c4eeb6f8d24fed499bd19275eccb15d
 
 RUN set -x && \
   apt-get update && \
@@ -22,6 +22,6 @@ RUN set -x && \
   chown -R rstudio:rstudio /home/rstudio
 
 RUN set -x && \
-  install2.r --error --ncpus -1 --repos 'https://cran.microsoft.com/snapshot/2020-11-12/' \
+  install2.r --error --ncpus -1 --repos 'https://cran.microsoft.com/snapshot/2020-11-19/' \
     renv && \
   rm -rf /tmp/downloaded_packages/ /tmp/*.rds
