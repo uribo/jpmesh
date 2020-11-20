@@ -33,10 +33,14 @@ administration_mesh <- function(code, to_mesh_size) {
     rlang::inform("The city and the prefecture including it was givend.\nWill return prefecture's meshes.") # nolint
   res_meshes <-
     purrr::map(checked_code,
-               ~ subset(df_city_mesh,
-                        grepl(paste0("^(", .x, ")"),
-                              city_code)) %>%
-                 purrr::pluck("meshcode")) %>%
+               memoise::memoise(
+                 function(.x) {
+                   subset(df_city_mesh,
+                          grepl(paste0("^(", .x, ")"),
+                                city_code)) %>%
+                     purrr::pluck("meshcode")
+                 }
+               )) %>%
     purrr::flatten_chr() %>%
     unique()
   if (to_mesh_size == units::as_units(80, "km")) {
