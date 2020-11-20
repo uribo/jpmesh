@@ -43,9 +43,11 @@ meshcode_vector <- function(x = character(),
 meshcode <- function(x) {
   mesh_length <- .x <- NULL
   size <- 
-    units::drop_units(mesh_length(as.character(nchar(x))))
+    x %>% 
+    purrr::map_dbl(
+      ~ units::drop_units(mesh_length(as.character(nchar(.x)))))
   meshcode_vector(as.character(x), 
-                  rep(size, length(x)))
+                  size)
 }
 
 #' @rdname meshcode
