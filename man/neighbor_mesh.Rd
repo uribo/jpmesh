@@ -15,7 +15,7 @@ find_neighbor_mesh(meshcode = NULL, contains = TRUE)
 \item{contains}{logical. contains input meshcode (default \code{TRUE})}
 }
 \value{
-mesh code vectors (\code{character})
+\link{meshcode}
 }
 \description{
 input should use meshcode under the 1km mesh size.

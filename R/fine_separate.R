@@ -62,7 +62,7 @@ fine_separate <- function(meshcode = NULL, ...) {
 #' coarse_gather(m)
 #' coarse_gather(coarse_gather(m))
 #' coarse_gather(coarse_gather(m), distinct = TRUE)
-#' @return meshcode as `character`
+#' @return [meshcode][meshcode]
 #' @export
 coarse_gather <- function(meshcode, distinct = FALSE) {
   if (is_meshcode(meshcode) == FALSE) {

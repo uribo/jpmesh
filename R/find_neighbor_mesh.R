@@ -2,7 +2,7 @@
 #' @inheritParams mesh_to_coords
 #' @param contains logical. contains input meshcode (default `TRUE`)
 #' @description input should use meshcode under the 1km mesh size.
-#' @return mesh code vectors (`character`)
+#' @return [meshcode][meshcode]
 #' @examples
 #' neighbor_mesh(53394501)
 #' neighbor_mesh(533945011)
