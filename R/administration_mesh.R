@@ -1,11 +1,11 @@
-#' Extract administration mesh
+#' Extract administration mesh code
 #'
 #' @param code administration code
 #' @inheritParams mesh_convert
 #' @examples
 #' \dontrun{
 #' administration_mesh(code = "35201", to_mesh_size = 1)
-#' administration_mesh(code = "08220", to_mesh_size)
+#' administration_mesh(code = "08220", to_mesh_size = 80)
 #' administration_mesh(code = c("08220", "08221"), to_mesh_size = 10)
 #' administration_mesh(code = "35", to_mesh_size = 80)
 #' administration_mesh(code = c("33", "34"), to_mesh_size = 80)
@@ -13,6 +13,7 @@
 #' @name administration_mesh
 #' @export
 administration_mesh <- function(code, to_mesh_size) {
+  city_code <- NULL
   to_mesh_size_chr <-
     as.character(to_mesh_size)
   rlang::arg_match(to_mesh_size_chr,

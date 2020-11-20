@@ -11,7 +11,7 @@
 #' fine_separate("52350432")
 #' fine_separate("523504321")
 #' fine_separate("5235043211")
-#' @return meshcode as `character`
+#' @return [meshcode][meshcode]
 #' @export
 fine_separate <- function(meshcode = NULL, ...) {
   .x <- .y <- NULL
