@@ -28,10 +28,10 @@ test_that("Generate mesh code set", {
                meshcode("3036"))
   res <- 
     meshcode_set(mesh_size = 10, .raw = TRUE)
-  expect_length(res, 64*176)
+  expect_length(res, 64 * 176)
   res <- 
     meshcode_set(mesh_size = 1, .raw = TRUE)
-  expect_length(res, 100*64*176)
+  expect_length(res, 100 * 64 * 176)
 })
 
 test_that(

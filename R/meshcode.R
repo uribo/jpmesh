@@ -6,8 +6,13 @@
 #' automatically made based on the `meshsize`.
 #' @param ... path to another function
 #' @rdname meshcode
+#' @return [meshcode][meshcode]
+#' @examples 
+#' meshcode("6441")
 #' @export
-meshcode_vector <- function(x = character(), size = double()) {
+#' @rdname meshcode
+meshcode_vector <- function(x = character(), 
+                            size = double()) {
   vctrs::vec_assert(x, character())
   vctrs::vec_assert(size, double())
   x <- 
@@ -28,19 +33,19 @@ meshcode_vector <- function(x = character(), size = double()) {
         }})
   check_correct_meshsize(x, size)
   vctrs::new_rcrd(
-    list(mesh_code = x, mesh_size = size), 
-    class = "meshcode")
+    list(mesh_code = x,
+         mesh_size = size), 
+    class = "meshcode") 
 }
 
 #' @rdname meshcode
 #' @export
-meshcode <- function(x, size = NULL) {
+meshcode <- function(x) {
   mesh_length <- .x <- NULL
-  if (is.null(size)) {
-    size <- 
-      units::drop_units(mesh_length(as.character(nchar(x))))
-  }
-  meshcode_vector(as.character(x), rep(size, length(x)))
+  size <- 
+    units::drop_units(mesh_length(as.character(nchar(x))))
+  meshcode_vector(as.character(x), 
+                  rep(size, length(x)))
 }
 
 #' @rdname meshcode
@@ -48,7 +53,7 @@ meshcode <- function(x, size = NULL) {
 as_meshcode <- function(x, ...) {
   size <-
     units::drop_units(mesh_length(as.character(nchar(x))))
-  meshcode_vector(x, size = size)
+  meshcode_vector(x, size = size, ...)
 }
 
 #' @export
@@ -85,7 +90,7 @@ check_correct_meshsize <- function(x, size) {
 format.meshcode <- function(x, ...) {
   x_valid <- which(!is.na(x))
   mesh <- vctrs::field(x, "mesh_code")[x_valid]
-  res <-
-    format(as.character(mesh), justify = "right")
-  res
+  ret <- rep(NA_character_, vctrs::vec_size(x))
+  ret[x_valid] <- mesh
+  format(ret, justify = "right")
 }

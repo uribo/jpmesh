@@ -9,7 +9,10 @@ meshcode_set(mesh_size = c(80, 10, 1), .raw = TRUE)
 \arguments{
 \item{mesh_size}{Export mesh size from 80km to 1km.}
 
-\item{.raw}{return as character}
+\item{.raw}{return as character.}
+}
+\value{
+character or \link{meshcode}
 }
 \description{
 Unique 176 meshcodes.

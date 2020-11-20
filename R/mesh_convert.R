@@ -14,9 +14,11 @@
 #' mesh_convert(meshcode = "52350432", 0.125)
 #' mesh_convert("523504323", 0.250)
 #' mesh_convert("5235043213", 0.125)
+#' # Not changes
 #' mesh_convert("52350432", 1)
 #' mesh_convert("52350432131", 0.125)
 #' @export
+#' @return [meshcode][meshcode]
 #' @rdname converter
 mesh_convert <- function(meshcode = NULL, to_mesh_size = NULL) { # nolint
   . <- NULL
@@ -78,7 +80,7 @@ mesh_convert <- function(meshcode = NULL, to_mesh_size = NULL) { # nolint
         res <-
           meshcode %>% 
           substr(1, 6)
-      } else if (to_mesh_size == units::as_units(1, "km")) { 
+      } else if (to_mesh_size == units::as_units(1, "km")) { # nolint
         res <-
           meshcode %>% 
           substr(1, 8)

@@ -19,4 +19,3 @@ test_that("city meshcode", {
                c("city_code", "city_name", "meshcode"))
   expect_is(df_city_mesh$meshcode[1], "character")
 })
-

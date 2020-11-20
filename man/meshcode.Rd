@@ -9,7 +9,7 @@
 \usage{
 meshcode_vector(x = character(), size = double())
 
-meshcode(x, size = NULL)
+meshcode(x)
 
 as_meshcode(x, ...)
 
@@ -23,6 +23,12 @@ automatically made based on the \code{meshsize}.}
 
 \item{...}{path to another function}
 }
+\value{
+\link{meshcode}
+}
 \description{
 Vector of meshcode
+}
+\examples{
+meshcode("6441")
 }

@@ -11,6 +11,9 @@ rmesh(n, mesh_size = 1)
 
 \item{mesh_size}{Export mesh size from 80km to 1km.}
 }
+\value{
+\link{meshcode}
+}
 \description{
 Generate random sample meshcode
 }

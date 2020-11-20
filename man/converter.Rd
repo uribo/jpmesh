@@ -14,6 +14,9 @@ the meshcode of one small scale will be returned.
 If it is the same as the original size, the meshcode of the input
 will be return.}
 }
+\value{
+\link{meshcode}
+}
 \description{
 Return different meshcode values included in the mesh.
 }
@@ -26,6 +29,7 @@ mesh_convert("52350432", 0.250)
 mesh_convert(meshcode = "52350432", 0.125)
 mesh_convert("523504323", 0.250)
 mesh_convert("5235043213", 0.125)
+# Not changes
 mesh_convert("52350432", 1)
 mesh_convert("52350432131", 0.125)
 }

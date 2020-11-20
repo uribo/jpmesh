@@ -14,7 +14,7 @@ fine_separate(meshcode = NULL, ...)
 \value{
 character vector
 
-meshcode as \code{character}
+\link{meshcode}
 }
 \description{
 Return contains fine mesh codes

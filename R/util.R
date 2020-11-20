@@ -113,10 +113,11 @@ meshcode_set_80km <-
 #' @description Unique 176 meshcodes.
 #' The output code may contain values not found in the actual mesh code.
 #' @param mesh_size Export mesh size from 80km to 1km.
-#' @param .raw return as character
+#' @param .raw return as character.
 #' @examples
 #' meshcode_set(mesh_size = 80)
 #' meshcode_set(mesh_size = 80, .raw = FALSE)
+#' @return character or [meshcode][meshcode]
 #' @export
 meshcode_set <- function(mesh_size = c(80, 10, 1), .raw = TRUE) {
   if (mesh_size == 80) {

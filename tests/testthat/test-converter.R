@@ -1,7 +1,7 @@
 test_that("scale up", {
   res <- 
     mesh_convert(meshcode = "52350432", to_mesh_size = 80)
-  expect_equal(res, meshcode(5235, size = 80))
+  expect_equal(res, meshcode(5235))
   res <- 
     mesh_convert("36536166", to_mesh_size = 10)
   expect_equal(res,
