@@ -45,14 +45,17 @@ mesh_size <- function(meshcode) {
   mesh_size <- 
     as.character(vctrs::field(meshcode, "mesh_size"))
   res <- 
-    switch(mesh_size,
-          "80" = mesh_units[1],
-          "10" = mesh_units[2],
-          "5" = mesh_units[3],
-          "1" = mesh_units[4],
-          "0.5" = mesh_units[5],
-          "0.25" = mesh_units[6],
-          "0.125" = mesh_units[7])
+    purrr::map(
+    mesh_size,
+    ~ switch(.x,
+             "80" = mesh_units[1],
+             "10" = mesh_units[2],
+             "5" = mesh_units[3],
+             "1" = mesh_units[4],
+             "0.5" = mesh_units[5],
+             "0.25" = mesh_units[6],
+             "0.125" = mesh_units[7])) %>% 
+    purrr::reduce(c)
   if (rlang::is_null(res)) {
     res <- 
       units::as_units(NA_integer_, "km")

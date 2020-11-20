@@ -7,4 +7,10 @@ test_that("success", {
     meshcode(6441),
     as_meshcode("6441")
   )
+  res <-
+    meshcode(c("5133", "513377"))
+  expect_equal(
+    mesh_size(res),
+    units::set_units(c(80, 10), "km")
+  )
 })

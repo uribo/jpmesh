@@ -4,6 +4,7 @@
 #' @inheritParams meshcode_set
 #' @examples
 #' rmesh(3, mesh_size = 1)
+#' @return [meshcode][meshcode]
 #' @export
 rmesh <- function(n, mesh_size = 1) {
   mesh_size <- 
