@@ -1,0 +1,77 @@
+---
+title: "Construct maps with jpmesh"
+author: "Shinya Uryu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Construct maps with jpmesh}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE, 
+  message = FALSE
+)
+```
+
+```{r, load_employed_pkgs}
+library(jpmesh)
+library(sf)
+```
+
+```{r}
+df_polys <- 
+  meshcode_set(mesh_size = 80) %>% 
+  jpmesh::export_meshes()
+```
+
+## base
+
+```{r, eval = FALSE, echo = TRUE}
+df_polys %>% 
+  st_geometry() %>% 
+  plot()
+```
+
+## ggplot2
+
+```{r, eval = TRUE, echo = TRUE, fig.width = 7}
+library(ggplot2)
+ggplot() +
+  geom_sf(data = df_polys, fill = NA) +
+  geom_text(
+    data = cbind(
+      mesh = df_polys$meshcode,
+      df_polys$geometry %>%
+        st_centroid() %>%
+        st_coordinates() %>%
+        as.data.frame()
+    ),
+    aes(X, Y, label = mesh),
+    size = 1.2
+  ) +
+  coord_sf(datum = NA) +
+  theme_void()
+```
+
+## leaflet
+
+```{r, eval = FALSE, echo = TRUE}
+library(leaflet)
+leaflet() %>% 
+  addTiles() %>% 
+  addPolygons(data = df_polys)
+```
+
+
+## plotly
+
+wip...
+
+```{r sessioninfo}
+sessionInfo()
+```

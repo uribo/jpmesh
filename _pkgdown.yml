@@ -1,0 +1,55 @@
+url: https://uribo.github.io/jpmesh
+
+templates:
+  params:
+    bootswatch: paper
+    
+home:
+  strip_header: true
+  links:
+  - text: Useful links
+    href: http://www.gis-tool.com/mapview/areameshmap.html
+
+reference:
+
+  - title: Vector of meshcode
+    - meshcode
+    - is_meshcode
+    - as_meshcode
+
+  - title: Convert mesh code to coordinate (and vice versa)
+    contents: 
+    - coords_to_mesh
+    - mesh_to_coords
+    - mesh_convert
+
+  - title: Detect fine - coarse scale and neighbourhood meshes
+    contents:
+    - coarse_gather
+    - fine_separate
+    - neighbor_mesh
+    
+  - title: Mesh data
+    contents:
+    - administration_mesh
+    - jpnrect
+    
+  - title: Gadgets
+    contents:
+    - mesh_viewer
+  
+  - title: Utilities
+    contents:
+    - eval_jp_boundary
+    - export_mesh
+    - export_meshes
+    - is_corner
+    - meshcode_set
+    - mesh_size
+    - rmesh
+    - sf_jpmesh
+
+navbar:
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/uribo/jpmesh
