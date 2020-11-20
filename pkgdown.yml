@@ -1,0 +1,11 @@
+pandoc: 2.7.3
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  articles/plots: plots.html
+  usage: usage.html
+last_built: 2020-11-20T10:25Z
+urls:
+  reference: https://uribo.github.io/jpmesh/reference
+  article: https://uribo.github.io/jpmesh/articles
+
