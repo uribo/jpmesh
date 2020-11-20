@@ -53,6 +53,18 @@ remotes::install_github("uribo/jpmesh")
 library(jpmesh)
 ```
 
+### Create mesh code
+
+```{r}
+meshcode(5133) # 80km
+meshcode(513377) # 10km
+meshcode(51337783) # 1km
+meshcode(513377831) # 500m
+meshcode(5133778312) # 250m
+meshcode(51337783123) # 125m
+```
+
+
 ### Convert mesh code to coordinate and vice versa
 
 Return the latitude and longitude for specifying the mesh range from the mesh code.
