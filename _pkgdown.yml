@@ -12,6 +12,11 @@ home:
 
 reference:
 
+  - title: Vector of meshcode
+    - meshcode
+    - is_meshcode
+    - as_meshcode
+
   - title: Convert mesh code to coordinate (and vice versa)
     contents: 
     - coords_to_mesh
@@ -39,7 +44,6 @@ reference:
     - export_mesh
     - export_meshes
     - is_corner
-    - is_meshcode
     - meshcode_set
     - mesh_size
     - rmesh

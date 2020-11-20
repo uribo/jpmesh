@@ -8,36 +8,41 @@
 #' mesh_to_coords("64414277")
 #' @export
 mesh_to_coords <- function(meshcode, ...) { # nolint
-  if (rlang::is_false(is_meshcode(meshcode)))
-    rlang::abort("Unexpect meshcode value")
-  size <- mesh_size(meshcode) # nolint
+  if (is_meshcode(meshcode) == FALSE) {
+    meshcode <-
+      meshcode(meshcode)
+  }
+  size <- 
+    mesh_size(meshcode) # nolint
   if (size <= units::as_units(80, "km")) {
-    code12 <- as.numeric(substring(meshcode, 1, 2))
-    code34 <- as.numeric(substring(meshcode, 3, 4))
+    code12 <- 
+      as.numeric(substring(vctrs::field(meshcode, "mesh_code"), 1, 2))
+    code34 <- 
+      as.numeric(substring(vctrs::field(meshcode, "mesh_code"), 3, 4))
     lat_width  <- 2 / 3
     long_width <- 1
   }
   if (size <= units::as_units(10, "km")) {
-    code5 <- as.numeric(substring(meshcode, 5, 5))
-    code6 <- as.numeric(substring(meshcode, 6, 6))
+    code5 <- as.numeric(substring(vctrs::field(meshcode, "mesh_code"), 5, 5))
+    code6 <- as.numeric(substring(vctrs::field(meshcode, "mesh_code"), 6, 6))
     lat_width  <- lat_width / 8
     long_width <- long_width / 8
   }
   if (size == units::as_units(5, "km")) {
-    km5_code7 <- as.numeric(substring(meshcode, 7, 7))
+    km5_code7 <- as.numeric(substring(vctrs::field(meshcode, "mesh_code"), 7, 7))
   }
   if (size <= units::as_units(1, "km")) {
-    code7 <- as.numeric(substring(meshcode, 7, 7))
-    code8 <- as.numeric(substring(meshcode, 8, 8))
+    code7 <- as.numeric(substring(vctrs::field(meshcode, "mesh_code"), 7, 7))
+    code8 <- as.numeric(substring(vctrs::field(meshcode, "mesh_code"), 8, 8))
     lat_width  <- lat_width / 10
     long_width <- long_width / 10
   }
   if (size <= units::as_units(0.5, "km"))
-    code9 <- as.numeric(substring(meshcode, 9, 9))
+    code9 <- as.numeric(substring(vctrs::field(meshcode, "mesh_code"), 9, 9))
   if (size <= units::as_units(0.25, "km"))
-    code10 <- as.numeric(substring(meshcode, 10, 10))
+    code10 <- as.numeric(substring(vctrs::field(meshcode, "mesh_code"), 10, 10))
   if (size <= units::as_units(0.125, "km"))
-    code11 <- as.numeric(substring(meshcode, 11, 11))
+    code11 <- as.numeric(substring(vctrs::field(meshcode, "mesh_code"), 11, 11))
   lat  <- code12 * 2 / 3
   long <- code34 + 100
   if (exists("code5") && exists("code6")) {

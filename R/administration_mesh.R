@@ -1,11 +1,11 @@
-#' Extract administration mesh
+#' Extract administration mesh code
 #'
 #' @param code administration code
 #' @inheritParams mesh_convert
 #' @examples
 #' \dontrun{
 #' administration_mesh(code = "35201", to_mesh_size = 1)
-#' administration_mesh(code = "08220", to_mesh_size)
+#' administration_mesh(code = "08220", to_mesh_size = 80)
 #' administration_mesh(code = c("08220", "08221"), to_mesh_size = 10)
 #' administration_mesh(code = "35", to_mesh_size = 80)
 #' administration_mesh(code = c("33", "34"), to_mesh_size = 80)
@@ -13,6 +13,7 @@
 #' @name administration_mesh
 #' @export
 administration_mesh <- function(code, to_mesh_size) {
+  city_code <- NULL
   to_mesh_size_chr <-
     as.character(to_mesh_size)
   rlang::arg_match(to_mesh_size_chr,
@@ -26,7 +27,8 @@ administration_mesh <- function(code, to_mesh_size) {
                                       unique(df_city_mesh$city_code))]
   if (rlang::is_false(identical(mis_match, character(0))))
     rlang::inform(paste(length(mis_match), "matching code were not found."))
-  checked_code <- checked_code[!checked_code %in% mis_match]
+  checked_code <- 
+    checked_code[!checked_code %in% mis_match]
   if (length(unique(nchar(checked_code))) > 1)
     rlang::inform("The city and the prefecture including it was givend.\nWill return prefecture's meshes.") # nolint
   res_meshes <-
@@ -48,6 +50,5 @@ administration_mesh <- function(code, to_mesh_size) {
   }
   res_meshes %>%
     unique() %>%
-    purrr::map(~ export_meshes(.x)) %>%
-    purrr::reduce(rbind)
+    export_meshes()
 }

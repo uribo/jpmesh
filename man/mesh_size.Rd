@@ -12,3 +12,6 @@ mesh_size(meshcode)
 \description{
 Returns a unit object of mesh size for the given number.
 }
+\examples{
+mesh_size("6740")
+}
