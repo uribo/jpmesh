@@ -7,17 +7,19 @@
 #' @examples
 #' export_mesh("6441427712")
 #' @export
-export_mesh <- function(meshcode) {
-  if (is_meshcode(meshcode) == FALSE) {
-    meshcode <-
-      meshcode(meshcode)
-  }
-  size <- 
-    mesh_size(meshcode)
-  mesh_to_coords(meshcode) %>% 
-    purrr::pmap_chr(mesh_to_poly) %>% 
-    sf::st_as_sfc(crs = 4326)
-}
+export_mesh <- 
+  memoise::memoise(
+    function(meshcode) {
+      if (is_meshcode(meshcode) == FALSE) {
+        meshcode <-
+          meshcode(meshcode)
+      }
+      size <- 
+        mesh_size(meshcode)
+      mesh_to_coords(meshcode) %>% 
+        purrr::pmap_chr(mesh_to_poly) %>% 
+        sf::st_as_sfc(crs = 4326)
+    })
 
 #' @title Export meshcode to geometry
 #' @description Convert and export meshcode area to `sf`.
@@ -42,7 +44,7 @@ export_meshes <- function(meshcode) {
     purrr::map_chr(vctrs::field(df_meshes$meshcode, "mesh_code"),
                    ~ export_mesh(meshcode = .x) %>%
                      sf::st_as_text()) %>%
-                sf::st_as_sfc()
+    sf::st_as_sfc()
   df_meshes %>% 
     sf::st_sf(crs = 4326) %>% 
     tibble::new_tibble(class = "sf", nrow = nrow(df_meshes))

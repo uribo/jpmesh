@@ -122,53 +122,55 @@ meshcode_set_80km <-
 #' meshcode_set(mesh_size = 80, .raw = FALSE)
 #' @return character or [meshcode][meshcode]
 #' @export
-meshcode_set <- function(mesh_size = c(80, 10, 1), .raw = TRUE) {
-  if (mesh_size == 80) {
-    meshcode_80km <- 
-      as.character(meshcode_80km_num)
-  } else {
-    meshcode_10km <- 
-      as.character(meshcode_80km_num) %>% 
-      purrr::map(
-        ~ paste0(.x,
-                 sprintf("%02s",
-                         sort(paste0(rep(seq.int(0, 7), each = 8), seq.int(0, 7))))
-        )) %>% 
-      purrr::flatten_chr()
-  }
-  if (mesh_size == 1) {
-    meshcode_1km <- 
-      meshcode_10km %>% 
-      purrr::map(
-        ~ paste0(.x,
-                 sprintf("%02d", seq.int(0, 99))
-        )) %>% 
-      purrr::flatten_chr()
-  }
-  if (.raw == TRUE) {
+meshcode_set <- memoise::memoise(
+  function(mesh_size = c(80, 10, 1), .raw = TRUE) {
     if (mesh_size == 80) {
-      meshcode_80km
-    } else if (mesh_size == 10) {
-      meshcode_10km
-    } else if (mesh_size == 1) {
-      meshcode_1km
+      meshcode_80km <- 
+        as.character(meshcode_80km_num)
+    } else {
+      meshcode_10km <- 
+        as.character(meshcode_80km_num) %>% 
+        purrr::map(
+          ~ paste0(.x,
+                   sprintf("%02s",
+                           sort(paste0(rep(seq.int(0, 7), each = 8), seq.int(0, 7))))
+          )) %>% 
+        purrr::flatten_chr()
     }
-  } else {
-    if (mesh_size == 80) {
-      meshcode_set_80km
-    } else if (mesh_size <= 10) {
-      meshcode_set_10km <- 
-        meshcode_set_80km %>% 
-        fine_separate()
-      if (mesh_size == 10) {
-        meshcode_set_10km
+    if (mesh_size == 1) {
+      meshcode_1km <- 
+        meshcode_10km %>% 
+        purrr::map(
+          ~ paste0(.x,
+                   sprintf("%02d", seq.int(0, 99))
+          )) %>% 
+        purrr::flatten_chr()
+    }
+    if (.raw == TRUE) {
+      if (mesh_size == 80) {
+        meshcode_80km
+      } else if (mesh_size == 10) {
+        meshcode_10km
       } else if (mesh_size == 1) {
-        meshcode_set_10km %>% 
+        meshcode_1km
+      }
+    } else {
+      if (mesh_size == 80) {
+        meshcode_set_80km
+      } else if (mesh_size <= 10) {
+        meshcode_set_10km <- 
+          meshcode_set_80km %>% 
           fine_separate()
+        if (mesh_size == 10) {
+          meshcode_set_10km
+        } else if (mesh_size == 1) {
+          meshcode_set_10km %>% 
+            fine_separate()
+        }
       }
     }
   }
-}
+)
 
 #' @title Cutoff mesh of outside the area
 #' @inheritParams mesh_to_coords
