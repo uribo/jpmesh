@@ -143,7 +143,7 @@
     <p>Return contains fine mesh codes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fine_separate</span><span class='op'>(</span>meshcode <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>fine_separate</span><span class='op'>(</span>meshcode <span class='op'>=</span> <span class='cn'>NULL</span>, .type <span class='op'>=</span> <span class='st'>"standard"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,15 +153,18 @@
       <td><p><code>character</code>. mesh code</p></td>
     </tr>
     <tr>
+      <th>.type</th>
+      <td><p>Specify the <code>subdivision</code> if you want to get a 100m mesh.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>other parameters for paste</p></td>
+      <td><p>other parameters for <a href='https://rdrr.io/r/base/paste.html'>paste</a></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>character vector</p>
-<p><a href='meshcode_vector.html'>meshcode</a></p>
+    <p><a href='meshcode_vector.html'>meshcode</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>fine_separate</span><span class='op'>(</span><span class='st'>"5235"</span><span class='op'>)</span>
@@ -192,7 +195,26 @@
 </div><div class='output co'>#&gt; &lt;meshcode[4]&gt;
 #&gt; [1] 5235043211 5235043212 5235043213 5235043214</div><div class='input'><span class='fu'>fine_separate</span><span class='op'>(</span><span class='st'>"5235043211"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;meshcode[4]&gt;
-#&gt; [1] 52350432111 52350432112 52350432113 52350432114</div></pre>
+#&gt; [1] 52350432111 52350432112 52350432113 52350432114</div><div class='input'><span class='co'># to 100m mesh code</span>
+<span class='fu'>fine_separate</span><span class='op'>(</span><span class='st'>"64414315"</span>, .type <span class='op'>=</span> <span class='st'>"subdivision"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;subdiv_meshcode[100]&gt;
+#&gt;   [1] 6441431500 6441431501 6441431502 6441431503 6441431504 6441431505
+#&gt;   [7] 6441431506 6441431507 6441431508 6441431509 6441431510 6441431511
+#&gt;  [13] 6441431512 6441431513 6441431514 6441431515 6441431516 6441431517
+#&gt;  [19] 6441431518 6441431519 6441431520 6441431521 6441431522 6441431523
+#&gt;  [25] 6441431524 6441431525 6441431526 6441431527 6441431528 6441431529
+#&gt;  [31] 6441431530 6441431531 6441431532 6441431533 6441431534 6441431535
+#&gt;  [37] 6441431536 6441431537 6441431538 6441431539 6441431540 6441431541
+#&gt;  [43] 6441431542 6441431543 6441431544 6441431545 6441431546 6441431547
+#&gt;  [49] 6441431548 6441431549 6441431550 6441431551 6441431552 6441431553
+#&gt;  [55] 6441431554 6441431555 6441431556 6441431557 6441431558 6441431559
+#&gt;  [61] 6441431560 6441431561 6441431562 6441431563 6441431564 6441431565
+#&gt;  [67] 6441431566 6441431567 6441431568 6441431569 6441431570 6441431571
+#&gt;  [73] 6441431572 6441431573 6441431574 6441431575 6441431576 6441431577
+#&gt;  [79] 6441431578 6441431579 6441431580 6441431581 6441431582 6441431583
+#&gt;  [85] 6441431584 6441431585 6441431586 6441431587 6441431588 6441431589
+#&gt;  [91] 6441431590 6441431591 6441431592 6441431593 6441431594 6441431595
+#&gt;  [97] 6441431596 6441431597 6441431598 6441431599</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

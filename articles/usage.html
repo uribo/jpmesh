@@ -96,7 +96,7 @@
       <h1 data-toc-skip>How to use mesh cord in R</h1>
                         <h4 class="author">Shinya Uryu</h4>
             
-            <h4 class="date">2020-11-20</h4>
+            <h4 class="date">2020-11-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/uribo/jpmesh/blob/master/vignettes/usage.Rmd"><code>vignettes/usage.Rmd</code></a></small>
       <div class="hidden name"><code>usage.Rmd</code></div>
@@ -108,7 +108,7 @@
 <div id="概要" class="section level2">
 <h2 class="hasAnchor">
 <a href="#%E6%A6%82%E8%A6%81" class="anchor"></a>概要</h2>
-<p><strong>jpmesh</strong>パッケージは、日本国内で利用される「地域メッシュ（メッシュコード）」をRから容易に利用可能にするパッケージです。地域メッシュとは、日本国土を緯度・経度により方形の小地域区画に細分することで、同一の基準による統計調査などの結果を得ることが可能となります。80kmから125mまでのメッシュコードに対応し、メッシュコードと緯度経度座標との相互変換を行います。</p>
+<p><strong>jpmesh</strong>パッケージは、日本国内で利用される「地域メッシュ（メッシュコード）」をRから容易に利用可能にするパッケージです。地域メッシュとは、日本国土を緯度・経度により方形の小地域区画に細分することで、同一の基準による統計調査などの結果を得ることが可能となります。80kmから100mまでのメッシュコードに対応し、メッシュコードと緯度経度座標との相互変換を行います。</p>
 <p><strong>jpmesh</strong>の主な機能として、「緯度経度からの地域メッシュへの変換」、「地域メッシュからの緯度経度の取得」、「都道府県単位やleaflet上へのマッピング」があります。なお地域メッシュと緯度経度の変換の基礎は<a href="http://takenaka-akio.org/etc/meshcode/r_code.html">竹中明夫さんのRコード</a>が基礎となっています。ここではその使い方を紹介します。</p>
 <p>パッケージをインストールしたら環境内で利用可能にするため、読み込みを行いましょう。また、このサンプルページで用いるパッケージも同時に読み込むようにしておきます。</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -121,22 +121,22 @@
 <p><code><a href="../reference/mesh_to_coords.html">mesh_to_coords()</a></code>関数を利用し、緯度経度から地域メッシュを得ることができます。この関数では11桁までの細分地域メッシュに対応し、メッシュの中心座標とメッシュの範囲を示す値を返します。</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/mesh_to_coords.html">mesh_to_coords</a></span><span class="op">(</span><span class="fl">5133</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 4
-##   lng_center lat_center lng_error lat_error
-##        &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1       134.       34.3       0.5     0.333</code></pre>
+<pre><code>## # A tibble: 1 x 5
+##     meshcode lng_center lat_center lng_error lat_error
+##   &lt;meshcode&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1       5133       134.       34.3       0.5     0.333</code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/mesh_to_coords.html">mesh_to_coords</a></span><span class="op">(</span><span class="fl">513377</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 4
-##   lng_center lat_center lng_error lat_error
-##        &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1       134.       34.6    0.0625    0.0417</code></pre>
+<pre><code>## # A tibble: 1 x 5
+##     meshcode lng_center lat_center lng_error lat_error
+##   &lt;meshcode&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1     513377       134.       34.6    0.0625    0.0417</code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/mesh_to_coords.html">mesh_to_coords</a></span><span class="op">(</span><span class="fl">51337783</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 4
-##   lng_center lat_center lng_error lat_error
-##        &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1       134.       34.7   0.00625   0.00417</code></pre>
+<pre><code>## # A tibble: 1 x 5
+##     meshcode lng_center lat_center lng_error lat_error
+##   &lt;meshcode&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1   51337783       134.       34.7   0.00625   0.00417</code></pre>
 <p>得られるメッシュの領域データを使ってメッシュのポリゴンを作成する例です。</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/export_mesh.html">export_mesh</a></span><span class="op">(</span><span class="fl">5133778311</span><span class="op">)</span></code></pre></div>

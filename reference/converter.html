@@ -154,7 +154,7 @@
     </tr>
     <tr>
       <th>to_mesh_size</th>
-      <td><p>target mesh type. From 80km to 0.125km. If <code>NULL</code>,
+      <td><p>target mesh type. From 80km to 0.100km. If <code>NULL</code>,
 the meshcode of one small scale will be returned.
 If it is the same as the original size, the meshcode of the input
 will be return.</p></td>
@@ -193,7 +193,25 @@ will be return.</p></td>
 </div><div class='output co'>#&gt; &lt;meshcode[4]&gt;
 #&gt; [1] 5235043231 5235043232 5235043233 5235043234</div><div class='input'><span class='fu'>mesh_convert</span><span class='op'>(</span><span class='st'>"5235043213"</span>, <span class='fl'>0.125</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;meshcode[4]&gt;
-#&gt; [1] 52350432131 52350432132 52350432133 52350432134</div><div class='input'><span class='co'># Not changes</span>
+#&gt; [1] 52350432131 52350432132 52350432133 52350432134</div><div class='input'><span class='fu'>mesh_convert</span><span class='op'>(</span><span class='fl'>64414315</span>, <span class='fl'>0.1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;subdiv_meshcode[100]&gt;
+#&gt;   [1] 6441431500 6441431501 6441431502 6441431503 6441431504 6441431505
+#&gt;   [7] 6441431506 6441431507 6441431508 6441431509 6441431510 6441431511
+#&gt;  [13] 6441431512 6441431513 6441431514 6441431515 6441431516 6441431517
+#&gt;  [19] 6441431518 6441431519 6441431520 6441431521 6441431522 6441431523
+#&gt;  [25] 6441431524 6441431525 6441431526 6441431527 6441431528 6441431529
+#&gt;  [31] 6441431530 6441431531 6441431532 6441431533 6441431534 6441431535
+#&gt;  [37] 6441431536 6441431537 6441431538 6441431539 6441431540 6441431541
+#&gt;  [43] 6441431542 6441431543 6441431544 6441431545 6441431546 6441431547
+#&gt;  [49] 6441431548 6441431549 6441431550 6441431551 6441431552 6441431553
+#&gt;  [55] 6441431554 6441431555 6441431556 6441431557 6441431558 6441431559
+#&gt;  [61] 6441431560 6441431561 6441431562 6441431563 6441431564 6441431565
+#&gt;  [67] 6441431566 6441431567 6441431568 6441431569 6441431570 6441431571
+#&gt;  [73] 6441431572 6441431573 6441431574 6441431575 6441431576 6441431577
+#&gt;  [79] 6441431578 6441431579 6441431580 6441431581 6441431582 6441431583
+#&gt;  [85] 6441431584 6441431585 6441431586 6441431587 6441431588 6441431589
+#&gt;  [91] 6441431590 6441431591 6441431592 6441431593 6441431594 6441431595
+#&gt;  [97] 6441431596 6441431597 6441431598 6441431599</div><div class='input'><span class='co'># Not changes</span>
 <span class='fu'>mesh_convert</span><span class='op'>(</span><span class='st'>"52350432"</span>, <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;meshcode[1]&gt;
 #&gt; [1] 52350432</div><div class='input'><span class='fu'>mesh_convert</span><span class='op'>(</span><span class='st'>"52350432131"</span>, <span class='fl'>0.125</span><span class='op'>)</span>
