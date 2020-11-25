@@ -19,27 +19,18 @@ mesh_to_coords <- function(meshcode, ...) { # nolint
     purrr::set_names(mesh_code, meshcode)
   size <- 
     mesh_size(meshcode) # nolint
-  purrr::map2_dfr(
-    mesh_code,
-    size,
-    .mesh_to_coords,
-    .id = "meshcode"
-  ) %>% 
-    purrr::modify_at(1, ~ meshcode(.x, .type = "standard"))
+  d <- 
+      tibble::tibble(meshcode = meshcode)
+    d %>% 
+      cbind(
+        purrr::map2(
+          mesh_code,
+          size,
+          .mesh_to_coords
+        ) %>% 
+          purrr::reduce(rbind)) %>% 
+      tibble::as_tibble()    
 }
-
-#' @rdname mesh_to_coords
-#' @export
-mesh_to_coords.subdiv_meshcode <- function(meshcode) {
-  export_meshes(meshcode) %>% 
-    sf::st_geometry() %>% 
-    purrr::set_names(as.character(meshcode)) %>% 
-    purrr::map_dfr(
-      ~ sf::st_bbox(.x),
-      .id = "meshcode"
-    )
-}
-
 .mesh_to_coords <- function(mesh_code, size) {
   if (size <= units::as_units(80, "km")) {
     code12 <- 

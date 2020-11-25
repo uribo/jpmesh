@@ -2,12 +2,9 @@
 % Please edit documentation in R/export_mesh.R
 \name{export_mesh}
 \alias{export_mesh}
-\alias{export_mesh.subdiv_meshcode}
 \title{Export meshcode to geometry}
 \usage{
 export_mesh(meshcode)
-
-export_mesh.subdiv_meshcode(meshcode)
 }
 \arguments{
 \item{meshcode}{\code{character}. mesh code}
