@@ -1,4 +1,4 @@
-# jpmesh (development version)
+# jpmesh 2.0.0 (2020-11-26)
 
 - To introduced a new `meshcode` class. This is one of the classes of S3. The mesh code values returned by the package are implemented in the `meshcode` class. Also, `meshcode()` creates an object of `meshcode` class of arbitrary size [#49](https://github.com/uribo/jpmesh/pull/49).
     - `is_meshcode()`, `as_meshcode()`
