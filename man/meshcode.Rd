@@ -5,21 +5,26 @@
 \alias{meshcode}
 \alias{as_meshcode}
 \alias{format.meshcode}
+\alias{format.subdiv_meshcode}
 \title{Vector of meshcode}
 \usage{
-meshcode_vector(x = character(), size = double())
+meshcode_vector(x = character(), size = double(), .type = "standard")
 
-meshcode(x)
+meshcode(x, .type = "standard")
 
 as_meshcode(x, ...)
 
 \method{format}{meshcode}(x, ...)
+
+\method{format}{subdiv_meshcode}(x, ...)
 }
 \arguments{
 \item{x}{input meshcode value}
 
 \item{size}{input meshcode size. Default set to \code{NULL}. The decision is
 automatically made based on the \code{meshsize}.}
+
+\item{.type}{Specify the \code{subdivision} if you want to get a 100m mesh.}
 
 \item{...}{path to another function}
 }
@@ -31,4 +36,7 @@ Vector of meshcode
 }
 \examples{
 meshcode("6441")
+meshcode(c("6441", "6442"))
+meshcode(c("6441", "644143"))
+meshcode("6441431552", .type = "subdivision")
 }

@@ -7,7 +7,7 @@ NULL # nolint
 #' @export
 #' @rdname is_mesh
 is_meshcode <- function(meshcode) {
-  inherits(meshcode, "meshcode")
+  inherits(meshcode, c("meshcode", "subdiv_meshcode"))
 }
 
 #' @export

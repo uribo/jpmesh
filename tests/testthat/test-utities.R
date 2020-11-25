@@ -28,7 +28,7 @@ test_that("is meshcode", {
 test_that("mesh size", {
   expect_equal(
     dim(df_mesh_size_unit),
-    c(7, 2))
+    c(8, 2))
   expect_named(
     df_mesh_size_unit,
     c("mesh_length", "mesh_size"))
