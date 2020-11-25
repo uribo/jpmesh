@@ -137,9 +137,9 @@ test_that("vectorize", {
     meshes %>%
     export_meshes()
   d$longitude <-
-    purrr::pmap_dbl(d, ~ mesh_to_coords(..1)[[1]])
-  d$latitude <-
     purrr::pmap_dbl(d, ~ mesh_to_coords(..1)[[2]])
+  d$latitude <-
+    purrr::pmap_dbl(d, ~ mesh_to_coords(..1)[[3]])
   res <-
     coords_to_mesh(longitude = d$longitude,
                    latitude = d$latitude)

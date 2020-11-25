@@ -4,6 +4,7 @@
     - `is_meshcode()`, `as_meshcode()`
 - Update administration mesh code data using at `administration_mesh()`
 - Activate a memoise some functions for efficiency [#50](https://github.com/uribo/jpmesh/pull/50).
+- Support 100m mesh code as `subdiv_meshcode` class [#51](https://github.com/uribo/jpmesh/pull/51).
 
 # jpmesh 1.2.1 (2020-05-06)
 

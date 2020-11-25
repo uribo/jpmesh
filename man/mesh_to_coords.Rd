@@ -16,6 +16,7 @@ mesh centroid
 }
 \examples{
 mesh_to_coords("64414277")
+mesh_to_coords(c("64414277", "64414278"))
 }
 \references{
 Akio Takenaka: \url{http://takenaka-akio.org/etc/j_map/index.html} # nolint

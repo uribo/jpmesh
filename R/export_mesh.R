@@ -14,12 +14,29 @@ export_mesh <-
         meshcode <-
           meshcode(meshcode)
       }
-      size <- 
-        mesh_size(meshcode)
-      mesh_to_coords(meshcode) %>% 
-        purrr::pmap_chr(mesh_to_poly) %>% 
-        sf::st_as_sfc(crs = 4326)
-    })
+      if (mesh_size(meshcode) == units::set_units(0.1, "km")) {
+        export_mesh_subdiv(meshcode)
+      } else {
+        size <- 
+          mesh_size(meshcode)
+        mesh_to_coords(meshcode) %>% 
+          purrr::discard(names(.) %in% "meshcode") %>% 
+          purrr::pmap_chr(mesh_to_poly) %>% 
+          sf::st_as_sfc(crs = 4326)        
+      }
+})
+
+export_mesh_subdiv <- function(meshcode) {
+  mesh <- NULL
+  m1km <-
+    mesh_convert(meshcode, to_mesh_size = 1)
+  subset(sf::st_sf(mesh = paste0(m1km,
+                                 sprintf("%02d", seq.int(0, 99))),
+                   geometry = sf::st_make_grid(
+                     export_mesh(m1km), n = c(10, 10))), 
+         subset = mesh == as.character(meshcode)) %>% 
+    purrr::pluck("geometry")
+}
 
 #' @title Export meshcode to geometry
 #' @description Convert and export meshcode area to `sf`.
@@ -40,11 +57,22 @@ export_meshes <- function(meshcode) {
   }
   df_meshes <-
     tibble::tibble("meshcode" = meshcode)
-  df_meshes$geometry <-
-    purrr::map_chr(vctrs::field(df_meshes$meshcode, "mesh_code"),
-                   ~ export_mesh(meshcode = .x) %>%
+  size <-
+    vctrs::field(df_meshes$meshcode, "mesh_size") %>% 
+    unique()
+  if (size == 0.1) {
+    df_meshes$geometry <- 
+      purrr::map_chr(vctrs::field(df_meshes$meshcode, "mesh_code"),
+                   ~ export_mesh_subdiv(meshcode = .x) %>%
                      sf::st_as_text()) %>%
-    sf::st_as_sfc()
+      sf::st_as_sfc()
+  } else {
+    df_meshes$geometry <-
+      purrr::map_chr(vctrs::field(df_meshes$meshcode, "mesh_code"),
+                     ~ export_mesh(meshcode = .x) %>%
+                       sf::st_as_text()) %>%
+      sf::st_as_sfc()    
+  }
   df_meshes %>% 
     sf::st_sf(crs = 4326) %>% 
     tibble::new_tibble(class = "sf", nrow = nrow(df_meshes))

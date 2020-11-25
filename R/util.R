@@ -34,27 +34,29 @@ mesh_to_poly <- function(lng_center, lat_center, lng_error, lat_error, ...) {
 #' @title Identifer to mesh size
 #' @description Returns a unit object of mesh size for the given number.
 #' @inheritParams mesh_to_coords
+#' @inheritParams meshcode_vector
 #' @examples 
 #' mesh_size("6740")
 #' @export
-mesh_size <- function(meshcode) {
+mesh_size <- function(meshcode, .type = "standard") {
   if (is_meshcode(meshcode) == FALSE) {
     meshcode <- 
-      meshcode(meshcode)    
+      meshcode(meshcode, .type)
   }
   mesh_size <- 
     as.character(vctrs::field(meshcode, "mesh_size"))
   res <- 
     purrr::map(
-    mesh_size,
-    ~ switch(.x,
-             "80" = mesh_units[1],
-             "10" = mesh_units[2],
-             "5" = mesh_units[3],
-             "1" = mesh_units[4],
-             "0.5" = mesh_units[5],
-             "0.25" = mesh_units[6],
-             "0.125" = mesh_units[7])) %>% 
+      mesh_size,
+      ~ switch(.x,
+               "80" = mesh_units[1],
+               "10" = mesh_units[2],
+               "5" = mesh_units[3],
+               "1" = mesh_units[4],
+               "0.5" = mesh_units[5],
+               "0.25" = mesh_units[6],
+               "0.125" = mesh_units[7],
+               "0.1" = mesh_units[8])) %>% 
     purrr::reduce(c)
   if (rlang::is_null(res)) {
     res <- 
@@ -63,12 +65,14 @@ mesh_size <- function(meshcode) {
   res
 }
 
-mesh_units <- units::as_units(c(80.000, 10.000, 5.000,
-                                1.000, 0.500, 0.250, 0.125), "km") # nolint
+mesh_units <- 
+  units::as_units(
+    c(80.000, 10.000, 5.000, 1.000, 0.500, 0.250, 0.125, 0.100), 
+    "km") # nolint
 
 df_mesh_size_unit <-
   tibble::tibble(
-    mesh_length = c(4L, 6L, 7L, 8L, 9L, 10L, 11L),
+    mesh_length = c(4L, 6L, 7L, 8L, 9L, 10L, 11L, 10L),
     mesh_size = mesh_units)
 
 meshcode_80km_num <-
@@ -122,68 +126,69 @@ meshcode_set_80km <-
 #' meshcode_set(mesh_size = 80, .raw = FALSE)
 #' @return character or [meshcode][meshcode]
 #' @export
-meshcode_set <- memoise::memoise(
-  function(mesh_size = c(80, 10, 1), .raw = TRUE) {
-    if (mesh_size == 80) {
-      meshcode_80km <- 
-        as.character(meshcode_80km_num)
-    } else {
-      meshcode_10km <- 
-        as.character(meshcode_80km_num) %>% 
-        purrr::map(
-          ~ paste0(.x,
-                   sprintf("%02s",
-                           sort(paste0(rep(seq.int(0, 7), each = 8), seq.int(0, 7))))
-          )) %>% 
-        purrr::flatten_chr()
-    }
-    if (mesh_size == 1) {
-      meshcode_1km <- 
-        meshcode_10km %>% 
-        purrr::map(
-          ~ paste0(.x,
-                   sprintf("%02d", seq.int(0, 99))
-          )) %>% 
-        purrr::flatten_chr()
-    }
-    if (.raw == TRUE) {
+meshcode_set <- 
+  memoise::memoise(
+    function(mesh_size = c(80, 10, 1), .raw = TRUE) {
       if (mesh_size == 80) {
-        meshcode_80km
-      } else if (mesh_size == 10) {
-        meshcode_10km
-      } else if (mesh_size == 1) {
-        meshcode_1km
+        meshcode_80km <- 
+          as.character(meshcode_80km_num)
+      } else {
+        meshcode_10km <- 
+          as.character(meshcode_80km_num) %>% 
+          purrr::map(
+            ~ paste0(.x,
+                     sprintf("%02s",
+                             sort(paste0(rep(seq.int(0, 7), each = 8), seq.int(0, 7))))
+            )) %>% 
+          purrr::flatten_chr()
       }
-    } else {
-      if (mesh_size == 80) {
-        meshcode_set_80km
-      } else if (mesh_size <= 10) {
-        meshcode_set_10km <- 
-          meshcode_set_80km %>% 
-          fine_separate()
-        if (mesh_size == 10) {
-          meshcode_set_10km
+      if (mesh_size == 1) {
+        meshcode_1km <- 
+          meshcode_10km %>% 
+          purrr::map(
+            ~ paste0(.x,
+                     sprintf("%02d", seq.int(0, 99))
+            )) %>% 
+          purrr::flatten_chr()
+      }
+      if (.raw == TRUE) {
+        if (mesh_size == 80) {
+          meshcode_80km
+        } else if (mesh_size == 10) {
+          meshcode_10km
         } else if (mesh_size == 1) {
-          meshcode_set_10km %>% 
+          meshcode_1km
+        }
+      } else {
+        if (mesh_size == 80) {
+          meshcode_set_80km
+        } else if (mesh_size <= 10) {
+          meshcode_set_10km <- 
+            meshcode_set_80km %>% 
             fine_separate()
+          if (mesh_size == 10) {
+            meshcode_set_10km
+          } else if (mesh_size == 1) {
+            meshcode_set_10km %>% 
+              fine_separate()
+          }
         }
       }
     }
-  }
-)
+  )
 
 #' @title Cutoff mesh of outside the area
 #' @inheritParams mesh_to_coords
 cut_off <- function(meshcode) {
-    if (is_meshcode(meshcode) == TRUE) {
-      meshcode <- 
-        vctrs::field(meshcode, "mesh_code")
-    }
-    mesh_80km <- 
-      meshcode %>% 
-      substr(1, 4)
-    res <- 
-      meshcode[mesh_80km %in% meshcode_set(80, .raw = TRUE)]
+  if (is_meshcode(meshcode) == TRUE) {
+    meshcode <- 
+      vctrs::field(meshcode, "mesh_code")
+  }
+  mesh_80km <- 
+    meshcode %>% 
+    substr(1, 4)
+  res <- 
+    meshcode[mesh_80km %in% meshcode_set(80, .raw = TRUE)]
   if (length(res) < length(meshcode)) {
     rlang::warn("Some neighborhood meshes are outside the area.")
   }
@@ -236,7 +241,8 @@ mesh_length <- function(mesh_length) {
            "8" = mesh_units[4],
            "9" = mesh_units[5],
            "10" = mesh_units[6],
-           "11" = mesh_units[7])
+           "11" = mesh_units[7],
+           "10" = mesh_units[8])
   } else {
     mesh_length %>% 
       purrr::map_dbl(
@@ -247,6 +253,7 @@ mesh_length <- function(mesh_length) {
                  "8" = mesh_units[4],
                  "9" = mesh_units[5],
                  "10" = mesh_units[6],
-                 "11" = mesh_units[7])) 
+                 "11" = mesh_units[7],
+                 "10" = mesh_units[8])) 
   }
 }

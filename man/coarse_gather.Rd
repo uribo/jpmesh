@@ -12,8 +12,6 @@ coarse_gather(meshcode, distinct = FALSE)
 \item{distinct}{return unique meshcodes}
 }
 \value{
-character vector
-
 \link{meshcode}
 }
 \description{

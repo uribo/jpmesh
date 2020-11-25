@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
 
 The **jpmesh** package is a package that makes it easy to use "regional mesh (i.e. mesh code _JIS X 0410_ )" used in Japan from R. Regional mesh is a code given when subdividing Japanese landscape into rectangular subregions by latitude and longitude. Depending on the accuracy of the code, different regional mesh length. By using the same mesh in statistical survey etc., it will become possible to handle the survey results of a large area in the area mesh unit.
 
-In jpmesh, mesh codes and latitude and longitude coordinates are compatible with mesh codes from the first region mesh, which is the standard region mesh, to the quarter regional mesh of the divided region mesh (from 80 km to 125 m). Features include "conversion from latitude and longitude to regional mesh", "acquisition of latitude and longitude from regional mesh", "mapping on prefecture unit and leaflet".
+In jpmesh, mesh codes and latitude and longitude coordinates are compatible with mesh codes from the first region mesh, which is the standard region mesh, to the quarter regional mesh of the divided region mesh (from 80 km to 100 m). Features include "conversion from latitude and longitude to regional mesh", "acquisition of latitude and longitude from regional mesh", "mapping on prefecture unit and leaflet".
 
 ## Installation
 
@@ -62,6 +62,7 @@ meshcode(51337783) # 1km
 meshcode(513377831) # 500m
 meshcode(5133778312) # 250m
 meshcode(51337783123) # 125m
+meshcode(5133778300, .type = "subdivision") # 100m
 ```
 
 
