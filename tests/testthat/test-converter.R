@@ -22,7 +22,7 @@ test_that("scale up", {
 })
 test_that("scale down", {
   res <- 
-    mesh_convert("53386166", 0.5)
+    mesh_convert(meshcode = "53386166", to_mesh_size = 0.5)
   expect_equal(
     res,
     fine_separate("53386166"))
@@ -67,4 +67,14 @@ test_that("scale down", {
   expect_length(
     mesh_convert(meshcode, 0.125),
     4L)
+  res <-
+    mesh_convert(64414315, 0.1)
+  expect_length(
+    res,
+    100L
+  )
+  expect_s3_class(
+    res,
+    "subdiv_meshcode"
+  )
 })

@@ -31,6 +31,16 @@ test_that("Separate more fine mesh order", {
   vdiffr::expect_doppelganger(
     "fine-separate-1km",
     plot(sf::st_geometry(export_meshes(res)), col = "white"))
+  res <- 
+    fine_separate("64414315", .type = "subdivision")
+  expect_length(
+    res,
+    100L
+  )
+  expect_s3_class(
+    res,
+    "subdiv_meshcode"
+  )
 })
 
 test_that("Coarse multiple meshes to large size", {

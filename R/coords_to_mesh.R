@@ -25,14 +25,14 @@
 coords_to_mesh <- function(longitude, latitude, mesh_size = 1, geometry = NULL, ...) { # nolint
   to_mesh_size <- 
     units::as_units(mesh_size, "km")
-  if (rlang::is_true(identical(which(to_mesh_size %in% mesh_units), integer(0)))) # nolint
+  if (rlang::is_true(identical(which(to_mesh_size %in% mesh_units[-8]), integer(0)))) # nolint
     rlang::abort(
       paste0("`mesh_size` should be one of: ",
              paste(
-               units::drop_units(mesh_units)[-6],
+               units::drop_units(mesh_units)[-seq.int(7, 8)],
                collapse = ", "),
              " or ",
-             paste(units::drop_units(mesh_units)[6])))
+             paste(units::drop_units(mesh_units)[7])))
   if (rlang::is_false(is.null(geometry))) {
     geometry <- 
       sf::st_sfc(geometry)

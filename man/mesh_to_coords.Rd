@@ -2,9 +2,12 @@
 % Please edit documentation in R/mesh_to_coords.R
 \name{mesh_to_coords}
 \alias{mesh_to_coords}
+\alias{mesh_to_coords.subdiv_meshcode}
 \title{Get from mesh code to latitude and longitude}
 \usage{
 mesh_to_coords(meshcode, ...)
+
+mesh_to_coords.subdiv_meshcode(meshcode)
 }
 \arguments{
 \item{meshcode}{\code{character}. mesh code}
@@ -16,6 +19,7 @@ mesh centroid
 }
 \examples{
 mesh_to_coords("64414277")
+mesh_to_coords(c("64414277", "64414278"))
 }
 \references{
 Akio Takenaka: \url{http://takenaka-akio.org/etc/j_map/index.html} # nolint
