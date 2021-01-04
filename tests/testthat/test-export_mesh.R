@@ -5,7 +5,7 @@ test_that("typeof", {
     export_mesh(53375084)
   expect_s3_class(res, c("sfc_POLYGON"))
   expect_type(res, "list")
-  vdiffr::expect_doppelganger(
+  expect_doppelganger(
     "export-mesh-1km",
     plot(res, col = "white"))
   expect_equal(sf::st_crs(

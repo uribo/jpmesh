@@ -10,7 +10,7 @@ test_that("Separate more fine mesh order", {
                meshcode("523500"))
   expect_equal(res[length(res)],
                meshcode("523577"))
-  vdiffr::expect_doppelganger(
+  expect_doppelganger(
     "fine-separate-80km",
     plot(sf::st_geometry(export_meshes(res)), col = "white"))
   res <- 
@@ -20,7 +20,7 @@ test_that("Separate more fine mesh order", {
                meshcode("52350400"))
   expect_equal(res[length(res)], 
                meshcode("52350499"))
-  vdiffr::expect_doppelganger(
+  expect_doppelganger(
     "fine-separate-10km",
     plot(sf::st_geometry(export_meshes(res)), col = "white"))
   res <- 
@@ -28,7 +28,7 @@ test_that("Separate more fine mesh order", {
   expect_length(res, 4)
   expect_equal(res, 
                meshcode(paste0("36233799", seq_len(4))))
-  vdiffr::expect_doppelganger(
+  expect_doppelganger(
     "fine-separate-1km",
     plot(sf::st_geometry(export_meshes(res)), col = "white"))
   res <- 
