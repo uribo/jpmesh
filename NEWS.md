@@ -1,4 +1,6 @@
-# jpmesh (development version)
+# jpmesh 2.0.1 (2021-01-04)
+
+- Fix vdiffr conditionally
 
 # jpmesh 2.0.0 (2020-11-26)
 
