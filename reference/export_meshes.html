@@ -117,7 +117,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/uribo/jpmesh">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -168,47 +168,47 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>export_meshes</span><span class='op'>(</span><span class='st'>"4128"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Simple feature collection with 1 feature and 1 field
-#&gt; geometry type:  POLYGON
-#&gt; dimension:      XY
-#&gt; bbox:           xmin: 128 ymin: 27.33333 xmax: 129 ymax: 28
-#&gt; geographic CRS: WGS 84
-#&gt; <span style='color: #555555;'># A tibble: 1 x 2</span><span>
+#&gt; Geometry type: POLYGON
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: 128 ymin: 27.33333 xmax: 129 ymax: 28
+#&gt; Geodetic CRS:  WGS 84
+#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
 #&gt;     meshcode                                                     geometry
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;meshcode&gt;</span><span>                                                </span><span style='color: #555555;font-style: italic;'>&lt;POLYGON [°]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>       4128 ((128 27.33333, 129 27.33333, 129 28, 128 28, 128 27.33333))</div><div class='input'><span class='fu'><a href='neighbor_mesh.html'>find_neighbor_mesh</a></span><span class='op'>(</span><span class='st'>"37250395"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;meshcode&gt;</span>                                                <span style='color: #949494; font-style: italic;'>&lt;POLYGON [°]&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>       4128 ((128 27.33333, 129 27.33333, 129 28, 128 28, 128 27.33333))</div><div class='input'><span class='fu'><a href='neighbor_mesh.html'>find_neighbor_mesh</a></span><span class='op'>(</span><span class='st'>"37250395"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>export_meshes</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Simple feature collection with 9 features and 1 field
-#&gt; geometry type:  POLYGON
-#&gt; dimension:      XY
-#&gt; bbox:           xmin: 125.425 ymin: 24.73333 xmax: 125.4625 ymax: 24.75833
-#&gt; geographic CRS: WGS 84
-#&gt; </span><span style='color: #555555;'># A tibble: 9 x 2</span><span>
+#&gt; Geometry type: POLYGON
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: 125.425 ymin: 24.73333 xmax: 125.4625 ymax: 24.75833
+#&gt; Geodetic CRS:  WGS 84
+#&gt; <span style='color: #949494;'># A tibble: 9 x 2</span>
 #&gt;     meshcode                                                            geometry
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;meshcode&gt;</span><span>                                                       </span><span style='color: #555555;font-style: italic;'>&lt;POLYGON [°]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>   37250384 ((125.425 24.73333, 125.4375 24.73333, 125.4375 24.74167, 125.425 …
-#&gt; </span><span style='color: #555555;'>2</span><span>   37250385 ((125.4375 24.73333, 125.45 24.73333, 125.45 24.74167, 125.4375 24…
-#&gt; </span><span style='color: #555555;'>3</span><span>   37250386 ((125.45 24.73333, 125.4625 24.73333, 125.4625 24.74167, 125.45 24…
-#&gt; </span><span style='color: #555555;'>4</span><span>   37250394 ((125.425 24.74167, 125.4375 24.74167, 125.4375 24.75, 125.425 24.…
-#&gt; </span><span style='color: #555555;'>5</span><span>   37250395 ((125.4375 24.74167, 125.45 24.74167, 125.45 24.75, 125.4375 24.75…
-#&gt; </span><span style='color: #555555;'>6</span><span>   37250396 ((125.45 24.74167, 125.4625 24.74167, 125.4625 24.75, 125.45 24.75…
-#&gt; </span><span style='color: #555555;'>7</span><span>   37251304 ((125.425 24.75, 125.4375 24.75, 125.4375 24.75833, 125.425 24.758…
-#&gt; </span><span style='color: #555555;'>8</span><span>   37251305 ((125.4375 24.75, 125.45 24.75, 125.45 24.75833, 125.4375 24.75833…
-#&gt; </span><span style='color: #555555;'>9</span><span>   37251306 ((125.45 24.75, 125.4625 24.75, 125.4625 24.75833, 125.45 24.75833…</div><div class='input'><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq.int</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>,
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;meshcode&gt;</span>                                                       <span style='color: #949494; font-style: italic;'>&lt;POLYGON [°]&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>   37250384 ((125.425 24.73333, 125.4375 24.73333, 125.4375 24.74167, 125.425 …
+#&gt; <span style='color: #BCBCBC;'>2</span>   37250385 ((125.4375 24.73333, 125.45 24.73333, 125.45 24.74167, 125.4375 24…
+#&gt; <span style='color: #BCBCBC;'>3</span>   37250386 ((125.45 24.73333, 125.4625 24.73333, 125.4625 24.74167, 125.45 24…
+#&gt; <span style='color: #BCBCBC;'>4</span>   37250394 ((125.425 24.74167, 125.4375 24.74167, 125.4375 24.75, 125.425 24.…
+#&gt; <span style='color: #BCBCBC;'>5</span>   37250395 ((125.4375 24.74167, 125.45 24.74167, 125.45 24.75, 125.4375 24.75…
+#&gt; <span style='color: #BCBCBC;'>6</span>   37250396 ((125.45 24.74167, 125.4625 24.74167, 125.4625 24.75, 125.45 24.75…
+#&gt; <span style='color: #BCBCBC;'>7</span>   37251304 ((125.425 24.75, 125.4375 24.75, 125.4375 24.75833, 125.425 24.758…
+#&gt; <span style='color: #BCBCBC;'>8</span>   37251305 ((125.4375 24.75, 125.45 24.75, 125.45 24.75833, 125.4375 24.75833…
+#&gt; <span style='color: #BCBCBC;'>9</span>   37251306 ((125.45 24.75, 125.4625 24.75, 125.4625 24.75833, 125.45 24.75833…</div><div class='input'><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq.int</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>,
             meshcode <span class='op'>=</span> <span class='fu'><a href='rmesh.html'>rmesh</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>,
             stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='fu'>meshcode_sf</span><span class='op'>(</span><span class='va'>d</span>, <span class='va'>meshcode</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Simple feature collection with 4 features and 2 fields
-#&gt; geometry type:  POLYGON
-#&gt; dimension:      XY
-#&gt; bbox:           xmin: 129.9875 ymin: 32.41667 xmax: 140.5625 ymax: 42.91667
-#&gt; geographic CRS: WGS 84
-#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
+#&gt; Geometry type: POLYGON
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: 129.9875 ymin: 32.41667 xmax: 140.5625 ymax: 42.91667
+#&gt; Geodetic CRS:  WGS 84
+#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span>
 #&gt;      id   meshcode                                                      geometry
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;meshcode&gt;</span><span>                                                 </span><span style='color: #555555;font-style: italic;'>&lt;POLYGON [°]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1   60403310 ((140.375 40.25833, 140.3875 40.25833, 140.3875 40.26667, 14…
-#&gt; </span><span style='color: #555555;'>2</span><span>     2   56371798 ((137.975 37.49167, 137.9875 37.49167, 137.9875 37.5, 137.97…
-#&gt; </span><span style='color: #555555;'>3</span><span>     3   48295709 ((129.9875 32.41667, 130 32.41667, 130 32.425, 129.9875 32.4…
-#&gt; </span><span style='color: #555555;'>4</span><span>     4   64402494 ((140.55 42.90833, 140.5625 42.90833, 140.5625 42.91667, 140…</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;meshcode&gt;</span>                                                 <span style='color: #949494; font-style: italic;'>&lt;POLYGON [°]&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1   60403310 ((140.375 40.25833, 140.3875 40.25833, 140.3875 40.26667, 14…
+#&gt; <span style='color: #BCBCBC;'>2</span>     2   56371798 ((137.975 37.49167, 137.9875 37.49167, 137.9875 37.5, 137.97…
+#&gt; <span style='color: #BCBCBC;'>3</span>     3   48295709 ((129.9875 32.41667, 130 32.41667, 130 32.425, 129.9875 32.4…
+#&gt; <span style='color: #BCBCBC;'>4</span>     4   64402494 ((140.55 42.90833, 140.5625 42.90833, 140.5625 42.91667, 140…</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
