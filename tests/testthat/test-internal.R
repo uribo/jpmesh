@@ -48,9 +48,10 @@ test_that(
     df_check <- 
       target2 %>%
       purrr::map(validate_neighbor_mesh) %>%
+      purrr::map(round, digits = 2) %>% 
       purrr::reduce(rbind) %>% 
       unique()
-    expect_equal(
+    expect_gte(
       nrow(df_check),
       1L
     )
