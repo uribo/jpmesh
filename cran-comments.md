@@ -1,6 +1,6 @@
 ## Test environments
-- local macOS (Catalina) install, R 4.0.3
-- Debian GNU/Linux 9 (on Docker),  R 4.0.3
+- local macOS (Catalina) install, R 4.0.5
+- Debian GNU/Linux 9 (on Docker),  R 4.1.0
 - win-builder
 
 ## R CMD check results
