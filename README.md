@@ -15,7 +15,7 @@ version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-pr
 status](https://codecov.io/gh/uribo/jpmesh/branch/master/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=master)
 [![R-CMD-check](https://github.com/uribo/jpmesh/workflows/R-CMD-check/badge.svg)](https://github.com/uribo/jpmesh/actions?query=workflow%3AR-CMD-check)
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=for-the-badge)](https://www.tidyverse.org/lifecycle/#maturing)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=for-the-badge)](https://lifecycle.r-lib.org/articles/stages.html)
 [![npm](https://img.shields.io/npm/l/express.svg?style=for-the-badge)](https://github.com/uribo/jpmesh)
 
 ------------------------------------------------------------------------
