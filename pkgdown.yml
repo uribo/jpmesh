@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   articles/plots: plots.html
   usage: usage.html
-last_built: 2021-06-19T08:20Z
+last_built: 2021-06-26T04:36Z
 urls:
   reference: https://uribo.github.io/jpmesh/reference
   article: https://uribo.github.io/jpmesh/articles
