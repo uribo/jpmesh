@@ -1,7 +1,7 @@
 Type: Package
 Package: jpmesh
 Title: Utilities for Japanese Mesh Code
-Version: 2.0.2
+Version: 2.0.2.9000
 Authors@R: c(
     person(given = "Shinya", family = "Uryu", email = "suika1127@gmail.com", role  = c("aut", "cre"), comment = c(ORCID = "0000-0002-0493-6186"))
     )
