@@ -41,7 +41,7 @@ meshcode_vector <- function(x = character(),
     check_correct_meshsize(x, size = 0.1)
     vctrs::new_rcrd(
       list(mesh_code = x,
-           mesh_size = rep(units::set_units(0.100, "km"), 
+           mesh_size = rep(0.1, 
                            length(x))),
       class = "subdiv_meshcode")
   } else {
