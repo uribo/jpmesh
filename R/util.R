@@ -31,7 +31,7 @@ mesh_to_poly <- function(lng_center, lat_center, lng_error, lat_error, ...) {
     sf::st_as_text()
 }
 
-#' @title Identifer to mesh size
+#' @title Identifier to mesh size
 #' @description Returns a unit object of mesh size for the given number.
 #' @inheritParams mesh_to_coords
 #' @inheritParams meshcode_vector

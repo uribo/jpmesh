@@ -2,7 +2,7 @@
 % Please edit documentation in R/util.R
 \name{mesh_size}
 \alias{mesh_size}
-\title{Identifer to mesh size}
+\title{Identifier to mesh size}
 \usage{
 mesh_size(meshcode, .type = "standard")
 }
