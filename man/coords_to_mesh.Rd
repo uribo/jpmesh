@@ -4,15 +4,15 @@
 \alias{coords_to_mesh}
 \title{Convert from coordinate to mesh code}
 \usage{
-coords_to_mesh(longitude, latitude, mesh_size = 1, geometry = NULL, ...)
+coords_to_mesh(longitude, latitude, to_mesh_size = 1, geometry = NULL, ...)
 }
 \arguments{
 \item{longitude}{longitude that approximately to .120.0 to 154.0 (\code{double})}
 
 \item{latitude}{latitude that approximately to 20.0 to 46.0 (\code{double})}
 
-\item{mesh_size}{Gives the unit in km for target mesh type.
-That is, 1 for 1km, and 0.5 for 500m. From 80km to 125m. Default is 1.}
+\item{to_mesh_size}{target mesh size.
+That is, 1 for 1km, and 0.5 for 500m. From 80km to 0.100km.}
 
 \item{geometry}{XY sfg object}
 
@@ -25,9 +25,10 @@ mesh code (default 3rd meshcode aka 1km mesh)
 From coordinate to mesh codes.
 }
 \examples{
-coords_to_mesh(141.3468, 43.06462, mesh_size = 1)
-coords_to_mesh(139.6917, 35.68949, mesh_size = 0.250)
+coords_to_mesh(141.3468, 43.06462, to_mesh_size = 1)
+coords_to_mesh(139.6917, 35.68949, to_mesh_size = 0.250)
 coords_to_mesh(139.71475, 35.70078)
+coords_to_mesh(139.71475, 35.70078, to_mesh_size = 0.1)
 coords_to_mesh(c(141.3468, 139.71475), 
                c(43.06462, 35.70078), 
                mesh_size = c(1, 10))

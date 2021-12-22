@@ -16,11 +16,11 @@ neighbor_mesh <- function(meshcode, contains = TRUE) {
   }
   size <- 
     mesh_size(meshcode)
-  if (size < units::as_units(0.5, "km")) {
+  if (size < mesh_units[5]) {
     rlang::inform("Too small meshsize. Enable 80km to 500m size.")
   } else if (size >= units::as_units(1, "km")) {
     find_neighbor_mesh(meshcode, contains = contains) # nolint
-  } else if (size == units::as_units(0.5, "km")) {
+  } else if (size == mesh_units[5]) {
     find_neighbor_finemesh(meshcode, contains = contains) # nolint
   } else {
     NULL
@@ -39,10 +39,10 @@ find_neighbor_mesh <- function(meshcode = NULL, contains = TRUE) { # nolint
   mesh_code <- 
     as.numeric(vctrs::field(meshcode, "mesh_code"))
   # nolint start
-  if (size == units::as_units(80, "km")) {
+  if (size == mesh_units[1]) {
     res <- 
       mesh_code - c(1, -1, 101, 100, 0, 99, -99, -100, -101)
-  } else if (size == units::as_units(10, "km")) {
+  } else if (size == mesh_units[2]) {
     if (is_corner(meshcode)) {
       if (grepl("(00|70|07|77|0[1-6]|[1-6]7|[1-6]0|7[1-6])$", mesh_code)) {
         res <- mesh_code + 
@@ -66,7 +66,7 @@ find_neighbor_mesh <- function(meshcode = NULL, contains = TRUE) { # nolint
         res <- mesh_code + c(9, 10, 11, -1, 0, 1, -9, -10, -11)
     # Must be ends 1-7
     res <- unique(res[grepl("[8-9]$", res) == FALSE])  
-  } else if (size == units::as_units(1, "km")) {
+  } else if (size == mesh_units[4]) {
     if (is_corner(mesh_code)) {
       if (grepl("(00|09|90|99|010[1-8]|[1-8]9|[1-8]0|9[1-8]|0[1-8])$", mesh_code)) {
         res <- 

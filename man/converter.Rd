@@ -9,16 +9,19 @@ mesh_convert(meshcode = NULL, to_mesh_size = NULL)
 \arguments{
 \item{meshcode}{\code{character}. mesh code}
 
-\item{to_mesh_size}{target mesh type. From 80km to 0.100km. If \code{NULL},
-the meshcode of one small scale will be returned.
-If it is the same as the original size, the meshcode of the input
-will be return.}
+\item{to_mesh_size}{target mesh size.
+That is, 1 for 1km, and 0.5 for 500m. From 80km to 0.100km.}
 }
 \value{
 \link{meshcode}
 }
 \description{
 Return different meshcode values included in the mesh.
+}
+\details{
+If \code{NULL} for to_mesh_size, the meshcode of one small
+scale will be returned. If it is the same as the original size,
+the meshcode of the input will be return.
 }
 \examples{
 mesh_convert(meshcode = "52350432", to_mesh_size = 80)
