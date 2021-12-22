@@ -44,19 +44,19 @@ export_mesh(5133778311)
 
 ```{r}
 coords_to_mesh(133, 34)
-coords_to_mesh(133, 34, mesh_size = 80)
-coords_to_mesh(133, 34, mesh_size = 0.125)
+coords_to_mesh(133, 34, to_mesh_size = 80)
+coords_to_mesh(133, 34, to_mesh_size = 0.125)
 ```
 
 また対象の地域メッシュ内に含まれる緯度経度からスケールダウンした地域メッシュや、隣接するメッシュコードを得ることができます。
 
 ```{r}
 # 80kmメッシュに含まれる10kmメッシュを返します
-coords_to_mesh(133, 34, mesh_size = 80) %>% 
+coords_to_mesh(133, 34, to_mesh_size = 80) %>% 
   fine_separate()
 
 # 隣接するメッシュコードを同じスケールで返します
-coords_to_mesh(133, 34, mesh_size = 80) %>% 
+coords_to_mesh(133, 34, to_mesh_size = 80) %>% 
   neighbor_mesh()
 coords_to_mesh(133, 34, 0.5) %>% 
   neighbor_mesh()

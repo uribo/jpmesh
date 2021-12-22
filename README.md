@@ -3,7 +3,7 @@
 
 # jpmesh <img src="man/figures/logo.png" align="right" width="80px" />
 
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/jpmesh)](https://cran.r-project.org/package=jpmesh)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/jpmesh?color=FF5254)](https://cran.r-project.org/package=jpmesh)
 [![minimal R
@@ -92,32 +92,32 @@ mesh code.
 
 ``` r
 mesh_to_coords(5133) # 80km
-#> # A tibble: 1 x 5
+#> # A tibble: 1 × 5
 #>     meshcode lng_center lat_center lng_error lat_error
 #>   <meshcode>      <dbl>      <dbl>     <dbl>     <dbl>
 #> 1       5133       134.       34.3       0.5     0.333
 mesh_to_coords(513377) # 10km
-#> # A tibble: 1 x 5
+#> # A tibble: 1 × 5
 #>     meshcode lng_center lat_center lng_error lat_error
 #>   <meshcode>      <dbl>      <dbl>     <dbl>     <dbl>
 #> 1     513377       134.       34.6    0.0625    0.0417
 mesh_to_coords(51337783) # 1km
-#> # A tibble: 1 x 5
+#> # A tibble: 1 × 5
 #>     meshcode lng_center lat_center lng_error lat_error
 #>   <meshcode>      <dbl>      <dbl>     <dbl>     <dbl>
 #> 1   51337783       134.       34.7   0.00625   0.00417
 mesh_to_coords(513377831) # 500m
-#> # A tibble: 1 x 5
+#> # A tibble: 1 × 5
 #>     meshcode lng_center lat_center lng_error lat_error
 #>   <meshcode>      <dbl>      <dbl>     <dbl>     <dbl>
 #> 1  513377831       134.       34.7   0.00312   0.00208
 mesh_to_coords(5133778312) # 250m
-#> # A tibble: 1 x 5
+#> # A tibble: 1 × 5
 #>     meshcode lng_center lat_center lng_error lat_error
 #>   <meshcode>      <dbl>      <dbl>     <dbl>     <dbl>
 #> 1 5133778312       134.       34.7   0.00156   0.00104
 mesh_to_coords(51337783123) # 125m
-#> # A tibble: 1 x 5
+#> # A tibble: 1 × 5
 #>      meshcode lng_center lat_center lng_error lat_error
 #>    <meshcode>      <dbl>      <dbl>     <dbl>     <dbl>
 #> 1 51337783123       134.       34.7  0.000781  0.000521
@@ -129,10 +129,10 @@ Find the mesh code within the range from latitude and longitude.
 coords_to_mesh(133, 34) # default as 1km meshcode
 #> <meshcode[1]>
 #> [1] 51330000
-coords_to_mesh(133, 34, mesh_size = 80)
+coords_to_mesh(133, 34, to_mesh_size = 80)
 #> <meshcode[1]>
 #> [1] 5133
-coords_to_mesh(133, 34, mesh_size = 0.125)
+coords_to_mesh(133, 34, to_mesh_size = 0.125)
 #> <meshcode[1]>
 #> [1] 51330000111
 ```

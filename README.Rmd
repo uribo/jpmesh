@@ -83,8 +83,8 @@ Find the mesh code within the range from latitude and longitude.
 
 ```{r}
 coords_to_mesh(133, 34) # default as 1km meshcode
-coords_to_mesh(133, 34, mesh_size = 80)
-coords_to_mesh(133, 34, mesh_size = 0.125)
+coords_to_mesh(133, 34, to_mesh_size = 80)
+coords_to_mesh(133, 34, to_mesh_size = 0.125)
 ```
 
 There is `mesh_convert()` as a function to change the mesh size more freely.
