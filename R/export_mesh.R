@@ -131,23 +131,34 @@ export_meshes <- function(meshcode, .keep_class = FALSE) {
   res
 }
 
-#' @name export_meshes
+#' @title Conversion to sf objects containing meshcode 
+#' @description Convert and export meshcode area to `sf`.
 #' @param data data.frame
 #' @param mesh_var unquoted expressions for meshcode variable.
+#' @inheritParams meshcode
+#' @inheritParams export_mesh
+#' @return [sf][sf::st_sf] object
 #' @export
 #' @examples
 #' d <- data.frame(id = seq.int(4),
 #'             meshcode = rmesh(4),
 #'             stringsAsFactors = FALSE)
 #' meshcode_sf(d, meshcode)
-meshcode_sf <- function(data, mesh_var, .keep_class = FALSE) {
+#' @rdname meshcode_sf
+meshcode_sf <- function(data, mesh_var, .type, .keep_class = FALSE) {
   meshcode <-
     rlang::quo_name(rlang::enquo(mesh_var))
+  meshes <-
+    data %>%
+    purrr::pluck(meshcode)
+  if (is_meshcode(meshes) == FALSE)
+    meshes <- 
+      meshes %>%
+      as_meshcode(.type = .type)
   res <- 
     sf::st_sf(
     data,
-    geometry = data %>%
-      purrr::pluck(meshcode) %>%
+    geometry = meshes %>%
       export_meshes() %>%
       sf::st_geometry(),
     crs = 4326) %>%
