@@ -1,7 +1,7 @@
 #' @title Export meshcode to geometry
 #' @description Convert and export meshcode area to `sfc_POLYGON`.
 #' @inheritParams mesh_to_coords
-#' @importFrom purrr pmap_chr
+#' @importFrom purrr discard pmap_chr
 #' @importFrom sf st_as_sfc st_polygon st_sfc
 #' @return [sfc][sf::st_as_sfc] object
 #' @examples
@@ -19,12 +19,56 @@ export_mesh <-
       } else {
         size <- 
           mesh_size(meshcode)
-        mesh_to_coords(meshcode) %>% 
-          purrr::discard(names(.) %in% "meshcode") %>% 
-          purrr::pmap_chr(mesh_to_poly) %>% 
-          sf::st_as_sfc(crs = 4326)        
+        if (size >= units::as_units(1, "km")) {
+          mesh_to_coords(meshcode) %>% 
+            purrr::discard(names(.) %in% "meshcode") %>% 
+            purrr::pmap_chr(mesh_to_poly) %>% 
+            sf::st_as_sfc(crs = 4326)                  
+        } else {
+          mesh1km <-
+            mesh_convert(meshcode, to_mesh_size = 1)
+          x <- 
+            mesh_to_coords(meshcode)
+          st_mesh_grid(meshcode, 
+                       to_mesh_size = units::drop_units(size)) %>% 
+            st_sf() %>% 
+            sf::st_join(
+              sf::st_sfc(sf::st_point(c(x$lng_center, 
+                                        x$lat_center)),
+                         crs = 4326) %>% 
+                sf::st_sf(), 
+              left = FALSE) %>% 
+            sf::st_geometry()
+        }
       }
 })
+
+st_mesh_grid <- function(meshcode, to_mesh_size = NULL) {
+  size <- 
+    mesh_size(meshcode)
+  if (size > mesh_units[4]) {
+    rlang::abort("Target mesh size must be less than 1km.")
+  }
+  mesh1km <- 
+    mesh_convert(meshcode, to_mesh_size = 1)
+  if (to_mesh_size == 0.5) {
+    sf::st_make_grid(
+      export_mesh(mesh1km),
+      n = c(2, 2))
+  } else if (to_mesh_size == 0.25) {
+    sf::st_make_grid(
+      export_mesh(mesh1km),
+      n = c(4, 4))
+  } else if (to_mesh_size == 0.125) {
+    sf::st_make_grid(
+      export_mesh(mesh1km),
+      n = c(8, 8))
+  } else if (to_mesh_size == 0.100) {
+    sf::st_make_grid(
+      export_mesh(mesh1km),
+      n = c(10, 10))
+  }
+}
 
 export_mesh_subdiv <- function(meshcode) {
   mesh <- NULL

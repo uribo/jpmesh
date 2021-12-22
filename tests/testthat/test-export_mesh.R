@@ -27,3 +27,11 @@ test_that("Convert include meshcode dataframe to sf", {
   expect_s3_class(res, "sf")
   expect_named(res, c("id", "meshcode", "geometry"))
 })
+
+test_that("Create mesh grid", {
+  res <-
+    st_mesh_grid(513404944, to_mesh_size = 0.5)
+  expect_s3_class(res, "sfc")
+  expect_length(res, 4L)
+  expect_error(st_mesh_grid(543352, to_mesh_size = 0.5))
+})

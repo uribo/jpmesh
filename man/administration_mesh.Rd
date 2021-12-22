@@ -9,10 +9,8 @@ administration_mesh(code, to_mesh_size)
 \arguments{
 \item{code}{administration code}
 
-\item{to_mesh_size}{target mesh type. From 80km to 0.100km. If \code{NULL},
-the meshcode of one small scale will be returned.
-If it is the same as the original size, the meshcode of the input
-will be return.}
+\item{to_mesh_size}{target mesh size.
+That is, 1 for 1km, and 0.5 for 500m. From 80km to 0.100km.}
 }
 \description{
 Extract administration mesh code

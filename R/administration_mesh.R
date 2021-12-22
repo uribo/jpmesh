@@ -17,7 +17,7 @@ administration_mesh <- function(code, to_mesh_size) {
   to_mesh_size_chr <-
     as.character(to_mesh_size)
   rlang::arg_match(to_mesh_size_chr,
-                   c("80", "10", "1"))
+                   c("80", "10", "1", "0.5", "0.25", "0.125", "0.1"))
   to_mesh_size <-
     units::as_units(as.numeric(to_mesh_size), "km")
   checked_code <-
@@ -43,14 +43,24 @@ administration_mesh <- function(code, to_mesh_size) {
                )) %>%
     purrr::flatten_chr() %>%
     unique()
-  if (to_mesh_size == units::as_units(80, "km")) {
+  if (to_mesh_size == mesh_units[1]) {
     res_meshes <-
       res_meshes %>%
       substr(1, 4)
-  } else if (to_mesh_size == units::as_units(10, "km")) {
+  } else if (to_mesh_size == mesh_units[2]) {
     res_meshes <-
       res_meshes %>%
       substr(1, 6)
+  } else if (to_mesh_size <= mesh_units[5] & to_mesh_size >= mesh_units[7]) {
+    res_meshes <- 
+      res_meshes %>% 
+      purrr::map(
+        ~ mesh_convert(.x, to_mesh_size = units::drop_units(to_mesh_size))) %>% 
+      purrr::reduce(c)
+  } else if (to_mesh_size == mesh_units[8]) {
+    res_meshes <-
+      res_meshes %>% 
+      fine_separate(.type = "subdivision")
   }
   res_meshes %>%
     unique() %>%
