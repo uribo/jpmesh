@@ -119,7 +119,8 @@ test_that("Input XY sfg", {
     coords_to_mesh(mesh_size = 1.000, geometry = res$geometry)
   suppressWarnings(res$geometry <-
                      sf::st_centroid(res$geometry))
-  res$check <- all.equal(res$meshcode, res$meshcode_copy)
+  res$check <- all.equal(res$meshcode, 
+                         as.character(res$meshcode_copy))
   expect_equal(sum(res$check == FALSE), 0)
 })
 

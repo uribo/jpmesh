@@ -11,6 +11,10 @@ test_that("typeof", {
   expect_equal(sf::st_crs(
     export_mesh(sample(meshcode_set(80), 1)))$epsg, 
                4326) # nolint
+  res <- 
+    export_meshes(c(51324305, 51381043),
+                  .keep_class = TRUE)
+  expect_is(res$meshcode, "meshcode")
 })
 
 test_that("Convert include meshcode dataframe to sf", {

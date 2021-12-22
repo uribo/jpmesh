@@ -5,12 +5,15 @@
 \alias{meshcode_sf}
 \title{Export meshcode to geometry}
 \usage{
-export_meshes(meshcode)
+export_meshes(meshcode, .keep_class = FALSE)
 
-meshcode_sf(data, mesh_var)
+meshcode_sf(data, mesh_var, .keep_class = FALSE)
 }
 \arguments{
 \item{meshcode}{\code{character}. mesh code}
+
+\item{.keep_class}{Do you want to assign a class to the meshcode column
+in data.frame? If \code{FALSE}, it will be treated as a character type.}
 
 \item{data}{data.frame}
 

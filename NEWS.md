@@ -1,5 +1,7 @@
 # jpmesh (development version)
 
+- Reviewed the handling of meshcode in the data.frame [#59](https://github.com/uribo/jpmesh/pull/59). Added *.keep_class* to the argument of the function to be returned as a data.frame (`FALSE` by default), and changed it so that the user can select the class.
+
 # jpmesh 2.0.2
 
 - Following sf updates

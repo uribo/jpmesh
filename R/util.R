@@ -213,7 +213,7 @@ bind_meshpolys <- function(meshcode) {
   meshcode %>%
     fine_separate() %>%
     unique() %>%
-    export_meshes()
+    export_meshes(.keep_class = TRUE)
 }
 
 code_reform <- function(jis_code) {

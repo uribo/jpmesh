@@ -41,7 +41,9 @@ export_mesh_subdiv <- function(meshcode) {
 #' @title Export meshcode to geometry
 #' @description Convert and export meshcode area to `sf`.
 #' @inheritParams mesh_to_coords
-#' @importFrom purrr map_chr
+#' @param .keep_class Do you want to assign a class to the meshcode column 
+#' in data.frame? If `FALSE`, it will be treated as a character type.
+#' @importFrom purrr map_chr modify_at
 #' @importFrom sf st_as_sfc st_as_text st_sf
 #' @importFrom tibble tibble
 #' @examples
@@ -50,7 +52,7 @@ export_mesh_subdiv <- function(meshcode) {
 #'   export_meshes()
 #' @export
 #' @name export_meshes
-export_meshes <- function(meshcode) {
+export_meshes <- function(meshcode, .keep_class = FALSE) {
   if (is_meshcode(meshcode) == FALSE) {
     meshcode <- 
       meshcode(meshcode)
@@ -73,9 +75,16 @@ export_meshes <- function(meshcode) {
                        sf::st_as_text()) %>%
       sf::st_as_sfc()    
   }
-  df_meshes %>% 
+  res <- 
+    df_meshes %>% 
     sf::st_sf(crs = 4326) %>% 
     tibble::new_tibble(class = "sf", nrow = nrow(df_meshes))
+  if (.keep_class == FALSE) {
+    res <-
+      res %>% 
+      purrr::modify_at(1, ~ as.character(.x))
+  }
+  res
 }
 
 #' @name export_meshes
@@ -87,16 +96,23 @@ export_meshes <- function(meshcode) {
 #'             meshcode = rmesh(4),
 #'             stringsAsFactors = FALSE)
 #' meshcode_sf(d, meshcode)
-meshcode_sf <- function(data, mesh_var) {
+meshcode_sf <- function(data, mesh_var, .keep_class = FALSE) {
   meshcode <-
     rlang::quo_name(rlang::enquo(mesh_var))
-  sf::st_sf(
+  res <- 
+    sf::st_sf(
     data,
     geometry = data %>%
       purrr::pluck(meshcode) %>%
       export_meshes() %>%
       sf::st_geometry(),
-    crs = 4326
-  ) %>%
+    crs = 4326) %>%
     tibble::new_tibble(nrow = nrow(data), class = "sf")
+  if (.keep_class == FALSE) {
+    res <- 
+      res %>% 
+      purrr::modify_at(which(names(res) %in% meshcode),
+                       ~ as.character(.x))
+  }
+  res
 }
