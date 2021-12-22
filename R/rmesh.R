@@ -10,6 +10,6 @@ rmesh <- function(n, mesh_size = 1) {
   mesh_size <- 
     as.character(mesh_size)
   rlang::arg_match(mesh_size,
-                   c("80", "10", "5", "1"))
+                   c("80", "10", "1"))
   meshcode(sample(meshcode_set(mesh_size = mesh_size), n))
 }

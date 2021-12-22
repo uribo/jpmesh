@@ -18,7 +18,7 @@ neighbor_mesh <- function(meshcode, contains = TRUE) {
     mesh_size(meshcode)
   if (size < mesh_units[5]) {
     rlang::inform("Too small meshsize. Enable 80km to 500m size.")
-  } else if (size >= units::as_units(1, "km")) {
+  } else if (size >= mesh_units[4]) {
     find_neighbor_mesh(meshcode, contains = contains) # nolint
   } else if (size == mesh_units[5]) {
     find_neighbor_finemesh(meshcode, contains = contains) # nolint

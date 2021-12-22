@@ -19,12 +19,12 @@ is_corner <- function(meshcode) {
   }
   size <- 
     mesh_size(meshcode) # nolint
-  if (size == units::as_units(80, "km")) {
+  if (size == mesh_units[1]) {
     rlang::abort("enable 10km or 1km mesh")
-  } else if (size == units::as_units(10, "km")) {
+  } else if (size == mesh_units[2]) {
     grepl("(0[0-7]|[0-7]0|7[0-7]|[0-7]7)$", 
           vctrs::field(meshcode, "mesh_code"))
-  } else if (size == units::as_units(1, "km")) {
+  } else if (size == mesh_units[4]) {
     grepl("(0[0-9]|[0-9]0|9[0-9]|[0-9]9)$",
           vctrs::field(meshcode, "mesh_code"))
   }
