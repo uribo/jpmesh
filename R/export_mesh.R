@@ -1,9 +1,9 @@
 #' @title Export meshcode to geometry
-#' @description Convert and export meshcode area to `sfc_POLYGON`.
+#' @description Convert and export meshcode area to `sfc_POLYGON` and `sf`.
 #' @inheritParams mesh_to_coords
 #' @importFrom purrr discard pmap_chr
 #' @importFrom sf st_as_sfc st_polygon st_sfc
-#' @return [sfc][sf::st_as_sfc] object
+#' @return [sfc][sf::st_sfc] object
 #' @examples
 #' export_mesh("6441427712")
 #' @export
@@ -82,20 +82,20 @@ export_mesh_subdiv <- function(meshcode) {
     purrr::pluck("geometry")
 }
 
-#' @title Export meshcode to geometry
-#' @description Convert and export meshcode area to `sf`.
+
 #' @inheritParams mesh_to_coords
 #' @param .keep_class Do you want to assign a class to the meshcode column 
 #' in data.frame? If `FALSE`, it will be treated as a character type.
 #' @importFrom purrr map_chr modify_at
 #' @importFrom sf st_as_sfc st_as_text st_sf
 #' @importFrom tibble tibble
+#' @return [sf][sf::st_sf] object
 #' @examples
 #' export_meshes("4128")
 #' find_neighbor_mesh("37250395") %>%
 #'   export_meshes()
 #' @export
-#' @name export_meshes
+#' @name export_mesh
 export_meshes <- function(meshcode, .keep_class = FALSE) {
   if (is_meshcode(meshcode) == FALSE) {
     meshcode <- 

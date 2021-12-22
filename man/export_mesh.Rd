@@ -2,19 +2,30 @@
 % Please edit documentation in R/export_mesh.R
 \name{export_mesh}
 \alias{export_mesh}
+\alias{export_meshes}
 \title{Export meshcode to geometry}
 \usage{
 export_mesh(meshcode)
+
+export_meshes(meshcode, .keep_class = FALSE)
 }
 \arguments{
 \item{meshcode}{\code{character}. mesh code}
+
+\item{.keep_class}{Do you want to assign a class to the meshcode column
+in data.frame? If \code{FALSE}, it will be treated as a character type.}
 }
 \value{
-\link[sf:st_as_sfc]{sfc} object
+\link[sf:sfc]{sfc} object
+
+\link[sf:sf]{sf} object
 }
 \description{
-Convert and export meshcode area to \code{sfc_POLYGON}.
+Convert and export meshcode area to \code{sfc_POLYGON} and \code{sf}.
 }
 \examples{
 export_mesh("6441427712")
+export_meshes("4128")
+find_neighbor_mesh("37250395") \%>\%
+  export_meshes()
 }
