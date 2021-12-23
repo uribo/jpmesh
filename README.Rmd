@@ -166,6 +166,10 @@ ggsave(
 
 ![](man/figures/README-mesh_pref33_map-1.png)
 
+## Similar projects
+
+- [japanmesh](https://cran.r-project.org/package=japanmesh)
+
 ## Code of Conduct
 
 Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md).
