@@ -41,6 +41,11 @@ test_that("Separate more fine mesh order", {
     res,
     "subdiv_meshcode"
   )
+  expect_equal(
+    as.character(res),
+    paste0(64414315,
+           sprintf("%02d", seq.int(0, 99)))
+  )
 })
 
 test_that("Coarse multiple meshes to large size", {

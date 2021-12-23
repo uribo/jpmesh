@@ -98,7 +98,7 @@ test_that("100m", {
   expect_is(res, "subdiv_meshcode")
   expect_equal(
     res,
-    meshcode("5339454702", .type = "subdivision")
+    meshcode("5339454701", .type = "subdivision")
   )
 })
 

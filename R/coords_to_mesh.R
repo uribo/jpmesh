@@ -142,7 +142,7 @@ coords_to_mesh <- function(longitude, latitude, to_mesh_size = 1, geometry = NUL
                       st_mesh_grid(substr(meshcode, 1, 8), 
                                    to_mesh_size = 0.1),
                       sparse = FALSE) %>% 
-                      which())
+                      which() - 1)
           )
         }
       if (to_mesh_size == mesh_units[8]) {
