@@ -71,6 +71,10 @@ coords_to_mesh <- function(longitude, latitude, to_mesh_size = 1, geometry = NUL
     purrr::map2_lgl(longitude,
                     latitude,
                     ~ eval_jp_boundary(.x, .y))
+  if (is.na(coords_evalated)) {
+    rlang::warn("Return missing because an inappropriate missing value was given.")
+    return(NA_character_)
+  }
   if (coords_evalated == FALSE) {
     rlang::warn("Longitude / Latitude values is out of range.")
     return(NA_character_)

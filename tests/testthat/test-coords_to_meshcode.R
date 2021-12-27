@@ -40,6 +40,15 @@ test_that("from latitude and longitude to mesh 2", {
                coords_to_mesh(133.9125, 34.65))
 })
 
+
+# Irregular ---------------------------------------------------------------
+test_that("Error", {
+  res <-
+    expect_warning(.coord2mesh(NA, NA, to_mesh_size = 1))
+  expect_equal(res, NA_character_)
+})
+
+
 # Separete Mesh: harf -----------------------------------------
 test_that("Separete to harf mesh", {
   res <- 
