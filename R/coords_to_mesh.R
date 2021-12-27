@@ -80,36 +80,36 @@ coords_to_mesh <- function(longitude, latitude, to_mesh_size = 1, geometry = NUL
     return(NA_character_)
   }
   if (coords_evalated == TRUE) {
-    code12 <- (latitude * 60) %/% 40
-    code34 <- as.integer(longitude - 100)
+    code12 <- (latitude * 60L) %/% 40L
+    code34 <- as.integer(longitude - 100L)
     check_80km_ares <- 
       paste0(code12, code34) %>%
       match(meshcode_80km_num) %>% # nolint
       any()
     if (rlang::is_true(check_80km_ares)) {
-      code_a <- (latitude * 60) %% 40
-      code5 <- code_a %/% 5
-      code_b <- code_a %% 5
-      code7 <- (code_b * 60) %/% 30
-      code_c <- (code_b * 60) %% 30
-      code_s <- code_c %/% 15
-      code_d <- code_c %% 15
+      code_a <- (latitude * 60L) %% 40L
+      code5 <- code_a %/% 5L
+      code_b <- code_a %% 5L
+      code7 <- (code_b * 60L) %/% 30L
+      code_c <- (code_b * 60L) %% 30L
+      code_s <- code_c %/% 15L
+      code_d <- code_c %% 15L
       code_t <- code_d %/% 7.5
       code_e <- code_d %% 7.5
       code_u <- code_e %/% 3.75
-      code_f <- (longitude - 100) - as.integer(longitude - 100)
-      code6 <- (code_f * 60) %/% 7.5
-      code_g <- (code_f * 60) %% 7.5
-      code8 <- (code_g * 60) %/% 45
-      code_h <- (code_g * 60) %% 45
+      code_f <- (longitude - 100L) - as.integer(longitude - 100L)
+      code6 <- (code_f * 60L) %/% 7.5
+      code_g <- (code_f * 60L) %% 7.5
+      code8 <- (code_g * 60L) %/% 45L
+      code_h <- (code_g * 60L) %% 45L
       code_x <- code_h %/% 22.5
       code_i <- code_h %% 22.5
       code_y <- code_i %/% 11.25
       code_j <- code_i %% 11.25
       code_z <- code_j %/% 5.625
-      code9 <- (code_s * 2) + (code_x + 1)
-      code10 <- (code_t * 2) + (code_y + 1)
-      code11 <- (code_u * 2) + (code_z + 1)
+      code9 <- (code_s * 2L) + (code_x + 1L)
+      code10 <- (code_t * 2L) + (code_y + 1L)
+      code11 <- (code_u * 2L) + (code_z + 1L)
       meshcode <- paste0(code12,
                          code34,
                          code5,
@@ -121,32 +121,32 @@ coords_to_mesh <- function(longitude, latitude, to_mesh_size = 1, geometry = NUL
                          code11)
       meshcode <-
         if (to_mesh_size == mesh_units[1]) {
-          substr(meshcode, 1, 4)
+          substr(meshcode, 1L, 4L)
         } else if (to_mesh_size == mesh_units[2]) {
-          substr(meshcode, 1, 6)
+          substr(meshcode, 1L, 6L)
         } else if (to_mesh_size == mesh_units[3]) {
-          paste0(substr(meshcode, 1, 6),
-                 (code_b %/% (5 / 2) * 2) + (code_g %/% (7.5 / 2) + 1))
+          paste0(substr(meshcode, 1L, 6L),
+                 (code_b %/% (5L / 2L) * 2L) + (code_g %/% (7.5 / 2L) + 1L))
         } else if (to_mesh_size == mesh_units[4]) {
-          substr(meshcode, 1, 8)
+          substr(meshcode, 1L, 8L)
         } else if (to_mesh_size == mesh_units[5]) {
-          substr(meshcode, 1, 9)
+          substr(meshcode, 1L, 9L)
         } else if (to_mesh_size == mesh_units[6]) {
-          substr(meshcode, 1, 10)
+          substr(meshcode, 1L, 10L)
         } else if (to_mesh_size == mesh_units[7]) {
           meshcode
         } else if (to_mesh_size == mesh_units[8]) {
           paste0(
-            substr(meshcode, 1, 8),
+            substr(meshcode, 1L, 8L),
             sprintf("%02d",
                     sf::st_intersects(
-                      sf::st_sfc(sf::st_point(c(longitude, 
+                      sf::st_sfc(sf::st_point(c(longitude,
                                                 latitude)),
                                  crs = 4326),
-                      st_mesh_grid(substr(meshcode, 1, 8), 
+                      st_mesh_grid(substr(meshcode, 1L, 8L),
                                    to_mesh_size = 0.1),
-                      sparse = FALSE) %>% 
-                      which() - 1)
+                      sparse = FALSE) %>%
+                      which() - 1L)
           )
         }
       if (to_mesh_size == mesh_units[8]) {
