@@ -94,7 +94,8 @@ test_that("corners", {
     neighbor_mesh(53390009) %>%
       export_meshes() %>%
       sf::st_union() %>%
-      sf::st_area(),
+      sf::st_area() %>% 
+      units::drop_units(),
     9455968,
     tolerance = 0.002
   )
