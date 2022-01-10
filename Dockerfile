@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.1.0@sha256:2d66c3ee0decea0d3c191ee3962deacabc7889118447c9e03f5a828b93dc8a0f
+FROM rocker/geospatial:4.1.2@sha256:c7a7522e90a743b6efc38239fa52492c6aa9f868b14a82de22bb7f6ae10f8a58
 
 RUN set -x && \
   apt-get update && \
@@ -18,10 +18,6 @@ RUN set -x && \
   echo "GITHUB_PAT=$GITHUB_PAT" >> /usr/local/lib/R/etc/Renviron
 
 RUN set -x && \
-  mkdir -p /home/rstudio/.local/share/renv/cache && \
-  chown -R rstudio:rstudio /home/rstudio
-
-RUN set -x && \
-  install2.r --error --ncpus -1 --repos 'https://cran.microsoft.com/snapshot/2021-06-18/' \
+  install2.r --error --ncpus -1 --repos 'https://cran.microsoft.com/snapshot/2022-01-06/' \
     renv && \
   rm -rf /tmp/downloaded_packages/ /tmp/*.rds
