@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,30 +40,24 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">jpmesh</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/articles/plots.html">Construct maps with jpmesh</a>
+      <a href="../articles/plots.html">Construct maps with jpmesh</a>
     </li>
     <li>
       <a href="../articles/usage.html">How to use mesh cord in R</a>
@@ -74,7 +70,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/uribo/jpmesh">
+  <a href="https://github.com/uribo/jpmesh" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -89,109 +85,109 @@
 
       
 
-      </header><script src="usage_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>How to use mesh cord in R</h1>
-                        <h4 class="author">Shinya Uryu</h4>
+                        <h4 data-toc-skip class="author">Shinya Uryu</h4>
             
-            <h4 class="date">2021-06-26</h4>
+            <h4 data-toc-skip class="date">2022-08-13</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/uribo/jpmesh/blob/master/vignettes/usage.Rmd"><code>vignettes/usage.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/uribo/jpmesh/blob/HEAD/vignettes/usage.Rmd" class="external-link"><code>vignettes/usage.Rmd</code></a></small>
       <div class="hidden name"><code>usage.Rmd</code></div>
 
     </div>
 
     
     
-<div id="概要" class="section level2">
-<h2 class="hasAnchor">
-<a href="#%E6%A6%82%E8%A6%81" class="anchor"></a>概要</h2>
+<div class="section level2">
+<h2 id="概要">概要<a class="anchor" aria-label="anchor" href="#%E6%A6%82%E8%A6%81"></a>
+</h2>
 <p><strong>jpmesh</strong>パッケージは、日本国内で利用される「地域メッシュ（メッシュコード）」をRから容易に利用可能にするパッケージです。地域メッシュとは、日本国土を緯度・経度により方形の小地域区画に細分することで、同一の基準による統計調査などの結果を得ることが可能となります。80kmから100mまでのメッシュコードに対応し、メッシュコードと緯度経度座標との相互変換を行います。</p>
-<p><strong>jpmesh</strong>の主な機能として、「緯度経度からの地域メッシュへの変換」、「地域メッシュからの緯度経度の取得」、「都道府県単位やleaflet上へのマッピング」があります。なお地域メッシュと緯度経度の変換の基礎は<a href="http://takenaka-akio.org/etc/meshcode/r_code.html">竹中明夫さんのRコード</a>が基礎となっています。ここではその使い方を紹介します。</p>
+<p><strong>jpmesh</strong>の主な機能として、「緯度経度からの地域メッシュへの変換」、「地域メッシュからの緯度経度の取得」、「都道府県単位やleaflet上へのマッピング」があります。なお地域メッシュと緯度経度の変換の基礎は<a href="http://takenaka-akio.org/etc/meshcode/r_code.html" class="external-link">竹中明夫さんのRコード</a>が基礎となっています。ここではその使い方を紹介します。</p>
 <p>パッケージをインストールしたら環境内で利用可能にするため、読み込みを行いましょう。また、このサンプルページで用いるパッケージも同時に読み込むようにしておきます。</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://uribo.github.io/jpmesh/">jpmesh</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span></code></pre></div>
-<div id="緯度経度と地域メッシュの相互変換" class="section level4">
-<h4 class="hasAnchor">
-<a href="#%E7%B7%AF%E5%BA%A6%E7%B5%8C%E5%BA%A6%E3%81%A8%E5%9C%B0%E5%9F%9F%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AE%E7%9B%B8%E4%BA%92%E5%A4%89%E6%8F%9B" class="anchor"></a>緯度経度と地域メッシュの相互変換</h4>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://uribo.github.io/jpmesh/">jpmesh</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org" class="external-link">purrr</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level4">
+<h4 id="緯度経度と地域メッシュの相互変換">緯度経度と地域メッシュの相互変換<a class="anchor" aria-label="anchor" href="#%E7%B7%AF%E5%BA%A6%E7%B5%8C%E5%BA%A6%E3%81%A8%E5%9C%B0%E5%9F%9F%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AE%E7%9B%B8%E4%BA%92%E5%A4%89%E6%8F%9B"></a>
+</h4>
 <p><code><a href="../reference/mesh_to_coords.html">mesh_to_coords()</a></code>関数を利用し、緯度経度から地域メッシュを得ることができます。この関数では11桁までの細分地域メッシュに対応し、メッシュの中心座標とメッシュの範囲を示す値を返します。</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/mesh_to_coords.html">mesh_to_coords</a></span><span class="op">(</span><span class="fl">5133</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 5
-##     meshcode lng_center lat_center lng_error lat_error
-##   &lt;meshcode&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1       5133       134.       34.3       0.5     0.333</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mesh_to_coords.html">mesh_to_coords</a></span><span class="op">(</span><span class="fl">5133</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 5</span></span></span>
+<span><span class="co">##     meshcode lng_center lat_center lng_error lat_error</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;meshcode&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>       5133       134.       34.3       0.5     0.333</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/mesh_to_coords.html">mesh_to_coords</a></span><span class="op">(</span><span class="fl">513377</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 5
-##     meshcode lng_center lat_center lng_error lat_error
-##   &lt;meshcode&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1     513377       134.       34.6    0.0625    0.0417</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mesh_to_coords.html">mesh_to_coords</a></span><span class="op">(</span><span class="fl">513377</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 5</span></span></span>
+<span><span class="co">##     meshcode lng_center lat_center lng_error lat_error</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;meshcode&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>     513377       134.       34.6    0.062<span style="text-decoration: underline;">5</span>    0.041<span style="text-decoration: underline;">7</span></span></span></code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/mesh_to_coords.html">mesh_to_coords</a></span><span class="op">(</span><span class="fl">51337783</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 5
-##     meshcode lng_center lat_center lng_error lat_error
-##   &lt;meshcode&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1   51337783       134.       34.7   0.00625   0.00417</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mesh_to_coords.html">mesh_to_coords</a></span><span class="op">(</span><span class="fl">51337783</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 5</span></span></span>
+<span><span class="co">##     meshcode lng_center lat_center lng_error lat_error</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;meshcode&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>   51337783       134.       34.7   0.006<span style="text-decoration: underline;">25</span>   0.004<span style="text-decoration: underline;">17</span></span></span></code></pre>
 <p>得られるメッシュの領域データを使ってメッシュのポリゴンを作成する例です。</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/export_mesh.html">export_mesh</a></span><span class="op">(</span><span class="fl">5133778311</span><span class="op">)</span></code></pre></div>
-<pre><code>## Geometry set for 1 feature 
-## Geometry type: POLYGON
-## Dimension:     XY
-## Bounding box:  xmin: 133.9125 ymin: 34.65 xmax: 133.9156 ymax: 34.65208
-## Geodetic CRS:  WGS 84</code></pre>
-<pre><code>## POLYGON ((133.9125 34.65, 133.9156 34.65, 133.9...</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/export_mesh.html">export_mesh</a></span><span class="op">(</span><span class="fl">5133778311</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Geometry set for 1 feature </span></span>
+<span><span class="co">## Geometry type: POLYGON</span></span>
+<span><span class="co">## Dimension:     XY</span></span>
+<span><span class="co">## Bounding box:  xmin: 133.9125 ymin: 34.65 xmax: 133.9156 ymax: 34.65208</span></span>
+<span><span class="co">## Geodetic CRS:  WGS 84</span></span></code></pre>
+<pre><code><span><span class="co">## POLYGON ((133.9125 34.65, 133.9156 34.65, 133.9...</span></span></code></pre>
 <p>緯度経度から地域メッシュを得ることもできます。これには<code><a href="../reference/coords_to_mesh.html">coords_to_mesh()</a></code>を利用します。引数に緯度と経度を与え、取得対象のメッシュコードの大きさを指定します。メッシュコードの大きさの初期値は標準地域メッシュ、すなわち1kmメッシュです。</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">133</span>, <span class="fl">34</span><span class="op">)</span></code></pre></div>
-<pre><code>## &lt;meshcode[1]&gt;
-## [1] 51330000</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">133</span>, <span class="fl">34</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## &lt;meshcode[1]&gt;</span></span>
+<span><span class="co">## [1] 51330000</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">133</span>, <span class="fl">34</span>, mesh_size <span class="op">=</span> <span class="fl">80</span><span class="op">)</span></code></pre></div>
-<pre><code>## &lt;meshcode[1]&gt;
-## [1] 5133</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">133</span>, <span class="fl">34</span>, to_mesh_size <span class="op">=</span> <span class="fl">80</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## &lt;meshcode[1]&gt;</span></span>
+<span><span class="co">## [1] 5133</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">133</span>, <span class="fl">34</span>, mesh_size <span class="op">=</span> <span class="fl">0.125</span><span class="op">)</span></code></pre></div>
-<pre><code>## &lt;meshcode[1]&gt;
-## [1] 51330000111</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">133</span>, <span class="fl">34</span>, to_mesh_size <span class="op">=</span> <span class="fl">0.125</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## &lt;meshcode[1]&gt;</span></span>
+<span><span class="co">## [1] 51330000111</span></span></code></pre>
 <p>また対象の地域メッシュ内に含まれる緯度経度からスケールダウンした地域メッシュや、隣接するメッシュコードを得ることができます。</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># 80kmメッシュに含まれる10kmメッシュを返します</span>
-<span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">133</span>, <span class="fl">34</span>, mesh_size <span class="op">=</span> <span class="fl">80</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/fine_separate.html">fine_separate</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## &lt;meshcode[64]&gt;
-##  [1] 513300 513301 513302 513303 513304 513305 513306 513307 513310 513311
-## [11] 513312 513313 513314 513315 513316 513317 513320 513321 513322 513323
-## [21] 513324 513325 513326 513327 513330 513331 513332 513333 513334 513335
-## [31] 513336 513337 513340 513341 513342 513343 513344 513345 513346 513347
-## [41] 513350 513351 513352 513353 513354 513355 513356 513357 513360 513361
-## [51] 513362 513363 513364 513365 513366 513367 513370 513371 513372 513373
-## [61] 513374 513375 513376 513377</code></pre>
+<code class="sourceCode R"><span><span class="co"># 80kmメッシュに含まれる10kmメッシュを返します</span></span>
+<span><span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">133</span>, <span class="fl">34</span>, to_mesh_size <span class="op">=</span> <span class="fl">80</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/fine_separate.html">fine_separate</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## &lt;meshcode[64]&gt;</span></span>
+<span><span class="co">##  [1] 513300 513301 513302 513303 513304 513305 513306 513307 513310 513311</span></span>
+<span><span class="co">## [11] 513312 513313 513314 513315 513316 513317 513320 513321 513322 513323</span></span>
+<span><span class="co">## [21] 513324 513325 513326 513327 513330 513331 513332 513333 513334 513335</span></span>
+<span><span class="co">## [31] 513336 513337 513340 513341 513342 513343 513344 513345 513346 513347</span></span>
+<span><span class="co">## [41] 513350 513351 513352 513353 513354 513355 513356 513357 513360 513361</span></span>
+<span><span class="co">## [51] 513362 513363 513364 513365 513366 513367 513370 513371 513372 513373</span></span>
+<span><span class="co">## [61] 513374 513375 513376 513377</span></span></code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># 隣接するメッシュコードを同じスケールで返します</span>
-<span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">133</span>, <span class="fl">34</span>, mesh_size <span class="op">=</span> <span class="fl">80</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/neighbor_mesh.html">neighbor_mesh</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## &lt;meshcode[9]&gt;
-## [1] 5032 5033 5034 5132 5133 5134 5232 5233 5234</code></pre>
+<code class="sourceCode R"><span><span class="co"># 隣接するメッシュコードを同じスケールで返します</span></span>
+<span><span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">133</span>, <span class="fl">34</span>, to_mesh_size <span class="op">=</span> <span class="fl">80</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/neighbor_mesh.html">neighbor_mesh</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## &lt;meshcode[9]&gt;</span></span>
+<span><span class="co">## [1] 5032 5033 5034 5132 5133 5134 5232 5233 5234</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">133</span>, <span class="fl">34</span>, <span class="fl">0.5</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/neighbor_mesh.html">neighbor_mesh</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## &lt;meshcode[9]&gt;
-## [1] 503277994 503370903 503370904 513207092 513207094 513300001 513300002
-## [8] 513300003 513300004</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">133</span>, <span class="fl">34</span>, <span class="fl">0.5</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/neighbor_mesh.html">neighbor_mesh</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## &lt;meshcode[9]&gt;</span></span>
+<span><span class="co">## [1] 503277994 503370903 503370904 513207092 513207094 513300001 513300002</span></span>
+<span><span class="co">## [8] 513300003 513300004</span></span></code></pre>
 </div>
-<div id="都道府県単位での基準地域メッシュの描画" class="section level4">
-<h4 class="hasAnchor">
-<a href="#%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E5%8D%98%E4%BD%8D%E3%81%A7%E3%81%AE%E5%9F%BA%E6%BA%96%E5%9C%B0%E5%9F%9F%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AE%E6%8F%8F%E7%94%BB" class="anchor"></a>都道府県単位での基準地域メッシュの描画</h4>
+<div class="section level4">
+<h4 id="都道府県単位での基準地域メッシュの描画">都道府県単位での基準地域メッシュの描画<a class="anchor" aria-label="anchor" href="#%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E5%8D%98%E4%BD%8D%E3%81%A7%E3%81%AE%E5%9F%BA%E6%BA%96%E5%9C%B0%E5%9F%9F%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AE%E6%8F%8F%E7%94%BB"></a>
+</h4>
 <p><strong>jpmesh</strong>では、都道府県および市区町村名を含んだ基準地域メッシュのデータセットを用意しています。これを利用することで、都道府県や市区町村単位での地域メッシュを扱うことができます。</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/administration_mesh.html">administration_mesh</a></span><span class="op">(</span>code <span class="op">=</span> <span class="fl">33</span>, to_mesh_size <span class="op">=</span> <span class="fl">80</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"markdown"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/administration_mesh.html">administration_mesh</a></span><span class="op">(</span>code <span class="op">=</span> <span class="fl">33</span>, to_mesh_size <span class="op">=</span> <span class="fl">80</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"markdown"</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">meshcode</th>
@@ -226,45 +222,47 @@
 </table>
 </div>
 </div>
-<div id="session-information" class="section level2">
-<h2 class="hasAnchor">
-<a href="#session-information" class="anchor"></a>Session Information</h2>
+<div class="section level2">
+<h2 id="session-information">Session Information<a class="anchor" aria-label="anchor" href="#session-information"></a>
+</h2>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## R version 4.1.0 (2021-05-18)
-## Platform: x86_64-apple-darwin17.0 (64-bit)
-## Running under: macOS Catalina 10.15.7
-## 
-## Matrix products: default
-## BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib
-## LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
-## 
-## locale:
-## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices datasets  utils     methods   base     
-## 
-## other attached packages:
-## [1] purrr_0.3.4       sf_1.0-0          jpmesh_2.0.2.9000
-## 
-## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.6         class_7.3-19       ps_1.6.0           rprojroot_2.0.2   
-##  [5] digest_0.6.27      utf8_1.2.1         mime_0.11          R6_2.5.0          
-##  [9] evaluate_0.14      e1071_1.7-7        highr_0.9          pillar_1.6.1      
-## [13] rlang_0.4.11       rstudioapi_0.13    miniUI_0.1.1.1     jquerylib_0.1.4   
-## [17] rmarkdown_2.9      pkgdown_1.6.1      textshaping_0.3.5  desc_1.3.0        
-## [21] stringr_1.4.0      htmlwidgets_1.5.3  proxy_0.4-26       shiny_1.6.0       
-## [25] compiler_4.1.0     httpuv_1.6.1       xfun_0.24          pkgconfig_2.0.3   
-## [29] systemfonts_1.0.2  htmltools_0.5.1.1  tibble_3.1.2       fansi_0.5.0       
-## [33] crayon_1.4.1       later_1.2.0        wk_0.4.1           grid_4.1.0        
-## [37] jsonlite_1.7.2     xtable_1.8-4       lifecycle_1.0.0    DBI_1.1.1         
-## [41] magrittr_2.0.1     units_0.7-2        KernSmooth_2.23-20 cli_2.5.0         
-## [45] stringi_1.6.2      cachem_1.0.5       renv_0.13.2        fs_1.5.0          
-## [49] promises_1.2.0.1   leaflet_2.0.4.1    bslib_0.2.5.1      ellipsis_0.3.2    
-## [53] ragg_1.1.3         vctrs_0.3.8        s2_1.0.6           tools_4.1.0       
-## [57] glue_1.4.2         crosstalk_1.1.1    fastmap_1.1.0      yaml_2.2.1        
-## [61] classInt_0.4-3     memoise_2.0.0      knitr_1.33         sass_0.4.0</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## R version 4.2.1 (2022-06-23)</span></span>
+<span><span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
+<span><span class="co">## Running under: Ubuntu 20.04.4 LTS</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Matrix products: default</span></span>
+<span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0</span></span>
+<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## locale:</span></span>
+<span><span class="co">##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
+<span><span class="co">##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
+<span><span class="co">##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
+<span><span class="co">## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## attached base packages:</span></span>
+<span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## other attached packages:</span></span>
+<span><span class="co">## [1] purrr_0.3.4       sf_1.0-8          jpmesh_2.1.0.9000</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## loaded via a namespace (and not attached):</span></span>
+<span><span class="co">##  [1] xfun_0.32          bslib_0.4.0        vctrs_0.4.1        miniUI_0.1.1.1    </span></span>
+<span><span class="co">##  [5] htmltools_0.5.3    s2_1.1.0           yaml_2.3.5         utf8_1.2.2        </span></span>
+<span><span class="co">##  [9] rlang_1.0.4        e1071_1.7-11       pkgdown_2.0.6      jquerylib_0.1.4   </span></span>
+<span><span class="co">## [13] later_1.3.0        pillar_1.8.0       glue_1.6.2         DBI_1.1.3         </span></span>
+<span><span class="co">## [17] wk_0.6.0           lifecycle_1.0.1    stringr_1.4.0      ragg_1.2.2        </span></span>
+<span><span class="co">## [21] htmlwidgets_1.5.4  memoise_2.0.1      evaluate_0.16      knitr_1.39        </span></span>
+<span><span class="co">## [25] fastmap_1.1.0      httpuv_1.6.5       crosstalk_1.2.0    class_7.3-20      </span></span>
+<span><span class="co">## [29] fansi_1.0.3        highr_0.9          Rcpp_1.0.9         KernSmooth_2.23-20</span></span>
+<span><span class="co">## [33] xtable_1.8-4       promises_1.2.0.1   classInt_0.4-7     cachem_1.0.6      </span></span>
+<span><span class="co">## [37] desc_1.4.1         leaflet_2.1.1      jsonlite_1.8.0     mime_0.12         </span></span>
+<span><span class="co">## [41] systemfonts_1.0.4  fs_1.5.2           textshaping_0.3.6  digest_0.6.29     </span></span>
+<span><span class="co">## [45] stringi_1.7.8      shiny_1.7.2        rprojroot_2.0.3    grid_4.2.1        </span></span>
+<span><span class="co">## [49] cli_3.3.0          tools_4.2.1        magrittr_2.0.3     sass_0.4.2        </span></span>
+<span><span class="co">## [53] proxy_0.4-27       tibble_3.1.8       pkgconfig_2.0.3    ellipsis_0.3.2    </span></span>
+<span><span class="co">## [57] rmarkdown_2.14     R6_2.5.1           units_0.8-0        compiler_4.2.1</span></span></code></pre>
 </div>
   </div>
 
@@ -279,11 +277,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Shinya Uryu.</p>
+  <p></p>
+<p>Developed by Shinya Uryu.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -291,6 +291,8 @@
 
   
 
+
+  
 
   </body>
 </html>

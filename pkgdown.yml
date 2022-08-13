@@ -1,10 +1,10 @@
-pandoc: 2.7.3
-pkgdown: 1.6.1
+pandoc: 2.14.2
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
-  articles/plots: plots.html
+  plots: plots.html
   usage: usage.html
-last_built: 2021-06-26T04:37Z
+last_built: 2022-08-13T23:47Z
 urls:
   reference: https://uribo.github.io/jpmesh/reference
   article: https://uribo.github.io/jpmesh/articles

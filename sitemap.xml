@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://uribo.github.io/jpmesh/404.html</loc>
+  </url>
+  <url>
+    <loc>https://uribo.github.io/jpmesh/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://uribo.github.io/jpmesh/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://uribo.github.io/jpmesh/ISSUE_TEMPLATE.html</loc>
+  </url>
+  <url>
+    <loc>https://uribo.github.io/jpmesh/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://uribo.github.io/jpmesh/SUPPORT.html</loc>
+  </url>
+  <url>
+    <loc>https://uribo.github.io/jpmesh/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://uribo.github.io/jpmesh/articles/plots.html</loc>
+  </url>
+  <url>
+    <loc>https://uribo.github.io/jpmesh/articles/usage.html</loc>
+  </url>
+  <url>
+    <loc>https://uribo.github.io/jpmesh/authors.html</loc>
+  </url>
+  <url>
     <loc>https://uribo.github.io/jpmesh/index.html</loc>
+  </url>
+  <url>
+    <loc>https://uribo.github.io/jpmesh/news/index.html</loc>
   </url>
   <url>
     <loc>https://uribo.github.io/jpmesh/reference/administration_mesh.html</loc>
@@ -25,10 +58,10 @@
     <loc>https://uribo.github.io/jpmesh/reference/export_mesh.html</loc>
   </url>
   <url>
-    <loc>https://uribo.github.io/jpmesh/reference/export_meshes.html</loc>
+    <loc>https://uribo.github.io/jpmesh/reference/fine_separate.html</loc>
   </url>
   <url>
-    <loc>https://uribo.github.io/jpmesh/reference/fine_separate.html</loc>
+    <loc>https://uribo.github.io/jpmesh/reference/index.html</loc>
   </url>
   <url>
     <loc>https://uribo.github.io/jpmesh/reference/is_mesh.html</loc>
@@ -52,6 +85,9 @@
     <loc>https://uribo.github.io/jpmesh/reference/meshcode_set.html</loc>
   </url>
   <url>
+    <loc>https://uribo.github.io/jpmesh/reference/meshcode_sf.html</loc>
+  </url>
+  <url>
     <loc>https://uribo.github.io/jpmesh/reference/neighbor_mesh.html</loc>
   </url>
   <url>
@@ -62,11 +98,5 @@
   </url>
   <url>
     <loc>https://uribo.github.io/jpmesh/reference/sf_jpmesh.html</loc>
-  </url>
-  <url>
-    <loc>https://uribo.github.io/jpmesh/articles/articles/plots.html</loc>
-  </url>
-  <url>
-    <loc>https://uribo.github.io/jpmesh/articles/usage.html</loc>
   </url>
 </urlset>
