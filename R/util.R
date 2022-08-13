@@ -179,6 +179,7 @@ meshcode_set <-
 
 #' @title Cutoff mesh of outside the area
 #' @inheritParams mesh_to_coords
+#' @keyword internal
 cut_off <- function(meshcode) {
   if (is_meshcode(meshcode) == TRUE) {
     meshcode <- 
