@@ -177,7 +177,9 @@ meshcode_set <-
     }
   )
 
-#' @title Cutoff mesh of outside the area
+#' Cutoff mesh of outside the area
+#' 
+#' @keywords internal
 #' @inheritParams mesh_to_coords
 cut_off <- function(meshcode) {
   if (is_meshcode(meshcode) == TRUE) {
@@ -194,6 +196,7 @@ cut_off <- function(meshcode) {
   }
   sort(res)
 }
+
 
 validate_neighbor_mesh <- function(meshcode) {
   df_bbox <-
