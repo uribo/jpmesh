@@ -233,18 +233,7 @@ code_reform <- function(jis_code) {
 }
 
 mesh_length <- function(mesh_length) {
-  if (length(unique(mesh_length)) == 1L) {
-    switch(unique(mesh_length),
-           "4" = mesh_units[1],
-           "6" = mesh_units[2],
-           "7" = mesh_units[3],
-           "8" = mesh_units[4],
-           "9" = mesh_units[5],
-           "10" = mesh_units[6],
-           "11" = mesh_units[7],
-           "10" = mesh_units[8])
-  } else {
-    mesh_length %>% 
+  mesh_length %>% 
       purrr::map_dbl(
         ~ switch(.x,
                  "4" = mesh_units[1],
@@ -254,6 +243,6 @@ mesh_length <- function(mesh_length) {
                  "9" = mesh_units[5],
                  "10" = mesh_units[6],
                  "11" = mesh_units[7],
-                 "10" = mesh_units[8])) 
-  }
+                 "10" = mesh_units[8])) %>% 
+      units::set_units("km")
 }
