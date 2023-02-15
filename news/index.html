@@ -60,7 +60,9 @@
       <small>Source: <a href="https://github.com/uribo/jpmesh/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="section level2"><h2 class="page-header" data-toc-text="development version" id="jpmesh-development-version">jpmesh (development version)<a class="anchor" aria-label="anchor" href="#jpmesh-development-version"></a></h2></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="development version" id="jpmesh-development-version">jpmesh (development version)<a class="anchor" aria-label="anchor" href="#jpmesh-development-version"></a></h2>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.1.0" id="jpmesh-210">jpmesh 2.1.0<small>2022-01-10</small><a class="anchor" aria-label="anchor" href="#jpmesh-210"></a></h2>
 <ul><li>Reviewed the handling of meshcode in the data.frame <a href="https://github.com/uribo/jpmesh/pull/59" class="external-link">#59</a>. Added <em>.keep_class</em> to the argument of the function to be returned as a data.frame (<code>FALSE</code> by default), and changed it so that the user can select the class.</li>
@@ -68,15 +70,19 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.0.2" id="jpmesh-202">jpmesh 2.0.2<small>2021-06-25</small><a class="anchor" aria-label="anchor" href="#jpmesh-202"></a></h2>
-<ul><li>Following sf updates</li></ul></div>
+<ul><li>Following sf updates</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.0.1" id="jpmesh-201-2021-01-04">jpmesh 2.0.1 (2021-01-04)<small>2021-01-13</small><a class="anchor" aria-label="anchor" href="#jpmesh-201-2021-01-04"></a></h2>
-<ul><li>Fix vdiffr conditionally</li></ul></div>
+<ul><li>Fix vdiffr conditionally</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.0.0" id="jpmesh-200-2020-11-26">jpmesh 2.0.0 (2020-11-26)<small>2020-11-26</small><a class="anchor" aria-label="anchor" href="#jpmesh-200-2020-11-26"></a></h2>
-<ul><li>To introduced a new <code>meshcode</code> class. This is one of the classes of S3. The mesh code values returned by the package are implemented in the <code>meshcode</code> class. Also, <code><a href="../reference/meshcode.html">meshcode()</a></code> creates an object of <code>meshcode</code> class of arbitrary size <a href="https://github.com/uribo/jpmesh/pull/49" class="external-link">#49</a>.<ul><li>
+<ul><li>To introduced a new <code>meshcode</code> class. This is one of the classes of S3. The mesh code values returned by the package are implemented in the <code>meshcode</code> class. Also, <code><a href="../reference/meshcode.html">meshcode()</a></code> creates an object of <code>meshcode</code> class of arbitrary size <a href="https://github.com/uribo/jpmesh/pull/49" class="external-link">#49</a>.
+<ul><li>
 <code><a href="../reference/is_mesh.html">is_meshcode()</a></code>, <code><a href="../reference/meshcode.html">as_meshcode()</a></code>
-</li></ul></li>
+</li>
+</ul></li>
 <li>Update administration mesh code data using at <code><a href="../reference/administration_mesh.html">administration_mesh()</a></code>
 </li>
 <li>Activate a memoise some functions for efficiency <a href="https://github.com/uribo/jpmesh/pull/50" class="external-link">#50</a>.</li>
@@ -84,38 +90,47 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.2.1" id="jpmesh-121-2020-05-06">jpmesh 1.2.1 (2020-05-06)<small>2020-05-06</small><a class="anchor" aria-label="anchor" href="#jpmesh-121-2020-05-06"></a></h2>
-<ul><li>Meshcode evaluation is now more stringent.<ul><li>Fixed a problem where a non-existent mesh code would return an incorrect value when given as input (<a href="https://github.com/uribo/jpmesh/issues/45" class="external-link">#45</a>).</li></ul></li></ul></div>
+<ul><li>Meshcode evaluation is now more stringent.
+<ul><li>Fixed a problem where a non-existent mesh code would return an incorrect value when given as input (<a href="https://github.com/uribo/jpmesh/issues/45" class="external-link">#45</a>).</li>
+</ul></li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.2.0" id="jpmesh-120-2020-03-26">jpmesh 1.2.0 (2020-03-26)<small>2020-03-26</small><a class="anchor" aria-label="anchor" href="#jpmesh-120-2020-03-26"></a></h2>
-<ul><li>API changes to functions that take <code>mesh_size</code> (<a href="https://github.com/uribo/jpmesh/issues/35" class="external-link">#35</a>). It has been changed to a numeric value in km unit instead of the mesh size string.</li></ul><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<ul><li>API changes to functions that take <code>mesh_size</code> (<a href="https://github.com/uribo/jpmesh/issues/35" class="external-link">#35</a>). It has been changed to a numeric value in km unit instead of the mesh size string.</li>
+</ul><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">141.3468</span>, <span class="fl">43.06462</span>, mesh_size <span class="op">=</span> <span class="st">"10km"</span><span class="op">)</span></span></code></pre></div>
 <p>to</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/coords_to_mesh.html">coords_to_mesh</a></span><span class="op">(</span><span class="fl">141.3468</span>, <span class="fl">43.06462</span>, mesh_size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
-<ul><li>Add <code><a href="../reference/converter.html">mesh_convert()</a></code> that mesh size can be changed freely.</li></ul><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<ul><li>Add <code><a href="../reference/converter.html">mesh_convert()</a></code> that mesh size can be changed freely.</li>
+</ul><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Scale up</span></span>
 <span><span class="fu"><a href="../reference/converter.html">mesh_convert</a></span><span class="op">(</span><span class="st">"52350432"</span>, <span class="fl">80</span><span class="op">)</span></span>
 <span><span class="co"># Scale down</span></span>
 <span><span class="fu"><a href="../reference/converter.html">mesh_convert</a></span><span class="op">(</span><span class="st">"52350432"</span>, <span class="fl">0.500</span><span class="op">)</span></span></code></pre></div>
 <ul><li>
-<code><a href="../reference/meshcode_sf.html">meshcode_sf()</a></code> export data.frame to sf which include meshcode variable.</li></ul><div class="section level3">
+<code><a href="../reference/meshcode_sf.html">meshcode_sf()</a></code> export data.frame to sf which include meshcode variable.</li>
+</ul><div class="section level3">
 <h3 id="improvement-1-2-0">Improvement<a class="anchor" aria-label="anchor" href="#improvement-1-2-0"></a></h3>
 <ul><li>Add image test with vdiffr (<a href="https://github.com/uribo/jpmesh/pull/41" class="external-link">#41</a>).</li>
 <li>Introducing GitHub actions.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-and-minor-improvements-1-2-0">Bug fixes and minor improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-minor-improvements-1-2-0"></a></h3>
-<ul><li>The bounding box value returned by <code><a href="../reference/mesh_to_coords.html">mesh_to_coords()</a></code> is incorrect (<a href="https://github.com/uribo/jpmesh/issues/31" class="external-link">#31</a>)</li></ul></div>
+<ul><li>The bounding box value returned by <code><a href="../reference/mesh_to_coords.html">mesh_to_coords()</a></code> is incorrect (<a href="https://github.com/uribo/jpmesh/issues/31" class="external-link">#31</a>)</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.3" id="jpmesh-113-2019-05-09">jpmesh 1.1.3 (2019-05-09)<small>2019-05-09</small><a class="anchor" aria-label="anchor" href="#jpmesh-113-2019-05-09"></a></h2>
-<ul><li>Fix R version test.</li></ul></div>
+<ul><li>Fix R version test.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.2" id="jpmesh-112-2019-03-20">jpmesh 1.1.2 (2019-03-20)<small>2019-03-20</small><a class="anchor" aria-label="anchor" href="#jpmesh-112-2019-03-20"></a></h2>
-<ul><li>Fix devel version’s test.</li></ul></div>
+<ul><li>Fix devel version’s test.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.1" id="jpmesh-111-2018-06-26">jpmesh 1.1.1 (2018-06-26)<small>2018-06-26</small><a class="anchor" aria-label="anchor" href="#jpmesh-111-2018-06-26"></a></h2>
 <ul><li>Withdrawal from the tidyverse. Remove depends on stringr, tidyr and dplyr.</li>
@@ -125,7 +140,8 @@
 <h3 id="new-features-1-1-1">New features<a class="anchor" aria-label="anchor" href="#new-features-1-1-1"></a></h3>
 <ul><li>
 <code><a href="../reference/coarse_gather.html">coarse_gather()</a></code>… Scale-down function <a href="https://github.com/uribo/jpmesh/issues/22" class="external-link">#22</a>
-</li></ul></div>
+</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.0" id="jpmesh-110-2018-02-25">jpmesh 1.1.0 (2018-02-25)<small>2018-02-25</small><a class="anchor" aria-label="anchor" href="#jpmesh-110-2018-02-25"></a></h2>
@@ -145,10 +161,12 @@
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.1" id="jpmesh-101-2017-12-04">jpmesh 1.0.1 (2017-12-04)<small>2017-12-04</small><a class="anchor" aria-label="anchor" href="#jpmesh-101-2017-12-04"></a></h2>
-<ul><li>add vignettes 1: How to use mesh cord in R</li></ul><div class="section level3">
+<ul><li>add vignettes 1: How to use mesh cord in R</li>
+</ul><div class="section level3">
 <h3 id="bug-fixes-and-minor-improvements-1-0-1">Bug fixes and minor improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-minor-improvements-1-0-1"></a></h3>
 <ul><li>Fixed incorrect allocation of fine mesh code number (<a href="https://github.com/uribo/jpmesh/issues/8" class="external-link">#8</a>).</li>
-<li>Modified <code><a href="../reference/eval_jp_boundary.html">eval_jp_boundary()</a></code> that internal function.<ul><li>Add … parameters to pass additional arguments.</li>
+<li>Modified <code><a href="../reference/eval_jp_boundary.html">eval_jp_boundary()</a></code> that internal function.
+<ul><li>Add … parameters to pass additional arguments.</li>
 <li>Improved problem of giving mesh code outside of Japan (reopen <a href="https://github.com/uribo/jpmesh/issues/6" class="external-link">#6</a>).</li>
 </ul></li>
 <li>
@@ -164,13 +182,15 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.0" id="jpmesh-040-2017-09-01">jpmesh 0.4.0 (2017-09-01)<small>2017-09-29</small><a class="anchor" aria-label="anchor" href="#jpmesh-040-2017-09-01"></a></h2>
 <ul><li>Using sf api.</li>
-<li>Add new dataset.<ul><li>
+<li>Add new dataset.
+<ul><li>
 <code>jpnrect</code>… Japan Prefecture Mesh Data.</li>
 <li><code>prefecture_mesh</code></li>
 </ul></li>
 <li>Enhanced CI and coverage environment (<a href="https://github.com/uribo/jpmesh/issues/5" class="external-link">#5</a>).</li>
 <li>Fix some issues (<a href="https://github.com/uribo/jpmesh/issues/6" class="external-link">#6</a>).</li>
-<li>Add new functions<ul><li>
+<li>Add new functions
+<ul><li>
 <code>pref_mesh()</code> replicate to <code><a href="../reference/administration_mesh.html">administration_mesh()</a></code>
 </li>
 <li>
@@ -191,10 +211,12 @@
 <h2 class="page-header" data-toc-text="0.2.0" id="jpmesh-020">jpmesh 0.2.0<a class="anchor" aria-label="anchor" href="#jpmesh-020"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-2-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h3>
-<ul><li>Added simple Japan grid datasets.</li></ul></div>
+<ul><li>Added simple Japan grid datasets.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="improve-infrastructures-0-2-0">Improve Infrastructures<a class="anchor" aria-label="anchor" href="#improve-infrastructures-0-2-0"></a></h3>
-<ul><li>Making website by <code>pkgdown</code>.</li></ul></div>
+<ul><li>Making website by <code>pkgdown</code>.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.0" id="jpmesh-010">jpmesh 0.1.0<a class="anchor" aria-label="anchor" href="#jpmesh-010"></a></h2>
@@ -215,7 +237,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
