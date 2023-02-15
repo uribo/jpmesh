@@ -151,17 +151,19 @@ meshcode_sf <- function(data, mesh_var, .type, .keep_class = FALSE) {
   meshes <-
     data %>%
     purrr::pluck(meshcode)
-  if (is_meshcode(meshes) == FALSE)
+  if (is_meshcode(meshes) == FALSE) {
     meshes <- 
       meshes %>%
+      as.character() %>% 
       as_meshcode(.type = .type)
+  }
   res <- 
     sf::st_sf(
-    data,
-    geometry = meshes %>%
-      export_meshes() %>%
-      sf::st_geometry(),
-    crs = 4326) %>%
+      data,
+      geometry = meshes %>%
+        export_meshes() %>%
+        sf::st_geometry(),
+      crs = 4326) %>%
     tibble::new_tibble(nrow = nrow(data), class = "sf")
   if (.keep_class == FALSE) {
     res <- 
