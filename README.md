@@ -12,7 +12,7 @@ version](https://img.shields.io/badge/R%3E%3D-3.1.0-blue.svg)](https://cran.r-pr
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4291910.svg)](https://doi.org/10.5281/zenodo.4291910)
 
 [![Coverage
-status](https://codecov.io/gh/uribo/jpmesh/branch/main/graph/badge.svg)](https://codecov.io/github/uribo/jpmesh?branch=main)
+status](https://codecov.io/gh/uribo/jpmesh/branch/main/graph/badge.svg)](https://app.codecov.io/github/uribo/jpmesh?branch=main)
 [![R-CMD-check](https://github.com/uribo/jpmesh/workflows/R-CMD-check/badge.svg)](https://github.com/uribo/jpmesh/actions?query=workflow%3AR-CMD-check)
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=for-the-badge)](https://lifecycle.r-lib.org/articles/stages.html)
@@ -237,7 +237,7 @@ ggplot() +
 
 ## Similar projects
 
--   [japanmesh](https://cran.r-project.org/package=japanmesh)
+- [japanmesh](https://cran.r-project.org/package=japanmesh)
 
 ## Code of Conduct
 
