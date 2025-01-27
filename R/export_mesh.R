@@ -20,9 +20,11 @@ export_mesh <-
         size <- 
           mesh_size(meshcode)
         if (size >= units::as_units(1, "km")) {
-          mesh_to_coords(meshcode) %>% 
-            purrr::discard(names(.) %in% "meshcode") %>% 
-            purrr::pmap_chr(mesh_to_poly) %>% 
+          x <- 
+            mesh_to_coords(meshcode)
+          x |> 
+            purrr::discard(names(x) %in% "meshcode") |> 
+            purrr::pmap_chr(mesh_to_poly) |> 
             sf::st_as_sfc(crs = 4326)                  
         } else {
           mesh1km <-
@@ -30,14 +32,14 @@ export_mesh <-
           x <- 
             mesh_to_coords(meshcode)
           st_mesh_grid(meshcode, 
-                       to_mesh_size = units::drop_units(size)) %>% 
-            st_sf() %>% 
+                       to_mesh_size = units::drop_units(size)) |> 
+            st_sf() |> 
             sf::st_join(
               sf::st_sfc(sf::st_point(c(x$lng_center, 
                                         x$lat_center)),
-                         crs = 4326) %>% 
+                         crs = 4326) |>  
                 sf::st_sf(), 
-              left = FALSE) %>% 
+              left = FALSE) |> 
             sf::st_geometry()
         }
       }
@@ -78,7 +80,7 @@ export_mesh_subdiv <- function(meshcode) {
                                  sprintf("%02d", seq.int(0, 99))),
                    geometry = sf::st_make_grid(
                      export_mesh(m1km), n = c(10, 10))), 
-         subset = mesh == as.character(meshcode)) %>% 
+         subset = mesh == as.character(meshcode)) |> 
     purrr::pluck("geometry")
 }
 
@@ -92,7 +94,7 @@ export_mesh_subdiv <- function(meshcode) {
 #' @return [sf][sf::st_sf] object
 #' @examples
 #' export_meshes("4128")
-#' find_neighbor_mesh("37250395") %>%
+#' find_neighbor_mesh("37250395") |> 
 #'   export_meshes()
 #' @export
 #' @name export_mesh
@@ -104,28 +106,28 @@ export_meshes <- function(meshcode, .keep_class = FALSE) {
   df_meshes <-
     tibble::tibble("meshcode" = meshcode)
   size <-
-    vctrs::field(df_meshes$meshcode, "mesh_size") %>% 
+    vctrs::field(df_meshes$meshcode, "mesh_size") |> 
     unique()
   if (size == 0.1) {
     df_meshes$geometry <- 
       purrr::map_chr(vctrs::field(df_meshes$meshcode, "mesh_code"),
-                   ~ export_mesh_subdiv(meshcode = .x) %>%
-                     sf::st_as_text()) %>%
+                   ~ export_mesh_subdiv(meshcode = .x) |> 
+                     sf::st_as_text()) |> 
       sf::st_as_sfc()
   } else {
     df_meshes$geometry <-
       purrr::map_chr(vctrs::field(df_meshes$meshcode, "mesh_code"),
-                     ~ export_mesh(meshcode = .x) %>%
-                       sf::st_as_text()) %>%
-      sf::st_as_sfc()    
+                     ~ export_mesh(meshcode = .x) |> 
+                       sf::st_as_text()) |> 
+      sf::st_as_sfc()
   }
   res <- 
-    df_meshes %>% 
-    sf::st_sf(crs = 4326) %>% 
+    df_meshes |> 
+    sf::st_sf(crs = 4326) |> 
     tibble::new_tibble(class = "sf", nrow = nrow(df_meshes))
   if (.keep_class == FALSE) {
     res <-
-      res %>% 
+      res |> 
       purrr::modify_at(1, ~ as.character(.x))
   }
   res
@@ -149,25 +151,25 @@ meshcode_sf <- function(data, mesh_var, .type, .keep_class = FALSE) {
   meshcode <-
     rlang::quo_name(rlang::enquo(mesh_var))
   meshes <-
-    data %>%
+    data |> 
     purrr::pluck(meshcode)
   if (is_meshcode(meshes) == FALSE) {
     meshes <- 
-      meshes %>%
-      as.character() %>% 
+      meshes |> 
+      as.character() |> 
       as_meshcode(.type = .type)
   }
   res <- 
     sf::st_sf(
       data,
-      geometry = meshes %>%
-        export_meshes() %>%
+      geometry = meshes |> 
+        export_meshes() |> 
         sf::st_geometry(),
-      crs = 4326) %>%
+      crs = 4326) |> 
     tibble::new_tibble(nrow = nrow(data), class = "sf")
   if (.keep_class == FALSE) {
     res <- 
-      res %>% 
+      res |> 
       purrr::modify_at(which(names(res) %in% meshcode),
                        ~ as.character(.x))
   }

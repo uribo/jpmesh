@@ -22,7 +22,7 @@ meshcode_vector <- function(x = character(),
   vctrs::vec_assert(x, character())
   vctrs::vec_assert(size, double())
   x <- 
-    x %>% 
+    x |> 
     purrr::map_chr(
       function(x) {
         if (
@@ -63,7 +63,7 @@ meshcode <- function(x, .type = "standard") {
     size <- 0.1
   } else {
     size <- 
-      x %>% 
+      x |> 
       purrr::map_dbl(
         ~ units::drop_units(mesh_length(as.character(nchar(.x)))))    
   }

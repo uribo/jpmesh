@@ -1,5 +1,9 @@
 # jpmesh (development version)
 
+## Internal
+
+- Changed the pipe operator used in the package from magrittr's to the built-in one. Therefore, R 4.1.0 or higher is required to use this package.
+
 # jpmesh 2.1.0
 
 - Reviewed the handling of meshcode in the data.frame [#59](https://github.com/uribo/jpmesh/pull/59). Added *.keep_class* to the argument of the function to be returned as a data.frame (`FALSE` by default), and changed it so that the user can select the class.

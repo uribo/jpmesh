@@ -37,32 +37,32 @@ administration_mesh <- function(code, to_mesh_size) {
                  function(.x) {
                    subset(df_city_mesh,
                           grepl(paste0("^(", .x, ")"),
-                                city_code)) %>%
+                                city_code)) |> 
                      purrr::pluck("meshcode")
                  }
-               )) %>%
-    purrr::flatten_chr() %>%
+               )) |> 
+    purrr::flatten_chr() |> 
     unique()
   if (to_mesh_size == mesh_units[1]) {
     res_meshes <-
-      res_meshes %>%
+      res_meshes |> 
       substr(1, 4)
   } else if (to_mesh_size == mesh_units[2]) {
     res_meshes <-
-      res_meshes %>%
+      res_meshes |> 
       substr(1, 6)
   } else if (to_mesh_size <= mesh_units[5] & to_mesh_size >= mesh_units[7]) {
     res_meshes <- 
-      res_meshes %>% 
       purrr::map(
-        ~ mesh_convert(.x, to_mesh_size = units::drop_units(to_mesh_size))) %>% 
+        res_meshes,
+        mesh_convert(res_meshes, to_mesh_size = units::drop_units(to_mesh_size))) |> 
       purrr::reduce(c)
   } else if (to_mesh_size == mesh_units[8]) {
     res_meshes <-
-      res_meshes %>% 
+      res_meshes |> 
       fine_separate(.type = "subdivision")
   }
-  res_meshes %>%
-    unique() %>%
+  res_meshes |> 
+    unique() |> 
     export_meshes()
 }

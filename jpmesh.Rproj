@@ -1,4 +1,5 @@
 Version: 1.0
+ProjectId: 2f68baf8-cfd9-45e5-ad1d-f0c65169e567
 
 RestoreWorkspace: No
 SaveWorkspace: No
@@ -18,4 +19,4 @@ BuildType: Package
 PackageUseDevtools: Yes
 PackageInstallArgs: --no-multiarch --with-keep.source
 
-UseNativePipeOperator: No
+UseNativePipeOperator: Yes

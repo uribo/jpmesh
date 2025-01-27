@@ -10,8 +10,8 @@ test_that("scale up", {
     mesh_convert("52350432", to_mesh_size = 10)
   expect_equal(mesh_size(res), units::as_units(10, "km"))
   res_area <- 
-    res %>%
-    export_meshes() %>%
+    res |> 
+    export_meshes() |> 
     sf::st_area()
   expect_equal(res_area,
                units::as_units(10000000, "m2"),
@@ -35,9 +35,9 @@ test_that("scale down", {
   res <- 
     mesh_convert(meshcode = "52350432", 0.125)
   res_area <- 
-    res %>%
-    export_meshes() %>%
-    sf::st_union() %>%
+    res |> 
+    export_meshes() |> 
+    sf::st_union() |> 
     sf::st_area()
   expect_length(res, 64L)
   expect_equal(res_area,

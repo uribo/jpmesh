@@ -31,10 +31,10 @@ mesh_viewer <- function(...) {
     output$my_map <- leaflet::renderLeaflet({
       d <- coords_to_mesh(as.numeric(input$lng),
                           as.numeric(input$lat),
-                          mesh_size = as.numeric(input$mesh_size)) %>%
+                          mesh_size = as.numeric(input$mesh_size)) |> 
         export_meshes()
-      leaflet::leaflet() %>%
-        leaflet::addTiles() %>%
+      leaflet::leaflet() |> 
+        leaflet::addTiles() |> 
         leaflet::addPolygons(data = d)
     })
   }

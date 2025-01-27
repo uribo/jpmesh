@@ -23,7 +23,7 @@
 #' @return [meshcode][meshcode]
 #' @rdname converter
 mesh_convert <- function(meshcode = NULL, to_mesh_size = NULL) { # nolint
-  . <- .x <- NULL
+  .x <- NULL
   if (is_meshcode(meshcode) == FALSE) {
     meshcode <-
       meshcode(meshcode)
@@ -55,13 +55,13 @@ mesh_convert <- function(meshcode = NULL, to_mesh_size = NULL) { # nolint
           grep(pattern = paste0("^(", mesh_code, ")"),
              x = meshcode_set(1, .raw = TRUE), value = TRUE)
       }
-      mesh_code %>% 
+      mesh_code |> 
         purrr::map(
           ~ paste0(.x,
                    rep(seq.int(0, 9), each = 10),
-                   rep(seq.int(0, 9), times = 10))) %>% 
-        purrr::reduce(c) %>% 
-        purrr::map(~ meshcode(.x, .type = type)) %>% 
+                   rep(seq.int(0, 9), times = 10))) |> 
+        purrr::reduce(c) |> 
+        purrr::map(~ meshcode(.x, .type = type)) |> 
         purrr::reduce(c)
     } else {
       if (from_mesh_size == to_mesh_size) {
@@ -85,39 +85,37 @@ mesh_convert <- function(meshcode = NULL, to_mesh_size = NULL) { # nolint
         }
         if (to_mesh_size <= mesh_units[5]) {
           res <- 
-            substr(mesh_code, 1, 8) %>%
+            substr(mesh_code, 1, 8) |> 
             purrr::map(
-              ~ paste0(.x, seq_len(4))) %>%
+              ~ paste0(.x, seq_len(4))) |> 
             purrr::reduce(c)
           if (to_mesh_size <= mesh_units[6]) {
             res <- 
-              res %>%
-              grep(substr(mesh_code, 1, 9), ., value = TRUE) %>%
+              grep(substr(mesh_code, 1, 9), res, value = TRUE) |> 
               purrr::map(
-                ~ paste0(.x, seq_len(4))) %>%
+                ~ paste0(.x, seq_len(4))) |> 
               purrr::reduce(c)
           } 
           if (to_mesh_size == mesh_units[7]) {
             res <-
-              res %>%
-              grep(substr(mesh_code, 1, 10), ., value = TRUE) %>%
+              grep(substr(mesh_code, 1, 10), res, value = TRUE) |> 
               purrr::map(
-                ~ paste0(.x, seq_len(4))) %>%
+                ~ paste0(.x, seq_len(4))) |> 
               purrr::reduce(c)
           }
         }
       } else {
         if (to_mesh_size == mesh_units[1]) {
           res <- 
-            mesh_code %>% 
+            mesh_code |> 
             substr(1, 4)
         } else if (to_mesh_size == mesh_units[2]) {
           res <-
-            mesh_code %>% 
+            mesh_code |>  
             substr(1, 6)
         } else if (to_mesh_size == mesh_units[4]) { # nolint
           res <-
-            mesh_code %>% 
+            mesh_code |>  
             substr(1, 8)
         } else {
           fine_mesh_set <-
@@ -125,20 +123,20 @@ mesh_convert <- function(meshcode = NULL, to_mesh_size = NULL) { # nolint
                                   substr(mesh_code, 1, 8),
                                   ")"),
                  x = meshcode_set(1, .raw = TRUE), 
-                 value = TRUE) %>%
-            fine_separate() %>%
-            purrr::map(fine_separate) %>%
-            purrr::reduce(c) %>%
-            purrr::map(fine_separate) %>%
-            purrr::reduce(c) %>% 
+                 value = TRUE) |> 
+            fine_separate() |> 
+            purrr::map(fine_separate) |> 
+            purrr::reduce(c) |> 
+            purrr::map(fine_separate) |> 
+            purrr::reduce(c) |> 
             vctrs::field("mesh_code")
           if (to_mesh_size <= mesh_units[5])
             res <-
               grep(pattern = paste0("^(",
                                     substr(mesh_code, 1, 9),
                                     ")"),
-                   x = substr(fine_mesh_set, 1, 9), value = TRUE) %>%
-              unique() %>%
+                   x = substr(fine_mesh_set, 1, 9), value = TRUE) |> 
+              unique() |> 
               paste0(seq_len(4))
         }
       }

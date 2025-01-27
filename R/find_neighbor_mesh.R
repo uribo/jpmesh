@@ -127,8 +127,8 @@ find_neighbor_finemesh <- function(meshcode, contains = TRUE) {
       meshcode(meshcode)
   }
   df_poly <-
-    coarse_gather(meshcode) %>%
-    find_neighbor_mesh() %>% # nolint
+    coarse_gather(meshcode) |> 
+    find_neighbor_mesh() |>  # nolint
     bind_meshpolys()
   df_poly$n <- 
     seq_len(nrow(df_poly))

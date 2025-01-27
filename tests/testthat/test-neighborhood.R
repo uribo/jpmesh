@@ -80,7 +80,7 @@ test_that("corners", {
                    "53390090", "53390091", "53391001",
                    "53391010", "53391011")))
   res <-
-    neighbor_mesh(53390109) %>%
+    neighbor_mesh(53390109) |> 
     export_meshes()
   res$relate <-
     c(sf::st_relate(res$geometry, res$geometry[5], sparse = FALSE))
@@ -91,10 +91,10 @@ test_that("corners", {
       "FF2F11212", "FF2F11212", "FF2F01212"))
   skip_if_not_installed("lwgeom")
   expect_equivalent(
-    neighbor_mesh(53390009) %>%
-      export_meshes() %>%
-      sf::st_union() %>%
-      sf::st_area() %>% 
+    neighbor_mesh(53390009) |> 
+      export_meshes() |> 
+      sf::st_union() |> 
+      sf::st_area() |> 
       units::drop_units(),
     9455968,
     tolerance = 0.002

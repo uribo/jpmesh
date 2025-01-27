@@ -40,16 +40,16 @@ test_that(
       fine_separate(4028)
     target2 <- 
       vctrs::field(target, 
-                   "mesh_code")[target %>%
-               vctrs::field("mesh_code") %>% 
+                   "mesh_code")[target |> 
+               vctrs::field("mesh_code") |>  
                         purrr::map_lgl(
                           is_corner
                         ) != TRUE]
     df_check <- 
-      target2 %>%
-      purrr::map(validate_neighbor_mesh) %>%
-      purrr::map(round, digits = 2) %>% 
-      purrr::reduce(rbind) %>% 
+      target2 |> 
+      purrr::map(validate_neighbor_mesh) |> 
+      purrr::map(round, digits = 2) |> 
+      purrr::reduce(rbind) |> 
       unique()
     expect_gte(
       nrow(df_check),
@@ -57,8 +57,8 @@ test_that(
     )
     target3 <- 
       vctrs::field(target, 
-                   "mesh_code")[target %>%
-                                  vctrs::field("mesh_code") %>% 
+                   "mesh_code")[target |> 
+                                  vctrs::field("mesh_code") |> 
                                   purrr::map_lgl(
                                     is_corner
                                   ) == TRUE]

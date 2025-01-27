@@ -29,11 +29,11 @@ fine_separate <- function(meshcode = NULL, .type = "standard", ...) {
         if (mesh_size == 1 && .type == "subdivision") {
           paste0(meshcode,
                  rep(seq.int(0, 9), each = 10),
-                 rep(seq.int(0, 9), times = 10)) %>% 
+                 rep(seq.int(0, 9), times = 10)) |> 
             purrr::map(
               ~ meshcode_vector(.x,
                                 .type = .type)
-            ) %>% 
+            ) |> 
             purrr::reduce(c)
         } else if (mesh_size == 80) {
           meshcode_vector(paste0(meshcode,
@@ -63,7 +63,7 @@ fine_separate <- function(meshcode = NULL, .type = "standard", ...) {
           NA_character_
         }
       }
-    ) %>% 
+    ) |> 
       purrr::reduce(c) 
   }
 }

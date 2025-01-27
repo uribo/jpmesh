@@ -26,8 +26,8 @@ mesh_to_poly <- function(lng_center, lat_center, lng_error, lat_error, ...) {
                             c(lng_center - lng_error,
                               lat_center + lat_error),
                             c(lng_center - lng_error,
-                              lat_center - lat_error)))) %>%
-    sf::st_sfc(crs = 4326) %>%
+                              lat_center - lat_error)))) |> 
+    sf::st_sfc(crs = 4326) |> 
     sf::st_as_text()
 }
 
@@ -56,7 +56,7 @@ mesh_size <- function(meshcode, .type = "standard") {
                "0.5" = mesh_units[5],
                "0.25" = mesh_units[6],
                "0.125" = mesh_units[7],
-               "0.1" = mesh_units[8])) %>% 
+               "0.1" = mesh_units[8])) |> 
     purrr::reduce(c)
   if (rlang::is_null(res)) {
     res <- 
@@ -134,21 +134,21 @@ meshcode_set <-
           as.character(meshcode_80km_num)
       } else {
         meshcode_10km <- 
-          as.character(meshcode_80km_num) %>% 
+          as.character(meshcode_80km_num) |> 
           purrr::map(
             ~ paste0(.x,
                      sprintf("%02s",
                              sort(paste0(rep(seq.int(0, 7), each = 8), seq.int(0, 7))))
-            )) %>% 
+            )) |> 
           purrr::flatten_chr()
       }
       if (mesh_size == 1) {
         meshcode_1km <- 
-          meshcode_10km %>% 
+          meshcode_10km |>  
           purrr::map(
             ~ paste0(.x,
                      sprintf("%02d", seq.int(0, 99))
-            )) %>% 
+            )) |> 
           purrr::flatten_chr()
       }
       if (.raw == TRUE) {
@@ -164,12 +164,12 @@ meshcode_set <-
           meshcode_set_80km
         } else if (mesh_size <= 10) {
           meshcode_set_10km <- 
-            meshcode_set_80km %>% 
+            meshcode_set_80km |>  
             fine_separate()
           if (mesh_size == 10) {
             meshcode_set_10km
           } else if (mesh_size == 1) {
-            meshcode_set_10km %>% 
+            meshcode_set_10km |>  
               fine_separate()
           }
         }
@@ -187,7 +187,7 @@ cut_off <- function(meshcode) {
       vctrs::field(meshcode, "mesh_code")
   }
   mesh_80km <- 
-    meshcode %>% 
+    meshcode |> 
     substr(1, 4)
   res <- 
     meshcode[mesh_80km %in% meshcode_set(80, .raw = TRUE)]
@@ -200,12 +200,12 @@ cut_off <- function(meshcode) {
 
 validate_neighbor_mesh <- function(meshcode) {
   df_bbox <-
-    find_neighbor_mesh(meshcode) %>%
+    find_neighbor_mesh(meshcode) |> 
     export_meshes()
   df_bbox <-
-    df_bbox %>%
-    sf::st_sf() %>%
-    sf::st_union() %>%
+    df_bbox |> 
+    sf::st_sf() |> 
+    sf::st_union() |> 
     sf::st_bbox()
   tibble::tibble(
     xlim = as.numeric(df_bbox[3] - df_bbox[1]),
@@ -213,30 +213,33 @@ validate_neighbor_mesh <- function(meshcode) {
 }
 
 bind_meshpolys <- function(meshcode) {
-  meshcode %>%
-    fine_separate() %>%
-    unique() %>%
+  meshcode |> 
+    fine_separate() |> 
+    unique() |> 
     export_meshes(.keep_class = TRUE)
 }
 
 code_reform <- function(jis_code) {
-  . <- NULL
   checked <-
-    jis_code %>%
-    purrr::map(nchar) %>%
-    purrr::keep(~ .x %in% c(1, 2, 5)) %>%
+    jis_code |> 
+    purrr::map(nchar) |> 
+    purrr::keep(~ .x %in% c(1, 2, 5)) |> 
     length()
   if (length(jis_code) != checked)
     rlang::abort("Input jis-code must to 2 or 5 digits.")
-  jis_code %>%
-    purrr::map(as.numeric) %>%
-    purrr::map_if(.p = nchar(.) %in% c(1, 2), ~ sprintf("%02d", .x)) %>%
-    purrr::map_if(.p = nchar(.) %in% c(4, 5), ~ sprintf("%05d", .x)) %>%
+  jis_code_num <- 
+    jis_code |> 
+    purrr::map(as.numeric)
+  jis_code_num <- 
+    jis_code_num |> 
+    purrr::map_if(.p = nchar(jis_code_num) %in% c(1, 2), ~ sprintf("%02d", .x))
+  jis_code_num |> 
+    purrr::map_if(.p = nchar(jis_code_num) %in% c(4, 5), ~ sprintf("%05d", .x)) |> 
     purrr::flatten_chr()
 }
 
 mesh_length <- function(mesh_length) {
-  mesh_length %>% 
+  mesh_length |> 
       purrr::map_dbl(
         ~ switch(.x,
                  "4" = mesh_units[1],
@@ -246,6 +249,6 @@ mesh_length <- function(mesh_length) {
                  "9" = mesh_units[5],
                  "10" = mesh_units[6],
                  "11" = mesh_units[7],
-                 "10" = mesh_units[8])) %>% 
+                 "10" = mesh_units[8])) |> 
       units::set_units("km")
 }

@@ -154,7 +154,7 @@ test_that("vectorize", {
                meshcode(c("54400098", "53394611")))
   meshes <- c("51337793", "54387643")
   d <- 
-    meshes %>%
+    meshes |> 
     export_meshes()
   d$longitude <-
     purrr::pmap_dbl(d, ~ mesh_to_coords(..1)[[2]])

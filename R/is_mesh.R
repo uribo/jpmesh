@@ -59,17 +59,22 @@ is_meshcode_regex <- function(meshcode) {
 }
 
 meshcode_regexp <- 
-  list(`80km` = "^([3-6][0-9][2-5][0-9])")  %>% 
   purrr::list_modify(
-    `10km` = paste0(.[[1]], "([0-7]{2})")) %>% 
+    list(`80km` = "^([3-6][0-9][2-5][0-9])"),
+    `10km` = paste0(list(`80km` = "^([3-6][0-9][2-5][0-9])")[[1]], "([0-7]{2})"))  
+meshcode_regexp <- 
   purrr::list_modify(
-    `5km` = paste0(.[[2]], "([1-4]{1})")) %>% 
+    meshcode_regexp,
+    `5km` = paste0(meshcode_regexp[[2]], "([1-4]{1})")) 
+meshcode_regexp <-
   purrr::list_modify(
-    `1km` = paste0(.[[2]], "([0-9]{2})")
-  ) %>% 
+    meshcode_regexp,
+    `1km` = paste0(meshcode_regexp[[2]], "([0-9]{2})"))
+meshcode_regexp <-
   purrr::list_modify(
-    `500m` = paste0(.[[4]], "([1-4]{1})"),
-    `250m` = paste0(.[[4]], "([1-4]{2})"),
-    `125m` = paste0(.[[4]], "([1-4]{3})")
-  ) %>% 
+    meshcode_regexp,
+    `500m` = paste0(meshcode_regexp[[4]], "([1-4]{1})"),
+    `250m` = paste0(meshcode_regexp[[4]], "([1-4]{2})"),
+    `125m` = paste0(meshcode_regexp[[4]], "([1-4]{3})")
+  ) |>  
   purrr::map(~ paste0(.x, "$"))

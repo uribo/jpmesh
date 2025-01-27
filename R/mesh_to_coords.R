@@ -21,14 +21,14 @@ mesh_to_coords <- function(meshcode, ...) { # nolint
     mesh_size(meshcode) # nolint
   d <- 
       tibble::tibble(meshcode = meshcode)
-    d %>% 
+    d |> 
       cbind(
         purrr::map2(
           mesh_code,
           size,
           .mesh_to_coords
-        ) %>% 
-          purrr::reduce(rbind)) %>% 
+        ) |> 
+          purrr::reduce(rbind)) |> 
       tibble::as_tibble()    
 }
 .mesh_to_coords <- function(mesh_code, size) {

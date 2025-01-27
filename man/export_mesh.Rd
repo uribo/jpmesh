@@ -26,6 +26,6 @@ Convert and export meshcode area to \code{sfc_POLYGON} and \code{sf}.
 \examples{
 export_mesh("6441427712")
 export_meshes("4128")
-find_neighbor_mesh("37250395") \%>\%
+find_neighbor_mesh("37250395") |> 
   export_meshes()
 }

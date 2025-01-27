@@ -74,7 +74,7 @@ test_that("fine mesh", {
 # Misc. --------------------------------------------------
 test_that("Combine other function", {
   res <- 
-    coords_to_mesh(135.527193, 34.688732) %>%
+    coords_to_mesh(135.527193, 34.688732) |> 
     mesh_to_coords()
   expect_that(res, is_a("data.frame"))
   expect_equal(names(res),
@@ -86,8 +86,8 @@ test_that("Combine other function", {
 
 test_that("fine mesh", {
   res <-
-    fine_separate("36233799") %>%
-    tibble::enframe(name = NULL) %>%
+    fine_separate("36233799") |> 
+    tibble::enframe(name = NULL) |> 
     purrr::set_names(c("meshcode"))
   res <-
     mesh_to_coords(res$meshcode)
